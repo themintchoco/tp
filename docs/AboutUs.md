@@ -17,3 +17,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Deliverables and deadlines, Scheduling and tracking
+
+### Lee Zhan Hong
+
+<img src="images/zhannyhong.png" width="200px">
+
+[[github](https://github.com/Zhannyhong)]
+
+* Role: Developer
+* Responsibilities: IntelliJ expert, Code quality
