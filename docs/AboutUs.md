@@ -9,6 +9,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Lam Yu Han Bryan
+
+<img src="images/sociallyineptweeb.png" width="200px">
+
+[[github](http://github.com/sociallyineptweeb)]
+
+* Role: Developer
+* Responsibilities: Deliverables and deadlines, Scheduling and tracking
+
 ### Lee Zhan Hong
 
 <img src="images/zhannyhong.png" width="200px">
