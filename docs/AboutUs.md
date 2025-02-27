@@ -15,6 +15,24 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](https://github.com/Neilchen863)]
 
-
 * Role: developer
-* Responsibilities: testing, documentation
+* Responsibilities: Testing, Documentation
+
+### Lam Yu Han Bryan
+
+<img src="images/sociallyineptweeb.png" width="200px">
+
+[[github](http://github.com/sociallyineptweeb)]
+
+* Role: Developer
+* Responsibilities: Deliverables and deadlines, Scheduling and tracking
+
+### Lee Zhan Hong
+
+<img src="images/zhannyhong.png" width="200px">
+
+[[github](https://github.com/Zhannyhong)]
+
+* Role: Developer
+* Responsibilities: IntelliJ expert, Code quality
+
