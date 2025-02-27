@@ -9,6 +9,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Chen Jiahao
+
+<img src="images/neilchen863.png" width="200px">
+
+[[github](https://github.com/Neilchen863)]
+
+* Role: developer
+* Responsibilities: Testing, Documentation
+
 ### Lam Yu Han Bryan
 
 <img src="images/sociallyineptweeb.png" width="200px">
@@ -26,3 +35,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: IntelliJ expert, Code quality
+
