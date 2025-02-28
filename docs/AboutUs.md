@@ -9,6 +9,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Roy Tay
+
+<img src="images/themintchoco.png" width="200px">
+
+[[github](https://github.com/themintchoco)]
+
+* Role: Team Lead
+* Responsibilities: Git expert, Integration
+
 ### Chen Jiahao
 
 <img src="images/neilchen863.png" width="200px">
