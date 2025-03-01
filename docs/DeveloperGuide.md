@@ -279,14 +279,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |----------|-----------------------------------|------------------------------------------------------|-----------------------------------------------------------------------------------|
 | `* * *`  | new user                          | see usage instructions                               | refer to instructions when I forget how to use the app                            |
 | `* * *`  | user                              | add a new student with basic details                 | begin tracking their progress                                                     |
+| `* * *`  | user                              | log past lesson notes for a student                  | recall what was previously covered                                                |
 | `* * *`  | user with many students           | search a student by name                             | quickly find their details before a session without going through the entire list |
-| `* * *`  | user                              | view past lesson notes for a student                 | recall what was previously covered                                                |
+| `* * *`  | user                              | edit student records                                 | update student details when they change                                           |
 | `* * *`  | long-time user                    | archive or delete old student records                | stop tracking students that I no longer teach                                     |
+| `* * *`  | user                              | mark a session as completed and record attendance    | track my classes                                                                  |
 | `* *`    | potential user                    | see the app populated with sample data initially     | easily visualise how it will look like in real use                                |
 | `* *`    | user ready to start using the app | delete all sample data                               | start fresh with my actual students                                               |
 | `* *`    | user with many students           | sort students by any field                           | locate a student easily                                                           |
 | `* *`    | user                              | log lesson details and assign homework               | keep track of progress and tasks                                                  |
-| `* *`    | user                              | mark a session as completed and record attendance    | track my classes                                                                  |
 | `* *`    | user                              | search lesson notes by keywords                      | quickly find when a topic was last covered                                        |
 | `* *`    | user                              | create custom tags for students                      | categorise them based on needs                                                    |
 | `* *`    | user                              | filter students by custom tags                       | see all students with particular needs                                            |
