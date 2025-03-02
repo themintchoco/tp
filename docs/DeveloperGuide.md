@@ -304,35 +304,148 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | user                              | hide private contact details                         | minimise chance of someone else seeing them by accident                           |
 
 
-### Use cases
+### Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Tutorly`, and the **Actor** is the `tutor`, unless specified otherwise.)
 
-**Use case: Delete a person**
+---
+
+**Use case: Add a student record**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. Tutor requests to add a new student.
+2. Tutorly prompts for student details (name, grade, subject, optional session frequency, and notes).
+3. Tutor provides the required information.
+4. Tutorly validates the input.
+5. Tutorly adds the student profile to the database and confirms success.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+- 3a. Tutor provides invalid input for any field.
+    - 3a1. Tutorly displays an appropriate error message.
+    - 3a2. Tutor corrects the input.
+    - Use case resumes at step 4.
 
-  Use case ends.
+- 4a. The student already exists (same name, grade, and subject).
+    - 4a1. Tutorly displays an error message: “Student already exists.”
+    - Use case ends.
 
-* 3a. The given index is invalid.
+- 4b. Tutor does not provide all required fields.
+    - 4b1. Tutorly prompts for the missing information.
+    - Use case resumes at step 3.
 
-    * 3a1. AddressBook shows an error message.
+---
 
-      Use case resumes at step 2.
+**Use case: Search for a student record**
 
-*{More to be added}*
+**MSS**
 
+1. Tutor requests to search for a student by entering a query.
+2. Tutorly validates the search query.
+3. Tutorly retrieves and displays matching student profiles.
+
+   Use case ends.
+
+**Extensions**
+
+- 2a. The search query is empty.
+    - 2a1. Tutorly displays an error message: “Search query cannot be empty.”
+    - Use case ends.
+
+- 3a. No students match the search query.
+    - 3a1. Tutorly displays: “No student found matching the query.”
+    - Use case ends.
+
+---
+
+**Use case: Update a student record**
+
+**MSS**
+
+1. Tutor requests to update a student record by providing the student’s ID.
+2. Tutorly retrieves the student’s existing profile.
+3. Tutor provides updated details (e.g., name, grade, subject, session frequency, or notes).
+4. Tutorly validates the input.
+5. Tutorly updates the student profile and confirms success.
+
+   Use case ends.
+
+**Extensions**
+
+- 2a. The student ID does not exist.
+    - 2a1. Tutorly displays an error message: “Invalid student ID.”
+    - Use case ends.
+
+- 3a. Tutor does not provide any update parameters.
+    - 3a1. Tutorly displays an error message: “No update provided.”
+    - Use case ends.
+
+- 4a. Tutor provides invalid input for any field.
+    - 4a1. Tutorly displays an appropriate error message.
+    - 4a2. Tutor corrects the input.
+    - Use case resumes at step 5.
+
+---
+
+**Use case: Delete or archive a student record**
+
+**MSS**
+
+1. Tutor requests to manage a student record by providing the student’s ID and selecting an action (`archive` or `delete`).
+2. Tutorly retrieves the student record.
+3. Tutorly validates the request and performs the action.
+4. Tutorly confirms the success of the operation.
+
+   Use case ends.
+
+**Extensions**
+
+- 2a. The student ID does not exist.
+    - 2a1. Tutorly displays an error message: “Student record not found.”
+    - Use case ends.
+
+- 3a. The requested action is invalid.
+    - 3a1. Tutorly displays an error message: “Invalid action. Use 'archive' or 'delete'.”
+    - Use case ends.
+
+- 3b. The record cannot be deleted because it is actively in use.
+    - 3b1. Tutorly displays an error message: “Record cannot be deleted as it is actively in use.”
+    - Use case ends.
+
+---
+
+**Use case: Mark a tutoring session as completed and record attendance**
+
+**MSS**
+
+1. Tutor requests to mark a session as completed by providing the student’s ID, date, and attendance status.
+2. Tutorly validates the input.
+3. Tutorly records the session as completed and logs the attendance.
+4. Tutorly confirms success.
+
+   Use case ends.
+
+**Extensions**
+
+- 2a. The student ID does not exist.
+    - 2a1. Tutorly displays an error message: “Invalid student ID.”
+    - Use case ends.
+
+- 2b. The provided date is in an invalid format.
+    - 2b1. Tutorly displays an error message: “Invalid date format. Please use YYYY-MM-DD.”
+    - Use case ends.
+
+- 2c. The attendance status is invalid.
+    - 2c1. Tutorly displays an error message: “Invalid attendance value. Please enter 'present' or 'absent'.”
+    - Use case ends.
+
+- 3a. A session for this date is already marked.
+    - 3a1. Tutorly warns the tutor and asks for confirmation to overwrite.
+    - 3a2. If confirmed, Tutorly updates the session record.
+    - Use case resumes at step 4.
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
