@@ -343,8 +343,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Tutor**: An educator who uses Tutorly to manage student details, schedule sessions, log lesson notes, and track attendance.
+* **Student Record / Student Profile**: The digital record for each student stored in Tutorly.
+* **Session**: A scheduled tutoring meeting or lesson.
+* **Lesson**: The content delivered during a session.
 
 --------------------------------------------------------------------------------------------------------------------
 
