@@ -14,7 +14,7 @@ import tutorly.logic.commands.Command;
 import tutorly.logic.commands.DeleteCommand;
 import tutorly.logic.commands.EditCommand;
 import tutorly.logic.commands.ExitCommand;
-import tutorly.logic.commands.FindCommand;
+import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.commands.HelpCommand;
 import tutorly.logic.commands.ListCommand;
 import tutorly.logic.parser.exceptions.ParseException;
@@ -65,8 +65,8 @@ public class AddressBookParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case SearchCommand.COMMAND_WORD:
+            return new SearchCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

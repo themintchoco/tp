@@ -19,7 +19,7 @@ import tutorly.logic.commands.DeleteCommand;
 import tutorly.logic.commands.EditCommand;
 import tutorly.logic.commands.EditCommand.EditPersonDescriptor;
 import tutorly.logic.commands.ExitCommand;
-import tutorly.logic.commands.FindCommand;
+import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.commands.HelpCommand;
 import tutorly.logic.commands.ListCommand;
 import tutorly.logic.parser.exceptions.ParseException;
@@ -69,11 +69,11 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_search() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
