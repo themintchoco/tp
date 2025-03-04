@@ -14,9 +14,9 @@ import tutorly.logic.commands.Command;
 import tutorly.logic.commands.DeleteCommand;
 import tutorly.logic.commands.EditCommand;
 import tutorly.logic.commands.ExitCommand;
-import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.commands.HelpCommand;
 import tutorly.logic.commands.ListCommand;
+import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 
 /**
