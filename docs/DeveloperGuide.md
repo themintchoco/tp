@@ -449,12 +449,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  Should be able to provide quick response times even as the volume of student records grows.
-4.  The graphical user interface should to be intuitive and easy to learn
-5.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-6.  The codebase should be modular and well-documented, allowing for easier updates or the integration of future features
-7.  The source code should be open source
+2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage, ensuring that typical operations (such as loading, searching, and editing records) complete within 3 seconds.
+3.  The graphical user interface shall be easy to use such that a new user can complete primary workflows (e.g., adding a record or searching for a student) within 5 minutes of first use.
+4.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+5.  The codebase should be modular and well-documented, allowing for easier updates or the integration of future features. At least 90% of the codebase shall have inline or external documentation, and modules must have well-defined interfaces.
+6.  The source code should be open source and shall be released under an approved open source license (e.g., MIT, Apache 2.0) and published in a publicly accessible repository with minimal entry barriers.
 
 ### Glossary
 
