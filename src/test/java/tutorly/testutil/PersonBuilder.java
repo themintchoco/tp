@@ -5,6 +5,7 @@ import java.util.Set;
 
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
+import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.person.Phone;
@@ -26,6 +27,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Memo memo;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -36,6 +38,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        memo = new Memo("");
     }
 
     /**
@@ -47,6 +50,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        memo = personToCopy.getMemo();
     }
 
     /**
@@ -89,8 +93,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Memo} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withMemo(String memo) {
+        this.memo = new Memo(memo);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, tags, memo);
     }
 
 }
