@@ -1,6 +1,7 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
@@ -17,8 +18,8 @@ public class SearchCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for all students whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters: " + PREFIX_NAME + "KEYWORD [KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice bob charlie";
 
     private final NameContainsKeywordsPredicate predicate;
 
