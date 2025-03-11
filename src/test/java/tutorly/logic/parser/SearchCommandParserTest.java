@@ -26,7 +26,7 @@ public class SearchCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         assertParseFailure(
                 parser,
-                PREFIX_NAME + "  ",
+                " " + PREFIX_NAME + "  ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
     }
 
