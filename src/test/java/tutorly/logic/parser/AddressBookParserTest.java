@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -72,7 +73,8 @@ public class AddressBookParserTest {
     public void parseCommand_search() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(
-                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+                SearchCommand.COMMAND_WORD + " " + PREFIX_NAME
+                        + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 

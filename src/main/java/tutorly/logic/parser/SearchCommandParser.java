@@ -1,8 +1,10 @@
 package tutorly.logic.parser;
 
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.parser.exceptions.ParseException;
@@ -19,13 +21,17 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+        Optional<String> query = argMultimap.getValue(PREFIX_NAME);
+
+        if (query.isEmpty() || query.get().isBlank() || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME);
+
+        String[] nameKeywords = query.get().trim().split("\\s+");
 
         return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
