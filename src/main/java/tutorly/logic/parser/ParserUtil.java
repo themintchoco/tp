@@ -11,6 +11,7 @@ import tutorly.commons.util.StringUtil;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
+import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
 import tutorly.model.tag.Tag;
@@ -120,5 +121,20 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String memo} into an {@code Memo}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code memo} is invalid.
+     */
+    public static Memo parseMemo(String memo) throws ParseException {
+        requireNonNull(memo);
+        String trimmedMemo = memo.trim();
+        if (!Memo.isValidMemo(trimmedMemo)) {
+            throw new ParseException(Memo.MESSAGE_CONSTRAINTS);
+        }
+        return new Memo(trimmedMemo);
     }
 }
