@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
+import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
 
@@ -23,6 +24,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_MEMO = " ";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -111,5 +113,21 @@ public class JsonAdaptedPersonTest {
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags, VALID_MEMO);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
+
+    @Test
+    public void toModelType_invalidMemo_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, INVALID_MEMO);
+        String expectedMessage = Memo.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    //    @Test
+    //    public void toModelType_nullMemo_throwsIllegalValueException() {
+    //        JsonAdaptedPerson person = new JsonAdaptedPerson(
+    //                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, null);
+    //        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName());
+    //        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    //    }
 
 }

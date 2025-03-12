@@ -45,7 +45,7 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
-        this.memo = memo;
+        this.memo = memo == null ? "" : memo;
     }
 
     /**
@@ -72,6 +72,12 @@ class JsonAdaptedPerson {
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
         }
+        final Set<Tag> modelTags = new HashSet<>(personTags);
+
+        if (!Memo.isValidMemo(memo)) {
+            throw new IllegalValueException(Memo.MESSAGE_CONSTRAINTS);
+        }
+        final Memo modelMemo = new Memo(memo);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -104,16 +110,6 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-
-        if (memo == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memo.class.getSimpleName()));
-        }
-        if (!Memo.isValidMemo(memo)) {
-            throw new IllegalValueException(Memo.MESSAGE_CONSTRAINTS);
-        }
-        final Memo modelMemo = new Memo(memo);
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMemo);
     }

@@ -9,7 +9,7 @@ import static tutorly.commons.util.AppUtil.checkArgument;
  */
 public class Memo {
 
-    public static final String MESSAGE_CONSTRAINTS = "Memo can take any values";
+    public static final String MESSAGE_CONSTRAINTS = "Memo can take any values, and it should not be blank";
 
     /*
      * The first character of the memo must not be a whitespace,
@@ -34,7 +34,7 @@ public class Memo {
      * Returns true if a given string is a valid memo.
      */
     public static boolean isValidMemo(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.isEmpty() || test.matches(VALIDATION_REGEX);
     }
 
     @Override
