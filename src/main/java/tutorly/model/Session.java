@@ -5,8 +5,8 @@ import java.time.LocalDate;
  * Represents a tutoring session for a student.
  */
 public class Session {
-    private int studentId;  // Unique identifier for the student
-    private LocalDate date; // Date of the session
+    private int studentId;
+    private LocalDate date;
 
     /**
      * Constructs a new Session.
