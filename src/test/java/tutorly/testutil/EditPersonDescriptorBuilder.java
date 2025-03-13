@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import tutorly.logic.commands.EditCommand.EditPersonDescriptor;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
+import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.person.Phone;
@@ -37,6 +38,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
         descriptor.setTags(person.getTags());
+        descriptor.setMemo(person.getMemo());
     }
 
     /**
@@ -78,6 +80,14 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Memo} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withMemo(String memo) {
+        descriptor.setMemo(new Memo(memo));
         return this;
     }
 
