@@ -13,11 +13,20 @@ public class Memo {
 
     /*
      * The first character of the memo must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * otherwise " " (a blank string) becomes a valid input. Newlines are allowed.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "[^\\s](?s).*";
+
+    private static final Memo EMPTY_MEMO = new Memo();
 
     public final String value;
+
+    /**
+     * Constructs an empty {@code Memo} instance.
+     */
+    private Memo() {
+        value = "";
+    }
 
     /**
      * Constructs an {@code Memo}.
@@ -31,10 +40,17 @@ public class Memo {
     }
 
     /**
+     * Returns an empty Memo instance.
+     */
+    public static Memo empty() {
+        return EMPTY_MEMO;
+    }
+
+    /**
      * Returns true if a given string is a valid memo.
      */
     public static boolean isValidMemo(String test) {
-        return test.isEmpty() || test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
