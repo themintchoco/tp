@@ -97,6 +97,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         archivedPersons.add(key);
     }
 
+    /**
+     * Restores {@code key} from the archive.
+     * {@code key} must exist in the archive.
+     */
+    public void restorePerson(Person key) {
+        archivedPersons.remove(key);
+        persons.add(key);
+    }
+
     //// util methods
 
     @Override
@@ -109,6 +118,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Person> getArchivedPersonList() {
+        return archivedPersons.asUnmodifiableObservableList();
     }
 
     @Override
