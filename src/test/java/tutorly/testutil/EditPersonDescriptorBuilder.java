@@ -18,7 +18,7 @@ import tutorly.model.tag.Tag;
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private final EditPersonDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
         descriptor = new EditPersonDescriptor();
@@ -34,11 +34,21 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
-        descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
+
+        if (!person.getPhone().value.isEmpty()) {
+            descriptor.setPhone(person.getPhone());
+        }
+        if (!person.getEmail().value.isEmpty()) {
+            descriptor.setEmail(person.getEmail());
+        }
+        if (!person.getAddress().value.isEmpty()) {
+            descriptor.setAddress(person.getAddress());
+        }
+        if (!person.getMemo().value.isEmpty()) {
+            descriptor.setMemo(person.getMemo());
+        }
+
         descriptor.setTags(person.getTags());
-        descriptor.setMemo(person.getMemo());
     }
 
     /**

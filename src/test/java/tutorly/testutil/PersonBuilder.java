@@ -21,7 +21,6 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_MEMO = "";
 
     private Name name;
     private Phone phone;
@@ -35,11 +34,11 @@ public class PersonBuilder {
      */
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        phone = Phone.empty();
+        email = Email.empty();
+        address = Address.empty();
         tags = new HashSet<>();
-        memo = new Memo(DEFAULT_MEMO);
+        memo = Memo.empty();
     }
 
     /**
@@ -65,7 +64,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -79,10 +78,26 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Address} of the {@code Person} that we are building with an empty address.
+     */
+    public PersonBuilder withEmptyAddress() {
+        this.address = Address.empty();
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Phone} of the {@code Person} that we are building with an empty phone.
+     */
+    public PersonBuilder withEmptyPhone() {
+        this.phone = Phone.empty();
         return this;
     }
 
@@ -95,10 +110,26 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Email} of the {@code Person} that we are building with an empty email.
+     */
+    public PersonBuilder withEmptyEmail() {
+        this.email = Email.empty();
+        return this;
+    }
+
+    /**
      * Sets the {@code Memo} of the {@code Person} that we are building.
      */
     public PersonBuilder withMemo(String memo) {
         this.memo = new Memo(memo);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Memo} of the {@code Person} that we are building with an empty memo.
+     */
+    public PersonBuilder withEmptyMemo() {
+        this.memo = Memo.empty();
         return this;
     }
 

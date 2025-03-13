@@ -13,6 +13,7 @@ import tutorly.model.tag.Tag;
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
+ * Optional fields with empty string values are considered as not provided.
  */
 public class Person {
 
