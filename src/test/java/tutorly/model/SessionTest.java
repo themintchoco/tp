@@ -1,12 +1,13 @@
 package tutorly.model;
 
-// Standard Java imports should come first
+// Standard Java imports
 import java.time.LocalDate;
 
-// Static imports should be placed after standard Java imports
-import static org.junit.jupiter.api.Assertions.*;
+// Static imports should come after standard imports
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-// Regular imports should follow
+// Regular imports should come after static imports
 import org.junit.jupiter.api.Test;
 
 class SessionTest {
