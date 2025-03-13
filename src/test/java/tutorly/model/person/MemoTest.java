@@ -33,19 +33,19 @@ public class MemoTest {
         // valid memos
         assertTrue(Memo.isValidMemo("Needs to improve on his English")); // alphabets only
         assertTrue(Memo.isValidMemo("-")); // one character
-        assertTrue(Memo.isValidMemo("""
-                This memo covers several points:
-                1) Overall academic performance.
-                2) Areas of improvement such as organization, clarity,
-                   and depth of analysis.
-                3) Suggested resources for skill enhancement.
-                
-                Additional notes: Student has shown consistent growth \
-                since the last meeting but needs more practice on complex \
-                problem-solving tasks. Further guidance on research \
-                techniques and project management is recommended. \
-                Meeting again in two weeks to evaluate progress.
-                """)); // long memo
+
+        String longMemo = "This memo covers several points:\n"
+                + "1) Overall academic performance.\n"
+                + "2) Areas of improvement such as organization, clarity,\n"
+                + "   and depth of analysis.\n"
+                + "3) Suggested resources for skill enhancement.\n"
+                + "\n"
+                + "Additional notes: Student has shown consistent growth "
+                + "since the last meeting but needs more practice on complex "
+                + "problem-solving tasks. Further guidance on research "
+                + "techniques and project management is recommended. "
+                + "Meeting again in two weeks to evaluate progress.";
+        assertTrue(Memo.isValidMemo(longMemo)); // long memo
     }
 
     @Test
