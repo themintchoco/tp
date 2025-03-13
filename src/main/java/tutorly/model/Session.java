@@ -1,13 +1,12 @@
 package tutorly.model;
-
 import java.time.LocalDate;
 
 /**
  * Represents a tutoring session for a student.
  */
 public class Session {
-    private String studentId;
-    private LocalDate date;
+    private int studentId;  // Unique identifier for the student
+    private LocalDate date; // Date of the session
 
     /**
      * Constructs a new Session.
@@ -15,7 +14,7 @@ public class Session {
      * @param studentId The unique identifier of the student.
      * @param date The date of the session.
      */
-    public Session(String studentId, LocalDate date) {
+    public Session(int studentId, LocalDate date) {
         this.studentId = studentId;
         this.date = date;
     }
@@ -25,7 +24,7 @@ public class Session {
      *
      * @return The student ID.
      */
-    public String getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
@@ -45,6 +44,6 @@ public class Session {
      */
     @Override
     public String toString() {
-        return "Session{studentId='" + studentId + "', date=" + date + "}";
+        return "Session{studentId=" + studentId + ", date=" + date + "}";
     }
 }
