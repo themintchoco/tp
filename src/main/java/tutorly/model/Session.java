@@ -16,6 +16,7 @@ public class Session {
      *
      * @param studentId The unique identifier of the student.
      * @param date The date of the session.
+     * @param subject The subject of the session.
      */
     public Session(int studentId, LocalDate date, String subject) {
         this.studentId = studentId;
