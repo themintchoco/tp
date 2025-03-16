@@ -5,6 +5,7 @@ import static tutorly.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tutorly.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static tutorly.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static tutorly.logic.commands.CommandTestUtil.MEMO_DESC_AMY;
 import static tutorly.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tutorly.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tutorly.testutil.Assert.assertThrows;
@@ -70,18 +71,17 @@ public class LogicManagerTest {
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
-    // TODO: Uncomment these tests after fixing
-    //    @Test
-    //    public void execute_storageThrowsIoException_throwsCommandException() {
-    //        assertCommandFailureForExceptionFromStorage(DUMMY_IO_EXCEPTION, String.format(
-    //                LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
-    //    }
-    //
-    //    @Test
-    //    public void execute_storageThrowsAdException_throwsCommandException() {
-    //        assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION, String.format(
-    //                LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
-    //    }
+    @Test
+    public void execute_storageThrowsIoException_throwsCommandException() {
+        assertCommandFailureForExceptionFromStorage(DUMMY_IO_EXCEPTION, String.format(
+                LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));
+    }
+
+    @Test
+    public void execute_storageThrowsAdException_throwsCommandException() {
+        assertCommandFailureForExceptionFromStorage(DUMMY_AD_EXCEPTION, String.format(
+                LogicManager.FILE_OPS_PERMISSION_ERROR_FORMAT, DUMMY_AD_EXCEPTION.getMessage()));
+    }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
@@ -167,7 +167,7 @@ public class LogicManagerTest {
 
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + MEMO_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
