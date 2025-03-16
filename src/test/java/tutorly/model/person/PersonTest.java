@@ -2,6 +2,7 @@ package tutorly.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -22,6 +23,23 @@ public class PersonTest {
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+    }
+
+    @Test
+    public void setId() {
+        // default id is 0
+        Person person = new PersonBuilder().build();
+        assertEquals(0, person.getId());
+
+        // student id provided is not a positive integer
+        assertThrows(IllegalArgumentException.class, () -> person.setId(-1));
+        assertThrows(IllegalArgumentException.class, () -> person.setId(0));
+
+        person.setId(1);
+        assertEquals(1, person.getId());
+
+        // should not be allowed to set id again
+        assertThrows(IllegalStateException.class, () -> person.setId(2));
     }
 
     @Test
@@ -91,10 +109,20 @@ public class PersonTest {
     }
 
     @Test
+    public void hashcode() {
+        // same person -> returns same hashcode
+        assertEquals(ALICE.hashCode(), ALICE.hashCode());
+
+        // person with different values -> returns different hashcode
+        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertNotEquals(ALICE.hashCode(), editedAlice.hashCode());
+    }
+
+    @Test
     public void toStringMethod() {
-        String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags()
-                + ", memo=" + ALICE.getMemo() + "}";
+        String expected = Person.class.getCanonicalName() + "{id=" + ALICE.getId() + ", name=" + ALICE.getName()
+                + ", phone=" + ALICE.getPhone() + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress()
+                + ", tags=" + ALICE.getTags() + ", memo=" + ALICE.getMemo() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }
