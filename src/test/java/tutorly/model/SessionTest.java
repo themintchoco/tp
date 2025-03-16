@@ -24,7 +24,8 @@ class SessionTest {
     @Test
     void testToString() {
         Session session = new Session(67890, LocalDate.of(2025, 3, 15), "Physics");
-        String expected = "Session{studentId=67890, sessionId=" + session.getSessionId() + ", date=2025-03-15, subject=Physics}";
+        String expected = "Session{studentId=67890, sessionId="
+                + session.getSessionId() + ", date=2025-03-15, subject=Physics}";
         assertEquals(expected, session.toString());
     }
 
