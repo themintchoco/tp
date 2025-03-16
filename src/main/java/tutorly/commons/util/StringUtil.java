@@ -27,15 +27,16 @@ public class StringUtil {
         requireNonNull(sentence);
         requireNonNull(keyword);
 
-        String preppedWord = keyword.trim();
-        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+        String preppedKeyword = keyword.trim();
+        checkArgument(!preppedKeyword.isEmpty(), "Keyword parameter cannot be empty");
+        checkArgument(
+                preppedKeyword.split("\\s+").length == 1,
+                "Keyword parameter should be a single word");
 
-        String preppedSentence = sentence;
-        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+        String[] wordsInSentence = sentence.split("\\s+");
 
-        return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(w -> w.toLowerCase().contains(preppedWord.toLowerCase()));
+        return Arrays.stream(wordsInSentence)
+                .anyMatch(w -> w.toLowerCase().contains(preppedKeyword.toLowerCase()));
     }
 
     /**
