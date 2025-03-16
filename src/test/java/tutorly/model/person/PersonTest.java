@@ -25,6 +25,23 @@ public class PersonTest {
     }
 
     @Test
+    public void setId() {
+        // default id is 0
+        Person person = new PersonBuilder().build();
+        assertEquals(0, person.getId());
+
+        // student id provided is not a positive integer
+        assertThrows(IllegalArgumentException.class, () -> person.setId(-1));
+        assertThrows(IllegalArgumentException.class, () -> person.setId(0));
+
+        person.setId(1);
+        assertEquals(1, person.getId());
+
+        // should not be allowed to set id again
+        assertThrows(IllegalStateException.class, () -> person.setId(2));
+    }
+
+    @Test
     public void isSamePerson() {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));

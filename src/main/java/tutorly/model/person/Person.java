@@ -55,6 +55,10 @@ public class Person {
             throw new IllegalStateException("Student ID has already been set for this person");
         }
 
+        if (studentId < 1) {
+            throw new IllegalArgumentException("Student ID must be a positive integer");
+        }
+
         this.id = studentId;
     }
 
