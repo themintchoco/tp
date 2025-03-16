@@ -2,6 +2,7 @@ package tutorly.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -105,6 +106,16 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+    }
+
+    @Test
+    public void hashcode() {
+        // same person -> returns same hashcode
+        assertEquals(ALICE.hashCode(), ALICE.hashCode());
+
+        // person with different values -> returns different hashcode
+        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertNotEquals(ALICE.hashCode(), editedAlice.hashCode());
     }
 
     @Test
