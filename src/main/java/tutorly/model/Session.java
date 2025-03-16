@@ -67,6 +67,7 @@ public class Session {
      */
     @Override
     public String toString() {
-        return "Session{studentId=" + studentId + ", sessionId=" + sessionId + ", date=" + date + ", subject=" + subject + "}";
+        return "Session{studentId=" + studentId + ", sessionId="
+                + sessionId + ", date=" + date + ", subject=" + subject + "}";
     }
 }
