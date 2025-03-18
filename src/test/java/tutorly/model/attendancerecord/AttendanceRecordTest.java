@@ -52,9 +52,9 @@ public class AttendanceRecordTest {
     @Test
     public void toStringMethod() {
         AttendanceRecord attendanceRecord = new AttendanceRecord(student, session, false);
-        assert attendanceRecord.toString().equals(
-                "tutorly.model.attendancerecord.AttendanceRecord{student=tutorly.model.person.Person{id=0, "
-                        + "name=Amy Bee, phone=, email=, address=, tags=[], memo=}, session=Session{studentId=1, "
-                        + "sessionId=1, date=null, subject=Math}, isPresent=false}");
+        System.out.println(attendanceRecord.toString());
+        String expected = AttendanceRecord.class.getCanonicalName() + "{student=" + student + ", session=" + session
+                + ", isPresent=" + false + "}";
+        assert attendanceRecord.toString().equals(expected);
     }
 }
