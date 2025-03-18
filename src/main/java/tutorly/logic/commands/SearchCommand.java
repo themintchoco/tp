@@ -19,7 +19,7 @@ public class SearchCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for all students whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + PREFIX_NAME + "KEYWORD [KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alice bob charlie";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "alexand bob charli";
 
     private final NameContainsKeywordsPredicate predicate;
 
