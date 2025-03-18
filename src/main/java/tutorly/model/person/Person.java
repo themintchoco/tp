@@ -18,6 +18,8 @@ import tutorly.model.tag.Tag;
  */
 public class Person {
 
+    public static final String MESSAGE_CONSTRAINTS = "Person must have a valid ID.";
+
     // Identity fields
     private int id; // id field is effectively final
     private final Name name;
