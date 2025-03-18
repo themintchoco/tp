@@ -1,5 +1,7 @@
 package tutorly.model.attendancerecord;
 
+import static java.util.Objects.requireNonNull;
+
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.model.Session;
 import tutorly.model.person.Person;
@@ -20,6 +22,9 @@ public class AttendanceRecord {
      * @param isPresent Whether the student is present for the session.
      */
     public AttendanceRecord(Person student, Session session, boolean isPresent) {
+        requireNonNull(student);
+        requireNonNull(session);
+
         this.student = student;
         this.session = session;
         this.isPresent = isPresent;
