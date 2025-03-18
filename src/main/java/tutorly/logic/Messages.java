@@ -44,8 +44,10 @@ public class Messages {
                 .append(person.getEmail())
                 .append("; Address: ")
                 .append(person.getAddress())
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+                .append("; Tags: ")
+                .append(person.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()))
+                .append("; Memo: ")
+                .append(person.getMemo());
         return builder.toString();
     }
 
