@@ -1,0 +1,75 @@
+package tutorly.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
+import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
+
+import tutorly.commons.util.ToStringBuilder;
+import tutorly.logic.Messages;
+import tutorly.logic.commands.exceptions.CommandException;
+import tutorly.model.Model;
+import tutorly.model.session.Session;
+
+/**
+ * Creates a new tutoring session.
+ */
+public class CreateSessionCommand extends Command {
+
+    public static final String COMMAND_WORD = "createSession";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a tutoring session. "
+            + "Parameters: "
+            + PREFIX_DATE + "DATE "
+            + PREFIX_SUBJECT + "SUBJECT\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DATE + "2025-03-18 "
+            + PREFIX_SUBJECT + "Mathematics";
+
+    public static final String MESSAGE_SUCCESS = "New session created: %1$s";
+    public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists.";
+
+    private final Session toCreate;
+
+    /**
+     * Creates a CreateSessionCommand to add the specified {@code Session}.
+     *
+     * @param session The session to be created.
+     */
+    public CreateSessionCommand(Session session) {
+        requireNonNull(session);
+        toCreate = session;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (model.hasSession(toCreate)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SESSION);
+        }
+
+        model.addSession(toCreate);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toCreate)));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CreateSessionCommand)) {
+            return false;
+        }
+
+        CreateSessionCommand otherCommand = (CreateSessionCommand) other;
+        return toCreate.equals(otherCommand.toCreate);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("toCreate", toCreate)
+                .toString();
+    }
+}
