@@ -25,6 +25,43 @@ public class AttendanceRecord {
         this.isPresent = isPresent;
     }
 
+    /**
+     * Sets the attendance status of the student.
+     *
+     * @param isPresent The attendance status of the student.
+     */
+    public void setAttendance(boolean isPresent) {
+        this.isPresent = isPresent;
+    }
+
+    public Person getStudent() {
+        return student;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public boolean getAttendance() {
+        return isPresent;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AttendanceRecord)) {
+            return false;
+        }
+
+        AttendanceRecord otherRecord = (AttendanceRecord) other;
+        return student.equals(otherRecord.student)
+                && session.equals(otherRecord.session)
+                && isPresent == otherRecord.isPresent;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
