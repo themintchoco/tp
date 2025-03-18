@@ -7,6 +7,8 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import tutorly.model.session.Session;
+
 class SessionTest {
 
     @Test

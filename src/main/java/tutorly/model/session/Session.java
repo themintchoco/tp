@@ -1,4 +1,4 @@
-package tutorly.model;
+package tutorly.model.session;
 import java.time.LocalDate;
 
 /**
@@ -59,6 +59,16 @@ public class Session {
      */
     public String getSubject() {
         return subject;
+    }
+
+    /**
+     * Checks if this session is the same as another session.
+     *
+     * @param other The other session to compare with.
+     * @return True if the sessions are the same, false otherwise.
+     */
+    public boolean isSameSession(Session other) {
+        return this.equals(other);
     }
 
     /**
