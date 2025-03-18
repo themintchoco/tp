@@ -50,6 +50,12 @@ public class AttendanceRecordTest {
     }
 
     @Test
+    public void equals_differentObject() {
+        AttendanceRecord attendanceRecord = new AttendanceRecord(student, session, false);
+        assert !attendanceRecord.equals(new Object());
+    }
+
+    @Test
     public void toStringMethod() {
         AttendanceRecord attendanceRecord = new AttendanceRecord(student, session, false);
         System.out.println(attendanceRecord.toString());
