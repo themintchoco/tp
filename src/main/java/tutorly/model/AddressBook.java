@@ -192,6 +192,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return persons.hashCode() ^ archivedPersons.hashCode() ^ attendanceRecords.hashCode();
     }
 }
