@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.model.AddressBook;
 import tutorly.model.ReadOnlyAddressBook;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 
 /**
@@ -20,15 +21,20 @@ import tutorly.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_ATTENDANCE_RECORD =
+            "Attendance records list contains duplicate attendance record(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedAttendanceRecord> attendanceRecords = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given persons and attendance records.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+        @JsonProperty("attendanceRecords") List<JsonAdaptedAttendanceRecord> attendanceRecords) {
         this.persons.addAll(persons);
+        this.attendanceRecords.addAll(attendanceRecords);
     }
 
     /**
@@ -38,6 +44,8 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        attendanceRecords.addAll(source.getAttendanceRecordsList().stream()
+                .map(JsonAdaptedAttendanceRecord::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,6 +55,7 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
+
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {
@@ -54,6 +63,16 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
+        for (JsonAdaptedAttendanceRecord jsonAdaptedAttendanceRecord : attendanceRecords) {
+            AttendanceRecord attendanceRecord = jsonAdaptedAttendanceRecord.toModelType();
+            if (addressBook.hasAttendanceRecord(attendanceRecord)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ATTENDANCE_RECORD);
+            }
+            addressBook.addAttendanceRecord(attendanceRecord);
+
+        }
+
         return addressBook;
     }
 

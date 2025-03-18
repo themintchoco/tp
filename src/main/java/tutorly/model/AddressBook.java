@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.util.ToStringBuilder;
+import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.UniqueAttendanceRecordList;
 import tutorly.model.person.Person;
 import tutorly.model.person.UniquePersonList;
 
@@ -17,6 +19,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniquePersonList archivedPersons;
+    private final UniqueAttendanceRecordList attendanceRecords;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -28,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         archivedPersons = new UniquePersonList();
+        attendanceRecords = new UniqueAttendanceRecordList();
     }
 
     public AddressBook() {
@@ -52,12 +56,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the attendance records list with {@code attendanceRecords}.
+     */
+    public void setAttendanceRecords(List<AttendanceRecord> attendanceRecords) {
+        this.attendanceRecords.setAll(attendanceRecords);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setAttendanceRecords(newData.getAttendanceRecordsList());
     }
 
     //// person-level operations
@@ -103,6 +115,41 @@ public class AddressBook implements ReadOnlyAddressBook {
         archivedPersons.add(key);
     }
 
+    //// attendance record-level operations
+
+    /**
+     * Returns true if an equivalent attendance record as {@code attendanceRecord} exists in the address book.
+     */
+    public boolean hasAttendanceRecord(AttendanceRecord attendanceRecord) {
+        requireNonNull(attendanceRecord);
+        return attendanceRecords.contains(attendanceRecord);
+    }
+
+    /**
+     * Adds an attendance record to the address book.
+     */
+    public void addAttendanceRecord(AttendanceRecord attendanceRecord) {
+        attendanceRecords.add(attendanceRecord);
+    }
+
+    /**
+     * Replaces the given attendance record {@code target} in the list with {@code editedAttendanceRecord}.
+     * {@code target} must exist in the address book.
+     */
+    public void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedAttendanceRecord) {
+        requireNonNull(editedAttendanceRecord);
+
+        attendanceRecords.set(target, editedAttendanceRecord);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAttendanceRecord(AttendanceRecord key) {
+        attendanceRecords.remove(key);
+    }
+
     //// util methods
 
     /**
@@ -122,6 +169,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<AttendanceRecord> getAttendanceRecordsList() {
+        return attendanceRecords.asUnmodifiableObservableList();
     }
 
     @Override

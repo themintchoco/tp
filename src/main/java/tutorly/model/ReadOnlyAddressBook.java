@@ -1,6 +1,7 @@
 package tutorly.model;
 
 import javafx.collections.ObservableList;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 
 /**
@@ -13,5 +14,10 @@ public interface ReadOnlyAddressBook {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
+
+    /**
+     * Returns an unmodifiable view of the attendance records list.
+     */
+    ObservableList<AttendanceRecord> getAttendanceRecordsList();
 
 }
