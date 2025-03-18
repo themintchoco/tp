@@ -8,14 +8,17 @@ import javafx.collections.ObservableList;
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.model.person.Person;
 import tutorly.model.person.UniquePersonList;
+import tutorly.model.session.Session;
+import tutorly.model.session.UniqueSessionList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the address-book level.
+ * Duplicates are not allowed (by .isSamePerson or .isSameSession comparison).
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueSessionList sessions;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,12 +29,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        sessions = new UniqueSessionList(); // Ensure sessions list is initialized
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Persons and Sessions in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -49,12 +53,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the session list with {@code sessions}.
+     * {@code sessions} must not contain duplicate sessions.
+     */
+    public void setSessions(List<Session> sessions) {
+        this.sessions.setSessions(sessions);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setSessions(newData.getSessionList());
     }
 
     //// person-level operations
@@ -82,7 +95,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
     }
 
@@ -94,12 +106,49 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// session-level operations
+
+    /**
+     * Returns true if a session with the same identity as {@code toCheck} exists in the address book.
+     */
+    public boolean hasSession(Session toCheck) {
+        requireNonNull(toCheck);
+        return sessions.contains(toCheck);
+    }
+
+    /**
+     * Adds a session to the address book.
+     * The session must not already exist in the address book.
+     */
+    public void addSession(Session s) {
+        sessions.add(s);
+    }
+
+    /**
+     * Removes {@code session} from this {@code AddressBook}.
+     * {@code session} must exist in the address book.
+     */
+    public void removeSession(Session session) {
+        sessions.remove(session);
+    }
+
+    /**
+     * Replaces the given session {@code target} in the list with {@code editedSession}.
+     * {@code target} must exist in the address book.
+     * The session identity of {@code editedSession} must not be the same as another existing session in the address book.
+     */
+    public void setSession(Session target, Session editedSession) {
+        requireNonNull(editedSession);
+        sessions.setSession(target, editedSession);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
+                .add("sessions", sessions)
                 .toString();
     }
 
@@ -109,22 +158,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Session> getSessionList() {
+        return sessions.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof AddressBook)) {
             return false;
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons) && sessions.equals(otherAddressBook.sessions);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return persons.hashCode() + sessions.hashCode();
     }
 }

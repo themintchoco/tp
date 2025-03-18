@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import tutorly.logic.parser.Prefix;
+import tutorly.model.session.Session;
 import tutorly.model.person.Person;
 
 /**
@@ -48,4 +49,15 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code session} for display to the user.
+     */
+    public static String format(Session session) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Date: ")
+                .append(session.getDate())
+                .append("; Subject: ")
+                .append(session.getSubject());
+        return builder.toString();
+    }
 }
