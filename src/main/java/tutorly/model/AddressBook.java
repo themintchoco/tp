@@ -30,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        sessions = new UniqueSessionList(); 
+        sessions = new UniqueSessionList();
         archivedPersons = new UniquePersonList();
     }
 
