@@ -22,6 +22,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
+    private int id;
     private Name name;
     private Phone phone;
     private Email email;
@@ -33,6 +34,7 @@ public class PersonBuilder {
      * Creates a {@code PersonBuilder} with the default details.
      */
     public PersonBuilder() {
+        id = 0;
         name = new Name(DEFAULT_NAME);
         phone = Phone.empty();
         email = Email.empty();
@@ -45,12 +47,21 @@ public class PersonBuilder {
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
     public PersonBuilder(Person personToCopy) {
+        id = personToCopy.getId();
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
         memo = personToCopy.getMemo();
+    }
+
+    /**
+     * Sets the {@code id} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withId(int id) {
+        this.id = id;
+        return this;
     }
 
     /**
@@ -133,8 +144,15 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds the person.
+     */
     public Person build() {
-        return new Person(name, phone, email, address, tags, memo);
+        Person person = new Person(name, phone, email, address, tags, memo);
+        if (id > 0) {
+            person.setId(id);
+        }
+        return person;
     }
 
 }
