@@ -2,13 +2,20 @@ package tutorly.logic.parser;
 
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
+import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.person.NameContainsKeywordsPredicate;
+import tutorly.model.person.Person;
+import tutorly.model.person.PhoneContainsKeywordsPredicate;
+import tutorly.model.person.PredicateFilter;
 
 /**
  * Parses input arguments and creates a new SearchCommand object
@@ -21,19 +28,35 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
-        Optional<String> query = argMultimap.getValue(PREFIX_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE);
 
-        if (query.isEmpty() || query.get().isBlank() || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME);
-
-        String[] nameKeywords = query.get().trim().split("\\s+");
-
-        return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new SearchCommand(initFilter(argMultimap));
     }
 
+    /**
+     * Initializes filter combining all predicates for filtering persons using the given {@code ArgumentMultimap}.
+     */
+    private static PredicateFilter initFilter(ArgumentMultimap argumentMultimap) {
+        List<Predicate<Person>> predicates = new ArrayList<>();
+
+        Optional<String> nameQuery = argumentMultimap.getValue(PREFIX_NAME);
+        if (nameQuery.isPresent() && !nameQuery.get().isBlank()) {
+            String[] nameKeywords = nameQuery.get().trim().split("\\s+");
+            predicates.add(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        }
+
+        Optional<String> phoneQuery = argumentMultimap.getValue(PREFIX_PHONE);
+        if (phoneQuery.isPresent() && !phoneQuery.get().isBlank()) {
+            String[] phoneKeywords = phoneQuery.get().trim().split("\\s+");
+            predicates.add(new PhoneContainsKeywordsPredicate(Arrays.asList(phoneKeywords)));
+        }
+
+        return new PredicateFilter(predicates);
+    }
 }

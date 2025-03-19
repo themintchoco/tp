@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
+import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -26,6 +27,8 @@ import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.person.NameContainsKeywordsPredicate;
 import tutorly.model.person.Person;
+import tutorly.model.person.PhoneContainsKeywordsPredicate;
+import tutorly.model.person.PredicateFilter;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 import tutorly.testutil.PersonBuilder;
 import tutorly.testutil.PersonUtil;
@@ -74,8 +77,11 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(
                 SearchCommand.COMMAND_WORD + " " + PREFIX_NAME
-                        + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                        + keywords.stream().collect(Collectors.joining(" "))
+                        + " " + PREFIX_PHONE + keywords.stream().collect(Collectors.joining(" ")));
+        PredicateFilter filter = new PredicateFilter(Arrays.asList(
+                new NameContainsKeywordsPredicate(keywords), new PhoneContainsKeywordsPredicate(keywords)));
+        assertEquals(new SearchCommand(filter), command);
     }
 
     @Test
