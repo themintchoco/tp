@@ -9,6 +9,7 @@ import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,17 @@ public class SearchCommandParserTest {
                 parser,
                 PREAMBLE_NON_EMPTY + NAME_DESC_AMY,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_blankKeywords_returnsSearchCommand() {
+        PredicateFilter filter = new PredicateFilter(Collections.emptyList());
+        SearchCommand expectedSearchCommand = new SearchCommand(filter);
+
+        assertParseSuccess(
+                parser,
+                " " + PREFIX_NAME + " \t \n " + PREFIX_PHONE + " \n \t ",
+                expectedSearchCommand);
     }
 
     @Test
