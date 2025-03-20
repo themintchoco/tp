@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import tutorly.logic.parser.Prefix;
-import tutorly.model.session.Session;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * Container for user visible messages.

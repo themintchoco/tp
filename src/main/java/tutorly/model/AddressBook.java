@@ -144,7 +144,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given session {@code target} in the list with {@code editedSession}.
      * {@code target} must exist in the address book.
-     * The session identity of {@code editedSession} must not be the same as another existing session in the address book.
+     * The session identity of {@code editedSession} must not be the same as another session in the address book.
      */
     public void setSession(Session target, Session editedSession) {
         requireNonNull(editedSession);

@@ -1,7 +1,5 @@
 package tutorly.model;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;

@@ -3,8 +3,8 @@ package tutorly.model.attendancerecord;
 import static java.util.Objects.requireNonNull;
 
 import tutorly.commons.util.ToStringBuilder;
-import tutorly.model.session.Session;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * Represents the attendance record of a student.
