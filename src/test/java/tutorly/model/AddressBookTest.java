@@ -9,6 +9,7 @@ import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalPersons.ALICE;
 import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -46,8 +47,8 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
@@ -74,14 +75,49 @@ public class AddressBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
     @Test
+    public void addSession_validSession_success() {
+        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        addressBook.addSession(session);
+        assertTrue(addressBook.hasSession(session));
+    }
+
+    @Test
+    public void hasSession_nullSession_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasSession(null));
+    }
+
+    @Test
+    public void hasSession_sessionNotInAddressBook_returnsFalse() {
+        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        assertFalse(addressBook.hasSession(session));
+    }
+
+    @Test
+    public void hasSession_sessionInAddressBook_returnsTrue() {
+        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        addressBook.addSession(session);
+        assertTrue(addressBook.hasSession(session));
+    }
+
+    @Test
+    public void removeSession_existingSession_success() {
+        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        addressBook.addSession(session);
+        addressBook.removeSession(session);
+        assertFalse(addressBook.hasSession(session));
+    }
+
+    @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class,
+                () -> addressBook.getPersonList().remove(0));
     }
 
     @Test
@@ -98,9 +134,6 @@ public class AddressBookTest {
         assertEquals(expected, addressBook.toString());
     }
 
-    /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
-     */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
 
@@ -115,8 +148,7 @@ public class AddressBookTest {
 
         @Override
         public ObservableList<Session> getSessionList() {
-            return null;
+            return FXCollections.observableArrayList();
         }
     }
-
 }
