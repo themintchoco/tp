@@ -17,7 +17,7 @@ import tutorly.model.session.exceptions.SessionNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Session#isSameSession(Session)
+ * @see Session#equals(Object)
  */
 public class UniqueSessionList implements Iterable<Session> {
 
@@ -30,7 +30,7 @@ public class UniqueSessionList implements Iterable<Session> {
      */
     public boolean contains(Session toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameSession);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -58,7 +58,7 @@ public class UniqueSessionList implements Iterable<Session> {
             throw new SessionNotFoundException();
         }
 
-        if (!target.isSameSession(editedSession) && contains(editedSession)) {
+        if (!target.equals(editedSession) && contains(editedSession)) {
             throw new DuplicateSessionException();
         }
 
@@ -130,7 +130,7 @@ public class UniqueSessionList implements Iterable<Session> {
     private boolean sessionsAreUnique(List<Session> sessions) {
         for (int i = 0; i < sessions.size() - 1; i++) {
             for (int j = i + 1; j < sessions.size(); j++) {
-                if (sessions.get(i).isSameSession(sessions.get(j))) {
+                if (sessions.get(i).equals(sessions.get(j))) {
                     return false;
                 }
             }
