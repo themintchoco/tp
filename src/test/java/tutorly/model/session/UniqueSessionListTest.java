@@ -12,9 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import tutorly.model.session.exceptions.DuplicateSessionException;
-import tutorly.model.session.exceptions.SessionNotFoundException;
-
 import javafx.collections.ObservableList;
+import tutorly.model.session.exceptions.SessionNotFoundException;
 
 /**
  * Test class for UniqueSessionList.
