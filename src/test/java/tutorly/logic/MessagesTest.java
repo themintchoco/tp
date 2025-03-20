@@ -2,20 +2,21 @@ package tutorly.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Set;
-import java.util.HashSet;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+
 import tutorly.logic.parser.Prefix;
-import tutorly.model.person.Person;
-import tutorly.model.tag.Tag;
-import tutorly.model.person.Name;
-import tutorly.model.person.Phone;
-import tutorly.model.person.Email;
 import tutorly.model.person.Address;
+import tutorly.model.person.Email;
 import tutorly.model.person.Memo;
+import tutorly.model.person.Name;
+import tutorly.model.person.Person;
+import tutorly.model.person.Phone;
 import tutorly.model.session.Session;
+import tutorly.model.tag.Tag;
 
 /**
  * Test class for Messages.
@@ -44,8 +45,8 @@ public class MessagesTest {
 
         Person person = new Person(name, phone, email, address, tags, memo);
 
-        String expectedFormat = "John Doe; Phone: 12345678; Email: john@example.com; Address: 123 Street; " +
-                "Tags: [student, friend]; Memo: Important client";
+        String expectedFormat = "John Doe; Phone: 12345678; Email: john@example.com; Address: 123 Street; "
+                + "Tags: [student, friend]; Memo: Important client";
 
         assertEquals(expectedFormat, Messages.format(person));
     }

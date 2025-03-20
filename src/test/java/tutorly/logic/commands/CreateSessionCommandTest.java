@@ -1,6 +1,13 @@
 package tutorly.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,10 +22,6 @@ import tutorly.model.ReadOnlyUserPrefs;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.model.session.UniqueSessionList;
-
-import java.nio.file.Path;
-import java.time.LocalDate;
-import java.util.function.Predicate;
 
 /**
  * Test class for CreateSessionCommand.
@@ -37,38 +40,38 @@ public class CreateSessionCommandTest {
     }
 
     @Test
-    void testExecute_Success() throws CommandException {
+    void execute_success() throws CommandException {
         CommandResult result = createSessionCommand.execute(model);
-        assertEquals(String.format(CreateSessionCommand.MESSAGE_SUCCESS,
-                Messages.format(session)), result.getFeedbackToUser());
+        assertEquals(String.format(CreateSessionCommand.MESSAGE_SUCCESS, Messages.format(session)),
+                result.getFeedbackToUser());
     }
 
     @Test
-    void testExecute_DuplicateSessionThrowsException() throws CommandException {
+    void execute_duplicateSession_throwsException() throws CommandException {
         createSessionCommand.execute(model); // Add session first
         assertThrows(CommandException.class, () -> createSessionCommand.execute(model));
     }
 
     @Test
-    void testEquals_SameObject() {
+    void equals_sameObject() {
         assertEquals(createSessionCommand, createSessionCommand);
     }
 
     @Test
-    void testEquals_DifferentObjectSameData() {
+    void equals_differentObjectSameData() {
         CreateSessionCommand commandCopy = new CreateSessionCommand(session);
         assertEquals(createSessionCommand, commandCopy);
     }
 
     @Test
-    void testEquals_DifferentObjects() {
+    void equals_differentObjects() {
         Session differentSession = new Session(102, LocalDate.of(2025, 3, 19), "Science");
         CreateSessionCommand differentCommand = new CreateSessionCommand(differentSession);
         assertNotEquals(createSessionCommand, differentCommand);
     }
 
     @Test
-    void testToString() {
+    void toStringTest() {
         String expected = "CreateSessionCommand{toCreate=" + session + "}";
         assertTrue(createSessionCommand.toString().contains(expected));
     }
@@ -81,7 +84,6 @@ public class CreateSessionCommandTest {
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-
         }
 
         @Override
@@ -96,7 +98,6 @@ public class CreateSessionCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
-
         }
 
         @Override
@@ -106,12 +107,10 @@ public class CreateSessionCommandTest {
 
         @Override
         public void setAddressBookFilePath(Path addressBookFilePath) {
-
         }
 
         @Override
         public void setAddressBook(ReadOnlyAddressBook addressBook) {
-
         }
 
         @Override
@@ -126,17 +125,14 @@ public class CreateSessionCommandTest {
 
         @Override
         public void deletePerson(Person target) {
-
         }
 
         @Override
         public void addPerson(Person person) {
-
         }
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
-
         }
 
         @Override
@@ -146,7 +142,6 @@ public class CreateSessionCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
-
         }
 
         @Override

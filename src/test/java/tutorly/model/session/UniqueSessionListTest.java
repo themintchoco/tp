@@ -1,13 +1,20 @@
 package tutorly.model.session;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import javafx.collections.ObservableList;
-import tutorly.model.session.exceptions.DuplicateSessionException;
-import tutorly.model.session.exceptions.SessionNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
+
+import javafx.collections.ObservableList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import tutorly.model.session.exceptions.DuplicateSessionException;
+import tutorly.model.session.exceptions.SessionNotFoundException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class for UniqueSessionList.
@@ -28,31 +35,31 @@ public class UniqueSessionListTest {
     }
 
     @Test
-    void testAdd_Success() {
+    void testAddSuccess() {
         sessionList.add(session1);
         assertTrue(sessionList.contains(session1));
     }
 
     @Test
-    void testAdd_DuplicateThrowsException() {
+    void testAddDuplicateThrowsException() {
         sessionList.add(session1);
         assertThrows(DuplicateSessionException.class, () -> sessionList.add(session1));
     }
 
     @Test
-    void testRemove_Success() {
+    void testRemoveSuccess() {
         sessionList.add(session1);
         sessionList.remove(session1);
         assertFalse(sessionList.contains(session1));
     }
 
     @Test
-    void testRemove_NonExistentThrowsException() {
+    void testRemoveNonExistentThrowsException() {
         assertThrows(SessionNotFoundException.class, () -> sessionList.remove(session1));
     }
 
     @Test
-    void testSetSession_Success() {
+    void testSetSessionSuccess() {
         sessionList.add(session1);
         sessionList.setSession(session1, session2);
         assertFalse(sessionList.contains(session1));
@@ -60,26 +67,26 @@ public class UniqueSessionListTest {
     }
 
     @Test
-    void testSetSession_TargetNotFoundThrowsException() {
+    void testSetSessionTargetNotFoundThrowsException() {
         assertThrows(SessionNotFoundException.class, () -> sessionList.setSession(session1, session2));
     }
 
     @Test
-    void testSetSession_DuplicateThrowsException() {
+    void testSetSessionDuplicateThrowsException() {
         sessionList.add(session1);
         sessionList.add(session2);
         assertThrows(DuplicateSessionException.class, () -> sessionList.setSession(session1, session2));
     }
 
     @Test
-    void testSetSessions_Success() {
+    void testSetSessionsSuccess() {
         List<Session> newSessions = List.of(session1, session2);
         sessionList.setSessions(newSessions);
         assertEquals(2, sessionList.asUnmodifiableObservableList().size());
     }
 
     @Test
-    void testSetSessions_DuplicateThrowsException() {
+    void testSetSessionsDuplicateThrowsException() {
         List<Session> duplicateSessions = List.of(session1, session1);
         assertThrows(DuplicateSessionException.class, () -> sessionList.setSessions(duplicateSessions));
     }
