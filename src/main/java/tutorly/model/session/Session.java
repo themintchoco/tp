@@ -62,13 +62,22 @@ public class Session {
     }
 
     /**
-     * Checks if this session is the same as another session.
-     *
-     * @param other The other session to compare with.
-     * @return True if the sessions are the same, false otherwise.
+     * Returns true if both sessions have the same identity and data fields.
+     * This defines a stronger notion of equality between two sessions.
      */
-    public boolean isSameSession(Session other) {
-        return this.equals(other);
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Session otherSession)) {
+            return false;
+        }
+
+        return sessionId == otherSession.sessionId
+                && date.equals(otherSession.date)
+                && subject.equals(otherSession.subject);
     }
 
     /**
