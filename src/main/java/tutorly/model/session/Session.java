@@ -1,4 +1,4 @@
-package tutorly.model;
+package tutorly.model.session;
 import java.time.LocalDate;
 
 /**
@@ -59,6 +59,25 @@ public class Session {
      */
     public String getSubject() {
         return subject;
+    }
+
+    /**
+     * Returns true if both sessions have the same identity and data fields.
+     * This defines a stronger notion of equality between two sessions.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Session otherSession)) {
+            return false;
+        }
+
+        return sessionId == otherSession.sessionId
+                && date.equals(otherSession.date)
+                && subject.equals(otherSession.subject);
     }
 
     /**

@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import tutorly.commons.core.GuiSettings;
 import tutorly.commons.core.LogsCenter;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -126,6 +127,18 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean hasSession(Session toCreate) {
+        requireAllNonNull(toCreate);
+        return addressBook.hasSession(toCreate);
+    }
+
+    @Override
+    public void addSession(Session toCreate) {
+        requireAllNonNull(toCreate);
+        addressBook.addSession(toCreate);
     }
 
     @Override

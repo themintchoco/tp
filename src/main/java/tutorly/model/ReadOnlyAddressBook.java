@@ -2,6 +2,7 @@ package tutorly.model;
 
 import javafx.collections.ObservableList;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * Unmodifiable view of an address book
@@ -14,4 +15,5 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
+    ObservableList<Session> getSessionList();
 }

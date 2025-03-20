@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import tutorly.commons.core.GuiSettings;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * The API of the Model component.
@@ -84,4 +85,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+
+    /**
+     * Returns true if a session with the same identity as {@code session} exists in the address book.
+     */
+    boolean hasSession(Session toCreate);
+
+    /**
+     * Adds the given session.
+     * {@code session} must not already exist in the address book.
+     */
+    void addSession(Session toCreate);
 }
