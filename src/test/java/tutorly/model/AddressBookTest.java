@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tutorly.model.person.Person;
 import tutorly.model.person.exceptions.DuplicatePersonException;
+import tutorly.model.session.Session;
 import tutorly.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -102,6 +103,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<Session> getSessionList() {
+            return null;
         }
     }
 
