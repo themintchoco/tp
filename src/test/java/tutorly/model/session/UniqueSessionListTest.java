@@ -1,9 +1,12 @@
 package tutorly.model.session;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.time.LocalDate;
 import java.util.List;
-
-import javafx.collections.ObservableList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,10 +14,7 @@ import org.junit.jupiter.api.Test;
 import tutorly.model.session.exceptions.DuplicateSessionException;
 import tutorly.model.session.exceptions.SessionNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import javafx.collections.ObservableList;
 
 /**
  * Test class for UniqueSessionList.
