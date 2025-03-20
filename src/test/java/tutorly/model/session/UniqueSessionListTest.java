@@ -8,11 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import javafx.collections.ObservableList;
-
 import tutorly.model.session.exceptions.DuplicateSessionException;
 import tutorly.model.session.exceptions.SessionNotFoundException;
 
