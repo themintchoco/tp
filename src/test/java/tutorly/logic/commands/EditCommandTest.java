@@ -13,6 +13,7 @@ import static tutorly.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tutorly.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static tutorly.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static tutorly.testutil.TypicalPersons.AMY;
 import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -37,11 +38,12 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
+        Person editedPerson = new PersonBuilder(AMY).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);

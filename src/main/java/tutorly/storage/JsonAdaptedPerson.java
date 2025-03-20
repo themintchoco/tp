@@ -24,6 +24,7 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
+    private final int id;
     private final String name;
     private final String phone;
     private final String email;
@@ -35,9 +36,11 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("memo") String memo) {
+    public JsonAdaptedPerson(@JsonProperty("id") int id, @JsonProperty("name") String name,
+            @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+            @JsonProperty("address") String address, @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("memo") String memo) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -45,13 +48,14 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
-        this.memo = memo == null ? "" : memo;
+        this.memo = memo;
     }
 
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Person source) {
+        id = source.getId();
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -74,11 +78,6 @@ class JsonAdaptedPerson {
         }
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        if (!Memo.isValidMemo(memo)) {
-            throw new IllegalValueException(Memo.MESSAGE_CONSTRAINTS);
-        }
-        final Memo modelMemo = new Memo(memo);
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -87,31 +86,49 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
+        final Phone modelPhone;
+        if (phone == null || phone.isEmpty()) {
+            modelPhone = Phone.empty();
+        } else if (!Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        } else {
+            modelPhone = new Phone(phone);
         }
-        final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
+        final Email modelEmail;
+        if (email == null || email.isEmpty()) {
+            modelEmail = Email.empty();
+        } else if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        } else {
+            modelEmail = new Email(email);
         }
-        final Email modelEmail = new Email(email);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
+        final Address modelAddress;
+        if (address == null || address.isEmpty()) {
+            modelAddress = Address.empty();
+        } else if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        } else {
+            modelAddress = new Address(address);
         }
-        final Address modelAddress = new Address(address);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMemo);
+        final Memo modelMemo;
+        if (memo == null || memo.isEmpty()) {
+            modelMemo = Memo.empty();
+        } else if (!Memo.isValidMemo(memo)) {
+            throw new IllegalValueException(Memo.MESSAGE_CONSTRAINTS);
+        } else {
+            modelMemo = new Memo(memo);
+        }
+
+        Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMemo);
+        if (id <= 0) {
+            throw new IllegalValueException(Person.MESSAGE_CONSTRAINTS);
+        }
+
+        person.setId(id);
+        return person;
     }
 
 }

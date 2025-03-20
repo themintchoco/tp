@@ -69,4 +69,8 @@ shadowJar {
     archiveFileName = 'tutorly.jar'
 }
 
+run {
+    standardInput = System.in
+}
+
 defaultTasks 'clean', 'test'

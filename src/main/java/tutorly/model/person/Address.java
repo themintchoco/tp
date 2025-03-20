@@ -17,7 +17,16 @@ public class Address {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
+    private static final Address EMPTY_ADDRESS = new Address();
+
     public final String value;
+
+    /**
+     * Constructs an empty {@code Address} instance.
+     */
+    private Address() {
+        value = "";
+    }
 
     /**
      * Constructs an {@code Address}.
@@ -28,6 +37,13 @@ public class Address {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
         value = address;
+    }
+
+    /**
+     * Returns an empty Address instance.
+     */
+    public static Address empty() {
+        return EMPTY_ADDRESS;
     }
 
     /**
@@ -49,11 +65,10 @@ public class Address {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Address)) {
+        if (!(other instanceof Address otherAddress)) {
             return false;
         }
 
-        Address otherAddress = (Address) other;
         return value.equals(otherAddress.value);
     }
 

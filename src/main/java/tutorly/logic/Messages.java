@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import tutorly.logic.parser.Prefix;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * Container for user visible messages.
@@ -50,4 +51,15 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code session} for display to the user.
+     */
+    public static String format(Session session) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Date: ")
+                .append(session.getDate())
+                .append("; Subject: ")
+                .append(session.getSubject());
+        return builder.toString();
+    }
 }

@@ -8,20 +8,25 @@ import java.util.Objects;
 import java.util.Set;
 
 import tutorly.commons.util.ToStringBuilder;
+import tutorly.model.AddressBook;
 import tutorly.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a student in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
+ * Optional fields with empty string values are considered as not provided.
  */
 public class Person {
 
+    public static final String MESSAGE_CONSTRAINTS = "Person must have a valid ID.";
+
     // Identity fields
+    private int id; // id field is effectively final
     private final Name name;
-    private final Phone phone;
-    private final Email email;
 
     // Data fields
+    private final Phone phone;
+    private final Email email;
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final Memo memo;
@@ -37,6 +42,26 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
         this.memo = memo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the student ID assigned by the address book during {@link AddressBook#addPerson(Person)}. Should only be
+     * called once per student as the student ID is effectively final.
+     */
+    public void setId(int studentId) {
+        if (this.id != 0) {
+            throw new IllegalStateException("Student ID has already been set for this person");
+        }
+
+        if (studentId < 1) {
+            throw new IllegalArgumentException("Student ID must be a positive integer");
+        }
+
+        this.id = studentId;
     }
 
     public Name getName() {
@@ -106,12 +131,13 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, memo);
+        return Objects.hash(id, name, phone, email, address, tags, memo);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .add("id", id)
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)

@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import tutorly.logic.commands.EditCommand.EditPersonDescriptor;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
+import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.person.Phone;
@@ -17,7 +18,7 @@ import tutorly.model.tag.Tag;
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private final EditPersonDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
         descriptor = new EditPersonDescriptor();
@@ -33,9 +34,20 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
-        descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
+
+        if (!person.getPhone().value.isEmpty()) {
+            descriptor.setPhone(person.getPhone());
+        }
+        if (!person.getEmail().value.isEmpty()) {
+            descriptor.setEmail(person.getEmail());
+        }
+        if (!person.getAddress().value.isEmpty()) {
+            descriptor.setAddress(person.getAddress());
+        }
+        if (!person.getMemo().value.isEmpty()) {
+            descriptor.setMemo(person.getMemo());
+        }
+
         descriptor.setTags(person.getTags());
     }
 
@@ -78,6 +90,14 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Memo} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withMemo(String memo) {
+        descriptor.setMemo(new Memo(memo));
         return this;
     }
 
