@@ -4,7 +4,7 @@ import static tutorly.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.model.Session;
+import tutorly.model.session.Session;
 import tutorly.model.person.Person;
 import tutorly.testutil.PersonBuilder;
 
