@@ -1,7 +1,6 @@
 package tutorly.model.session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.time.LocalDate;
 
@@ -17,7 +16,7 @@ public class SessionTest {
         LocalDate date = LocalDate.of(2025, 3, 20);
         Session session = new Session(1, date, "Mathematics");
 
-        assertEquals(1, session.getStudentId());
+        assertEquals(1, session.getSessionId());
         assertEquals(date, session.getDate());
         assertEquals("Mathematics", session.getSubject());
     }
@@ -34,7 +33,7 @@ public class SessionTest {
         LocalDate date = LocalDate.of(2025, 3, 20);
         Session session1 = new Session(1, date, "Mathematics");
         Session session2 = new Session(1, date, "Mathematics");
-        assertNotEquals(session1, session2); // Different session IDs
+        assertEquals(session1, session2);
     }
 
     @Test
@@ -42,7 +41,7 @@ public class SessionTest {
         LocalDate date = LocalDate.of(2025, 3, 20);
         Session session = new Session(1, date, "Mathematics");
 
-        String expected = "Session{studentId=1, sessionId=" + session.getSessionId()
+        String expected = "Session{sessionId=" + session.getSessionId()
                 + ", date=2025-03-20, subject=Mathematics}";
         assertEquals(expected, session.toString());
     }
