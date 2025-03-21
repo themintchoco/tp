@@ -5,33 +5,46 @@ import java.time.LocalDate;
  * Represents a tutoring session for a student.
  */
 public class Session {
-    private static int nextSessionId = 1;
-    private int studentId;
-    private LocalDate date;
-    private int sessionId;
-    private String subject;
+    private int sessionId; //sessionId field should be effective final
+    private final LocalDate date;
+    private final String subject;
 
     /**
      * Constructs a new Session with an auto-incremented session ID.
      *
-     * @param studentId The unique identifier of the student.
+     * @param sessionId The unique identifier of the student.
      * @param date The date of the session.
      * @param subject The subject of the session.
      */
-    public Session(int studentId, LocalDate date, String subject) {
-        this.studentId = studentId;
+    public Session(int sessionId, LocalDate date, String subject) {
+        this.sessionId = sessionId;
         this.date = date;
-        this.sessionId = nextSessionId++;
         this.subject = subject;
     }
 
     /**
-     * Gets the student ID associated with this session.
-     *
-     * @return The student ID.
+     * sets the session ID of the session.
+     * @param sessionId The session ID to set.
      */
-    public int getStudentId() {
-        return studentId;
+    public void setId(int sessionId) {
+        if (this.sessionId != 0) {
+            throw new IllegalStateException("Session ID has already been set for this session.");
+        }
+
+        if (sessionId < 1) {
+            throw new IllegalArgumentException("Session ID must be a positive integer.");
+        }
+
+        this.sessionId = sessionId;
+    }
+
+    /**
+     * Gets the session ID associated with this session.
+     *
+     * @return The session ID.
+     */
+    public int getSessionId() {
+        return sessionId;
     }
 
     /**
@@ -41,15 +54,6 @@ public class Session {
      */
     public LocalDate getDate() {
         return date;
-    }
-
-    /**
-     * Gets the session ID.
-     *
-     * @return The session ID.
-     */
-    public int getSessionId() {
-        return sessionId;
     }
 
     /**
@@ -87,7 +91,7 @@ public class Session {
      */
     @Override
     public String toString() {
-        return "Session{studentId=" + studentId + ", sessionId="
+        return "Session{sessionId="
                 + sessionId + ", date=" + date + ", subject=" + subject + "}";
     }
 }
