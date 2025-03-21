@@ -22,7 +22,8 @@ public class JsonAdaptedSessionTest {
 
     @Test
     public void toModelType_validSessionDetails_returnsSession() throws Exception {
-        JsonAdaptedSession session = new JsonAdaptedSession(new Session(VALID_SESSION_ID, LocalDate.parse(VALID_DATE), VALID_SUBJECT));
+        JsonAdaptedSession session = new JsonAdaptedSession(new Session(VALID_SESSION_ID,
+                LocalDate.parse(VALID_DATE), VALID_SUBJECT));
         assertEquals(new Session(VALID_SESSION_ID, LocalDate.parse(VALID_DATE), VALID_SUBJECT), session.toModelType());
     }
 
