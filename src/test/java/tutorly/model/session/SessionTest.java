@@ -45,4 +45,12 @@ public class SessionTest {
                 + ", date=2025-03-20, subject=Mathematics}";
         assertEquals(expected, session.toString());
     }
+
+    @Test
+    public void setId_validId_success() {
+        LocalDate date = LocalDate.of(2025, 3, 20);
+        Session session = new Session(0, date, "Mathematics"); // Assume session ID is initially unset (0)
+        session.setId(1);
+        assertEquals(1, session.getSessionId());
+    }
 }
