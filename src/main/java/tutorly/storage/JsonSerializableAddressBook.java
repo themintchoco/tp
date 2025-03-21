@@ -12,6 +12,7 @@ import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.model.AddressBook;
 import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -20,15 +21,19 @@ import tutorly.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_SESSION = "Sessions list contains duplicate session(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedSession> sessions = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given persons and sessions.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("sessions") List<JsonAdaptedSession> sessions) {
         this.persons.addAll(persons);
+        this.sessions.addAll(sessions);
     }
 
     /**
@@ -38,6 +43,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        sessions.addAll(source.getSessionList().stream().map(JsonAdaptedSession::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,7 +60,15 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(person);
         }
+
+        for (JsonAdaptedSession jsonAdaptedSession : sessions) {
+            Session session = jsonAdaptedSession.toModelType();
+            if (addressBook.hasSession(session)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_SESSION);
+            }
+            addressBook.addSession(session);
+        }
+
         return addressBook;
     }
-
 }
