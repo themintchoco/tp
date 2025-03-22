@@ -1,10 +1,10 @@
 package tutorly.model;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.core.GuiSettings;
+import tutorly.model.filter.Filter;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 
@@ -12,8 +12,8 @@ import tutorly.model.session.Session;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Filter} that always evaluate to true */
+    Filter<Person> FILTER_SHOW_ALL_PERSONS = ab -> p -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -90,10 +90,10 @@ public interface Model {
     ObservableList<Person> getArchivedPersonList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * Updates the filter of the filtered person list to filter by the given {@code filter}.
+     * @throws NullPointerException if {@code filter} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Filter<Person> filter);
 
 
     /**
