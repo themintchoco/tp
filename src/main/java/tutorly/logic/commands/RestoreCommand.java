@@ -39,8 +39,6 @@ public class RestoreCommand extends Command {
 
         // get person from archive list by persons ID attribute
         Person personToDelete = null;
-        System.out.println(lastShownList);
-        System.out.println(targetIndex.getOneBased());
         for (Person person : lastShownList) {
             if (person.getId() == targetIndex.getOneBased()) {
                 personToDelete = person;
