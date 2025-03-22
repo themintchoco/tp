@@ -3,6 +3,8 @@ package tutorly.logic.parser;
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
+import static tutorly.logic.parser.ParserUtil.parseIndex;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +14,7 @@ import java.util.function.Predicate;
 
 import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.parser.exceptions.ParseException;
+import tutorly.model.person.AttendSessionPredicate;
 import tutorly.model.person.NameContainsKeywordsPredicate;
 import tutorly.model.person.Person;
 import tutorly.model.person.PhoneContainsKeywordsPredicate;
@@ -28,8 +31,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE);
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SESSION, PREFIX_NAME, PREFIX_PHONE);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SESSION, PREFIX_NAME, PREFIX_PHONE);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
@@ -42,8 +45,14 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     /**
      * Initializes filter combining all predicates for filtering persons using the given {@code ArgumentMultimap}.
      */
-    private static PredicateFilter initFilter(ArgumentMultimap argumentMultimap) {
+    private static PredicateFilter initFilter(ArgumentMultimap argumentMultimap) throws ParseException {
         List<Predicate<Person>> predicates = new ArrayList<>();
+
+        Optional<String> sessionIdQuery = argumentMultimap.getValue(PREFIX_SESSION);
+        if (sessionIdQuery.isPresent() && !sessionIdQuery.get().isBlank()) {
+            int sessionId = parseIndex(sessionIdQuery.get()).getOneBased();
+            predicates.add(new AttendSessionPredicate(sessionId));
+        }
 
         Optional<String> nameQuery = argumentMultimap.getValue(PREFIX_NAME);
         if (nameQuery.isPresent() && !nameQuery.get().isBlank()) {
