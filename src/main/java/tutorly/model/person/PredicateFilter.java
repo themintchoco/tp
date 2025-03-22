@@ -20,7 +20,7 @@ public class PredicateFilter {
     public PredicateFilter(List<Predicate<Person>> predicates) {
         this.predicates = predicates;
     }
-    
+
     /**
      * Combines the list of predicates into a single predicate using a logical OR operation.
      * If any of the predicates in the list is an {@code AttendSessionPredicate}, it initializes
