@@ -23,6 +23,7 @@ import tutorly.logic.commands.EditCommand.EditPersonDescriptor;
 import tutorly.logic.commands.ExitCommand;
 import tutorly.logic.commands.HelpCommand;
 import tutorly.logic.commands.ListCommand;
+import tutorly.logic.commands.RestoreCommand;
 import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.person.NameContainsKeywordsPredicate;
@@ -94,6 +95,11 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_restore() throws Exception {
+        assertTrue(parser.parseCommand( RestoreCommand.COMMAND_WORD + " 3") instanceof RestoreCommand);
     }
 
     @Test
