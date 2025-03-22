@@ -66,6 +66,18 @@ public class Session {
     }
 
     /**
+     * Returns true if the session ID is the same.
+     * This defines a weaker notion of equality between two sessions.
+     */
+    public boolean isSameSession(Session otherSession) {
+        if (otherSession == this) {
+            return true;
+        }
+
+        return otherSession != null && id == otherSession.id;
+    }
+
+    /**
      * Returns true if both sessions have the same identity and data fields.
      * This defines a stronger notion of equality between two sessions.
      */
