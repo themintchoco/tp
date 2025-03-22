@@ -26,10 +26,10 @@ public class RestoreCommand extends Command {
 
     public static final String MESSAGE_RESTORE_PERSON_SUCCESS = "Restored Person: %1$s";
 
-    private final Index targetIndex;
+    private final Index targetId;
 
     public RestoreCommand(Index targetId) {
-        this.targetIndex = targetId;
+        this.targetId = targetId;
     }
 
     @Override
@@ -38,19 +38,19 @@ public class RestoreCommand extends Command {
         List<Person> lastShownList = model.getArchivedPersonList();
 
         // get person from archive list by persons ID attribute
-        Person personToDelete = null;
+        Person personToRestore = null;
         for (Person person : lastShownList) {
-            if (person.getId() == targetIndex.getOneBased()) {
-                personToDelete = person;
+            if (person.getId() == targetId.getOneBased()) {
+                personToRestore = person;
             }
         }
 
-        if (personToDelete == null) {
+        if (personToRestore == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        model.restorePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_RESTORE_PERSON_SUCCESS, Messages.format(personToDelete)));
+        model.restorePerson(personToRestore);
+        return new CommandResult(String.format(MESSAGE_RESTORE_PERSON_SUCCESS, Messages.format(personToRestore)));
     }
 
     @Override
@@ -65,13 +65,13 @@ public class RestoreCommand extends Command {
         }
 
         RestoreCommand otherRestoreCommand = (RestoreCommand) other;
-        return targetIndex.equals(otherRestoreCommand.targetIndex);
+        return targetId.equals(otherRestoreCommand.targetId);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetId", targetId)
                 .toString();
     }
 }

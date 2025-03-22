@@ -55,7 +55,7 @@ public class RestoreCommandTest {
     @Test
     public void toStringTest() {
         RestoreCommand restoreCommand = new RestoreCommand(INDEX_FIRST_PERSON);
-        assertEquals(restoreCommand.toString(), "tutorly.logic.commands.RestoreCommand{targetIndex=tutorly."
+        assertEquals(restoreCommand.toString(), "tutorly.logic.commands.RestoreCommand{targetId=tutorly."
                 + "commons.core.index.Index{zeroBasedIndex=0}}");
     }
 }
