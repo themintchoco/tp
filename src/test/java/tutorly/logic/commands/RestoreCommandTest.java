@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
+import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
+
 
 import org.junit.jupiter.api.Test;
 
