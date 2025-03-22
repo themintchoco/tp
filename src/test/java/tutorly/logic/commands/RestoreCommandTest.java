@@ -3,9 +3,8 @@ package tutorly.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
-
+import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
