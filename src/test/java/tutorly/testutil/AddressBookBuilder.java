@@ -1,6 +1,7 @@
 package tutorly.testutil;
 
 import tutorly.model.AddressBook;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 
 /**
@@ -25,6 +26,14 @@ public class AddressBookBuilder {
      */
     public AddressBookBuilder withPerson(Person person) {
         addressBook.addPerson(person);
+        return this;
+    }
+
+    /**
+     * Adds a new {@code AttendanceRecord} to the {@code AddressBook} that we are building.
+     */
+    public AddressBookBuilder withAttendanceRecord(AttendanceRecord attendanceRecord) {
+        addressBook.addAttendanceRecord(attendanceRecord);
         return this;
     }
 

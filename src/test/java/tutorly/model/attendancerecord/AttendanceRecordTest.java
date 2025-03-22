@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.model.Session;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 import tutorly.testutil.PersonBuilder;
 
 public class AttendanceRecordTest {
