@@ -12,24 +12,24 @@ import tutorly.model.Model;
 import tutorly.model.person.Person;
 
 /**
- * Restores a person identified using it's displayed index from the address book.
+ * Restores a person identified using it's displayed ID from the address book.
  */
 public class RestoreCommand extends Command {
 
     public static final String COMMAND_WORD = "restore";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Restores a previously archived person identified by the index number "
+            + ": Restores a previously archived person identified by the ID number "
             + "used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: ID (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_RESTORE_PERSON_SUCCESS = "Restored Person: %1$s";
 
     private final Index targetIndex;
 
-    public RestoreCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public RestoreCommand(Index targetId) {
+        this.targetIndex = targetId;
     }
 
     @Override
@@ -37,11 +37,20 @@ public class RestoreCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getArchivedPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        // get person from archive list by persons ID attribute
+        Person personToDelete = null;
+        System.out.println(lastShownList);
+        System.out.println(targetIndex.getOneBased());
+        for (Person person : lastShownList) {
+            if (person.getId() == targetIndex.getOneBased()) {
+                personToDelete = person;
+            }
+        }
+
+        if (personToDelete == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.restorePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_RESTORE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }

@@ -115,6 +115,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         archivedPersons.add(key);
     }
 
+    /**
+     * Restores {@code key} from the archived persons list.
+     * {@code key} must exist in the archived persons list.
+     */
+    public void restorePerson(Person key) {
+        archivedPersons.remove(key);
+        persons.add(key);
+    }
+
     //// session-level operations
 
     /**
@@ -176,6 +185,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Session> getSessionList() {
         return sessions.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Person> getArchivedPersonList() {
+        return archivedPersons.asUnmodifiableObservableList();
     }
 
     @Override
