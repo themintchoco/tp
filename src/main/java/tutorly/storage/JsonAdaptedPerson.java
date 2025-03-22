@@ -72,6 +72,10 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
+        if (id <= 0) {
+            throw new IllegalValueException(Person.MESSAGE_INVALID_ID);
+        }
+
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
@@ -123,11 +127,8 @@ class JsonAdaptedPerson {
         }
 
         Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMemo);
-        if (id <= 0) {
-            throw new IllegalValueException(Person.MESSAGE_CONSTRAINTS);
-        }
-
         person.setId(id);
+
         return person;
     }
 

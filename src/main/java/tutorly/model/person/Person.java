@@ -18,7 +18,8 @@ import tutorly.model.tag.Tag;
  */
 public class Person {
 
-    public static final String MESSAGE_CONSTRAINTS = "Person must have a valid ID.";
+    public static final String MESSAGE_REASSIGNED_ID = "Student ID has already been set for this person.";
+    public static final String MESSAGE_INVALID_ID = "Student ID must be a positive integer.";
 
     // Identity fields
     private int id; // id field is effectively final
@@ -54,11 +55,11 @@ public class Person {
      */
     public void setId(int studentId) {
         if (this.id != 0) {
-            throw new IllegalStateException("Student ID has already been set for this person");
+            throw new IllegalStateException(MESSAGE_REASSIGNED_ID);
         }
 
         if (studentId < 1) {
-            throw new IllegalArgumentException("Student ID must be a positive integer");
+            throw new IllegalArgumentException(MESSAGE_INVALID_ID);
         }
 
         this.id = studentId;
