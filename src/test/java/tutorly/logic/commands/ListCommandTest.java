@@ -2,8 +2,8 @@ package tutorly.logic.commands;
 
 import static tutorly.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tutorly.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

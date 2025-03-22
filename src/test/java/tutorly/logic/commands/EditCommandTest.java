@@ -11,10 +11,10 @@ import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tutorly.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tutorly.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tutorly.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static tutorly.testutil.TypicalAddressBook.AMY;
+import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static tutorly.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static tutorly.testutil.TypicalPersons.AMY;
-import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 

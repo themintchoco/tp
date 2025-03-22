@@ -16,7 +16,7 @@ class JsonAdaptedSession {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Session's %s field is missing!";
 
-    private final int sessionId;
+    private final int id;
     private final String date;
     private final String subject;
 
@@ -24,10 +24,10 @@ class JsonAdaptedSession {
      * Constructs a {@code JsonAdaptedSession} with the given session details.
      */
     @JsonCreator
-    public JsonAdaptedSession(@JsonProperty("sessionId") int sessionId,
+    public JsonAdaptedSession(@JsonProperty("id") int id,
                               @JsonProperty("date") String date,
                               @JsonProperty("subject") String subject) {
-        this.sessionId = sessionId;
+        this.id = id;
         this.date = date;
         this.subject = subject;
     }
@@ -36,7 +36,7 @@ class JsonAdaptedSession {
      * Converts a given {@code Session} into this class for Jackson use.
      */
     public JsonAdaptedSession(Session source) {
-        this.sessionId = source.getSessionId();
+        this.id = source.getId();
         this.date = source.getDate().toString();
         this.subject = source.getSubject();
     }
@@ -62,10 +62,10 @@ class JsonAdaptedSession {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "subject"));
         }
 
-        if (sessionId < 1) {
+        if (id < 1) {
             throw new IllegalValueException("Session ID must be a positive integer.");
         }
 
-        return new Session(sessionId, modelDate, subject);
+        return new Session(id, modelDate, subject);
     }
 }

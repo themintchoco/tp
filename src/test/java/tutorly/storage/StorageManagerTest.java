@@ -2,7 +2,7 @@ package tutorly.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
+import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.nio.file.Path;
 

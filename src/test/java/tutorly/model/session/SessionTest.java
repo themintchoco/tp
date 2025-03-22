@@ -16,7 +16,7 @@ public class SessionTest {
         LocalDate date = LocalDate.of(2025, 3, 20);
         Session session = new Session(1, date, "Mathematics");
 
-        assertEquals(1, session.getSessionId());
+        assertEquals(1, session.getId());
         assertEquals(date, session.getDate());
         assertEquals("Mathematics", session.getSubject());
     }
@@ -41,7 +41,7 @@ public class SessionTest {
         LocalDate date = LocalDate.of(2025, 3, 20);
         Session session = new Session(1, date, "Mathematics");
 
-        String expected = "Session{sessionId=" + session.getSessionId()
+        String expected = "Session{sessionId=" + session.getId()
                 + ", date=2025-03-20, subject=Mathematics}";
         assertEquals(expected, session.toString());
     }
@@ -51,6 +51,6 @@ public class SessionTest {
         LocalDate date = LocalDate.of(2025, 3, 20);
         Session session = new Session(0, date, "Mathematics"); // Assume session ID is initially unset (0)
         session.setId(1);
-        assertEquals(1, session.getSessionId());
+        assertEquals(1, session.getId());
     }
 }

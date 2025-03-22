@@ -1,6 +1,7 @@
 package tutorly.model;
 
 import javafx.collections.ObservableList;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 
@@ -15,5 +16,13 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
+    /**
+     * Returns an unmodifiable view of the sessions list.
+     */
     ObservableList<Session> getSessionList();
+
+    /**
+     * Returns an unmodifiable view of the attendance records list.
+     */
+    ObservableList<AttendanceRecord> getAttendanceRecordsList();
 }

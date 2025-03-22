@@ -34,8 +34,8 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tutorly.testutil.TypicalPersons.AMY;
-import static tutorly.testutil.TypicalPersons.BOB;
+import static tutorly.testutil.TypicalAddressBook.AMY;
+import static tutorly.testutil.TypicalAddressBook.BOB;
 
 import org.junit.jupiter.api.Test;
 
