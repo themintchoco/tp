@@ -3,10 +3,10 @@ package tutorly.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalPersons.ALICE;
-import static tutorly.testutil.TypicalPersons.HOON;
-import static tutorly.testutil.TypicalPersons.IDA;
-import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
+import static tutorly.testutil.TypicalAddressBook.ALICE;
+import static tutorly.testutil.TypicalAddressBook.HOON;
+import static tutorly.testutil.TypicalAddressBook.IDA;
+import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

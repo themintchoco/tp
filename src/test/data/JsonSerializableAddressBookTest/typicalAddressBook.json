@@ -50,6 +50,46 @@
     "address" : "4th street",
     "tags" : [ ]
   } ],
-  "sessions": [],
-  "attendanceRecords": []
+  "sessions": [ {
+    "id": 1,
+    "date": "2025-01-01",
+    "subject": "Math"
+  }, {
+    "id": 2,
+    "date": "2025-01-02",
+    "subject": "English"
+  } ],
+  "attendanceRecords": [ {
+    "studentId": 1,
+    "sessionId": 1,
+    "isPresent": true
+  }, {
+    "studentId": 1,
+    "sessionId": 2,
+    "isPresent": true
+  }, {
+    "studentId": 2,
+    "sessionId": 1,
+    "isPresent": true
+  }, {
+    "studentId": 3,
+    "sessionId": 2,
+    "isPresent": true
+  }, {
+    "studentId": 4,
+    "sessionId": 1,
+    "isPresent": false
+  }, {
+    "studentId": 4,
+    "sessionId": 2,
+    "isPresent": false
+  }, {
+    "studentId": 5,
+    "sessionId": 1,
+    "isPresent": false
+  }, {
+    "studentId": 6,
+    "sessionId": 2,
+    "isPresent": false
+  } ]
 }

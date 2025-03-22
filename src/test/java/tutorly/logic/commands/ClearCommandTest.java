@@ -1,7 +1,7 @@
 package tutorly.logic.commands;
 
 import static tutorly.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
+import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 

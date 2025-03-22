@@ -3,7 +3,7 @@ package tutorly.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tutorly.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalPersons.BENSON;
+import static tutorly.testutil.TypicalAddressBook.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalPersons.ALICE;
-import static tutorly.testutil.TypicalPersons.BOB;
+import static tutorly.testutil.TypicalAddressBook.ALICE;
+import static tutorly.testutil.TypicalAddressBook.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;

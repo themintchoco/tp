@@ -5,37 +5,37 @@ import java.time.LocalDate;
  * Represents a tutoring session for a student.
  */
 public class Session {
-    private int sessionId; //sessionId field should be effective final
+    private int id; // id field is effectively final
     private final LocalDate date;
     private final String subject;
 
     /**
      * Constructs a new Session with an auto-incremented session ID.
      *
-     * @param sessionId The unique identifier of the student.
+     * @param id The unique identifier of the student.
      * @param date The date of the session.
      * @param subject The subject of the session.
      */
-    public Session(int sessionId, LocalDate date, String subject) {
-        this.sessionId = sessionId;
+    public Session(int id, LocalDate date, String subject) {
+        this.id = id;
         this.date = date;
         this.subject = subject;
     }
 
     /**
-     * sets the session ID of the session.
-     * @param sessionId The session ID to set.
+     * Sets the session ID of the session.
+     * @param id The session ID to set.
      */
-    public void setId(int sessionId) {
-        if (this.sessionId != 0) {
+    public void setId(int id) {
+        if (this.id != 0) {
             throw new IllegalStateException("Session ID has already been set for this session.");
         }
 
-        if (sessionId < 1) {
+        if (id < 1) {
             throw new IllegalArgumentException("Session ID must be a positive integer.");
         }
 
-        this.sessionId = sessionId;
+        this.id = id;
     }
 
     /**
@@ -43,8 +43,8 @@ public class Session {
      *
      * @return The session ID.
      */
-    public int getSessionId() {
-        return sessionId;
+    public int getId() {
+        return id;
     }
 
     /**
@@ -79,7 +79,7 @@ public class Session {
             return false;
         }
 
-        return sessionId == otherSession.sessionId
+        return id == otherSession.id
                 && date.equals(otherSession.date)
                 && subject.equals(otherSession.subject);
     }
@@ -92,6 +92,6 @@ public class Session {
     @Override
     public String toString() {
         return "Session{sessionId="
-                + sessionId + ", date=" + date + ", subject=" + subject + "}";
+                + id + ", date=" + date + ", subject=" + subject + "}";
     }
 }

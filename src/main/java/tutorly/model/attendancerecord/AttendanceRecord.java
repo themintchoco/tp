@@ -7,7 +7,7 @@ import tutorly.commons.util.ToStringBuilder;
  */
 public class AttendanceRecord {
 
-    public static final String MESSAGE_CONSTRAINTS = "Attenance record must have a valid student ID and session ID.";
+    public static final String MESSAGE_CONSTRAINTS = "Attendance record must have a valid student ID and session ID.";
 
     private int studentId;
     private int sessionId;
@@ -23,15 +23,6 @@ public class AttendanceRecord {
     public AttendanceRecord(int studentId, int sessionId, boolean isPresent) {
         this.studentId = studentId;
         this.sessionId = sessionId;
-        this.isPresent = isPresent;
-    }
-
-    /**
-     * Sets the attendance status of the student.
-     *
-     * @param isPresent The attendance status of the student.
-     */
-    public void setAttendance(boolean isPresent) {
         this.isPresent = isPresent;
     }
 

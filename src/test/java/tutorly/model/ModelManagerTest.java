@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalPersons.ALICE;
-import static tutorly.testutil.TypicalPersons.BENSON;
+import static tutorly.testutil.TypicalAddressBook.ALICE;
+import static tutorly.testutil.TypicalAddressBook.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
