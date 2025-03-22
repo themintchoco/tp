@@ -2,6 +2,7 @@ package tutorly.testutil;
 
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * A utility class to help with building AttendanceRecord objects.
@@ -24,7 +25,7 @@ public class AttendanceRecordBuilder {
     /**
      * Initializes the AttendanceRecordBuilder with the data of {@code attendanceRecordToCopy}.
      */
-    public AttendanceRecordBuilder(tutorly.model.attendancerecord.AttendanceRecord attendanceRecordToCopy) {
+    public AttendanceRecordBuilder(AttendanceRecord attendanceRecordToCopy) {
         studentId = attendanceRecordToCopy.getStudentId();
         sessionId = attendanceRecordToCopy.getSessionId();
         isPresent = attendanceRecordToCopy.getAttendance();
@@ -56,7 +57,7 @@ public class AttendanceRecordBuilder {
     /**
      * Sets the {@code sessionId} of the {@code AttendanceRecord} that we are building.
      */
-    public AttendanceRecordBuilder withSession(tutorly.model.session.Session session) {
+    public AttendanceRecordBuilder withSession(Session session) {
         return withSessionId(session.getId());
     }
 
