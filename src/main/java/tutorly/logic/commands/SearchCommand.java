@@ -5,8 +5,6 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 
-import java.util.List;
-
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
 import tutorly.model.Model;
