@@ -100,6 +100,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void restorePerson(Person target) {
+        addressBook.restorePerson(target);
+    }
+
+    @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -121,6 +126,10 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
+    }
+
+    public ObservableList<Person> getArchivedPersonList() {
+        return addressBook.getArchivedPersonList();
     }
 
     @Override

@@ -65,6 +65,12 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
+     * Restores the given person.
+     * The person must exist in the archived person list.
+     */
+    void restorePerson(Person target);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
@@ -79,6 +85,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the archived person list */
+    ObservableList<Person> getArchivedPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
