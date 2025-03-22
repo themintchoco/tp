@@ -10,19 +10,23 @@ import static tutorly.testutil.TypicalAddressBook.BENSON;
 import static tutorly.testutil.TypicalAddressBook.CARL;
 import static tutorly.testutil.TypicalAddressBook.DANIEL;
 import static tutorly.testutil.TypicalAddressBook.ELLE;
+import static tutorly.testutil.TypicalAddressBook.ENGLISH_SESSION;
 import static tutorly.testutil.TypicalAddressBook.FIONA;
 import static tutorly.testutil.TypicalAddressBook.GEORGE;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import tutorly.model.Model;
 import tutorly.model.ModelManager;
 import tutorly.model.UserPrefs;
+import tutorly.model.person.AttendSessionPredicate;
 import tutorly.model.person.NameContainsKeywordsPredicate;
+import tutorly.model.person.Person;
 import tutorly.model.person.PhoneContainsKeywordsPredicate;
 import tutorly.model.person.PredicateFilter;
 
@@ -30,8 +34,8 @@ import tutorly.model.person.PredicateFilter;
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
 public class SearchCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -71,34 +75,42 @@ public class SearchCommandTest {
 
     @Test
     public void execute_zeroPredicates_allPersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 7);
+        List<Person> expectedResult = Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedResult.size());
+
         SearchCommand command = new SearchCommand(new PredicateFilter(Collections.emptyList()));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+        assertEquals(expectedResult, model.getFilteredPersonList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 4);
+    public void execute_multiplePredicates_multiplePersonsFound() {
+        List<Person> expectedResult = Arrays.asList(ALICE, CARL, DANIEL, ELLE, FIONA, GEORGE);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedResult.size());
+
+        AttendSessionPredicate sessionPredicate = new AttendSessionPredicate(ENGLISH_SESSION.getId());
         NameContainsKeywordsPredicate namePredicate = prepareNamePredicate("Kurz Elle Kunz");
         PhoneContainsKeywordsPredicate phonePredicate = preparePhonePredicate("948");
-        PredicateFilter filter = new PredicateFilter(Arrays.asList(namePredicate, phonePredicate));
+        PredicateFilter filter = new PredicateFilter(Arrays.asList(sessionPredicate, namePredicate, phonePredicate));
         SearchCommand command = new SearchCommand(filter);
-        expectedModel.updateFilteredPersonList(filter.getPredicate());
+
+        expectedModel.updateFilteredPersonList(filter.getPredicate(expectedModel));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+        assertEquals(expectedResult, model.getFilteredPersonList());
     }
 
     @Test
     public void toStringMethod() {
+        AttendSessionPredicate sessionPredicate = new AttendSessionPredicate(1);
         NameContainsKeywordsPredicate namePredicate =
                 new NameContainsKeywordsPredicate(Arrays.asList("keyword1", "keyword2"));
         PhoneContainsKeywordsPredicate phonePredicate =
                 new PhoneContainsKeywordsPredicate(Arrays.asList("keyword3", "keyword4"));
-        PredicateFilter filter = new PredicateFilter(Arrays.asList(namePredicate, phonePredicate));
+        PredicateFilter filter = new PredicateFilter(Arrays.asList(sessionPredicate, namePredicate, phonePredicate));
         SearchCommand searchCommand = new SearchCommand(filter);
+
         String expected = SearchCommand.class.getCanonicalName()
-                + "{predicates=[" + namePredicate + ", " + phonePredicate + "]}";
+                + "{predicates=[" + sessionPredicate + ", " + namePredicate + ", " + phonePredicate + "]}";
         assertEquals(expected, searchCommand.toString());
     }
 
