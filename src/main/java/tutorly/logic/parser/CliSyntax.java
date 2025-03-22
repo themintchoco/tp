@@ -12,7 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
-    public static final Prefix PREFIX_SUBJECT = new Prefix("s/");
+    public static final Prefix PREFIX_SUBJECT = new Prefix("sub/");
     public static final Prefix PREFIX_MEMO = new Prefix("m/");
     public static final Prefix PREFIX_SESSION = new Prefix("ses/");
 }
