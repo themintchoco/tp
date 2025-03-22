@@ -9,14 +9,15 @@ import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import tutorly.logic.commands.SearchCommand;
-import tutorly.model.person.NameContainsKeywordsPredicate;
-import tutorly.model.person.PhoneContainsKeywordsPredicate;
-import tutorly.model.person.PredicateFilter;
+import tutorly.model.filter.Filter;
+import tutorly.model.filter.NameContainsKeywordsFilter;
+import tutorly.model.filter.PhoneContainsKeywordsFilter;
+import tutorly.model.person.Person;
 
 public class SearchCommandParserTest {
 
@@ -32,7 +33,7 @@ public class SearchCommandParserTest {
 
     @Test
     public void parse_blankKeywords_returnsSearchCommand() {
-        PredicateFilter filter = new PredicateFilter(Collections.emptyList());
+        Filter<Person> filter = Filter.any(List.of());
         SearchCommand expectedSearchCommand = new SearchCommand(filter);
 
         assertParseSuccess(
@@ -44,10 +45,10 @@ public class SearchCommandParserTest {
     @Test
     public void parse_validArgs_returnsSearchCommand() {
         // no leading and trailing whitespaces
-        PredicateFilter filter = new PredicateFilter(Arrays.asList(
-                new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")),
-                new PhoneContainsKeywordsPredicate(Arrays.asList("913", "8476"))));
-        SearchCommand expectedSearchCommand = new SearchCommand(filter);
+        Filter<Person> filters = Filter.any(Arrays.asList(
+                new NameContainsKeywordsFilter(Arrays.asList("Alice", "Bob")),
+                new PhoneContainsKeywordsFilter(Arrays.asList("913", "8476"))));
+        SearchCommand expectedSearchCommand = new SearchCommand(filters);
         assertParseSuccess(
                 parser,
                 " " + PREFIX_NAME + "Alice Bob " + PREFIX_PHONE + "913 8476",

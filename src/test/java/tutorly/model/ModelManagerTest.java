@@ -3,7 +3,7 @@ package tutorly.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tutorly.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static tutorly.model.Model.FILTER_SHOW_ALL_PERSONS;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalAddressBook.ALICE;
 import static tutorly.testutil.TypicalAddressBook.BENSON;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import tutorly.commons.core.GuiSettings;
-import tutorly.model.person.NameContainsKeywordsPredicate;
+import tutorly.model.filter.NameContainsKeywordsFilter;
 import tutorly.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -118,11 +118,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredPersonList(new NameContainsKeywordsFilter(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

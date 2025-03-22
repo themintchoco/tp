@@ -1,24 +1,26 @@
-package tutorly.model.person;
+package tutorly.model.filter;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import tutorly.commons.util.StringUtil;
 import tutorly.commons.util.ToStringBuilder;
+import tutorly.model.ReadOnlyAddressBook;
+import tutorly.model.person.Person;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Represents a filter for a {@code Person} whose {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Person> {
+public class NameContainsKeywordsFilter implements Filter<Person> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public NameContainsKeywordsFilter(List<String> keywords) {
         this.keywords = keywords;
     }
 
     @Override
-    public boolean test(Person person) {
-        return keywords.stream()
+    public Predicate<Person> toPredicate(ReadOnlyAddressBook addressBook) {
+        return person -> keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
     }
 
@@ -29,16 +31,16 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
+        if (!(other instanceof NameContainsKeywordsFilter otherNameContainsKeywordsFilter)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        return keywords.equals(otherNameContainsKeywordsFilter.keywords);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("keywords", keywords).toString();
     }
+
 }
