@@ -128,6 +128,10 @@ public class CreateSessionCommandTest {
         }
 
         @Override
+        public void restorePerson(Person target) {
+        }
+
+        @Override
         public void addPerson(Person person) {
         }
 
@@ -137,6 +141,11 @@ public class CreateSessionCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Person> getArchivedPersonList() {
             return null;
         }
 
