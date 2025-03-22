@@ -27,7 +27,6 @@ public class RestoreCommandTest {
         restoreCommand.execute(model);
 
         // assert people list is the same
-        System.out.println(model.getFilteredPersonList());
         assertTrue(model.getFilteredPersonList().contains(personToRestore));
     }
 
