@@ -99,7 +99,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_restore() throws Exception {
-        assertTrue(parser.parseCommand( RestoreCommand.COMMAND_WORD + " 3") instanceof RestoreCommand);
+        assertTrue(parser.parseCommand(RestoreCommand.COMMAND_WORD + " 3") instanceof RestoreCommand);
     }
 
     @Test
