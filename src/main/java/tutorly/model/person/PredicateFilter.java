@@ -3,12 +3,13 @@ package tutorly.model.person;
 import java.util.List;
 import java.util.function.Predicate;
 
+import tutorly.model.Model;
+
 /**
  * Represents a filter that combines multiple predicates into a single predicate.
  * The combined predicate evaluates to {@code true} if any of the individual predicates evaluate to {@code true}.
  */
 public class PredicateFilter {
-    private final Predicate<Person> chainedPredicate;
     private final List<Predicate<Person>> predicates;
 
     /**
@@ -19,11 +20,16 @@ public class PredicateFilter {
      */
     public PredicateFilter(List<Predicate<Person>> predicates) {
         this.predicates = predicates;
-        this.chainedPredicate = predicates.stream().reduce(Predicate::or).orElse(p -> true);
     }
 
-    public Predicate<Person> getPredicate() {
-        return this.chainedPredicate;
+    public Predicate<Person> getPredicate(Model model) {
+        predicates.stream()
+                .filter(AttendSessionPredicate::isAttendSessionPredicate)
+                .map(predicate -> (AttendSessionPredicate) predicate)
+                .forEach(inSessionPredicate ->
+                        inSessionPredicate.initFilteredAttendanceRecords(model.getAddressBook().getAttendanceRecordsList()));
+
+        return predicates.stream().reduce(Predicate::or).orElse(p -> true);
     }
 
     @Override
