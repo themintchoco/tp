@@ -9,7 +9,7 @@ import static tutorly.logic.commands.CommandTestUtil.MEMO_DESC_AMY;
 import static tutorly.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tutorly.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalPersons.AMY;
+import static tutorly.testutil.TypicalAddressBook.AMY;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;

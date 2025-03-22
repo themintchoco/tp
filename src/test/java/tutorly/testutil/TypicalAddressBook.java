@@ -13,17 +13,20 @@ import static tutorly.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import tutorly.model.AddressBook;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalAddressBook {
 
     public static final Person ALICE = new PersonBuilder().withId(1)
             .withName("Alice Pauline")
@@ -69,22 +72,64 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .withMemo(VALID_MEMO_BOB).build();
 
+    public static final Session MATH_SESSION = new SessionBuilder().withId(1)
+            .withSubject("Math").withDate(LocalDate.of(2025, 1, 1)).build();
+    public static final Session ENGLISH_SESSION = new SessionBuilder().withId(2)
+            .withSubject("English").withDate(LocalDate.of(2025, 1, 2)).build();
+
+    public static final AttendanceRecord ALICE_ATTEND_MATH = new AttendanceRecordBuilder()
+            .withPerson(ALICE).withSession(MATH_SESSION).withIsPresent(true).build();
+    public static final AttendanceRecord ALICE_ATTEND_ENGLISH = new AttendanceRecordBuilder()
+            .withPerson(ALICE).withSession(ENGLISH_SESSION).withIsPresent(true).build();
+    public static final AttendanceRecord BENSON_ATTEND_MATH = new AttendanceRecordBuilder()
+        .withPerson(BENSON).withSession(MATH_SESSION).withIsPresent(true).build();
+    public static final AttendanceRecord CARL_ATTEND_ENGLISH = new AttendanceRecordBuilder()
+            .withPerson(CARL).withSession(ENGLISH_SESSION).withIsPresent(true).build();
+    public static final AttendanceRecord DANIEL_NOT_ATTEND_MATH = new AttendanceRecordBuilder()
+            .withPerson(DANIEL).withSession(MATH_SESSION).withIsPresent(false).build();
+    public static final AttendanceRecord DANIEL_NOT_ATTEND_ENGLISH = new AttendanceRecordBuilder()
+            .withPerson(DANIEL).withSession(ENGLISH_SESSION).withIsPresent(false).build();
+    public static final AttendanceRecord ELLE_NOT_ATTEND_MATH = new AttendanceRecordBuilder()
+            .withPerson(ELLE).withSession(MATH_SESSION).withIsPresent(false).build();
+    public static final AttendanceRecord FIONA_NOT_ATTEND_ENGLISH = new AttendanceRecordBuilder()
+            .withPerson(FIONA).withSession(ENGLISH_SESSION).withIsPresent(false).build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalAddressBook() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
+
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+
+        for (Session session : getTypicalSessions()) {
+            ab.addSession(session);
+        }
+
+        for (AttendanceRecord attendanceRecord : getTypicalAttendanceRecords()) {
+            ab.addAttendanceRecord(attendanceRecord);
+        }
+
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Session> getTypicalSessions() {
+        return new ArrayList<>(Arrays.asList(MATH_SESSION, ENGLISH_SESSION));
+    }
+
+    public static List<AttendanceRecord> getTypicalAttendanceRecords() {
+        return new ArrayList<>(Arrays.asList(ALICE_ATTEND_MATH, ALICE_ATTEND_ENGLISH, BENSON_ATTEND_MATH,
+                CARL_ATTEND_ENGLISH, DANIEL_NOT_ATTEND_MATH, DANIEL_NOT_ATTEND_ENGLISH, ELLE_NOT_ATTEND_MATH,
+                FIONA_NOT_ATTEND_ENGLISH));
     }
 }

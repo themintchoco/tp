@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.util.ToStringBuilder;
+import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.UniqueAttendanceRecordList;
 import tutorly.model.person.Person;
 import tutorly.model.person.UniquePersonList;
 import tutorly.model.session.Session;
@@ -13,13 +15,14 @@ import tutorly.model.session.UniqueSessionList;
 
 /**
  * Wraps all data at the address-book level.
- * Duplicates are not allowed (by .isSamePerson or .isSameSession comparison).
+ * Duplicates are not allowed.
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final UniqueSessionList sessions;
     private final UniquePersonList archivedPersons;
+    private final UniqueSessionList sessions;
+    private final UniqueAttendanceRecordList attendanceRecords;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,15 +33,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
-        sessions = new UniqueSessionList();
         archivedPersons = new UniquePersonList();
+        sessions = new UniqueSessionList();
+        attendanceRecords = new UniqueAttendanceRecordList();
     }
 
     public AddressBook() {
     }
 
     /**
-     * Creates an AddressBook using the Persons and Sessions in the {@code toBeCopied}
+     * Creates an AddressBook using the ReadOnlyAddressBook in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -64,6 +68,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the attendance records list with {@code attendanceRecords}.
+     */
+    public void setAttendanceRecords(List<AttendanceRecord> attendanceRecords) {
+        this.attendanceRecords.setAll(attendanceRecords);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -71,6 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setSessions(newData.getSessionList());
+        setAttendanceRecords(newData.getAttendanceRecordsList());
     }
 
     //// person-level operations
@@ -143,14 +155,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code session} from this {@code AddressBook}.
-     * {@code session} must exist in the address book.
-     */
-    public void removeSession(Session session) {
-        sessions.remove(session);
-    }
-
-    /**
      * Replaces the given session {@code target} in the list with {@code editedSession}.
      * {@code target} must exist in the address book.
      * The session identity of {@code editedSession} must not be the same as another session in the address book.
@@ -158,6 +162,49 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setSession(Session target, Session editedSession) {
         requireNonNull(editedSession);
         sessions.setSession(target, editedSession);
+    }
+
+    /**
+     * Removes {@code session} from this {@code AddressBook}.
+     * {@code session} must exist in the address book.
+     */
+    public void removeSession(Session session) {
+        sessions.remove(session);
+    }
+
+    //// attendance record-level operations
+
+    /**
+     * Returns true if an equivalent attendance record as {@code attendanceRecord} exists in the address book.
+     */
+    public boolean hasAttendanceRecord(AttendanceRecord attendanceRecord) {
+        requireNonNull(attendanceRecord);
+        return attendanceRecords.contains(attendanceRecord);
+    }
+
+    /**
+     * Adds an attendance record to the address book.
+     */
+    public void addAttendanceRecord(AttendanceRecord attendanceRecord) {
+        attendanceRecords.add(attendanceRecord);
+    }
+
+    /**
+     * Replaces the given attendance record {@code target} in the list with {@code editedAttendanceRecord}.
+     * {@code target} must exist in the address book.
+     */
+    public void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedAttendanceRecord) {
+        requireNonNull(editedAttendanceRecord);
+
+        attendanceRecords.set(target, editedAttendanceRecord);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAttendanceRecord(AttendanceRecord key) {
+        attendanceRecords.remove(key);
     }
 
     //// util methods
@@ -174,6 +221,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new ToStringBuilder(this)
                 .add("persons", persons)
                 .add("sessions", sessions)
+                .add("attendanceRecords", attendanceRecords)
                 .toString();
     }
 
@@ -192,6 +240,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<AttendanceRecord> getAttendanceRecordsList() {
+        return attendanceRecords.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -202,11 +255,13 @@ public class AddressBook implements ReadOnlyAddressBook {
             return false;
         }
 
-        return persons.equals(otherAddressBook.persons) && sessions.equals(otherAddressBook.sessions);
+        return persons.equals(otherAddressBook.persons)
+                && sessions.equals(otherAddressBook.sessions)
+                && attendanceRecords.equals(otherAddressBook.attendanceRecords);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode() + sessions.hashCode();
+        return persons.hashCode() ^ sessions.hashCode() ^ attendanceRecords.hashCode();
     }
 }

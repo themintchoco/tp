@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalPersons.ALICE;
-import static tutorly.testutil.TypicalPersons.getTypicalAddressBook;
+import static tutorly.testutil.TypicalAddressBook.ALICE;
+import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -19,9 +19,11 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 import tutorly.model.person.exceptions.DuplicatePersonException;
 import tutorly.model.session.Session;
+import tutorly.model.uniquelist.exceptions.DuplicateElementException;
 import tutorly.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -51,9 +53,18 @@ public class AddressBookTest {
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        AddressBookStub newData = new AddressBookStub(newPersons, List.of(), List.of());
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+    }
+
+    @Test
+    public void resetData_withDuplicateAttendanceRecords_throwsDuplicateElementException() {
+        AttendanceRecord attendanceRecord = new AttendanceRecord(1, 1, false);
+        List<AttendanceRecord> newAttendanceRecords = Arrays.asList(attendanceRecord, attendanceRecord);
+        AddressBookStub newData = new AddressBookStub(List.of(), List.of(), newAttendanceRecords);
+
+        assertThrows(DuplicateElementException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
@@ -121,13 +132,40 @@ public class AddressBookTest {
     }
 
     @Test
-    public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName()
-                + "{persons=" + addressBook.getPersonList();
+    public void hasAttendanceRecord_nullAttendanceRecord_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasAttendanceRecord(null));
+    }
 
-        if (addressBook.getSessionList() != null) {
-            expected += ", sessions=" + addressBook.getSessionList();
-        }
+    @Test
+    public void hasAttendanceRecord_attendanceRecordNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasAttendanceRecord(new AttendanceRecord(1, 1, false)));
+    }
+
+    @Test
+    public void hasAttendanceRecord_attendanceRecordInAddressBook_returnsTrue() {
+        AttendanceRecord attendanceRecord = new AttendanceRecord(1, 1, false);
+        addressBook.addAttendanceRecord(attendanceRecord);
+        assertTrue(addressBook.hasAttendanceRecord(attendanceRecord));
+    }
+
+    @Test
+    public void hasAttendanceRecord_equivalentAttendanceRecordInAddressBook_returnsTrue() {
+        addressBook.addAttendanceRecord(new AttendanceRecord(1, 1, false));
+        assertTrue(addressBook.hasAttendanceRecord(new AttendanceRecord(1, 1, true)));
+    }
+
+    @Test
+    public void getAttendanceRecordsList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getAttendanceRecordsList().remove(0));
+    }
+
+    @Test
+    public void toStringMethod() {
+        String expected = AddressBook.class.getCanonicalName();
+
+        expected += "{persons=" + addressBook.getPersonList();
+        expected += ", sessions=" + addressBook.getSessionList();
+        expected += ", attendanceRecords=" + addressBook.getAttendanceRecordsList();
 
         expected += "}";
 
@@ -136,9 +174,14 @@ public class AddressBookTest {
 
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Session> sessions = FXCollections.observableArrayList();
+        private final ObservableList<AttendanceRecord> attendanceRecords = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
+        AddressBookStub(Collection<Person> persons,
+                Collection<Session> sessions, Collection<AttendanceRecord> attendanceRecords) {
             this.persons.setAll(persons);
+            this.sessions.setAll(sessions);
+            this.attendanceRecords.setAll(attendanceRecords);
         }
 
         @Override
@@ -148,7 +191,12 @@ public class AddressBookTest {
 
         @Override
         public ObservableList<Session> getSessionList() {
-            return FXCollections.observableArrayList();
+            return sessions;
+        }
+
+        @Override
+        public ObservableList<AttendanceRecord> getAttendanceRecordsList() {
+            return attendanceRecords;
         }
     }
 }

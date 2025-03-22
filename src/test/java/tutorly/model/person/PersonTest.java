@@ -10,8 +10,8 @@ import static tutorly.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalPersons.ALICE;
-import static tutorly.testutil.TypicalPersons.BOB;
+import static tutorly.testutil.TypicalAddressBook.ALICE;
+import static tutorly.testutil.TypicalAddressBook.BOB;
 
 import org.junit.jupiter.api.Test;
 

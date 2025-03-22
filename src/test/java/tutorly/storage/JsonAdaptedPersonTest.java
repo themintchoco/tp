@@ -3,7 +3,7 @@ package tutorly.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tutorly.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalPersons.BENSON;
+import static tutorly.testutil.TypicalAddressBook.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidId_throwsIllegalValueException() {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(-1, VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS, VALID_MEMO);
-        String expectedMessage = Person.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Person.MESSAGE_INVALID_ID;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
