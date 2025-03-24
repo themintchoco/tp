@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.core.GuiSettings;
-import tutorly.model.person.Name;
 import tutorly.model.filter.Filter;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 
@@ -14,18 +14,20 @@ import tutorly.model.session.Session;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Filter} that always evaluate to true */
-    Filter<Person> FILTER_SHOW_ALL_PERSONS = ab -> p -> true;
-
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
+     * {@code Filter} that always evaluate to true
      */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
+    Filter<Person> FILTER_SHOW_ALL_PERSONS = ab -> p -> true;
 
     /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -48,12 +50,14 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Returns the AddressBook
+     */
+    ReadOnlyAddressBook getAddressBook();
+
+    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -95,14 +99,19 @@ public interface Model {
      */
     Optional<Person> getPersonByName(Name name);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the archived person list */
+    /**
+     * Returns an unmodifiable view of the archived person list
+     */
     ObservableList<Person> getArchivedPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code filter}.
+     *
      * @throws NullPointerException if {@code filter} is null.
      */
     void updateFilteredPersonList(Filter<Person> filter);
