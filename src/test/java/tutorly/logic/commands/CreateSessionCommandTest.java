@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +20,7 @@ import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.model.session.UniqueSessionList;
@@ -137,6 +139,16 @@ public class CreateSessionCommandTest {
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+        }
+
+        @Override
+        public Optional<Person> getPersonById(int id) {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<Person> getPersonByName(Name name) {
+            return Optional.empty();
         }
 
         @Override

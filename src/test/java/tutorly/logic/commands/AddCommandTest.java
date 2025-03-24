@@ -10,6 +10,7 @@ import static tutorly.testutil.TypicalAddressBook.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import tutorly.model.AddressBook;
 import tutorly.model.Model;
 import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.testutil.PersonBuilder;
@@ -151,6 +153,16 @@ public class AddCommandTest {
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Person> getPersonById(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Person> getPersonByName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
 
