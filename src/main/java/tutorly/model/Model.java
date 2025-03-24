@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.core.GuiSettings;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -106,4 +107,16 @@ public interface Model {
      * {@code session} must not already exist in the address book.
      */
     void addSession(Session toCreate);
+
+    /**
+     * Returns true if an AttendanceRecord with the same identity as
+     * {@code record} exists in the address book.
+     */
+    boolean hasAttendanceRecord(AttendanceRecord record);
+
+    /**
+     * Adds the given AttendanceRecord.
+     * {@code record} must not already exist in the address book.
+     */
+    void addAttendanceRecord(AttendanceRecord record);
 }

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tutorly.commons.core.GuiSettings;
 import tutorly.commons.core.LogsCenter;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -148,6 +149,18 @@ public class ModelManager implements Model {
     public void addSession(Session toCreate) {
         requireAllNonNull(toCreate);
         addressBook.addSession(toCreate);
+    }
+
+    @Override
+    public boolean hasAttendanceRecord(AttendanceRecord record) {
+        requireNonNull(record);
+        return addressBook.hasAttendanceRecord(record);
+    }
+
+    @Override
+    public void addAttendanceRecord(AttendanceRecord record) {
+        requireNonNull(record);
+        addressBook.addAttendanceRecord(record);
     }
 
     @Override
