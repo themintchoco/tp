@@ -27,11 +27,11 @@ import tutorly.logic.commands.ListCommand;
 import tutorly.logic.commands.RestoreCommand;
 import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.parser.exceptions.ParseException;
-import tutorly.model.person.AttendSessionPredicate;
-import tutorly.model.person.NameContainsKeywordsPredicate;
+import tutorly.model.filter.AttendSessionFilter;
+import tutorly.model.filter.Filter;
+import tutorly.model.filter.NameContainsKeywordsFilter;
+import tutorly.model.filter.PhoneContainsKeywordsFilter;
 import tutorly.model.person.Person;
-import tutorly.model.person.PhoneContainsKeywordsPredicate;
-import tutorly.model.person.PredicateFilter;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 import tutorly.testutil.PersonBuilder;
 import tutorly.testutil.PersonUtil;
@@ -84,10 +84,10 @@ public class AddressBookParserTest {
                         + " " + PREFIX_SESSION + sessionId
                         + " " + PREFIX_NAME + keywords.stream().collect(Collectors.joining(" "))
                         + " " + PREFIX_PHONE + keywords.stream().collect(Collectors.joining(" ")));
-        PredicateFilter filter = new PredicateFilter(Arrays.asList(
-                new AttendSessionPredicate(sessionId),
-                new NameContainsKeywordsPredicate(keywords),
-                new PhoneContainsKeywordsPredicate(keywords)));
+        Filter<Person> filter = Filter.any(Arrays.asList(
+                new AttendSessionFilter(sessionId),
+                new NameContainsKeywordsFilter(keywords),
+                new PhoneContainsKeywordsFilter(keywords)));
         assertEquals(new SearchCommand(filter), command);
     }
 

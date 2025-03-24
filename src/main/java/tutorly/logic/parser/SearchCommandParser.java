@@ -10,15 +10,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import tutorly.logic.commands.SearchCommand;
 import tutorly.logic.parser.exceptions.ParseException;
-import tutorly.model.person.AttendSessionPredicate;
-import tutorly.model.person.NameContainsKeywordsPredicate;
+import tutorly.model.filter.AttendSessionFilter;
+import tutorly.model.filter.Filter;
+import tutorly.model.filter.NameContainsKeywordsFilter;
+import tutorly.model.filter.PhoneContainsKeywordsFilter;
 import tutorly.model.person.Person;
-import tutorly.model.person.PhoneContainsKeywordsPredicate;
-import tutorly.model.person.PredicateFilter;
 
 /**
  * Parses input arguments and creates a new SearchCommand object
@@ -45,27 +44,27 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     /**
      * Initializes filter combining all predicates for filtering persons using the given {@code ArgumentMultimap}.
      */
-    private static PredicateFilter initFilter(ArgumentMultimap argumentMultimap) throws ParseException {
-        List<Predicate<Person>> predicates = new ArrayList<>();
+    private static Filter<Person> initFilter(ArgumentMultimap argMultimap) throws ParseException {
+        List<Filter<Person>> filters = new ArrayList<>();
 
-        Optional<String> sessionIdQuery = argumentMultimap.getValue(PREFIX_SESSION);
+        Optional<String> sessionIdQuery = argMultimap.getValue(PREFIX_SESSION);
         if (sessionIdQuery.isPresent() && !sessionIdQuery.get().isBlank()) {
             int sessionId = parseIndex(sessionIdQuery.get()).getOneBased();
-            predicates.add(new AttendSessionPredicate(sessionId));
+            filters.add(new AttendSessionFilter(sessionId));
         }
 
-        Optional<String> nameQuery = argumentMultimap.getValue(PREFIX_NAME);
+        Optional<String> nameQuery = argMultimap.getValue(PREFIX_NAME);
         if (nameQuery.isPresent() && !nameQuery.get().isBlank()) {
             String[] nameKeywords = nameQuery.get().trim().split("\\s+");
-            predicates.add(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+            filters.add(new NameContainsKeywordsFilter(Arrays.asList(nameKeywords)));
         }
 
-        Optional<String> phoneQuery = argumentMultimap.getValue(PREFIX_PHONE);
+        Optional<String> phoneQuery = argMultimap.getValue(PREFIX_PHONE);
         if (phoneQuery.isPresent() && !phoneQuery.get().isBlank()) {
             String[] phoneKeywords = phoneQuery.get().trim().split("\\s+");
-            predicates.add(new PhoneContainsKeywordsPredicate(Arrays.asList(phoneKeywords)));
+            filters.add(new PhoneContainsKeywordsFilter(Arrays.asList(phoneKeywords)));
         }
 
-        return new PredicateFilter(predicates);
+        return Filter.any(filters);
     }
 }

@@ -24,6 +24,7 @@ import tutorly.model.Model;
 import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
 import tutorly.model.person.Name;
+import tutorly.model.filter.Filter;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.testutil.PersonBuilder;
@@ -177,7 +178,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPersonList(Filter<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

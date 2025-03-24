@@ -1,7 +1,7 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tutorly.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static tutorly.model.Model.FILTER_SHOW_ALL_PERSONS;
 
 import tutorly.model.Model;
 
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

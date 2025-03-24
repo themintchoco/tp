@@ -58,7 +58,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+        this.persons.setAll(persons);
     }
 
     /**
@@ -66,7 +66,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code sessions} must not contain duplicate sessions.
      */
     public void setSessions(List<Session> sessions) {
-        this.sessions.setSessions(sessions);
+        this.sessions.setAll(sessions);
     }
 
     /**
@@ -131,7 +131,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-        persons.setPerson(target, editedPerson);
+        persons.set(target, editedPerson);
     }
 
     /**
@@ -177,7 +177,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setSession(Session target, Session editedSession) {
         requireNonNull(editedSession);
-        sessions.setSession(target, editedSession);
+        sessions.set(target, editedSession);
     }
 
     /**

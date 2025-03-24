@@ -5,7 +5,6 @@ import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -13,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import tutorly.commons.core.GuiSettings;
 import tutorly.commons.core.LogsCenter;
 import tutorly.model.person.Name;
+import tutorly.model.filter.Filter;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -145,9 +145,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public void updateFilteredPersonList(Filter<Person> filter) {
+        requireNonNull(filter);
+        filteredPersons.setPredicate(filter.toPredicate(getAddressBook()));
     }
 
     @Override

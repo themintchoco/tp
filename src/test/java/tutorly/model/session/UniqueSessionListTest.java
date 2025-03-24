@@ -13,8 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
-import tutorly.model.session.exceptions.DuplicateSessionException;
-import tutorly.model.session.exceptions.SessionNotFoundException;
+import tutorly.model.uniquelist.exceptions.DuplicateElementException;
+import tutorly.model.uniquelist.exceptions.ElementNotFoundException;
 
 /**
  * Test class for UniqueSessionList.
@@ -43,7 +43,7 @@ public class UniqueSessionListTest {
     @Test
     void testAddDuplicateThrowsException() {
         sessionList.add(session1);
-        assertThrows(DuplicateSessionException.class, () -> sessionList.add(session1));
+        assertThrows(DuplicateElementException.class, () -> sessionList.add(session1));
     }
 
     @Test
@@ -55,40 +55,40 @@ public class UniqueSessionListTest {
 
     @Test
     void testRemoveNonExistentThrowsException() {
-        assertThrows(SessionNotFoundException.class, () -> sessionList.remove(session1));
+        assertThrows(ElementNotFoundException.class, () -> sessionList.remove(session1));
     }
 
     @Test
     void testSetSessionSuccess() {
         sessionList.add(session1);
-        sessionList.setSession(session1, session2);
+        sessionList.set(session1, session2);
         assertFalse(sessionList.contains(session1));
         assertTrue(sessionList.contains(session2));
     }
 
     @Test
     void testSetSessionTargetNotFoundThrowsException() {
-        assertThrows(SessionNotFoundException.class, () -> sessionList.setSession(session1, session2));
+        assertThrows(ElementNotFoundException.class, () -> sessionList.set(session1, session2));
     }
 
     @Test
     void testSetSessionDuplicateThrowsException() {
         sessionList.add(session1);
         sessionList.add(session2);
-        assertThrows(DuplicateSessionException.class, () -> sessionList.setSession(session1, session2));
+        assertThrows(DuplicateElementException.class, () -> sessionList.set(session1, session2));
     }
 
     @Test
     void testSetSessionsSuccess() {
         List<Session> newSessions = List.of(session1, session2);
-        sessionList.setSessions(newSessions);
+        sessionList.setAll(newSessions);
         assertEquals(2, sessionList.asUnmodifiableObservableList().size());
     }
 
     @Test
     void testSetSessionsDuplicateThrowsException() {
         List<Session> duplicateSessions = List.of(session1, session1);
-        assertThrows(DuplicateSessionException.class, () -> sessionList.setSessions(duplicateSessions));
+        assertThrows(DuplicateElementException.class, () -> sessionList.setAll(duplicateSessions));
     }
 
     @Test
