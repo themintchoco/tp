@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tutorly.commons.core.GuiSettings;
 import tutorly.commons.core.LogsCenter;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 
@@ -115,6 +117,16 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public Optional<Person> getPersonById(int id) {
+        return addressBook.getPersonById(id);
+    }
+
+    @Override
+    public Optional<Person> getPersonByName(Name name) {
+        return addressBook.getPersonByName(name);
     }
 
     //=========== Filtered Person List Accessors =============================================================

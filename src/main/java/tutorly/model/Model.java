@@ -1,10 +1,12 @@
 package tutorly.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.core.GuiSettings;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 
@@ -82,6 +84,16 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /**
+     * Returns an optional of the person with the given id.
+     */
+    Optional<Person> getPersonById(int id);
+
+    /**
+     * Returns an optional of the person with the given name.
+     */
+    Optional<Person> getPersonByName(Name name);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

@@ -5,6 +5,7 @@ import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -95,6 +96,24 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.setAll(persons);
+    }
+
+    /**
+     * Returns the person with the given ID if it exists in the list.
+     */
+    public Optional<Person> getPersonById(int id) {
+        return internalList.stream()
+                .filter(person -> person.getId() == id)
+                .findFirst();
+    }
+
+    /**
+     * Returns the person with the given name if it exists in the list.
+     */
+    public Optional<Person> getPersonByName(Name name) {
+        return internalList.stream()
+                .filter(person -> person.getName().equals(name))
+                .findFirst();
     }
 
     /**
