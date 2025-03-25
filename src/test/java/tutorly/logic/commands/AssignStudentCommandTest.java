@@ -2,13 +2,15 @@ package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalAddressBook.ALICE;
+import static tutorly.testutil.TypicalAddressBook.MATH_SESSION;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -27,65 +29,76 @@ import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.testutil.PersonBuilder;
+import tutorly.testutil.SessionBuilder;
 
-public class AddStudentCommandTest {
+public class AssignStudentCommandTest {
+    private final Person validPerson = new PersonBuilder().build();
+    private final Session validSession = new SessionBuilder().build();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
+    public void constructor_nullArgs_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AssignStudentCommand(null, validSession));
+        assertThrows(NullPointerException.class, () -> new AssignStudentCommand(validPerson, null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_attendanceRecordAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingAttendanceAdded modelStub = new ModelStubAcceptingAttendanceAdded();
 
-        CommandResult commandResult = new AddStudentCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new AssignStudentCommand(validPerson, validSession).execute(modelStub);
+        assertEquals(String.format(AssignStudentCommand.MESSAGE_SUCCESS, Messages.format(validPerson),
+                Messages.format(validSession)), commandResult.getFeedbackToUser());
 
-        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
-                commandResult.getFeedbackToUser());
-        assertEquals(List.of(validPerson), modelStub.personsAdded);
+        AttendanceRecord expectedRecord = new AttendanceRecord(
+                validPerson.getId(), validSession.getId(), AssignStudentCommand.DEFAULT_PRESENCE);
+        assertEquals(Collections.singletonList(expectedRecord), modelStub.attendanceAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddStudentCommand addCommand = new AddStudentCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateAttendanceRecord_throwsCommandException() {
+        AssignStudentCommand assignStudentCommand = new AssignStudentCommand(validPerson, validSession);
+        ModelStub modelStub = new ModelStubWithAttendanceRecord(
+                new AttendanceRecord(validPerson.getId(), validSession.getId(), AssignStudentCommand.DEFAULT_PRESENCE));
 
         assertThrows(CommandException.class,
-                AddStudentCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+                AssignStudentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, () -> assignStudentCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddStudentCommand addAliceCommand = new AddStudentCommand(alice);
-        AddStudentCommand addBobCommand = new AddStudentCommand(bob);
+        Session firstSession = new SessionBuilder().withId(1).build();
+        Session secondSession = new SessionBuilder().withId(2).build();
+        AssignStudentCommand assignAliceFirstCommand = new AssignStudentCommand(alice, firstSession);
+        AssignStudentCommand assignBobFirstCommand = new AssignStudentCommand(bob, firstSession);
 
         // same object -> returns true
-        assertEquals(addAliceCommand, addAliceCommand);
+        assertTrue(assignAliceFirstCommand.equals(assignAliceFirstCommand));
 
         // same values -> returns true
-        AddStudentCommand addAliceCommandCopy = new AddStudentCommand(alice);
-        assertEquals(addAliceCommand, addAliceCommandCopy);
+        AssignStudentCommand assignAliceFirstCommandCopy = new AssignStudentCommand(alice, firstSession);
+        assertTrue(assignAliceFirstCommand.equals(assignAliceFirstCommandCopy));
 
         // different types -> returns false
-        assertNotEquals(1, addAliceCommand);
+        assertFalse(assignAliceFirstCommand.equals(1));
 
         // null -> returns false
-        assertNotEquals(null, addAliceCommand);
+        assertFalse(assignAliceFirstCommand.equals(null));
 
         // different person -> returns false
-        assertNotEquals(addAliceCommand, addBobCommand);
+        assertFalse(assignAliceFirstCommand.equals(assignBobFirstCommand));
+
+        // different session -> returns false
+        assertFalse(assignAliceFirstCommand.equals(new AssignStudentCommand(alice, secondSession)));
     }
 
     @Test
     public void toStringMethod() {
-        AddStudentCommand addCommand = new AddStudentCommand(ALICE);
-        String expected = AddStudentCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addCommand.toString());
+        AssignStudentCommand assignStudentCommand = new AssignStudentCommand(ALICE, MATH_SESSION);
+        String expected = AssignStudentCommand.class.getCanonicalName()
+                + "{person=" + ALICE + ", session=" + MATH_SESSION + "}";
+        assertEquals(expected, assignStudentCommand.toString());
     }
 
     /**
@@ -93,12 +106,12 @@ public class AddStudentCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -128,12 +141,12 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -166,6 +179,7 @@ public class AddStudentCommandTest {
         public Optional<Person> getPersonByName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
+
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
@@ -204,39 +218,39 @@ public class AddStudentCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single attendance record.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithAttendanceRecord extends ModelStub {
+        private final AttendanceRecord record;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithAttendanceRecord(AttendanceRecord record) {
+            requireNonNull(record);
+            this.record = record;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasAttendanceRecord(AttendanceRecord record) {
+            requireNonNull(record);
+            return this.record.isSameRecord(record);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the attendance record being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingAttendanceAdded extends ModelStub {
+        final ArrayList<AttendanceRecord> attendanceAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasAttendanceRecord(AttendanceRecord record) {
+            requireNonNull(record);
+            return attendanceAdded.stream().anyMatch(record::isSameRecord);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addAttendanceRecord(AttendanceRecord record) {
+            requireNonNull(record);
+            attendanceAdded.add(record);
         }
 
         @Override

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,9 @@ import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.model.session.UniqueSessionList;
@@ -83,12 +86,12 @@ public class AddSessionCommandTest {
         private final UniqueSessionList sessions = new UniqueSessionList();
 
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
+            return null;
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            return null;
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         }
 
         @Override
@@ -110,12 +113,12 @@ public class AddSessionCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        public ReadOnlyAddressBook getAddressBook() {
+            return null;
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return null;
+        public void setAddressBook(ReadOnlyAddressBook addressBook) {
         }
 
         @Override
@@ -140,6 +143,16 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public Optional<Person> getPersonById(int id) {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<Person> getPersonByName(Name name) {
+            return Optional.empty();
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             return null;
         }
@@ -161,6 +174,15 @@ public class AddSessionCommandTest {
         @Override
         public void addSession(Session session) {
             sessions.add(session);
+        }
+
+        @Override
+        public boolean hasAttendanceRecord(AttendanceRecord record) {
+            return false;
+        }
+
+        @Override
+        public void addAttendanceRecord(AttendanceRecord record) {
         }
     }
 }

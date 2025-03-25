@@ -3,11 +3,13 @@ package tutorly.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.attendancerecord.UniqueAttendanceRecordList;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.person.UniquePersonList;
 import tutorly.model.session.Session;
@@ -106,6 +108,20 @@ public class AddressBook implements ReadOnlyAddressBook {
             // Set the student ID of the person if it has not been set
             p.setId(getTotalPersons());
         }
+    }
+
+    /**
+     * Returns the person with the given ID if it exists in the address book.
+     */
+    public Optional<Person> getPersonById(int id) {
+        return persons.getPersonById(id);
+    }
+
+    /**
+     * Returns the person with the given name if it exists in the address book.
+     */
+    public Optional<Person> getPersonByName(Name name) {
+        return persons.getPersonByName(name);
     }
 
     /**
