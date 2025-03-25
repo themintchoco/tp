@@ -163,9 +163,39 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void getPersonById_personExists_returnsPerson() {
+        uniquePersonList.add(ALICE);
+        assertEquals(ALICE, uniquePersonList.getPersonById(ALICE.getId()).get());
+    }
+
+    @Test
+    public void getPersonById_personDoesNotExist_returnsEmpty() {
+        uniquePersonList.add(ALICE);
+        assertFalse(uniquePersonList.getPersonById(BOB.getId()).isPresent());
+    }
+
+    @Test
+    public void getPersonById_invalidId_returnsEmpty() {
+        uniquePersonList.add(ALICE);
+        assertFalse(uniquePersonList.getPersonById(0).isPresent());
+    }
+
+    @Test
+    public void getPersonByName_personExists_returnsPerson() {
+        uniquePersonList.add(ALICE);
+        assertEquals(ALICE, uniquePersonList.getPersonByName(ALICE.getName()).get());
+    }
+
+    @Test
+    public void getPersonByName_personDoesNotExist_returnsEmpty() {
+        uniquePersonList.add(ALICE);
+        assertFalse(uniquePersonList.getPersonByName(BOB.getName()).isPresent());
+    }
+
+    @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-            -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+                -> uniquePersonList.asUnmodifiableObservableList().remove(0));
     }
 
     @Test
