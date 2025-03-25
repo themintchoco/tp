@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.model.Model.FILTER_SHOW_ALL_PERSONS;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalAddressBook.ALICE;
+import static tutorly.testutil.TypicalAddressBook.ALICE_ATTEND_ENGLISH;
 import static tutorly.testutil.TypicalAddressBook.BENSON;
 
 import java.nio.file.Path;
@@ -86,6 +87,16 @@ public class ModelManagerTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasAttendanceRecord_recordInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasAttendanceRecord(ALICE_ATTEND_ENGLISH));
+    }
+    @Test
+    public void hasAttendanceRecord_recordInAddressBook_returnsTrue() {
+        modelManager.addAttendanceRecord(ALICE_ATTEND_ENGLISH);
+        assertTrue(modelManager.hasAttendanceRecord(ALICE_ATTEND_ENGLISH));
     }
 
     @Test

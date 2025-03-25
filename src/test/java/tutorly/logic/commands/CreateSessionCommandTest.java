@@ -18,6 +18,7 @@ import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -161,6 +162,15 @@ public class CreateSessionCommandTest {
         @Override
         public void addSession(Session session) {
             sessions.add(session);
+        }
+
+        @Override
+        public boolean hasAttendanceRecord(AttendanceRecord record) {
+            return false;
+        }
+
+        @Override
+        public void addAttendanceRecord(AttendanceRecord record) {
         }
     }
 }
