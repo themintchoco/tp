@@ -13,15 +13,17 @@ import tutorly.model.session.Session;
 /**
  * Creates a new tutoring session.
  */
-public class CreateSessionCommand extends Command {
+public class AddSessionCommand extends SessionCommand {
 
-    public static final String COMMAND_WORD = "createSession";
+    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a tutoring session. "
+    public static final String MESSAGE_USAGE = COMMAND_STRING
+            + ": Creates a tutoring session. "
             + "Parameters: "
             + PREFIX_DATE + "DATE "
             + PREFIX_SUBJECT + "SUBJECT\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_STRING + " "
             + PREFIX_DATE + "2025-03-18 "
             + PREFIX_SUBJECT + "Mathematics";
 
@@ -35,7 +37,7 @@ public class CreateSessionCommand extends Command {
      *
      * @param session The session to be created.
      */
-    public CreateSessionCommand(Session session) {
+    public AddSessionCommand(Session session) {
         requireNonNull(session);
         toCreate = session;
     }
@@ -58,11 +60,11 @@ public class CreateSessionCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof CreateSessionCommand)) {
+        if (!(other instanceof AddSessionCommand)) {
             return false;
         }
 
-        CreateSessionCommand otherCommand = (CreateSessionCommand) other;
+        AddSessionCommand otherCommand = (AddSessionCommand) other;
         return toCreate.equals(otherCommand.toCreate);
     }
 

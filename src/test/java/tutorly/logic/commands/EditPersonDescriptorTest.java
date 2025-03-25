@@ -13,7 +13,7 @@ import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.logic.commands.EditCommand.EditPersonDescriptor;
+import tutorly.logic.commands.EditStudentCommand.EditPersonDescriptor;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {

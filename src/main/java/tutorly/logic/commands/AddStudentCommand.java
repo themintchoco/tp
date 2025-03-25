@@ -17,11 +17,13 @@ import tutorly.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddStudentCommand extends StudentCommand {
 
     public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_STRING
+            + ": Adds a student to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_PHONE + "PHONE] "
@@ -29,7 +31,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_MEMO + "MEMO]\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_STRING + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
@@ -46,7 +48,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public AddStudentCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -70,7 +72,7 @@ public class AddCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddCommand otherAddCommand)) {
+        if (!(other instanceof AddStudentCommand otherAddCommand)) {
             return false;
         }
 

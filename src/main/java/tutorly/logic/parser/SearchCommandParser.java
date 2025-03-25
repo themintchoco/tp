@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import tutorly.logic.commands.SearchCommand;
+import tutorly.logic.commands.SearchStudentCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.filter.AttendSessionFilter;
 import tutorly.model.filter.Filter;
@@ -22,23 +22,23 @@ import tutorly.model.person.Person;
 /**
  * Parses input arguments and creates a new SearchCommand object
  */
-public class SearchCommandParser implements Parser<SearchCommand> {
+public class SearchCommandParser implements Parser<SearchStudentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SearchCommand
      * and returns a SearchCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SearchCommand parse(String args) throws ParseException {
+    public SearchStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SESSION, PREFIX_NAME, PREFIX_PHONE);
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SESSION, PREFIX_NAME, PREFIX_PHONE);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchStudentCommand.MESSAGE_USAGE));
         }
 
-        return new SearchCommand(initFilter(argMultimap));
+        return new SearchStudentCommand(initFilter(argMultimap));
     }
 
     /**
