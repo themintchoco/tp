@@ -1,13 +1,18 @@
 package tutorly.logic.parser;
 
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tutorly.logic.commands.CommandTestUtil.ID_DESC_AMY;
+import static tutorly.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static tutorly.logic.commands.CommandTestUtil.VALID_ID_AMY;
+import static tutorly.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
 import tutorly.logic.commands.DeleteCommand;
+import tutorly.model.person.Identity;
+import tutorly.model.person.Name;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -18,11 +23,26 @@ import tutorly.logic.commands.DeleteCommand;
  */
 public class DeleteCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private final DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+    public void parse_idAndName_returnsDeleteCommand() {
+        Identity identity = new Identity(Integer.parseInt(VALID_ID_AMY), new Name(VALID_NAME_AMY));
+        assertParseSuccess(parser, ID_DESC_AMY + NAME_DESC_AMY, new DeleteCommand(identity));
+    }
+
+    @Test
+    public void parse_id_returnsDeleteCommand() {
+        Identity identity = new Identity();
+        identity.setId(Integer.parseInt(VALID_ID_AMY));
+        assertParseSuccess(parser, ID_DESC_AMY, new DeleteCommand(identity));
+    }
+
+    @Test
+    public void parse_name_returnsDeleteCommand() {
+        Identity identity = new Identity();
+        identity.setName(new Name(VALID_NAME_AMY));
+        assertParseSuccess(parser, NAME_DESC_AMY, new DeleteCommand(identity));
     }
 
     @Test

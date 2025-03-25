@@ -1,14 +1,16 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tutorly.logic.parser.CliSyntax.PREFIX_ID;
+import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.List;
+import java.util.Optional;
 
-import tutorly.commons.core.index.Index;
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 
 /**
@@ -19,30 +21,32 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes and archive the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the student identified either by their ID or name. "
+            + "If both ID and name are provided, the ID will be used instead. "
+            + "Parameters: "
+            + "[" + PREFIX_ID + "ID] "
+            + "[" + PREFIX_NAME + "NAME]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_ID + "3 " + PREFIX_NAME + "John Doe";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    private final Index targetIndex;
+    private final Identity identity;
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(Identity identity) {
+        this.identity = identity;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Optional<Person> toDelete = identity.getPerson(model);
+        if (toDelete.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
+        model.deletePerson(toDelete.get());
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(toDelete.get())));
     }
 
     @Override
@@ -52,18 +56,17 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeleteCommand otherDeleteCommand)) {
             return false;
         }
 
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        return identity.equals(otherDeleteCommand.identity);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("identity", identity)
                 .toString();
     }
 }

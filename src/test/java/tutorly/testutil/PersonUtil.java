@@ -2,6 +2,7 @@ package tutorly.testutil;
 
 import static tutorly.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static tutorly.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static tutorly.logic.parser.CliSyntax.PREFIX_ID;
 import static tutorly.logic.parser.CliSyntax.PREFIX_MEMO;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import tutorly.logic.commands.AddCommand;
 import tutorly.logic.commands.EditCommand.EditPersonDescriptor;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.model.tag.Tag;
 
@@ -18,6 +20,21 @@ import tutorly.model.tag.Tag;
  * A utility class for Person.
  */
 public class PersonUtil {
+
+    /**
+     * Returns the part of command string for the given {@code identity}'s details.
+     */
+    public static String getIdentityDetails(Identity identity) {
+        StringBuilder sb = new StringBuilder();
+        if (identity.isIdPresent()) {
+            sb.append(PREFIX_ID).append(identity.getId()).append(" ");
+        }
+        if (identity.isNamePresent()) {
+            sb.append(PREFIX_NAME).append(identity.getName()).append(" ");
+        }
+
+        return sb.toString();
+    }
 
     /**
      * Returns an add command string for adding the {@code person}.

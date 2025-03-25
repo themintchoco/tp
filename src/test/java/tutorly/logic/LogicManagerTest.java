@@ -1,7 +1,7 @@
 package tutorly.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tutorly.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static tutorly.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tutorly.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static tutorly.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -61,8 +61,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        String deleteCommand = "delete id/69";
+        assertCommandException(deleteCommand, MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test

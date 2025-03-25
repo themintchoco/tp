@@ -31,6 +31,8 @@ import tutorly.model.filter.AttendSessionFilter;
 import tutorly.model.filter.Filter;
 import tutorly.model.filter.NameContainsKeywordsFilter;
 import tutorly.model.filter.PhoneContainsKeywordsFilter;
+import tutorly.model.person.Identity;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 import tutorly.testutil.PersonBuilder;
@@ -55,9 +57,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
+        Identity identity = new Identity(3, new Name(PersonBuilder.DEFAULT_NAME));
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + PersonUtil.getIdentityDetails(identity));
+        assertEquals(new DeleteCommand(identity), command);
     }
 
     @Test
@@ -111,7 +114,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test
