@@ -51,6 +51,15 @@ public class AttendanceRecordTest {
     }
 
     @Test
+    public void equals_true() {
+        AttendanceRecord attendanceRecord = new AttendanceRecord(student.getId(), session.getId(), false);
+        attendanceRecord.setFeedback("Feedback");
+        AttendanceRecord attendanceRecordCopy = new AttendanceRecord(student.getId(), session.getId(), false);
+        attendanceRecordCopy.setFeedback("Feedback");
+        assert attendanceRecord.equals(attendanceRecordCopy);
+    }
+
+    @Test
     public void equals_sameObject() {
         AttendanceRecord attendanceRecord = new AttendanceRecord(student.getId(), session.getId(), false);
         assert attendanceRecord.equals(attendanceRecord);
