@@ -13,6 +13,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.person.Person;
+import tutorly.ui.Tab;
 
 /**
  * Adds a person to the address book.
@@ -62,7 +63,9 @@ public class AddStudentCommand extends StudentCommand {
         }
 
         model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        return new CommandResult.Builder(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)))
+                .withTab(Tab.STUDENT)
+                .build();
     }
 
     @Override

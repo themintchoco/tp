@@ -10,6 +10,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.person.Person;
+import tutorly.ui.Tab;
 
 /**
  * Restores a person identified using it's displayed ID from the address book.
@@ -51,7 +52,10 @@ public class RestoreStudentCommand extends StudentCommand {
         }
 
         model.restorePerson(personToRestore);
-        return new CommandResult(String.format(MESSAGE_RESTORE_PERSON_SUCCESS, Messages.format(personToRestore)));
+        return new CommandResult.Builder(
+                String.format(MESSAGE_RESTORE_PERSON_SUCCESS, Messages.format(personToRestore)))
+                .withTab(Tab.STUDENT)
+                .build();
     }
 
     @Override

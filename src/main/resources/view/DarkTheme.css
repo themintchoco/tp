@@ -39,6 +39,26 @@
     -fx-max-height: 0;
 }
 
+.tab-pane .tab-header-background {
+    -fx-background-color: #383838;
+}
+
+.tab-pane .tab {
+    -fx-background-color: derive(#1d1d1d, 70%);;
+}
+
+.tab-pane .tab .tab-label {
+    -fx-text-fill: #d8d8d8;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #1d1d1d;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+
 .table-view {
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #1d1d1d;

@@ -10,6 +10,7 @@ import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.Model;
 import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 
 /**
  * API of the Logic component
@@ -33,6 +34,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of sessions */
+    ObservableList<Session> getFilteredSessionList();
 
     /**
      * Returns the user prefs' address book file path.

@@ -7,6 +7,7 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_MEMO;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_TAG;
+import static tutorly.model.Model.FILTER_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,6 +28,7 @@ import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.person.Phone;
 import tutorly.model.tag.Tag;
+import tutorly.ui.Tab;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -104,7 +106,10 @@ public class EditStudentCommand extends StudentCommand {
         }
 
         model.setPerson(personToEdit.get(), editedPerson);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        model.updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
+        return new CommandResult.Builder(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)))
+                .withTab(Tab.STUDENT)
+                .build();
     }
 
     @Override
