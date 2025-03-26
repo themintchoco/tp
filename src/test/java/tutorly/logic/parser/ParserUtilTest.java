@@ -2,6 +2,7 @@ package tutorly.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_ID;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -35,6 +36,34 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
+
+    @Test
+    public void parseId_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseId(null));
+    }
+
+    @Test
+    public void parseId_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseId("10 a"));
+    }
+
+    @Test
+    public void parseId_outOfRangeInput_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_ID, ()
+            -> ParserUtil.parseId(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("0"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("-1"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("1.1"));
+    }
+
+    @Test
+    public void parseId_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(1, ParserUtil.parseId("1"));
+
+        // Leading and trailing whitespaces
+        assertEquals(1, ParserUtil.parseId("  1  "));
+    }
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {

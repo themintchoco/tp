@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,61 +21,62 @@ import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.model.session.UniqueSessionList;
 
 /**
- * Test class for CreateSessionCommand.
+ * Test class for AddSessionCommand.
  */
-public class CreateSessionCommandTest {
+public class AddSessionCommandTest {
 
     private ModelStub model;
     private Session session;
-    private CreateSessionCommand createSessionCommand;
+    private AddSessionCommand addSessionCommand;
 
     @BeforeEach
     void setUp() {
         model = new ModelStub();
         session = new Session(101, LocalDate.of(2025, 3, 18), "Mathematics");
-        createSessionCommand = new CreateSessionCommand(session);
+        addSessionCommand = new AddSessionCommand(session);
     }
 
     @Test
     void execute_success() throws CommandException {
-        CommandResult result = createSessionCommand.execute(model);
-        assertEquals(String.format(CreateSessionCommand.MESSAGE_SUCCESS, Messages.format(session)),
+        CommandResult result = addSessionCommand.execute(model);
+        assertEquals(String.format(AddSessionCommand.MESSAGE_SUCCESS, Messages.format(session)),
                 result.getFeedbackToUser());
     }
 
     @Test
     void execute_duplicateSession_throwsException() throws CommandException {
-        createSessionCommand.execute(model); // Add session first
-        assertThrows(CommandException.class, () -> createSessionCommand.execute(model));
+        addSessionCommand.execute(model); // Add session first
+        assertThrows(CommandException.class, () -> addSessionCommand.execute(model));
     }
 
     @Test
     void equals_sameObject() {
-        assertEquals(createSessionCommand, createSessionCommand);
+        assertEquals(addSessionCommand, addSessionCommand);
     }
 
     @Test
     void equals_differentObjectSameData() {
-        CreateSessionCommand commandCopy = new CreateSessionCommand(session);
-        assertEquals(createSessionCommand, commandCopy);
+        AddSessionCommand commandCopy = new AddSessionCommand(session);
+        assertEquals(addSessionCommand, commandCopy);
     }
 
     @Test
     void equals_differentObjects() {
         Session differentSession = new Session(102, LocalDate.of(2025, 3, 19), "Science");
-        CreateSessionCommand differentCommand = new CreateSessionCommand(differentSession);
-        assertNotEquals(createSessionCommand, differentCommand);
+        AddSessionCommand differentCommand = new AddSessionCommand(differentSession);
+        assertNotEquals(addSessionCommand, differentCommand);
     }
 
     @Test
     void toStringTest() {
-        String expected = "CreateSessionCommand{toCreate=" + session + "}";
-        assertTrue(createSessionCommand.toString().contains(expected));
+        String expected = "AddSessionCommand{toCreate=" + session + "}";
+        assertTrue(addSessionCommand.toString().contains(expected));
     }
 
     /**
@@ -84,12 +86,12 @@ public class CreateSessionCommandTest {
         private final UniqueSessionList sessions = new UniqueSessionList();
 
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
+            return null;
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            return null;
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         }
 
         @Override
@@ -111,12 +113,12 @@ public class CreateSessionCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        public ReadOnlyAddressBook getAddressBook() {
+            return null;
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return null;
+        public void setAddressBook(ReadOnlyAddressBook addressBook) {
         }
 
         @Override
@@ -138,6 +140,16 @@ public class CreateSessionCommandTest {
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+        }
+
+        @Override
+        public Optional<Person> getPersonById(int id) {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<Person> getPersonByName(Name name) {
+            return Optional.empty();
         }
 
         @Override

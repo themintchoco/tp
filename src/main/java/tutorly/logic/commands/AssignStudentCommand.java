@@ -15,14 +15,16 @@ import tutorly.model.session.Session;
 /**
  * Creates a new AttendanceRecord for a student to a session.
  */
-public class AssignStudentCommand extends Command {
-    public static final String COMMAND_WORD = "assignStudent";
+public class AssignStudentCommand extends StudentCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns a student to a session. "
+    public static final String COMMAND_WORD = "assign";
+    public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
+
+    public static final String MESSAGE_USAGE = COMMAND_STRING + ": Assigns a student to a session. "
             + "Parameters: "
             + PREFIX_SESSION + "SESSION_ID "
             + PREFIX_NAME + "NAME\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_STRING + " "
             + PREFIX_SESSION + "1 "
             + PREFIX_NAME + "Alice";
 

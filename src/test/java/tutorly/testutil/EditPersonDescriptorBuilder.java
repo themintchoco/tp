@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import tutorly.logic.commands.EditCommand.EditPersonDescriptor;
+import tutorly.logic.commands.EditStudentCommand.EditPersonDescriptor;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
 import tutorly.model.person.Memo;

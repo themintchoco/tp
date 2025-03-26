@@ -1,5 +1,7 @@
 package tutorly.model.person;
 
+import java.util.Optional;
+
 import tutorly.model.uniquelist.UniqueList;
 
 /**
@@ -18,6 +20,30 @@ public class UniquePersonList extends UniqueList<Person> {
     @Override
     protected boolean isDistinct(Person a, Person b) {
         return !a.isSamePerson(b);
+    }
+
+    /**
+     * Returns the person with the given ID if it exists.
+     *
+     * @param id The ID of the person to retrieve.
+     * @return The person with the given ID.
+     */
+    public Optional<Person> getPersonById(int id) {
+        return internalList.stream()
+                .filter(person -> person.getId() == id)
+                .findFirst();
+    }
+
+    /**
+     * Returns the person with the given name if it exists.
+     *
+     * @param name The name of the person to retrieve.
+     * @return The person with the given name.
+     */
+    public Optional<Person> getPersonByName(Name name) {
+        return internalList.stream()
+                .filter(person -> person.getName().equals(name))
+                .findFirst();
     }
 
 }
