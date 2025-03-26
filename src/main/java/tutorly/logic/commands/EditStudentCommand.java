@@ -7,16 +7,13 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_MEMO;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_TAG;
-import static tutorly.model.Model.FILTER_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import tutorly.commons.core.index.Index;
 import tutorly.commons.util.CollectionUtil;
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
@@ -24,6 +21,7 @@ import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Person;
@@ -39,10 +37,9 @@ public class EditStudentCommand extends StudentCommand {
     public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
-            + ": Edits the details of the student identified "
-            + "by the index number used in the displayed person list. "
+            + ": Edits the details of the student identified either by their ID or name. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: ID/NAME "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -57,24 +54,24 @@ public class EditStudentCommand extends StudentCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
 
-    private final Index index;
+    private final Identity identity;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index                of the person in the filtered person list to edit
+     * @param identity             containing the ID or name of the person to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditStudentCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
+    public EditStudentCommand(Identity identity, EditPersonDescriptor editPersonDescriptor) {
+        requireNonNull(identity);
         requireNonNull(editPersonDescriptor);
 
-        this.index = index;
+        this.identity = identity;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editPersonDescriptor}. The ID of the person cannot be edited.
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
@@ -94,21 +91,19 @@ public class EditStudentCommand extends StudentCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Optional<Person> personToEdit = identity.getPerson(model);
+        if (personToEdit.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Person editedPerson = createEditedPerson(personToEdit.get(), editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        if (!personToEdit.get().isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
+        model.setPerson(personToEdit.get(), editedPerson);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
@@ -123,14 +118,14 @@ public class EditStudentCommand extends StudentCommand {
             return false;
         }
 
-        return index.equals(otherEditCommand.index)
+        return identity.equals(otherEditCommand.identity)
                 && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
+                .add("identity", identity)
                 .add("editPersonDescriptor", editPersonDescriptor)
                 .toString();
     }
