@@ -32,9 +32,9 @@ import tutorly.model.filter.PhoneContainsKeywordsFilter;
 import tutorly.model.person.Person;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SearchStudentCommand}.
  */
-public class SearchCommandTest {
+public class SearchStudentCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -43,14 +43,14 @@ public class SearchCommandTest {
         Filter<Person> firstFilter = new NameContainsKeywordsFilter(Collections.singletonList("first"));
         Filter<Person> secondFilter = new NameContainsKeywordsFilter(Collections.singletonList("second"));
 
-        SearchCommand searchFirstCommand = new SearchCommand(firstFilter);
-        SearchCommand searchSecondCommand = new SearchCommand(secondFilter);
+        SearchStudentCommand searchFirstCommand = new SearchStudentCommand(firstFilter);
+        SearchStudentCommand searchSecondCommand = new SearchStudentCommand(secondFilter);
 
         // same object -> returns true
         assertTrue(searchFirstCommand.equals(searchFirstCommand));
 
         // same values -> returns true
-        SearchCommand searchFirstCommandCopy = new SearchCommand(firstFilter);
+        SearchStudentCommand searchFirstCommandCopy = new SearchStudentCommand(firstFilter);
         assertTrue(searchFirstCommand.equals(searchFirstCommandCopy));
 
         // different types -> returns false
@@ -64,7 +64,7 @@ public class SearchCommandTest {
 
         // different predicate type -> returns false
         Filter<Person> thirdFilter = new PhoneContainsKeywordsFilter(Collections.singletonList("first"));
-        SearchCommand searchThirdCommand = new SearchCommand(thirdFilter);
+        SearchStudentCommand searchThirdCommand = new SearchStudentCommand(thirdFilter);
         assertFalse(searchFirstCommand.equals(searchThirdCommand));
     }
 
@@ -73,7 +73,7 @@ public class SearchCommandTest {
         List<Person> expectedResult = Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedResult.size());
 
-        SearchCommand command = new SearchCommand(Filter.any(List.of()));
+        SearchStudentCommand command = new SearchStudentCommand(Filter.any(List.of()));
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(expectedResult, model.getFilteredPersonList());
     }
@@ -87,7 +87,7 @@ public class SearchCommandTest {
         NameContainsKeywordsFilter nameFilter = prepareNameFilter("Kurz Elle Kunz");
         PhoneContainsKeywordsFilter phoneFilter = preparePhoneFilter("948");
         Filter<Person> filter = Filter.any(Arrays.asList(sessionFilter, nameFilter, phoneFilter));
-        SearchCommand command = new SearchCommand(filter);
+        SearchStudentCommand command = new SearchStudentCommand(filter);
 
         expectedModel.updateFilteredPersonList(filter);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -102,9 +102,9 @@ public class SearchCommandTest {
         PhoneContainsKeywordsFilter phoneFilter =
                 new PhoneContainsKeywordsFilter(Arrays.asList("keyword3", "keyword4"));
         Filter<Person> filter = Filter.any(Arrays.asList(sessionFilter, nameFilter, phoneFilter));
-        SearchCommand searchCommand = new SearchCommand(filter);
+        SearchStudentCommand searchCommand = new SearchStudentCommand(filter);
 
-        String expected = SearchCommand.class.getCanonicalName()
+        String expected = SearchStudentCommand.class.getCanonicalName()
                 + "{filter=" + AnyFilter.class.getCanonicalName()
                 + "{filters=[" + sessionFilter + ", " + nameFilter + ", " + phoneFilter + "]}}";
         assertEquals(expected, searchCommand.toString());

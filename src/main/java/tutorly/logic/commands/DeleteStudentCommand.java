@@ -1,8 +1,6 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tutorly.logic.parser.CliSyntax.PREFIX_ID;
-import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Optional;
 
@@ -16,23 +14,20 @@ import tutorly.model.person.Person;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteStudentCommand extends StudentCommand {
 
     public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the student identified either by their ID or name. "
-            + "If both ID and name are provided, the ID will be used instead. "
-            + "Parameters: "
-            + "[" + PREFIX_ID + "ID] "
-            + "[" + PREFIX_NAME + "NAME]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_ID + "3 " + PREFIX_NAME + "John Doe";
+    public static final String MESSAGE_USAGE = COMMAND_STRING
+            + ": Deletes the person identified either by their ID or name. Parameters: ID/NAME\n"
+            + "Example: " + COMMAND_STRING + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
     private final Identity identity;
 
-    public DeleteCommand(Identity identity) {
+    public DeleteStudentCommand(Identity identity) {
         this.identity = identity;
     }
 
@@ -56,7 +51,7 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand otherDeleteCommand)) {
+        if (!(other instanceof DeleteStudentCommand otherDeleteCommand)) {
             return false;
         }
 

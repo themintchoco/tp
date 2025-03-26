@@ -19,9 +19,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import tutorly.logic.commands.AddCommand;
+import tutorly.logic.commands.AddStudentCommand;
 import tutorly.logic.commands.CommandResult;
-import tutorly.logic.commands.ListCommand;
+import tutorly.logic.commands.DeleteStudentCommand;
+import tutorly.logic.commands.ListStudentCommand;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.Model;
@@ -61,14 +62,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete id/69";
+        String deleteCommand = DeleteStudentCommand.COMMAND_STRING + " 9";
         assertCommandException(deleteCommand, MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListStudentCommand.COMMAND_STRING;
+        assertCommandSuccess(listCommand, ListStudentCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
@@ -166,7 +167,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Triggers the saveAddressBook method by executing an add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+        String addCommand = AddStudentCommand.COMMAND_STRING + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + MEMO_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

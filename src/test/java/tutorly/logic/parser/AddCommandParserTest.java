@@ -40,7 +40,7 @@ import static tutorly.testutil.TypicalAddressBook.BOB;
 import org.junit.jupiter.api.Test;
 
 import tutorly.logic.Messages;
-import tutorly.logic.commands.AddCommand;
+import tutorly.logic.commands.AddStudentCommand;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
 import tutorly.model.person.Memo;
@@ -59,7 +59,7 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + MEMO_DESC_BOB, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + MEMO_DESC_BOB, new AddStudentCommand(expectedPerson));
 
 
         // multiple tags - all accepted
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                         + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + MEMO_DESC_BOB,
-                new AddCommand(expectedPersonMultipleTags));
+                new AddStudentCommand(expectedPersonMultipleTags));
     }
 
     @Test
@@ -152,28 +152,28 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + MEMO_DESC_AMY,
-                new AddCommand(new PersonBuilder(AMY).withTags().build()));
+                new AddStudentCommand(new PersonBuilder(AMY).withTags().build()));
 
         // missing phone prefix
         assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + MEMO_DESC_AMY,
-                new AddCommand(new PersonBuilder(AMY).withEmptyPhone().build()));
+                new AddStudentCommand(new PersonBuilder(AMY).withEmptyPhone().build()));
 
         // missing email prefix
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + MEMO_DESC_AMY,
-                new AddCommand(new PersonBuilder(AMY).withEmptyEmail().build()));
+                new AddStudentCommand(new PersonBuilder(AMY).withEmptyEmail().build()));
 
         // missing address prefix
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND + MEMO_DESC_AMY,
-                new AddCommand(new PersonBuilder(AMY).withEmptyAddress().build()));
+                new AddStudentCommand(new PersonBuilder(AMY).withEmptyAddress().build()));
 
         // missing memo prefix
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND,
-                new AddCommand(new PersonBuilder(AMY).withEmptyMemo().build()));
+                new AddStudentCommand(new PersonBuilder(AMY).withEmptyMemo().build()));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
@@ -217,6 +217,6 @@ public class AddCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
     }
 }

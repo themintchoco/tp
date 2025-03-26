@@ -14,14 +14,14 @@ import tutorly.model.ModelManager;
 import tutorly.model.UserPrefs;
 import tutorly.model.person.Person;
 
-public class RestoreCommandTest {
+public class RestoreStudentCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws CommandException {
         Person personToRestore = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         model.deletePerson(personToRestore);
-        RestoreCommand restoreCommand = new RestoreCommand(INDEX_FIRST_PERSON);
+        RestoreStudentCommand restoreCommand = new RestoreStudentCommand(INDEX_FIRST_PERSON);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         restoreCommand.execute(model);
@@ -32,14 +32,14 @@ public class RestoreCommandTest {
 
     @Test
     public void equals() {
-        RestoreCommand restoreFirstCommand = new RestoreCommand(INDEX_FIRST_PERSON);
-        RestoreCommand restoreSecondCommand = new RestoreCommand(INDEX_FIRST_PERSON);
+        RestoreStudentCommand restoreFirstCommand = new RestoreStudentCommand(INDEX_FIRST_PERSON);
+        RestoreStudentCommand restoreSecondCommand = new RestoreStudentCommand(INDEX_FIRST_PERSON);
 
         // same object -> returns true
         assertTrue(restoreFirstCommand.equals(restoreFirstCommand));
 
         // same values -> returns true
-        RestoreCommand restoreFirstCommandCopy = new RestoreCommand(INDEX_FIRST_PERSON);
+        RestoreStudentCommand restoreFirstCommandCopy = new RestoreStudentCommand(INDEX_FIRST_PERSON);
         assertTrue(restoreFirstCommand.equals(restoreFirstCommandCopy));
 
         // different types -> returns false
@@ -54,8 +54,8 @@ public class RestoreCommandTest {
 
     @Test
     public void toStringTest() {
-        RestoreCommand restoreCommand = new RestoreCommand(INDEX_FIRST_PERSON);
-        assertEquals(restoreCommand.toString(), "tutorly.logic.commands.RestoreCommand{targetId=tutorly."
+        RestoreStudentCommand restoreCommand = new RestoreStudentCommand(INDEX_FIRST_PERSON);
+        assertEquals(restoreCommand.toString(), "tutorly.logic.commands.RestoreStudentCommand{targetId=tutorly."
                 + "commons.core.index.Index{zeroBasedIndex=0}}");
     }
 }

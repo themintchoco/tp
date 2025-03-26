@@ -8,22 +8,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tutorly.commons.core.LogsCenter;
-import tutorly.logic.commands.AddCommand;
 import tutorly.logic.commands.ClearCommand;
 import tutorly.logic.commands.Command;
-import tutorly.logic.commands.DeleteCommand;
-import tutorly.logic.commands.EditCommand;
 import tutorly.logic.commands.ExitCommand;
 import tutorly.logic.commands.HelpCommand;
-import tutorly.logic.commands.ListCommand;
-import tutorly.logic.commands.RestoreCommand;
-import tutorly.logic.commands.SearchCommand;
+import tutorly.logic.commands.StudentCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class AddressBookParser implements Parser<Command> {
 
     /**
      * Used for initial separation of command word and args.
@@ -38,7 +33,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -52,25 +47,24 @@ public class AddressBookParser {
         // Lower level log messages are used sparingly to minimize noise in the code.
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
 
-        switch (commandWord) {
+        try {
+            return parseCommand(commandWord, arguments);
+        } catch (ParseException e) {
+            logger.finer("This user input caused a ParseException: " + userInput);
+            throw e;
+        }
+    }
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+    /**
+     * Parses a command word and arguments into a command.
+     */
+    public Command parseCommand(String command, String args) throws ParseException {
+        switch (command) {
+        case StudentCommand.COMMAND_WORD:
+            return new StudentCommandParser().parse(args);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case SearchCommand.COMMAND_WORD:
-            return new SearchCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -78,11 +72,7 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case RestoreCommand.COMMAND_WORD:
-            return new RestoreCommandParser().parse(arguments);
-
         default:
-            logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

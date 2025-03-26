@@ -1,8 +1,6 @@
 package tutorly.logic.parser;
 
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tutorly.logic.commands.CommandTestUtil.ID_DESC_AMY;
-import static tutorly.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tutorly.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static tutorly.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -10,7 +8,7 @@ import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.logic.commands.DeleteCommand;
+import tutorly.logic.commands.DeleteStudentCommand;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Name;
 
@@ -26,27 +24,20 @@ public class DeleteCommandParserTest {
     private final DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_idAndName_returnsDeleteCommand() {
-        Identity identity = new Identity(Integer.parseInt(VALID_ID_AMY), new Name(VALID_NAME_AMY));
-        assertParseSuccess(parser, ID_DESC_AMY + NAME_DESC_AMY, new DeleteCommand(identity));
-    }
-
-    @Test
     public void parse_id_returnsDeleteCommand() {
-        Identity identity = new Identity();
-        identity.setId(Integer.parseInt(VALID_ID_AMY));
-        assertParseSuccess(parser, ID_DESC_AMY, new DeleteCommand(identity));
+        Identity identity = new Identity(Integer.parseInt(VALID_ID_AMY));
+        assertParseSuccess(parser, VALID_ID_AMY, new DeleteStudentCommand(identity));
     }
 
     @Test
     public void parse_name_returnsDeleteCommand() {
-        Identity identity = new Identity();
-        identity.setName(new Name(VALID_NAME_AMY));
-        assertParseSuccess(parser, NAME_DESC_AMY, new DeleteCommand(identity));
+        Identity identity = new Identity(new Name(VALID_NAME_AMY));
+        assertParseSuccess(parser, VALID_NAME_AMY, new DeleteStudentCommand(identity));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "10_Amy",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteStudentCommand.MESSAGE_USAGE));
     }
 }
