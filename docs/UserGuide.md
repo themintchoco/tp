@@ -167,9 +167,22 @@ Examples:
 * `student search n/alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'search alex david'](images/findAlexDavidResult.png)
 
+#### Assigning a student: `student assign`
+
+Assigns a student to a session.
+
+Format: `student assign STUDENT_IDENTIFIER ses/SESSION_ID`
+
+* Assigns the student with the specified `STUDENT_IDENTIFIER` to the session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
+* The attendance for the student to the session upon assignment is marked as absent by default.
+
+Examples:
+* `student assign 2 ses/3` assigns a student with an ID of 2 to attend a session with an ID of 3.
+* `student assign John Doe ses/4` assigns a student with the name `John Doe` to attend a session with an ID of 4.
+
 #### Deleting a student: `student delete`
 
-Deletes the student with the specified STUDENT_IDENTIFIER. STUDENT_IDENTIFIER can be either the student's ID or full name.
+Deletes the student with the specified `STUDENT_IDENTIFIER`. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
 
 Format: `student delete STUDENT_IDENTIFIER`
 
@@ -183,7 +196,7 @@ Undoes a deletion of a student.
 
 Format: `student restore STUDENT_IDENTIFIER`
 
-* Restores the student with the specified STUDENT_IDENTIFIER. STUDENT_IDENTIFIER can be either the student's ID or full name.
+* Restores the student with the specified `STUDENT_IDENTIFIER`. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
 * This can only restore a student that has been deleted if the app has not been closed since deletion.
 
 Examples:
@@ -239,11 +252,11 @@ Marks the attendance of a student for a session as present.
 
 Format: `session mark STUDENT_IDENTIFIER ses/SESSION_ID`
 
-* Marks the attendance for the student with the specified STUDENT_IDENTIFIER as present. STUDENT_IDENTIFIER can be either the student's ID or full name.
+* Marks the attendance for the student with the specified `STUDENT_IDENTIFIER` as present. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
 
 Examples:
-* `session mark 2 ses/3` marks the attendance for the student with ID 2 for a session with ID 3 as present.
-* `session mark John Doe ses/4` marks the attendance for the John Doe for a session with ID 4 as present.
+* `session mark 2 ses/3` marks the attendance for the student with an ID of 2 for a session with an ID of 3 as present.
+* `session mark John Doe ses/4` marks the attendance for a student with the name `John Doe` for a session with an ID of 4 as present.
 
 #### Marking attendance as absent: `session unmark`
 
@@ -251,11 +264,11 @@ Marks the attendance of a student for a session as absent.
 
 Format: `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`
 
-* Marks the attendance for the student with the specified STUDENT_IDENTIFIER as absent. STUDENT_IDENTIFIER can be either the student's ID or full name.
+* Marks the attendance for the student with the specified `STUDENT_IDENTIFIER` as absent. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
 
 Examples:
-* `session unmark 2 ses/3` marks the attendance for the student with ID 2 for a session with ID 3 as absent.
-* `session mark John Doe ses/4` marks the attendance for the John Doe for a session with ID 4 as absent.
+* `session unmark 2 ses/3` marks the attendance for the student with an ID of 2 for a session with an ID of 3 as absent.
+* `session mark John Doe ses/4` marks the attendance for a student with the name `John Doe` for a session with an ID of 4 as absent.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -301,6 +314,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | List             | `student list`                                                                                | -                                          |
 |         | Edit             | `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​` | `student edit 2 n/James Lee p/91234567`    |
 |         | Search           | `student search [ses/SESSION_ID] [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS]`                        | `student search n/alex dav p/9123 8765`    |
+|         | Assign           | `student assign STUDENT_IDENTIFIER ses/SESSION_ID `                                           | `student assign 4 ses/3 `                  |
 |         | Delete           | `student delete STUDENT_IDENTIFIER`                                                           | `student delete 3`                         |
 |         | Restore          | `student restore STUDENT_IDENTIFIER`                                                          | `student restore 3`                        |
 | Session | Add              | `session add d/DATE sub/SUBJECT`                                                              | `session add d/2025-04-15 sub/Math`        |
