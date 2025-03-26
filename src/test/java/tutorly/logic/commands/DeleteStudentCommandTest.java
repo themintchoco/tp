@@ -1,22 +1,19 @@
 package tutorly.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tutorly.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tutorly.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
-import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static tutorly.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.commons.core.index.Index;
 import tutorly.logic.Messages;
 import tutorly.model.Model;
 import tutorly.model.ModelManager;
 import tutorly.model.UserPrefs;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 
 /**
@@ -25,12 +22,13 @@ import tutorly.model.person.Person;
  */
 public class DeleteStudentCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(INDEX_FIRST_PERSON);
+    public void execute_validIdentity_success() {
+        Identity identity = new Identity(1);
+        Person personToDelete = identity.getPerson(model).get();
+        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(identity);
 
         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_PERSON_SUCCESS,
                 Messages.format(personToDelete));
@@ -42,70 +40,43 @@ public class DeleteStudentCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(outOfBoundIndex);
+    public void execute_invalidIdentity_throwsCommandException() {
+        Identity identity = new Identity(model.getFilteredPersonList().size() + 1);
+        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(identity);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-                Messages.format(personToDelete));
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
-        showNoPerson(expectedModel);
-
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-
-        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_PERSON_NOT_FOUND);
     }
 
     @Test
     public void equals() {
-        DeleteStudentCommand deleteFirstCommand = new DeleteStudentCommand(INDEX_FIRST_PERSON);
-        DeleteStudentCommand deleteSecondCommand = new DeleteStudentCommand(INDEX_SECOND_PERSON);
+        Identity identityFirst = new Identity(1);
+        Identity identitySecond = new Identity(2);
+
+        DeleteStudentCommand deleteFirstCommand = new DeleteStudentCommand(identityFirst);
+        DeleteStudentCommand deleteSecondCommand = new DeleteStudentCommand(identitySecond);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertEquals(deleteFirstCommand, deleteFirstCommand);
 
         // same values -> returns true
-        DeleteStudentCommand deleteFirstCommandCopy = new DeleteStudentCommand(INDEX_FIRST_PERSON);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        DeleteStudentCommand deleteFirstCommandCopy = new DeleteStudentCommand(new Identity(1));
+        assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertNotEquals(1, deleteFirstCommand);
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertNotEquals(null, deleteFirstCommand);
 
         // different person -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertNotEquals(deleteFirstCommand, deleteSecondCommand);
     }
 
     @Test
     public void toStringMethod() {
-        Index targetIndex = Index.fromOneBased(1);
-        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(targetIndex);
-        String expected = DeleteStudentCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        Identity identity = new Identity(1);
+        DeleteStudentCommand deleteCommand = new DeleteStudentCommand(identity);
+        String expected = DeleteStudentCommand.class.getCanonicalName() + "{identity=" + identity + "}";
         assertEquals(expected, deleteCommand.toString());
     }
 

@@ -38,7 +38,7 @@ public class EditStudentCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder(AMY).build();
+        Person editedPerson = new PersonBuilder(AMY).withId(1).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditStudentCommand editCommand = new EditStudentCommand(INDEX_FIRST_PERSON, descriptor);
 

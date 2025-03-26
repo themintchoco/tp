@@ -2,8 +2,7 @@ package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalAddressBook.ALICE;
 import static tutorly.testutil.TypicalAddressBook.MATH_SESSION;
@@ -74,23 +73,23 @@ public class AssignStudentCommandTest {
         AssignStudentCommand assignBobFirstCommand = new AssignStudentCommand(bob, firstSession);
 
         // same object -> returns true
-        assertTrue(assignAliceFirstCommand.equals(assignAliceFirstCommand));
+        assertEquals(assignAliceFirstCommand, assignAliceFirstCommand);
 
         // same values -> returns true
         AssignStudentCommand assignAliceFirstCommandCopy = new AssignStudentCommand(alice, firstSession);
-        assertTrue(assignAliceFirstCommand.equals(assignAliceFirstCommandCopy));
+        assertEquals(assignAliceFirstCommand, assignAliceFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(assignAliceFirstCommand.equals(1));
+        assertNotEquals(1, assignAliceFirstCommand);
 
         // null -> returns false
-        assertFalse(assignAliceFirstCommand.equals(null));
+        assertNotEquals(null, assignAliceFirstCommand);
 
         // different person -> returns false
-        assertFalse(assignAliceFirstCommand.equals(assignBobFirstCommand));
+        assertNotEquals(assignAliceFirstCommand, assignBobFirstCommand);
 
         // different session -> returns false
-        assertFalse(assignAliceFirstCommand.equals(new AssignStudentCommand(alice, secondSession)));
+        assertNotEquals(assignAliceFirstCommand, new AssignStudentCommand(alice, secondSession));
     }
 
     @Test
@@ -106,12 +105,12 @@ public class AssignStudentCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -141,12 +140,12 @@ public class AssignStudentCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
