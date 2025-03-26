@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import tutorly.ui.Tab;
+
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -55,8 +57,18 @@ public class CommandResultTest {
     @Test
     public void toStringMethod() {
         CommandResult commandResult = new CommandResult("feedback");
-        String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
-                + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
+        String expected = CommandResult.class.getCanonicalName()
+                + "{feedbackToUser=" + commandResult.getFeedbackToUser()
+                + ", tab=null"
+                + ", showHelp=" + commandResult.isShowHelp()
+                + ", exit=" + commandResult.isExit() + "}";
+        assertEquals(expected, commandResult.toString());
+
+        commandResult = new CommandResult.Builder("feedback").withTab(Tab.STUDENT).showHelp().build();
+        expected = CommandResult.class.getCanonicalName()
+                + "{feedbackToUser=" + commandResult.getFeedbackToUser()
+                + ", tab=" + commandResult.getTab()
+                + ", showHelp=" + commandResult.isShowHelp()
                 + ", exit=" + commandResult.isExit() + "}";
         assertEquals(expected, commandResult.toString());
     }
