@@ -14,21 +14,22 @@ import tutorly.model.person.Person;
 /**
  * Restores a person identified using it's displayed ID from the address book.
  */
-public class RestoreCommand extends Command {
+public class RestoreStudentCommand extends StudentCommand {
 
     public static final String COMMAND_WORD = "restore";
+    public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Restores a previously archived person identified by the ID number "
             + "used in the displayed person list.\n"
             + "Parameters: ID (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_STRING + " 1";
 
     public static final String MESSAGE_RESTORE_PERSON_SUCCESS = "Restored Person: %1$s";
 
     private final Index targetId;
 
-    public RestoreCommand(Index targetId) {
+    public RestoreStudentCommand(Index targetId) {
         this.targetId = targetId;
     }
 
@@ -60,11 +61,11 @@ public class RestoreCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RestoreCommand)) {
+        if (!(other instanceof RestoreStudentCommand)) {
             return false;
         }
 
-        RestoreCommand otherRestoreCommand = (RestoreCommand) other;
+        RestoreStudentCommand otherRestoreCommand = (RestoreStudentCommand) other;
         return targetId.equals(otherRestoreCommand.targetId);
     }
 

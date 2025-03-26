@@ -7,18 +7,19 @@ import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.logic.commands.RestoreCommand;
+import tutorly.logic.commands.RestoreStudentCommand;
 
 public class RestoreCommandParserTest {
     private RestoreCommandParser parser = new RestoreCommandParser();
 
     @Test
     public void parse_validArgs_returnsRestoreCommand() {
-        assertParseSuccess(parser, "1", new RestoreCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new RestoreStudentCommand(INDEX_FIRST_PERSON));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestoreCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT, RestoreStudentCommand.MESSAGE_USAGE));
     }
 }

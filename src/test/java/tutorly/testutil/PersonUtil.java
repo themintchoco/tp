@@ -9,8 +9,8 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import tutorly.logic.commands.AddCommand;
-import tutorly.logic.commands.EditCommand.EditPersonDescriptor;
+import tutorly.logic.commands.AddStudentCommand;
+import tutorly.logic.commands.EditStudentCommand.EditPersonDescriptor;
 import tutorly.model.person.Person;
 import tutorly.model.tag.Tag;
 
@@ -23,7 +23,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return AddStudentCommand.COMMAND_STRING + " " + getPersonDetails(person);
     }
 
     /**

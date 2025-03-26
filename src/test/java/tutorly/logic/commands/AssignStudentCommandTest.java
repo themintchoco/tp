@@ -11,6 +11,7 @@ import static tutorly.testutil.TypicalAddressBook.MATH_SESSION;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,7 @@ import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
+import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.testutil.PersonBuilder;
@@ -167,6 +169,17 @@ public class AssignStudentCommandTest {
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Optional<Person> getPersonById(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Person> getPersonByName(Name name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {

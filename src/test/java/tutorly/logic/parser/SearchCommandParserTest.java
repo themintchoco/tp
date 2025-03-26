@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.logic.commands.SearchCommand;
+import tutorly.logic.commands.SearchStudentCommand;
 import tutorly.model.filter.Filter;
 import tutorly.model.filter.NameContainsKeywordsFilter;
 import tutorly.model.filter.PhoneContainsKeywordsFilter;
@@ -28,13 +28,13 @@ public class SearchCommandParserTest {
         assertParseFailure(
                 parser,
                 PREAMBLE_NON_EMPTY + NAME_DESC_AMY,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchStudentCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_blankKeywords_returnsSearchCommand() {
         Filter<Person> filter = Filter.any(List.of());
-        SearchCommand expectedSearchCommand = new SearchCommand(filter);
+        SearchStudentCommand expectedSearchCommand = new SearchStudentCommand(filter);
 
         assertParseSuccess(
                 parser,
@@ -48,7 +48,7 @@ public class SearchCommandParserTest {
         Filter<Person> filters = Filter.any(Arrays.asList(
                 new NameContainsKeywordsFilter(Arrays.asList("Alice", "Bob")),
                 new PhoneContainsKeywordsFilter(Arrays.asList("913", "8476"))));
-        SearchCommand expectedSearchCommand = new SearchCommand(filters);
+        SearchStudentCommand expectedSearchCommand = new SearchStudentCommand(filters);
         assertParseSuccess(
                 parser,
                 " " + PREFIX_NAME + "Alice Bob " + PREFIX_PHONE + "913 8476",

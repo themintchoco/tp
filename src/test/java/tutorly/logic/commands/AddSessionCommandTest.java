@@ -27,56 +27,56 @@ import tutorly.model.session.Session;
 import tutorly.model.session.UniqueSessionList;
 
 /**
- * Test class for CreateSessionCommand.
+ * Test class for AddSessionCommand.
  */
-public class CreateSessionCommandTest {
+public class AddSessionCommandTest {
 
     private ModelStub model;
     private Session session;
-    private CreateSessionCommand createSessionCommand;
+    private AddSessionCommand addSessionCommand;
 
     @BeforeEach
     void setUp() {
         model = new ModelStub();
         session = new Session(101, LocalDate.of(2025, 3, 18), "Mathematics");
-        createSessionCommand = new CreateSessionCommand(session);
+        addSessionCommand = new AddSessionCommand(session);
     }
 
     @Test
     void execute_success() throws CommandException {
-        CommandResult result = createSessionCommand.execute(model);
-        assertEquals(String.format(CreateSessionCommand.MESSAGE_SUCCESS, Messages.format(session)),
+        CommandResult result = addSessionCommand.execute(model);
+        assertEquals(String.format(AddSessionCommand.MESSAGE_SUCCESS, Messages.format(session)),
                 result.getFeedbackToUser());
     }
 
     @Test
     void execute_duplicateSession_throwsException() throws CommandException {
-        createSessionCommand.execute(model); // Add session first
-        assertThrows(CommandException.class, () -> createSessionCommand.execute(model));
+        addSessionCommand.execute(model); // Add session first
+        assertThrows(CommandException.class, () -> addSessionCommand.execute(model));
     }
 
     @Test
     void equals_sameObject() {
-        assertEquals(createSessionCommand, createSessionCommand);
+        assertEquals(addSessionCommand, addSessionCommand);
     }
 
     @Test
     void equals_differentObjectSameData() {
-        CreateSessionCommand commandCopy = new CreateSessionCommand(session);
-        assertEquals(createSessionCommand, commandCopy);
+        AddSessionCommand commandCopy = new AddSessionCommand(session);
+        assertEquals(addSessionCommand, commandCopy);
     }
 
     @Test
     void equals_differentObjects() {
         Session differentSession = new Session(102, LocalDate.of(2025, 3, 19), "Science");
-        CreateSessionCommand differentCommand = new CreateSessionCommand(differentSession);
-        assertNotEquals(createSessionCommand, differentCommand);
+        AddSessionCommand differentCommand = new AddSessionCommand(differentSession);
+        assertNotEquals(addSessionCommand, differentCommand);
     }
 
     @Test
     void toStringTest() {
-        String expected = "CreateSessionCommand{toCreate=" + session + "}";
-        assertTrue(createSessionCommand.toString().contains(expected));
+        String expected = "AddSessionCommand{toCreate=" + session + "}";
+        assertTrue(addSessionCommand.toString().contains(expected));
     }
 
     /**

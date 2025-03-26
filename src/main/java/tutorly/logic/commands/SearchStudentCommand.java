@@ -16,22 +16,24 @@ import tutorly.model.person.Person;
  * session with the session id.
  * Keyword matching is case-insensitive.
  */
-public class SearchCommand extends Command {
+public class SearchStudentCommand extends StudentCommand {
 
     public static final String COMMAND_WORD = "search";
+    public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches for all students who attended a session or "
+    public static final String MESSAGE_USAGE = COMMAND_STRING
+            + ": Searches for all students who attended a session or "
             + "whose fields contain any of the specified keywords (case-insensitive) and displays them as a list.\n"
             + "Parameters: "
             + "[" + PREFIX_SESSION + "SESSION_ID] "
             + "[" + PREFIX_NAME + "NAME_KEYWORDS] "
             + "[" + PREFIX_PHONE + "PHONE_KEYWORDS]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_SESSION + "1 " + PREFIX_NAME + "ali bob charli "
+            + "Example: " + COMMAND_STRING + " " + PREFIX_SESSION + "1 " + PREFIX_NAME + "ali bob charli "
             + PREFIX_PHONE + "9124 86192";
 
     private final Filter<Person> filter;
 
-    public SearchCommand(Filter<Person> filter) {
+    public SearchStudentCommand(Filter<Person> filter) {
         this.filter = filter;
     }
 
@@ -50,11 +52,11 @@ public class SearchCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SearchCommand)) {
+        if (!(other instanceof SearchStudentCommand)) {
             return false;
         }
 
-        SearchCommand otherSearchCommand = (SearchCommand) other;
+        SearchStudentCommand otherSearchCommand = (SearchStudentCommand) other;
         return filter.equals(otherSearchCommand.filter);
     }
 
