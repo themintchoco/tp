@@ -12,6 +12,7 @@ import tutorly.logic.commands.ClearCommand;
 import tutorly.logic.commands.Command;
 import tutorly.logic.commands.ExitCommand;
 import tutorly.logic.commands.HelpCommand;
+import tutorly.logic.commands.SessionCommand;
 import tutorly.logic.commands.StudentCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 
@@ -34,6 +35,10 @@ public class AddressBookParser implements Parser<Command> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parse(String userInput) throws ParseException {
+        if (userInput.isBlank()) {
+            return defaultCommand();
+        }
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -58,10 +63,13 @@ public class AddressBookParser implements Parser<Command> {
     /**
      * Parses a command word and arguments into a command.
      */
-    public Command parseCommand(String command, String args) throws ParseException {
+    protected Command parseCommand(String command, String args) throws ParseException {
         switch (command) {
         case StudentCommand.COMMAND_WORD:
             return new StudentCommandParser().parse(args);
+
+        case SessionCommand.COMMAND_WORD:
+            return new SessionCommandParser().parse(args);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -75,6 +83,10 @@ public class AddressBookParser implements Parser<Command> {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    protected Command defaultCommand() throws ParseException {
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
 
 }

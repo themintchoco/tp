@@ -10,6 +10,7 @@ import tutorly.logic.Messages;
 import tutorly.model.Model;
 import tutorly.model.filter.Filter;
 import tutorly.model.person.Person;
+import tutorly.ui.Tab;
 
 /**
  * Finds and lists all persons in address book whose fields contains any of the argument keywords, or attends the
@@ -41,8 +42,10 @@ public class SearchStudentCommand extends StudentCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(filter);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+        return new CommandResult.Builder(
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()))
+                .withTab(Tab.STUDENT)
+                .build();
     }
 
     @Override

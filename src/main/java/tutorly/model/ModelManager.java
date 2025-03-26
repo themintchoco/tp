@@ -26,6 +26,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Session> filteredSessions;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredSessions = new FilteredList<>(this.addressBook.getSessionList());
     }
 
     public ModelManager() {
@@ -141,6 +143,12 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    @Override
+    public ObservableList<Session> getFilteredSessionList() {
+        return filteredSessions;
+    }
+
+    @Override
     public ObservableList<Person> getArchivedPersonList() {
         return addressBook.getArchivedPersonList();
     }
@@ -149,6 +157,12 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Filter<Person> filter) {
         requireNonNull(filter);
         filteredPersons.setPredicate(filter.toPredicate(getAddressBook()));
+    }
+
+    @Override
+    public void updateFilteredSessionList(Filter<Session> filter) {
+        requireNonNull(filter);
+        filteredSessions.setPredicate(filter.toPredicate(getAddressBook()));
     }
 
     @Override
@@ -188,7 +202,8 @@ public class ModelManager implements Model {
 
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && filteredSessions.equals(otherModelManager.filteredSessions);
     }
 
 }

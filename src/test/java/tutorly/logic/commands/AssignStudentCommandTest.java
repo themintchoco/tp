@@ -185,12 +185,22 @@ public class AssignStudentCommandTest {
         }
 
         @Override
+        public ObservableList<Session> getFilteredSessionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getArchivedPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredPersonList(Filter<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredSessionList(Filter<Session> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

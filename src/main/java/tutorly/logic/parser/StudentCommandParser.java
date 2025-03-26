@@ -9,15 +9,16 @@ import tutorly.logic.commands.EditStudentCommand;
 import tutorly.logic.commands.ListStudentCommand;
 import tutorly.logic.commands.RestoreStudentCommand;
 import tutorly.logic.commands.SearchStudentCommand;
+import tutorly.logic.commands.StudentCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input.
+ * Subparser for the student command.
  */
 public class StudentCommandParser extends AddressBookParser {
 
     @Override
-    public Command parseCommand(String command, String args) throws ParseException {
+    protected Command parseCommand(String command, String args) throws ParseException {
         switch (command) {
         case ListStudentCommand.COMMAND_WORD:
             return new ListStudentCommand();
@@ -40,6 +41,11 @@ public class StudentCommandParser extends AddressBookParser {
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    @Override
+    protected Command defaultCommand() {
+        return new StudentCommand();
     }
 
 }
