@@ -106,6 +106,11 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns an unmodifiable view of the filtered session list
+     */
+    ObservableList<Session> getFilteredSessionList();
+
+    /**
      * Returns an unmodifiable view of the archived person list
      */
     ObservableList<Person> getArchivedPersonList();
@@ -117,6 +122,12 @@ public interface Model {
      */
     void updateFilteredPersonList(Filter<Person> filter);
 
+    /**
+     * Updates the filter of the filtered session list to filter by the given {@code filter}.
+     *
+     * @throws NullPointerException if {@code filter} is null.
+     */
+    void updateFilteredSessionList(Filter<Session> filter);
 
     /**
      * Returns true if a session with the same identity as {@code session} exists in the address book.

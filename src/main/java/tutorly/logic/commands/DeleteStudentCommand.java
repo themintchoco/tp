@@ -10,6 +10,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.person.Person;
+import tutorly.ui.Tab;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -43,7 +44,9 @@ public class DeleteStudentCommand extends StudentCommand {
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
+        return new CommandResult.Builder(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)))
+                .withTab(Tab.STUDENT)
+                .build();
     }
 
     @Override

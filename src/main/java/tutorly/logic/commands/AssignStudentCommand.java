@@ -11,6 +11,7 @@ import tutorly.model.Model;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
+import tutorly.ui.Tab;
 
 /**
  * Creates a new AttendanceRecord for a student to a session.
@@ -55,7 +56,10 @@ public class AssignStudentCommand extends StudentCommand {
         }
 
         model.addAttendanceRecord(record);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(person), Messages.format(session)));
+        return new CommandResult.Builder(
+                String.format(MESSAGE_SUCCESS, Messages.format(person), Messages.format(session)))
+                .withTab(Tab.STUDENT)
+                .build();
     }
 
     @Override
