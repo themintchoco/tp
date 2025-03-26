@@ -100,7 +100,6 @@ public class EditStudentCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getPersonById(IDENTITY_SECOND_PERSON.getId()).get(), editedPerson);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
