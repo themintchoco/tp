@@ -3,10 +3,8 @@ package tutorly.model.person;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.testutil.TypicalAddressBook.ALICE;
-import static tutorly.testutil.TypicalAddressBook.BOB;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.Optional;
@@ -22,69 +20,39 @@ class IdentityTest {
 
     @Test
     void constructor_withValidArgs_setsFields() {
-        Identity identity = new Identity(10, new Name("Alice"));
-        assertEquals(10, identity.getId());
-        assertEquals("Alice", identity.getName().fullName);
-    }
-
-    @Test
-    void setId_withValidArgs_updatesId() {
-        Identity identity = new Identity();
-        identity.setId(5);
-        assertEquals(5, identity.getId());
-    }
-
-    @Test
-    void setId_withInvalidArgs_throwsIllegalException() {
-        Identity identity = new Identity();
-        assertThrows(IllegalArgumentException.class, () -> identity.setId(0));
-        assertThrows(IllegalArgumentException.class, () -> identity.setId(-1));
+        Identity identity1 = new Identity(10);
+        Identity identity2 = new Identity(new Name("Alice"));
+        assertEquals(10, identity1.getId());
+        assertEquals("Alice", identity2.getName().fullName);
     }
 
     @Test
     void isIdPresent_idIsSet_returnsTrue() {
-        Identity identity = new Identity(10, null);
+        Identity identity = new Identity(10);
         assertTrue(identity.isIdPresent());
     }
 
     @Test
     void isIdPresent_idIsNotSet_returnsFalse() {
-        Identity identity = new Identity();
+        Identity identity = new Identity(new Name("Alice"));
         assertFalse(identity.isIdPresent());
     }
 
     @Test
-    void setName_updatesName() {
-        Identity identity = new Identity();
-        Name name = new Name("Bob");
-        identity.setName(name);
-        assertEquals(name, identity.getName());
-    }
-
-    @Test
     void isNamePresent_nameIsSet_returnsTrue() {
-        Identity identity = new Identity(1, new Name("Carol"));
+        Identity identity = new Identity(new Name("Carol"));
         assertTrue(identity.isNamePresent());
     }
 
     @Test
     void isNamePresent_nameIsNotSet_returnsFalse() {
-        Identity identity = new Identity();
+        Identity identity = new Identity(10);
         assertFalse(identity.isNamePresent());
     }
 
     @Test
-    void getPerson_withNoIdAndNoName_returnsEmptyPerson() {
-        Identity identity = new Identity();
-        Optional<Person> result = identity.getPerson(model);
-
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
     void getPerson_withIdInModel_returnsPerson() {
-        Identity identity = new Identity();
-        identity.setId(1);
+        Identity identity = new Identity(1);
         Optional<Person> result = identity.getPerson(model);
 
         assertTrue(result.isPresent());
@@ -93,8 +61,7 @@ class IdentityTest {
 
     @Test
     void getPerson_withIdNotInModel_returnsEmptuPerson() {
-        Identity identity = new Identity();
-        identity.setId(100);
+        Identity identity = new Identity(100);
         Optional<Person> result = identity.getPerson(model);
 
         assertTrue(result.isEmpty());
@@ -102,8 +69,7 @@ class IdentityTest {
 
     @Test
     void getPerson_withNameInModel_returnsPerson() {
-        Identity identity = new Identity();
-        identity.setName(ALICE.getName());
+        Identity identity = new Identity(ALICE.getName());
         Optional<Person> result = identity.getPerson(model);
 
         assertTrue(result.isPresent());
@@ -112,25 +78,7 @@ class IdentityTest {
 
     @Test
     void getPerson_withNameNotInModel_returnsEmptyPerson() {
-        Identity identity = new Identity();
-        identity.setName(new Name("Invalid Name"));
-        Optional<Person> result = identity.getPerson(model);
-
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void getPerson_withIdAndNameInModel_returnsPerson() {
-        Identity identity = new Identity(ALICE.getId(), BOB.getName());
-        Optional<Person> result = identity.getPerson(model);
-
-        assertTrue(result.isPresent());
-        assertEquals(ALICE, result.get());
-    }
-
-    @Test
-    void getPerson_withIdAndNameNotInModel_returnsEmptyPerson() {
-        Identity identity = new Identity(100, BOB.getName());
+        Identity identity = new Identity(new Name("Invalid Name"));
         Optional<Person> result = identity.getPerson(model);
 
         assertTrue(result.isEmpty());
@@ -138,10 +86,10 @@ class IdentityTest {
 
     @Test
     void equals() {
-        Identity identity = new Identity(10, new Name("Alice"));
+        Identity identity = new Identity(10);
 
         // same values -> returns true
-        assertEquals(identity, new Identity(10, new Name("Alice")));
+        assertEquals(identity, new Identity(10));
 
         // same object -> returns true
         assertEquals(identity, identity);
@@ -153,12 +101,12 @@ class IdentityTest {
         assertFalse(identity.equals(5.0f));
 
         // different values -> returns false
-        assertNotEquals(identity, new Identity(10, new Name("Bob")));
+        assertNotEquals(identity, new Identity(11));
     }
 
     @Test
     void toStringMethod() {
-        String expected = Identity.class.getCanonicalName() + "{id=" + 42 + ", name=Alice}";
-        assertEquals(expected, new Identity(42, new Name("Alice")).toString());
+        String expected = Identity.class.getCanonicalName() + "{id=" + 42 + ", name=null}";
+        assertEquals(expected, new Identity(42).toString());
     }
 }

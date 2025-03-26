@@ -9,7 +9,6 @@ import tutorly.model.Model;
 /**
  * Represents a Person's identity.
  * Since a person's ID and Name are unique in the address book, they can be used to identify a Person.
- * Does not check that the ID and Name fields provided correspond to the same Person in the address book.
  */
 public class Identity {
 
@@ -18,30 +17,30 @@ public class Identity {
     private int id;
     private Name name;
 
-    public Identity() {
+    /**
+     * Creates an identity with the given name.
+     *
+     * @param name The ID of the person.
+     */
+    public Identity(Name name) {
+        this.name = name;
     }
 
     /**
-     * Creates an identity with the given ID and name.
+     * Creates an identity with the given ID.
      *
-     * @param id   The ID of the person.
-     * @param name The name of the person.
+     * @param id The ID of the person.
      */
-    public Identity(int id, Name name) {
-        setId(id);
-        setName(name);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Identity(int id) {
         if (id < 1) {
             throw new IllegalArgumentException(MESSAGE_INVALID_ID);
         }
 
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     /**
@@ -55,10 +54,6 @@ public class Identity {
 
     public Name getName() {
         return name;
-    }
-
-    public void setName(Name name) {
-        this.name = name;
     }
 
     /**

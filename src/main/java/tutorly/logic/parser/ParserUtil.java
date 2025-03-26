@@ -11,6 +11,7 @@ import tutorly.commons.util.StringUtil;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
@@ -21,12 +22,32 @@ import tutorly.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final String MESSAGE_INVALID_IDENTITY = "Identity provided is not a valid ID or name.";
     public static final String MESSAGE_INVALID_ID = "ID is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
+     * Parses {@code String identity} into an {@code Identity} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     *
+     * @throws ParseException if the specified identity is invalid (not non-zero unsigned integer or valid name).
+     */
+    public static Identity parseIdentity(String identity) throws ParseException {
+        requireNonNull(identity);
+        String trimmedIdentity = identity.trim();
+        if (StringUtil.isNonZeroUnsignedInteger(trimmedIdentity)) {
+            return new Identity(Integer.parseInt(trimmedIdentity));
+        }
+        if (Name.isValidName(trimmedIdentity)) {
+            return new Identity(new Name(trimmedIdentity));
+        }
+        throw new ParseException(MESSAGE_INVALID_IDENTITY);
+    }
+
+    /**
      * Parses {@code String id} into an {@code int} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified id is invalid (not non-zero unsigned integer).
      */
     public static int parseId(String id) throws ParseException {
@@ -41,6 +62,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {

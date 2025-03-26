@@ -45,7 +45,7 @@ public class MessagesTest {
 
         Person person = new Person(name, phone, email, address, tags, memo);
 
-        String expectedFormat = "John Doe; Phone: 12345678; Email: john@example.com; Address: 123 Street; "
+        String expectedFormat = "id: 0; Name: John Doe; Phone: 12345678; Email: john@example.com; Address: 123 Street; "
                 + "Tags: [student, friend]; Memo: Important client";
 
         assertEquals(expectedFormat, Messages.format(person));

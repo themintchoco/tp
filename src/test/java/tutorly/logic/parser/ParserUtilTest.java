@@ -3,6 +3,7 @@ package tutorly.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_ID;
+import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_IDENTITY;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -17,11 +18,13 @@ import org.junit.jupiter.api.Test;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
 import tutorly.model.tag.Tag;
 
 public class ParserUtilTest {
+    private static final String INVALID_ID = "-1";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
@@ -36,6 +39,28 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
+
+    @Test
+    public void parseIdentity_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseIdentity(null));
+    }
+
+    @Test
+    public void parseIdentity_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_INVALID_IDENTITY, () -> ParserUtil.parseIdentity(INVALID_NAME));
+        assertThrows(ParseException.class, MESSAGE_INVALID_IDENTITY, () -> ParserUtil.parseIdentity(INVALID_ID));
+    }
+
+    @Test
+    public void parseIdentity_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(new Identity(new Name(VALID_NAME)), ParserUtil.parseIdentity(VALID_NAME));
+        assertEquals(new Identity(1), ParserUtil.parseIdentity("1"));
+
+        // Leading and trailing whitespaces
+        assertEquals(new Identity(new Name(VALID_NAME)), ParserUtil.parseIdentity("  " + VALID_NAME + "  "));
+        assertEquals(new Identity(1), ParserUtil.parseIdentity("  1  "));
+    }
 
     @Test
     public void parseId_null_throwsNullPointerException() {

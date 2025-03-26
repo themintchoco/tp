@@ -1,13 +1,16 @@
 package tutorly.logic.parser;
 
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tutorly.logic.commands.CommandTestUtil.VALID_ID_AMY;
+import static tutorly.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
 import tutorly.logic.commands.DeleteStudentCommand;
+import tutorly.model.person.Identity;
+import tutorly.model.person.Name;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -18,16 +21,23 @@ import tutorly.logic.commands.DeleteStudentCommand;
  */
 public class DeleteCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private final DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteStudentCommand(INDEX_FIRST_PERSON));
+    public void parse_id_returnsDeleteCommand() {
+        Identity identity = new Identity(Integer.parseInt(VALID_ID_AMY));
+        assertParseSuccess(parser, VALID_ID_AMY, new DeleteStudentCommand(identity));
+    }
+
+    @Test
+    public void parse_name_returnsDeleteCommand() {
+        Identity identity = new Identity(new Name(VALID_NAME_AMY));
+        assertParseSuccess(parser, VALID_NAME_AMY, new DeleteStudentCommand(identity));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, DeleteStudentCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "10_Amy",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteStudentCommand.MESSAGE_USAGE));
     }
 }
