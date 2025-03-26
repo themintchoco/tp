@@ -25,6 +25,25 @@ public class AttendanceRecordTest {
     }
 
     @Test
+    public void getAttendance() {
+        AttendanceRecord attendanceRecord = new AttendanceRecord(student.getId(), session.getId(), false);
+        assertEquals(attendanceRecord.getAttendance(), false);
+    }
+
+    @Test
+    public void getFeedback() {
+        AttendanceRecord attendanceRecord = new AttendanceRecord(student.getId(), session.getId(), false);
+        assertEquals(attendanceRecord.getFeedback(), "");
+    }
+
+    @Test
+    public void setFeedback() {
+        AttendanceRecord attendanceRecord = new AttendanceRecord(student.getId(), session.getId(), false);
+        attendanceRecord.setFeedback("Good job!");
+        assertEquals(attendanceRecord.getFeedback(), "Good job!");
+    }
+
+    @Test
     public void equals() {
         AttendanceRecord attendanceRecord = new AttendanceRecord(student.getId(), session.getId(), false);
         AttendanceRecord attendanceRecordCopy = new AttendanceRecord(student.getId(), session.getId(), true);
@@ -49,7 +68,8 @@ public class AttendanceRecordTest {
         System.out.println(attendanceRecord.toString());
         String expected = AttendanceRecord.class.getCanonicalName() + "{studentId=" + student.getId()
                 + ", sessionId=" + session.getId()
-                + ", isPresent=" + false + "}";
+                + ", isPresent=" + false
+                + ", feedback=" + "" + "}";
         assert attendanceRecord.toString().equals(expected);
     }
 }
