@@ -172,11 +172,17 @@ public class AddressBookTest {
     }
 
     @Test
-    //test total session
     public void getTotalSessions() {
-        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
-        addressBook.addSession(session);
+        AddressBook addressBook = new AddressBook();
+        assertEquals(0, addressBook.getTotalSessions());
+
+        Session session1 = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        addressBook.addSession(session1);
         assertEquals(1, addressBook.getTotalSessions());
+
+        Session session2 = new Session(2, LocalDate.parse("2025-03-19"), "Physics");
+        addressBook.addSession(session2);
+        assertEquals(2, addressBook.getTotalSessions());
     }
 
     private static class AddressBookStub implements ReadOnlyAddressBook {
