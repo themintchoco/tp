@@ -101,14 +101,29 @@ public interface Model {
     Optional<Person> getPersonByName(Name name);
 
     /**
+     * Returns an unmodifiable view of the person list
+     */
+    ObservableList<Person> getPersonList();
+
+    /**
      * Returns an unmodifiable view of the filtered person list
      */
     ObservableList<Person> getFilteredPersonList();
 
     /**
+     * Returns an unmodifiable view of the session list
+     */
+    ObservableList<Session> getSessionList();
+
+    /**
      * Returns an unmodifiable view of the filtered session list
      */
     ObservableList<Session> getFilteredSessionList();
+
+    /**
+     * Returns an unmodifiable view of the attendance record list
+     */
+    ObservableList<AttendanceRecord> getAttendanceRecordList();
 
     /**
      * Returns an unmodifiable view of the archived person list

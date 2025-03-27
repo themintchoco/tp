@@ -153,12 +153,27 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getPersonList() {
+            return null;
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             return null;
         }
 
         @Override
+        public ObservableList<Session> getSessionList() {
+            return null;
+        }
+
+        @Override
         public ObservableList<Session> getFilteredSessionList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<AttendanceRecord> getAttendanceRecordList() {
             return null;
         }
 

@@ -15,6 +15,7 @@ import tutorly.logic.parser.AddressBookParser;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.Model;
 import tutorly.model.ReadOnlyAddressBook;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.storage.Storage;
@@ -68,13 +69,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Person> getPersonList() {
+        return model.getPersonList();
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 
     @Override
+    public ObservableList<Session> getSessionList() {
+        return model.getSessionList();
+    }
+
+    @Override
     public ObservableList<Session> getFilteredSessionList() {
         return model.getFilteredSessionList();
+    }
+
+    @Override
+    public ObservableList<AttendanceRecord> getAttendanceRecordList() {
+        return model.getAttendanceRecordList();
     }
 
     @Override

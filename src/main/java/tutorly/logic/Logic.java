@@ -9,6 +9,7 @@ import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.Model;
 import tutorly.model.ReadOnlyAddressBook;
+import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 
@@ -32,11 +33,20 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /** Returns an unmodifiable view of the list of persons */
+    ObservableList<Person> getPersonList();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the list of sessions */
+    ObservableList<Session> getSessionList();
+
     /** Returns an unmodifiable view of the filtered list of sessions */
     ObservableList<Session> getFilteredSessionList();
+
+    /** Returns an unmodifiable view of the list of attendance records */
+    ObservableList<AttendanceRecord> getAttendanceRecordList();
 
     /**
      * Returns the user prefs' address book file path.
