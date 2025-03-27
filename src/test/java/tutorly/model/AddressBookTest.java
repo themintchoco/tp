@@ -92,6 +92,30 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getArchivedPersonById_personNotInArchivedPersons_returnsEmptyOptional() {
+        assertFalse(addressBook.getArchivedPersonById(1).isPresent());
+    }
+
+    @Test
+    public void getArchivedPersonById_personInArchivedPersons_returnsPerson() {
+        addressBook.addPerson(ALICE);
+        addressBook.removePerson(ALICE);
+        assertEquals(ALICE, addressBook.getArchivedPersonById(1).get());
+    }
+
+    @Test
+    public void getArchivedPersonByName_personNotInArchivedPersons_returnsEmptyOptional() {
+        assertFalse(addressBook.getArchivedPersonByName(ALICE.getName()).isPresent());
+    }
+
+    @Test
+    public void getArchivedPersonByName_personInArchivedPersons_returnsPerson() {
+        addressBook.addPerson(ALICE);
+        addressBook.removePerson(ALICE);
+        assertEquals(ALICE, addressBook.getArchivedPersonByName(ALICE.getName()).get());
+    }
+
+    @Test
     public void addSession_validSession_success() {
         Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
         addressBook.addSession(session);

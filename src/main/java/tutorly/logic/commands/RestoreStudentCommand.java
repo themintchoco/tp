@@ -2,18 +2,18 @@ package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
+import java.util.Optional;
 
-import tutorly.commons.core.index.Index;
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.ui.Tab;
 
 /**
- * Restores a person identified using it's displayed ID from the address book.
+ * Restores a person identified by their name or ID from the archived list in the address book.
  */
 public class RestoreStudentCommand extends StudentCommand {
 
@@ -21,39 +21,34 @@ public class RestoreStudentCommand extends StudentCommand {
     public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
-            + ": Restores a previously archived person identified by the ID number "
-            + "used in the displayed person list.\n"
-            + "Parameters: ID (must be a positive integer)\n"
+            + ": Restores a previously deleted student identified either by their ID or name.\n"
+            + "Parameters: STUDENT_IDENTIFIER\n"
             + "Example: " + COMMAND_STRING + " 1";
 
-    public static final String MESSAGE_RESTORE_PERSON_SUCCESS = "Restored Person: %1$s";
+    public static final String MESSAGE_RESTORE_PERSON_SUCCESS = "Restored student: %1$s";
 
-    private final Index targetId;
+    private final Identity identity;
 
-    public RestoreStudentCommand(Index targetId) {
-        this.targetId = targetId;
+    public RestoreStudentCommand(Identity identity) {
+        this.identity = identity;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getArchivedPersonList();
 
-        // get person from archive list by persons ID attribute
-        Person personToRestore = null;
-        for (Person person : lastShownList) {
-            if (person.getId() == targetId.getOneBased()) {
-                personToRestore = person;
-            }
+        Optional<Person> toRestore = identity.getPerson(model, true);
+        if (toRestore.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
 
-        if (personToRestore == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (model.hasPerson(toRestore.get())) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.restorePerson(personToRestore);
+        model.restorePerson(toRestore.get());
         return new CommandResult.Builder(
-                String.format(MESSAGE_RESTORE_PERSON_SUCCESS, Messages.format(personToRestore)))
+                String.format(MESSAGE_RESTORE_PERSON_SUCCESS, Messages.format(toRestore.get())))
                 .withTab(Tab.STUDENT)
                 .build();
     }
@@ -65,18 +60,17 @@ public class RestoreStudentCommand extends StudentCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof RestoreStudentCommand)) {
+        if (!(other instanceof RestoreStudentCommand otherRestoreCommand)) {
             return false;
         }
 
-        RestoreStudentCommand otherRestoreCommand = (RestoreStudentCommand) other;
-        return targetId.equals(otherRestoreCommand.targetId);
+        return identity.equals(otherRestoreCommand.identity);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetId", targetId)
+                .add("identity", identity)
                 .toString();
     }
 }
