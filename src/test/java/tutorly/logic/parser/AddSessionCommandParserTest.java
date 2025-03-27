@@ -2,6 +2,7 @@ package tutorly.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
@@ -87,4 +88,35 @@ public class AddSessionCommandParserTest {
             }
         });
     }
+
+    @Test
+    void parse_invalidDateFormat_throwsParseException() {
+        String invalidArgs = " d/2025/03/27 s/Mathematics"; // Wrong date format (slashes instead of dashes)
+
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse(invalidArgs));
+        String expectedMessage = "Invalid command format! \n"
+                + "session add: Creates a tutoring session. Parameters: d/DATE sub/SUBJECT\n"
+                + "Example: session add d/2025-03-18 sub/Mathematics";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    void parse_invalidDateValue_throwsParseException() {
+        String invalidArgs = " d/2025-02-30 s/Mathematics"; // Invalid date (Feb 30 does not exist)
+
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse(invalidArgs));
+        String expectedMessage = "Invalid command format! \n"
+                + "session add: Creates a tutoring session. Parameters: d/DATE sub/SUBJECT\n"
+                + "Example: session add d/2025-03-18 sub/Mathematics";
+        assertEquals(expectedMessage, exception.getMessage()); // Adjust based on actual message from ParserUtil
+    }
+
+    @Test
+    void parse_missingPrefixes_throwsParseException() {
+        String invalidArgs = " 2025-03-27 Mathematics"; // Missing 'd/' and 's/' prefixes
+
+        ParseException exception = assertThrows(ParseException.class, () -> parser.parse(invalidArgs));
+        assertTrue(exception.getMessage().contains("Invalid command format"));
+    }
+
 }
