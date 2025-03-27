@@ -168,6 +168,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addSession(Session s) {
         sessions.add(s);
+
+        if (s.getId() == 0) {
+            // Set the session ID of the session if it has not been set
+            s.setId(getTotalSessions() + 1);
+        }
     }
 
     /**
@@ -230,6 +235,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public int getTotalPersons() {
         return persons.size() + archivedPersons.size();
+    }
+
+    /**
+     * Returns the total number of sessions that have been added to the address book.
+     */
+    public int getTotalSessions() {
+        return sessions.size();
     }
 
     @Override
