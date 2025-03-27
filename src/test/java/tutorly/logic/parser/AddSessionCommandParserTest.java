@@ -1,5 +1,6 @@
 package tutorly.logic.parser;
 
+import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -26,19 +27,15 @@ public class AddSessionCommandParserTest {
 
     @Test
     public void parse_missingDate_throwsParseException() {
-        String userInput = " " + PREFIX_SUBJECT + "Mathematics";
-        String expectedMessage = "Invalid command format! \n"
-                + "session add: Creates a tutoring session. Parameters: d/DATE sub/SUBJECT\n"
-                + "Example: session add d/2025-03-18 sub/Mathematics";
+        String userInput = PREFIX_SUBJECT + "Mathematics";
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSessionCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
     @Test
     public void parse_missingSubject_throwsParseException() {
         String userInput = " " + PREFIX_DATE + "2025-03-18";
-        String expectedMessage = "Invalid command format! \n"
-                + "session add: Creates a tutoring session. Parameters: d/DATE sub/SUBJECT\n"
-                + "Example: session add d/2025-03-18 sub/Mathematics";
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSessionCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
@@ -59,9 +56,7 @@ public class AddSessionCommandParserTest {
     @Test
     public void parse_missingPrefixes_throwsParseException() {
         String userInput = " 2025-03-27 Mathematics"; // Missing 'd/' and 's/' prefixes
-        String expectedMessage = "Invalid command format! \n"
-                + "session add: Creates a tutoring session. Parameters: d/DATE sub/SUBJECT\n"
-                + "Example: session add d/2025-03-18 sub/Mathematics";
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSessionCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 }
