@@ -30,7 +30,7 @@ public class AssignStudentCommand extends StudentCommand {
                     + "Example: " + COMMAND_STRING + " 1 "
                     + PREFIX_SESSION + "2 ";
 
-    public static final String MESSAGE_SUCCESS = "%1$s assigned to %2$s";
+    public static final String MESSAGE_SUCCESS = "%1$s assigned to Session: %2$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This student is already assigned to the session";
     public static final boolean DEFAULT_PRESENCE = false;
 
@@ -67,7 +67,7 @@ public class AssignStudentCommand extends StudentCommand {
 
         model.addAttendanceRecord(record);
         return new CommandResult.Builder(
-                String.format(MESSAGE_SUCCESS, Messages.format(person.get()), Messages.format(session.get())))
+                String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
                 .withTab(Tab.STUDENT)
                 .build();
     }
