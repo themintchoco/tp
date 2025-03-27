@@ -8,8 +8,6 @@ import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static tutorly.testutil.TypicalIdentities.IDENTITY_FIRST_PERSON;
 import static tutorly.testutil.TypicalIdentities.IDENTITY_SECOND_PERSON;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 
 import tutorly.logic.Messages;
@@ -19,21 +17,22 @@ import tutorly.model.ModelManager;
 import tutorly.model.UserPrefs;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
+import tutorly.testutil.PersonBuilder;
 
 public class RestoreStudentCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIdentity_success() throws CommandException {
-        Optional<Person> personToRestore = model.getPersonById(IDENTITY_FIRST_PERSON.getId(), false);
-        model.deletePerson(personToRestore.get());
+        Person personToRestore = model.getPersonById(IDENTITY_FIRST_PERSON.getId(), false).get();
+        model.deletePerson(personToRestore);
         RestoreStudentCommand restoreCommand = new RestoreStudentCommand(IDENTITY_FIRST_PERSON);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         restoreCommand.execute(model);
 
         // assert people list is the same
-        assertTrue(model.getFilteredPersonList().contains(personToRestore.get()));
+        assertTrue(model.getFilteredPersonList().contains(personToRestore));
     }
 
     @Test
@@ -42,6 +41,19 @@ public class RestoreStudentCommandTest {
         RestoreStudentCommand restoreCommand = new RestoreStudentCommand(identity);
 
         assertCommandFailure(restoreCommand, model, Messages.MESSAGE_PERSON_NOT_FOUND);
+    }
+
+    @Test
+    public void execute_duplicateName_throwsCommandException() {
+        Person personToRestore = model.getPersonById(IDENTITY_FIRST_PERSON.getId(), false).get();
+        model.deletePerson(personToRestore);
+
+        Person editedPerson = model.getPersonById(IDENTITY_SECOND_PERSON.getId(), false).get();
+        model.setPerson(editedPerson,
+                new PersonBuilder(editedPerson).withName(personToRestore.getName().fullName).build());
+        RestoreStudentCommand restoreCommand = new RestoreStudentCommand(new Identity(personToRestore.getName()));
+
+        assertCommandFailure(restoreCommand, model, Messages.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
