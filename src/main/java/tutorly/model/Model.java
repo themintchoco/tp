@@ -141,6 +141,11 @@ public interface Model {
     void addSession(Session toCreate);
 
     /**
+     * Returns an optional of the session with the given id.
+     */
+    Optional<Session> getSessionById(int id);
+
+    /**
      * Returns true if an AttendanceRecord with the same identity as
      * {@code record} exists in the address book.
      */

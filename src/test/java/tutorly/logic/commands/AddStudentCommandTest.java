@@ -203,6 +203,11 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public Optional<Session> getSessionById(int id) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasAttendanceRecord(AttendanceRecord record) {
             throw new AssertionError("This method should not be called.");
         }

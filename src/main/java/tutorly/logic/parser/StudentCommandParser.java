@@ -3,6 +3,7 @@ package tutorly.logic.parser;
 import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import tutorly.logic.commands.AddStudentCommand;
+import tutorly.logic.commands.AssignStudentCommand;
 import tutorly.logic.commands.Command;
 import tutorly.logic.commands.DeleteStudentCommand;
 import tutorly.logic.commands.EditStudentCommand;
@@ -37,6 +38,9 @@ public class StudentCommandParser extends AddressBookParser {
 
         case SearchStudentCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(args);
+
+        case AssignStudentCommand.COMMAND_WORD:
+            return new AssignCommandParser().parse(args);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

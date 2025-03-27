@@ -178,6 +178,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Optional<Session> getSessionById(int id) {
+        return addressBook.getSessionById(id);
+    }
+
+    @Override
     public boolean hasAttendanceRecord(AttendanceRecord record) {
         requireNonNull(record);
         return addressBook.hasAttendanceRecord(record);
