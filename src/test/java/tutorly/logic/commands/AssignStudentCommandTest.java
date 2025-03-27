@@ -33,7 +33,7 @@ public class AssignStudentCommandTest {
     @Test
     public void execute_attendanceRecordAcceptedByModel_addSuccessful() throws Exception {
         CommandResult commandResult = new AssignStudentCommand(bensonIdentity, ENGLISH_SESSION.getId()).execute(model);
-        assertEquals(String.format(AssignStudentCommand.MESSAGE_SUCCESS, Messages.format(BENSON),
+        assertEquals(String.format(AssignStudentCommand.MESSAGE_SUCCESS, BENSON.getName().fullName,
                 Messages.format(ENGLISH_SESSION)), commandResult.getFeedbackToUser());
 
         AttendanceRecord expectedRecord = new AttendanceRecord(
