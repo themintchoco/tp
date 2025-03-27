@@ -9,6 +9,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.session.Session;
+import tutorly.ui.Tab;
 
 /**
  * Creates a new tutoring session.
@@ -51,7 +52,9 @@ public class AddSessionCommand extends SessionCommand {
         }
 
         model.addSession(toCreate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toCreate)));
+        return new CommandResult.Builder(String.format(MESSAGE_SUCCESS, Messages.format(toCreate)))
+                .withTab(Tab.SESSION)
+                .build();
     }
 
     @Override

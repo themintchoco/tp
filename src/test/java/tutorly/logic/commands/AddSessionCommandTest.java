@@ -158,12 +158,21 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public ObservableList<Session> getFilteredSessionList() {
+            return null;
+        }
+
+        @Override
         public ObservableList<Person> getArchivedPersonList() {
             return null;
         }
 
         @Override
         public void updateFilteredPersonList(Filter<Person> predicate) {
+        }
+
+        @Override
+        public void updateFilteredSessionList(Filter<Session> predicate) {
         }
 
         @Override
