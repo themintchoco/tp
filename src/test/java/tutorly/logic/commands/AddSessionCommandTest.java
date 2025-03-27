@@ -186,6 +186,11 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public Optional<Session> getSessionById(int id) {
+            return Optional.empty();
+        }
+
+        @Override
         public boolean hasAttendanceRecord(AttendanceRecord record) {
             return false;
         }

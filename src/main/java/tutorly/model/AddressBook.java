@@ -185,6 +185,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns the person with the given ID if it exists in the address book.
+     */
+    public Optional<Session> getSessionById(int id) {
+        return sessions.getSessionById(id);
+    }
+
+    /**
      * Replaces the given session {@code target} in the list with {@code editedSession}.
      * {@code target} must exist in the address book.
      * The session identity of {@code editedSession} must not be the same as another session in the address book.
