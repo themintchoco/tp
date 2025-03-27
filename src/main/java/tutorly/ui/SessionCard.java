@@ -30,19 +30,18 @@ public class SessionCard extends UiPart<Region> {
     @FXML
     private Label subject;
     @FXML
-    private Label sessionId;
-    @FXML
     private Label date;
 
     /**
-     * Creates a {@code SessionCard} with the given {@code Session} and index to display.
+     * Creates a {@code SessionCard} with the given {@code Session}.
      */
-    public SessionCard(Session session, int displayedIndex) {
+    public SessionCard(Session session) {
         super(FXML);
         this.session = session;
-        id.setText(displayedIndex + ". ");
-        sessionId.setText("Session ID: " + session.getId());
+        id.setText(session.getId() + ". ");
         subject.setText(session.getSubject());
+
+        date.setGraphic(Icons.getCalendarIcon());
         date.setText(session.getDate().toString());
     }
 }

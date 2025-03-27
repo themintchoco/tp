@@ -14,8 +14,8 @@ public class SessionListPanel extends ListPanel<Session> {
     }
 
     @Override
-    protected UiPart<Region> getItemGraphic(Session session, int index) {
-        return new SessionCard(session, index);
+    protected UiPart<Region> getItemGraphic(Session session) {
+        return new SessionCard(session);
     };
 
 }
