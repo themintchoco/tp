@@ -48,7 +48,7 @@ public class PersonCard extends UiPart<Region> {
     private Label memo;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person}.
+     * Creates a {@code PersonCard} with the given {@code Person}.
      */
     public PersonCard(Person person) {
         super(FXML);

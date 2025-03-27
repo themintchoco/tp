@@ -92,13 +92,15 @@ public interface Model {
 
     /**
      * Returns an optional of the person with the given id.
+     * If {@code fromArchived} is true, the person is searched from the archived person list.
      */
-    Optional<Person> getPersonById(int id);
+    Optional<Person> getPersonById(int id, boolean fromArchived);
 
     /**
      * Returns an optional of the person with the given name.
+     * If {@code fromArchived} is true, the person is searched from the archived person list.
      */
-    Optional<Person> getPersonByName(Name name);
+    Optional<Person> getPersonByName(Name name, boolean fromArchived);
 
     /**
      * Returns an unmodifiable view of the filtered person list
