@@ -110,6 +110,20 @@ Shows the session tab in the main window.
 
 Format: `session`
 
+#### Viewing attendance for a session: `session ID`
+
+Shows the attendance of students for a given session.
+
+Format: `session SESSION_ID`
+
+Examples:
+* `session 1`
+* `session 5`
+* 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+The main window will automatically switch to the tab which shows the results of the command that has been executed.
+</div>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ### Student Management
@@ -310,6 +324,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | Exit             | `exit`                                                                                        | -                                          |
 | Tab     | Show student tab | `student`                                                                                     | -                                          |
 |         | Show session tab | `session`                                                                                     | -                                          |
+|         | Show attendance  | `session ID`                                                                                  | `session 4`                                |
 | Student | Add              | `student add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​`                | `student add n/John Doe p/98765432`        |
 |         | List             | `student list`                                                                                | -                                          |
 |         | Edit             | `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​` | `student edit 2 n/James Lee p/91234567`    |
