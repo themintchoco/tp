@@ -143,12 +143,12 @@ public class AddSessionCommandTest {
         }
 
         @Override
-        public Optional<Person> getPersonById(int id) {
+        public Optional<Person> getPersonById(int id, boolean fromArchived) {
             return Optional.empty();
         }
 
         @Override
-        public Optional<Person> getPersonByName(Name name) {
+        public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
             return Optional.empty();
         }
 
@@ -198,6 +198,11 @@ public class AddSessionCommandTest {
         @Override
         public void addSession(Session session) {
             sessions.add(session);
+        }
+
+        @Override
+        public Optional<Session> getSessionById(int id) {
+            return Optional.empty();
         }
 
         @Override

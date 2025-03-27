@@ -67,19 +67,29 @@ public class Identity {
 
     /**
      * Returns the person with the identity if it exists in the model.
-     * If both ID and name are present in the identity, ID will be used instead.
      *
-     * @param model The model to retrieve the person from.
-     * @return The person with the given ID or name if it exists in the model.
+     * @param model        The model to retrieve the person from.
+     * @param fromArchived True if the person is to be retrieved from the archived person list.
+     * @return An optional containing the person with the given ID or name if it exists in the model.
      */
-    public Optional<Person> getPerson(Model model) {
+    public Optional<Person> getPerson(Model model, boolean fromArchived) {
         if (isIdPresent()) {
-            return model.getPersonById(id);
+            return model.getPersonById(id, fromArchived);
         } else if (isNamePresent()) {
-            return model.getPersonByName(name);
+            return model.getPersonByName(name, fromArchived);
         }
 
         return Optional.empty();
+    }
+
+    /**
+     * Returns the person from the current person list with the identity if it exists in the model.
+     *
+     * @param model The model to retrieve the person from.
+     * @return An optional containing the person with the given ID or name if it exists in the model.
+     */
+    public Optional<Person> getPerson(Model model) {
+        return getPerson(model, false);
     }
 
     @Override
@@ -93,10 +103,7 @@ public class Identity {
             return false;
         }
 
-        return isIdPresent() == otherIdentity.isIdPresent()
-                && id == otherIdentity.id
-                && isNamePresent() == otherIdentity.isNamePresent()
-                && Objects.equals(name, otherIdentity.name);
+        return id == otherIdentity.id && Objects.equals(name, otherIdentity.name);
     }
 
     @Override

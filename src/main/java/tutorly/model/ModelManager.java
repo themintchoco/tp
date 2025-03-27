@@ -123,12 +123,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Person> getPersonById(int id) {
+    public Optional<Person> getPersonById(int id, boolean fromArchived) {
+        if (fromArchived) {
+            return addressBook.getArchivedPersonById(id);
+        }
+
         return addressBook.getPersonById(id);
     }
 
     @Override
-    public Optional<Person> getPersonByName(Name name) {
+    public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
+        if (fromArchived) {
+            return addressBook.getArchivedPersonByName(name);
+        }
+
         return addressBook.getPersonByName(name);
     }
 
@@ -185,6 +193,11 @@ public class ModelManager implements Model {
     public void addSession(Session toCreate) {
         requireAllNonNull(toCreate);
         addressBook.addSession(toCreate);
+    }
+
+    @Override
+    public Optional<Session> getSessionById(int id) {
+        return addressBook.getSessionById(id);
     }
 
     @Override

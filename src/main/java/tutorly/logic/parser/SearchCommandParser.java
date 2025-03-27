@@ -4,7 +4,7 @@ import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
-import static tutorly.logic.parser.ParserUtil.parseIndex;
+import static tutorly.logic.parser.ParserUtil.parseId;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +49,7 @@ public class SearchCommandParser implements Parser<SearchStudentCommand> {
 
         Optional<String> sessionIdQuery = argMultimap.getValue(PREFIX_SESSION);
         if (sessionIdQuery.isPresent() && !sessionIdQuery.get().isBlank()) {
-            int sessionId = parseIndex(sessionIdQuery.get()).getOneBased();
+            int sessionId = parseId(sessionIdQuery.get());
             filters.add(new AttendSessionFilter(sessionId));
         }
 

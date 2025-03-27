@@ -92,13 +92,15 @@ public interface Model {
 
     /**
      * Returns an optional of the person with the given id.
+     * If {@code fromArchived} is true, the person is searched from the archived person list.
      */
-    Optional<Person> getPersonById(int id);
+    Optional<Person> getPersonById(int id, boolean fromArchived);
 
     /**
      * Returns an optional of the person with the given name.
+     * If {@code fromArchived} is true, the person is searched from the archived person list.
      */
-    Optional<Person> getPersonByName(Name name);
+    Optional<Person> getPersonByName(Name name, boolean fromArchived);
 
     /**
      * Returns an unmodifiable view of the person list
@@ -154,6 +156,11 @@ public interface Model {
      * {@code session} must not already exist in the address book.
      */
     void addSession(Session toCreate);
+
+    /**
+     * Returns an optional of the session with the given id.
+     */
+    Optional<Session> getSessionById(int id);
 
     /**
      * Returns true if an AttendanceRecord with the same identity as
