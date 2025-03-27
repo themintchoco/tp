@@ -28,6 +28,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_IDENTITY = "Identity provided is not a valid ID or name.";
     public static final String MESSAGE_INVALID_ID = "ID is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Please use YYYY-MM-DD.";
+    public static final String MESSAGE_EMPTY_SUBJECT = "Subject cannot be empty.";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
@@ -191,7 +193,7 @@ public class ParserUtil {
         try {
             return LocalDate.parse(dateStr, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Invalid date format. Please use YYYY-MM-DD.");
+            throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
     }
 
@@ -205,7 +207,7 @@ public class ParserUtil {
     public static String parseSubject(String subject) throws ParseException {
         String trimmedSubject = subject.trim();
         if (trimmedSubject.isEmpty()) {
-            throw new ParseException("Subject cannot be empty.");
+            throw new ParseException(MESSAGE_EMPTY_SUBJECT);
         }
         return trimmedSubject;
     }
