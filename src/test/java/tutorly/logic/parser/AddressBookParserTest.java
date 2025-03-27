@@ -10,12 +10,14 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIdentities.IDENTITY_FIRST_PERSON;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import tutorly.logic.commands.AddSessionCommand;
 import tutorly.logic.commands.AddStudentCommand;
 import tutorly.logic.commands.AssignStudentCommand;
 import tutorly.logic.commands.ClearCommand;
@@ -34,6 +36,7 @@ import tutorly.model.filter.NameContainsKeywordsFilter;
 import tutorly.model.filter.PhoneContainsKeywordsFilter;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
+import tutorly.model.session.Session;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 import tutorly.testutil.PersonBuilder;
 import tutorly.testutil.PersonUtil;
@@ -130,5 +133,21 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parse("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_addSession_validInput() throws Exception {
+        // Given valid input
+        String validArgs = "session add d/2025-03-27 sub/Mathematics";
+
+        // Expected session & command
+        Session expectedSession = new Session(0, LocalDate.of(2025, 3, 27), "Mathematics");
+        AddSessionCommand expectedCommand = new AddSessionCommand(expectedSession);
+
+        // When parsed
+        AddSessionCommand actualCommand = (AddSessionCommand) parser.parse(validArgs);
+
+        // Then it should match
+        assertEquals(expectedCommand, actualCommand);
     }
 }
