@@ -111,17 +111,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns the person with the given ID if it exists in the address book.
+     * Returns the person with the given ID if it exists in the persons address book.
      */
     public Optional<Person> getPersonById(int id) {
         return persons.getPersonById(id);
     }
 
     /**
-     * Returns the person with the given name if it exists in the address book.
+     * Returns the person with the given name if it exists in the persons address book.
      */
     public Optional<Person> getPersonByName(Name name) {
         return persons.getPersonByName(name);
+    }
+
+    /**
+     * Returns the person with the given ID if it exists in the archived persons address book.
+     */
+    public Optional<Person> getArchivedPersonById(int id) {
+        return archivedPersons.getPersonById(id);
+    }
+
+    /**
+     * Returns the person with the given name if it exists in the archived persons address book.
+     */
+    public Optional<Person> getArchivedPersonByName(Name name) {
+        return archivedPersons.getPersonByName(name);
     }
 
     /**
