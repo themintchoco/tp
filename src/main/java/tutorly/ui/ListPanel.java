@@ -25,9 +25,9 @@ public abstract class ListPanel<T> extends UiPart<Region> {
     }
 
     /**
-     * Returns the graphic for the given item at the given index.
+     * Returns the graphic for the given item.
      */
-    protected abstract UiPart<Region> getItemGraphic(T item, int index);
+    protected abstract UiPart<Region> getItemGraphic(T item);
 
     /**
      * Custom {@code ListCell} that displays the graphics of the item.
@@ -41,7 +41,7 @@ public abstract class ListPanel<T> extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(getItemGraphic(item, getIndex() + 1).getRoot());
+                setGraphic(getItemGraphic(item).getRoot());
             }
         }
     }

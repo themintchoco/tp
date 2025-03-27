@@ -13,7 +13,7 @@ import tutorly.model.person.Person;
 import tutorly.ui.Tab;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a person identified by their ID or name from the address book.
  */
 public class DeleteStudentCommand extends StudentCommand {
 
