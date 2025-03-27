@@ -14,10 +14,10 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import tutorly.commons.core.index.Index;
 import tutorly.logic.commands.EditStudentCommand;
 import tutorly.logic.commands.EditStudentCommand.EditPersonDescriptor;
 import tutorly.logic.parser.exceptions.ParseException;
+import tutorly.model.person.Identity;
 import tutorly.model.tag.Tag;
 
 /**
@@ -28,6 +28,7 @@ public class EditCommandParser implements Parser<EditStudentCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditStudentCommand parse(String args) throws ParseException {
@@ -35,10 +36,10 @@ public class EditCommandParser implements Parser<EditStudentCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_MEMO);
 
-        Index index;
+        Identity identity;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            identity = ParserUtil.parseIdentity(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.MESSAGE_USAGE), pe);
@@ -69,7 +70,7 @@ public class EditCommandParser implements Parser<EditStudentCommand> {
             throw new ParseException(EditStudentCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditStudentCommand(index, editPersonDescriptor);
+        return new EditStudentCommand(identity, editPersonDescriptor);
     }
 
     /**
