@@ -171,6 +171,14 @@ public class AddressBookTest {
         assertEquals(expected, addressBook.toString());
     }
 
+    @Test
+    //test total session
+    public void getTotalSessions() {
+        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        addressBook.addSession(session);
+        assertEquals(1, addressBook.getTotalSessions());
+    }
+
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Session> sessions = FXCollections.observableArrayList();
