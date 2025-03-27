@@ -12,6 +12,7 @@ public class AttendanceRecord {
     private int studentId;
     private int sessionId;
     private boolean isPresent;
+    private String feedback;
 
     /**
      * Constructs a new AttendanceRecord.
@@ -24,6 +25,7 @@ public class AttendanceRecord {
         this.studentId = studentId;
         this.sessionId = sessionId;
         this.isPresent = isPresent;
+        this.feedback = "";
     }
 
     public int getStudentId() {
@@ -36,6 +38,14 @@ public class AttendanceRecord {
 
     public boolean getAttendance() {
         return isPresent;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 
     /**
@@ -65,7 +75,8 @@ public class AttendanceRecord {
         AttendanceRecord otherRecord = (AttendanceRecord) other;
         return studentId == otherRecord.studentId
                 && sessionId == otherRecord.sessionId
-                && isPresent == otherRecord.isPresent;
+                && isPresent == otherRecord.isPresent
+                && feedback.equals(otherRecord.feedback);
     }
 
     @Override
@@ -74,6 +85,7 @@ public class AttendanceRecord {
                 .add("studentId", studentId)
                 .add("sessionId", sessionId)
                 .add("isPresent", isPresent)
+                .add("feedback", feedback)
                 .toString();
     }
 }

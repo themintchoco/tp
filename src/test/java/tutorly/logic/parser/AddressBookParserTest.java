@@ -8,7 +8,7 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static tutorly.testutil.TypicalIdentities.IDENTITY_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +32,6 @@ import tutorly.model.filter.AttendSessionFilter;
 import tutorly.model.filter.Filter;
 import tutorly.model.filter.NameContainsKeywordsFilter;
 import tutorly.model.filter.PhoneContainsKeywordsFilter;
-import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 import tutorly.testutil.PersonBuilder;
@@ -57,10 +56,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        Identity identity = new Identity(3);
         DeleteStudentCommand command = (DeleteStudentCommand) parser.parse(
-                DeleteStudentCommand.COMMAND_STRING + " " + identity.getId());
-        assertEquals(new DeleteStudentCommand(identity), command);
+                DeleteStudentCommand.COMMAND_STRING + " " + IDENTITY_FIRST_PERSON.getId());
+        assertEquals(new DeleteStudentCommand(IDENTITY_FIRST_PERSON), command);
     }
 
     @Test
@@ -68,8 +66,8 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditStudentCommand command = (EditStudentCommand) parser.parse(EditStudentCommand.COMMAND_STRING + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditStudentCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + IDENTITY_FIRST_PERSON.getId() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+        assertEquals(new EditStudentCommand(IDENTITY_FIRST_PERSON, descriptor), command);
     }
 
     @Test

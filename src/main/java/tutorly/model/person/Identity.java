@@ -20,7 +20,7 @@ public class Identity {
     /**
      * Creates an identity with the given name.
      *
-     * @param name The ID of the person.
+     * @param name The name of the person.
      */
     public Identity(Name name) {
         this.name = name;
