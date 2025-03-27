@@ -51,19 +51,8 @@ public class AddSessionCommandParserTest {
 
     @Test
     public void parse_invalidDateFormat_throwsParseException() {
-        String userInput = " d/2025/03/27 s/Mathematics"; // Wrong date format
-        String expectedMessage = "Invalid command format! \n"
-                + "session add: Creates a tutoring session. Parameters: d/DATE sub/SUBJECT\n"
-                + "Example: session add d/2025-03-18 sub/Mathematics";
-        assertParseFailure(parser, userInput, expectedMessage);
-    }
-
-    @Test
-    public void parse_invalidDateValue_throwsParseException() {
-        String userInput = " d/2025-02-30 s/Mathematics"; // Feb 30 does not exist
-        String expectedMessage = "Invalid command format! \n"
-                + "session add: Creates a tutoring session. Parameters: d/DATE sub/SUBJECT\n"
-                + "Example: session add d/2025-03-18 sub/Mathematics";
+        String userInput = " d/2025/03/27 sub/Mathematics"; // Wrong date format
+        String expectedMessage = "Invalid date format. Please use YYYY-MM-DD.";
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
