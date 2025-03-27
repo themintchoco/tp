@@ -2,6 +2,9 @@ package tutorly.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +28,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_IDENTITY = "Identity provided is not a valid ID or name.";
     public static final String MESSAGE_INVALID_ID = "ID is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Parses {@code String identity} into an {@code Identity} and returns it. Leading and trailing whitespaces will be
@@ -173,5 +177,36 @@ public class ParserUtil {
             throw new ParseException(Memo.MESSAGE_CONSTRAINTS);
         }
         return new Memo(trimmedMemo);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code LocalDate}.
+     * The date format must be YYYY-MM-DD.
+     *
+     * @param dateStr The date string to parse.
+     * @return The parsed LocalDate.
+     * @throws ParseException if the date format is invalid.
+     */
+    public static LocalDate parseDate(String dateStr) throws ParseException {
+        try {
+            return LocalDate.parse(dateStr, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ParseException("Invalid date format. Please use YYYY-MM-DD.");
+        }
+    }
+
+    /**
+     * Parses a {@code String subject} and returns a trimmed string.
+     *
+     * @param subject The subject string.
+     * @return A trimmed subject string.
+     * @throws ParseException if the subject is empty or invalid.
+     */
+    public static String parseSubject(String subject) throws ParseException {
+        String trimmedSubject = subject.trim();
+        if (trimmedSubject.isEmpty()) {
+            throw new ParseException("Subject cannot be empty.");
+        }
+        return trimmedSubject;
     }
 }
