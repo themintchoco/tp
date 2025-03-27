@@ -137,17 +137,12 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addSession_validInput() throws Exception {
-        // Given valid input
         String validArgs = "session add d/2025-03-27 sub/Mathematics";
-
-        // Expected session & command
         Session expectedSession = new Session(0, LocalDate.of(2025, 3, 27), "Mathematics");
-        AddSessionCommand expectedCommand = new AddSessionCommand(expectedSession);
 
-        // When parsed
+        AddSessionCommand expectedCommand = new AddSessionCommand(expectedSession);
         AddSessionCommand actualCommand = (AddSessionCommand) parser.parse(validArgs);
 
-        // Then it should match
         assertEquals(expectedCommand, actualCommand);
     }
 }

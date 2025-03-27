@@ -182,6 +182,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addSession(Session s) {
         sessions.add(s);
+
+        if (s.getId() == 0) {
+            // Set the session ID of the session if it has not been set
+            s.setId(sessions.size() + 1);
+        }
     }
 
     /**
