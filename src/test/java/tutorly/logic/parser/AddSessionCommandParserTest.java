@@ -46,9 +46,15 @@ public class AddSessionCommandParserTest {
 
     @Test
     public void parse_invalidDateFormat_throwsParseException() {
-        // Invalid date format
-        String userInput = " " + PREFIX_DATE + "18-03-2025 " + PREFIX_SUBJECT + "Mathematics";
-        assertThrows(ParseException.class, () -> parser.parse(userInput));
+        String userInput = " " + PREFIX_DATE + "invalid-date " + PREFIX_SUBJECT + "Mathematics";
+        assertThrows(ParseException.class, () -> parser
+                .parse(userInput), "Invalid date format. Please use YYYY-MM-DD.");
+    }
+
+    @Test
+    public void parse_invalidSubject_throwsParseException() {
+        String userInput = " " + PREFIX_DATE + "2023-10-10 " + PREFIX_SUBJECT + "";
+        assertThrows(ParseException.class, () -> parser.parse(userInput), "Subject cannot be empty.");
     }
 
     @Test
@@ -59,9 +65,10 @@ public class AddSessionCommandParserTest {
     }
 
     @Test
-    public void parse_blankSubject_throwsParseException() {
-        // Subject contains only whitespace
-        String userInput = " " + PREFIX_DATE + "2025-03-18 " + PREFIX_SUBJECT + "   ";
+    public void parse_duplicateDate_throwsParseException() {
+        // Duplicate date prefix
+        String userInput = " " + PREFIX_DATE
+                + "2025-03-25 " + PREFIX_DATE + "2025-03-26 " + PREFIX_SUBJECT + "Mathematics";
         assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 }
