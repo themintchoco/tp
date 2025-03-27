@@ -7,7 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import tutorly.model.person.Address;
+import tutorly.model.person.Email;
+import tutorly.model.person.Memo;
 import tutorly.model.person.Person;
+import tutorly.model.person.Phone;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -33,8 +37,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label studentId;
-    @FXML
     private Label phone;
     @FXML
     private Label address;
@@ -46,20 +48,48 @@ public class PersonCard extends UiPart<Region> {
     private Label memo;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PersonCode} with the given {@code Person}.
      */
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Person person) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
-        studentId.setText("Student ID: " + person.getId());
+        id.setText(person.getId() + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+
+        if (person.getPhone() == Phone.empty()) {
+            phone.setVisible(false);
+            phone.setManaged(false);
+        } else {
+            phone.setGraphic(Icons.getTelephoneIcon());
+            phone.setText(person.getPhone().value);
+        }
+
+        if (person.getAddress() == Address.empty()) {
+            address.setVisible(false);
+            address.setManaged(false);
+        } else {
+            address.setGraphic(Icons.getHouseIcon());
+            address.setText(person.getAddress().value);
+        }
+
+        if (person.getEmail() == Email.empty()) {
+            email.setVisible(false);
+            email.setManaged(false);
+        } else {
+            email.setGraphic(Icons.getEmailIcon());
+            email.setText(person.getEmail().value);
+        }
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        memo.setText(person.getMemo().value);
+
+        if (person.getMemo() == Memo.empty()) {
+            memo.setVisible(false);
+            memo.setManaged(false);
+        } else {
+            memo.setGraphic(Icons.getMemoIcon());
+            memo.setText(person.getMemo().value);
+        }
     }
 }

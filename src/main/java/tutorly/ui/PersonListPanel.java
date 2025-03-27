@@ -14,8 +14,8 @@ public class PersonListPanel extends ListPanel<Person> {
     }
 
     @Override
-    protected UiPart<Region> getItemGraphic(Person person, int index) {
-        return new PersonCard(person, index);
+    protected UiPart<Region> getItemGraphic(Person person) {
+        return new PersonCard(person);
     };
 
 }
