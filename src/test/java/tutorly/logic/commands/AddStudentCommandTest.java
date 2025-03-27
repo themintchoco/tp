@@ -54,7 +54,7 @@ public class AddStudentCommandTest {
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class,
-                AddStudentCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+                Messages.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -158,12 +158,12 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public Optional<Person> getPersonById(int id) {
+        public Optional<Person> getPersonById(int id, boolean fromArchived) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Optional<Person> getPersonByName(Name name) {
+        public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
             throw new AssertionError("This method should not be called.");
         }
 

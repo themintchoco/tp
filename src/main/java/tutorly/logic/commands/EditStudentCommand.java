@@ -41,7 +41,7 @@ public class EditStudentCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Edits the details of the student identified either by their ID or name. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: ID/NAME "
+            + "Parameters: STUDENT_IDENTIFIER "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -54,7 +54,6 @@ public class EditStudentCommand extends StudentCommand {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
 
     private final Identity identity;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -102,7 +101,7 @@ public class EditStudentCommand extends StudentCommand {
         Person editedPerson = createEditedPerson(personToEdit.get(), editPersonDescriptor);
 
         if (!personToEdit.get().isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_PERSON);
         }
 
         model.setPerson(personToEdit.get(), editedPerson);
