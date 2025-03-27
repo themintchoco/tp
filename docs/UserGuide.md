@@ -24,7 +24,7 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
    - On **Mac**: Open **Terminal** from the Applications > Utilities folder.
    - On **Linux**: Open **Terminal** from your applications menu.
 
-5. **Navigate to the folder** - In the terminal, type `cd `(with a space), then **drag and drop** the _home folder_ into the terminal window. Press **Enter**.
+5. **Navigate to the folder** - In the terminal, type `cd `(with a space). Then, **click and hold** the _home folder_, **drag** it into the terminal window and **release** it. Doing this will automatically insert the full path of the folder. Press **Enter**.
 
 6. **Run Tutorly** - Type `java -jar tutorly.jar` and press **Enter**. This will start the application. A GUI similar to the below should appear in a few seconds, containing some sample data.<br>
    ![Ui](images/Ui.png)
@@ -119,7 +119,7 @@ Format: `session SESSION_ID`
 Examples:
 * `session 1`
 * `session 5`
-* 
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 The main window will automatically switch to the tab which shows the results of the command that has been executed.
 </div>
@@ -127,6 +127,8 @@ The main window will automatically switch to the tab which shows the results of 
 --------------------------------------------------------------------------------------------------------------------
 
 ### Student Management
+
+The following commands all begin with `student` followed by an action word.
 
 #### Adding a student: `student add`
 
@@ -219,6 +221,8 @@ Examples:
 --------------------------------------------------------------------------------------------------------------------
 
 ### Session Management
+
+The following commands all begin with `session` followed by an action word.
 
 #### Adding a session: `session add`
 
