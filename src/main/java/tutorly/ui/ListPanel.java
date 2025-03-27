@@ -25,6 +25,13 @@ public abstract class ListPanel<T> extends UiPart<Region> {
     }
 
     /**
+     * Returns an unmodifiable view of the items selected.
+     */
+    public ObservableList<T> getSelected() {
+        return listView.getSelectionModel().getSelectedItems();
+    }
+
+    /**
      * Returns the graphic for the given item.
      */
     protected abstract UiPart<Region> getItemGraphic(T item);

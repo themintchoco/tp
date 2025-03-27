@@ -17,8 +17,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import tutorly.commons.util.ObservableListUtil;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -196,9 +196,9 @@ public class AddressBookTest {
     }
 
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
-        private final ObservableList<Session> sessions = FXCollections.observableArrayList();
-        private final ObservableList<AttendanceRecord> attendanceRecords = FXCollections.observableArrayList();
+        private final ObservableList<Person> persons = ObservableListUtil.arrayList();
+        private final ObservableList<Session> sessions = ObservableListUtil.arrayList();
+        private final ObservableList<AttendanceRecord> attendanceRecords = ObservableListUtil.arrayList();
 
         AddressBookStub(Collection<Person> persons,
                 Collection<Session> sessions, Collection<AttendanceRecord> attendanceRecords) {

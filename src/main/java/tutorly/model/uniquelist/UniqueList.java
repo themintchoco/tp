@@ -6,8 +6,8 @@ import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import tutorly.commons.util.ObservableListUtil;
 import tutorly.model.uniquelist.exceptions.DuplicateElementException;
 import tutorly.model.uniquelist.exceptions.ElementNotFoundException;
 
@@ -22,8 +22,8 @@ import tutorly.model.uniquelist.exceptions.ElementNotFoundException;
  */
 public class UniqueList<T> implements Iterable<T> {
 
-    protected final ObservableList<T> internalList = FXCollections.observableArrayList();
-    protected final ObservableList<T> internalUnmodifiableList = FXCollections.unmodifiableObservableList(internalList);
+    protected final ObservableList<T> internalList = ObservableListUtil.arrayList();
+    protected final ObservableList<T> internalUnmodifiableList = ObservableListUtil.unmodifiableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent element as the given argument.

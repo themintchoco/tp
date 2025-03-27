@@ -142,18 +142,28 @@ public class ModelManager implements Model {
 
     //=========== Filtered Person List Accessors =============================================================
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
+    @Override
+    public ObservableList<Person> getPersonList() {
+        return addressBook.getPersonList();
+    }
+
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
     }
 
     @Override
+    public ObservableList<Session> getSessionList() {
+        return addressBook.getSessionList();
+    }
+
+    @Override
     public ObservableList<Session> getFilteredSessionList() {
         return filteredSessions;
+    }
+
+    @Override public ObservableList<AttendanceRecord> getAttendanceRecordList() {
+        return addressBook.getAttendanceRecordsList();
     }
 
     @Override
