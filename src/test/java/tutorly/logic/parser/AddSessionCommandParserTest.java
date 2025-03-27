@@ -53,8 +53,15 @@ public class AddSessionCommandParserTest {
 
     @Test
     public void parse_emptySubject_throwsParseException() {
-        // Empty subject
+        // Empty subject (no value after prefix)
         String userInput = " " + PREFIX_DATE + "2025-03-18 " + PREFIX_SUBJECT;
+        assertThrows(ParseException.class, () -> parser.parse(userInput));
+    }
+
+    @Test
+    public void parse_blankSubject_throwsParseException() {
+        // Subject contains only whitespace
+        String userInput = " " + PREFIX_DATE + "2025-03-18 " + PREFIX_SUBJECT + "   ";
         assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 }

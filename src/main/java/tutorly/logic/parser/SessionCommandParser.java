@@ -16,7 +16,7 @@ public class SessionCommandParser extends AddressBookParser {
     protected Command parseCommand(String command, String args) throws ParseException {
         switch (command) {
         case AddSessionCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(args);
+            return new AddSessionCommandParser().parse(args);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
