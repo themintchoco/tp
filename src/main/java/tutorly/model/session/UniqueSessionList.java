@@ -2,7 +2,6 @@ package tutorly.model.session;
 
 import java.util.Optional;
 
-import tutorly.model.person.Person;
 import tutorly.model.uniquelist.UniqueList;
 
 /**

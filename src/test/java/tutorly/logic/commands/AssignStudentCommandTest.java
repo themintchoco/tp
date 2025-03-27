@@ -21,9 +21,9 @@ import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Identity;
 
 public class AssignStudentCommandTest {
+    private static final int INVALID_ID = 999;
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Identity bensonIdentity = new Identity(BENSON.getId());
-    private final int INVALID_ID = 999;
 
     @Test
     public void constructor_nullArg_throwsNullPointerException() {
