@@ -38,7 +38,9 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
 
    * `student delete 3` : Deletes the student with the ID 3.
 
-   * `clear` : Deletes all contacts.
+   * `session list` : List all sessions.
+
+   * `clear` : Deletes all students and sessions.
 
    * `exit` : Exits the app.
 
@@ -164,7 +166,7 @@ Format: `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS
 
 Examples:
 *  `student edit John Doe p/91234567 e/johndoe@example.com` Edits the phone number and email address of John Doe to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the student with an ID of 2 to be `Betsy Crower` and clears all existing tags.
+*  `student edit 2 n/Betsy Crower t/` Edits the name of the student with an ID of 2 to be `Betsy Crower` and clears all existing tags.
 
 #### Searching for students: `student search`
 
@@ -181,20 +183,7 @@ Format: `student search [ses/SESSION_ID] [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS]`
 Examples:
 * `student search n/John` returns `johnathan` and `John Doe`
 * `student search n/alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'search alex david'](images/findAlexDavidResult.png)
-
-#### Assigning a student: `student assign`
-
-Assigns a student to a session.
-
-Format: `student assign STUDENT_IDENTIFIER ses/SESSION_ID`
-
-* Assigns the student with the specified `STUDENT_IDENTIFIER` to the session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
-* The attendance for the student to the session upon assignment is marked as absent by default.
-
-Examples:
-* `student assign 2 ses/3` assigns a student with an ID of 2 to attend a session with an ID of 3.
-* `student assign John Doe ses/4` assigns a student with the name `John Doe` to attend a session with an ID of 4.
+  ![result for 'search alex david'](images/searchAlexDavidResult.png)
 
 #### Deleting a student: `student delete`
 
@@ -239,6 +228,20 @@ Shows a list of all sessions.
 
 Format: `session list`
 
+#### Editing a session: `session edit`
+
+Edits an existing session.
+
+Format: `student edit SESSION_ID [d/DATE] [sub/SUBJECT]`
+
+* Edits the session with the `SESSION_ID`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+*  `session edit 3 d/2025-04-11` Edits the date of the session with the ID 3 to be on `11 April 2025`.
+*  `session edit 2 d/2025-06-20 sub/Math` Edits the date and subject of the session with the ID 2 to be on `20 June 2025` with the subject `Math`.
+
 #### Searching for sessions: `session search`
 
 Finds sessions on a particular date or on a subject which matches any of the given keywords.
@@ -263,6 +266,29 @@ Format: `session delete SESSION_ID`
 
 Examples:
 * `session delete 2` deletes the session with the ID of 2.
+
+#### Assigning a student to a session: `session assign`
+
+Assigns a student to a session.
+
+Format: `session assign STUDENT_IDENTIFIER ses/SESSION_ID`
+
+* Assigns the student with the specified `STUDENT_IDENTIFIER` to the session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
+* The attendance for the student to the session upon assignment is marked as absent by default.
+
+Examples:
+* `session assign 2 ses/3` assigns a student with an ID of 2 to attend a session with an ID of 3.
+* `session assign John Doe ses/4` assigns a student with the name `John Doe` to attend a session with an ID of 4.
+
+#### Removing a student from a session: `session unassign`
+
+Removes the assignment of a student with the specified `STUDENT_IDENTIFIER` from a session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
+
+Format: `session unassign STUDENT_IDENTIFIER ses/SESSION_ID`
+
+Examples:
+* `session unassign 2 ses/3` removes a student with an ID of 2 from a session with an ID of 3.
+* `session unassign John Doe ses/4` removes a student with the name `John Doe` from a session with an ID of 4.
 
 #### Marking attendance as present: `session mark`
 
@@ -333,12 +359,14 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | List             | `student list`                                                                                | -                                          |
 |         | Edit             | `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​` | `student edit 2 n/James Lee p/91234567`    |
 |         | Search           | `student search [ses/SESSION_ID] [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS]`                        | `student search n/alex dav p/9123 8765`    |
-|         | Assign           | `student assign STUDENT_IDENTIFIER ses/SESSION_ID `                                           | `student assign 4 ses/3 `                  |
 |         | Delete           | `student delete STUDENT_IDENTIFIER`                                                           | `student delete 3`                         |
 |         | Restore          | `student restore STUDENT_IDENTIFIER`                                                          | `student restore 3`                        |
 | Session | Add              | `session add d/DATE sub/SUBJECT`                                                              | `session add d/2025-04-15 sub/Math`        |
 |         | List             | `session list`                                                                                | -                                          |
+|         | Edit             | `session edit SESSION_ID [d/DATE] [sub/SUBJECT_KEYWORDS]`                                     | `session edit 2 d/2025-04-11 sub/Math`     |
 |         | Search           | `session search [d/DATE] [sub/SUBJECT_KEYWORDS]`                                              | `session search d/2025-04-15 sub/Math Eng` |
 |         | Delete           | `session delete SESSION_ID`                                                                   | `session delete 1`                         |
+|         | Assign student   | `session assign STUDENT_IDENTIFIER ses/SESSION_ID `                                           | `session assign 4 ses/3 `                  |
+|         | Remove student   | `session unassign STUDENT_IDENTIFIER ses/SESSION_ID `                                         | `session unassign 4 ses/3 `                |
 |         | Mark Present     | `session mark STUDENT_IDENTIFIER ses/SESSION_ID`                                              | `session mark John Doe ses/2`              |
 |         | Mark Absent      | `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`                                            | `session unmark 3 ses/2`                   |
