@@ -16,7 +16,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import tutorly.logic.commands.SearchSessionCommand;
-import tutorly.logic.commands.SearchStudentCommand;
 import tutorly.model.filter.DateSessionFilter;
 import tutorly.model.filter.Filter;
 import tutorly.model.filter.SubjectContainsKeywordsFilter;
@@ -31,7 +30,7 @@ public class SearchSessionCommandParserTest {
         assertParseFailure(
                 parser,
                 PREAMBLE_NON_EMPTY + DATE_DESC,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchStudentCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchSessionCommand.MESSAGE_USAGE));
     }
 
     @Test
