@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 import tutorly.logic.commands.SearchSessionCommand;
-import tutorly.logic.commands.SearchStudentCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.filter.DateSessionFilter;
 import tutorly.model.filter.Filter;
