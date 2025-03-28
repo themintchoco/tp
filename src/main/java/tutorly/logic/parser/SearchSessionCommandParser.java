@@ -37,7 +37,7 @@ public class SearchSessionCommandParser implements Parser<SearchSessionCommand> 
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchStudentCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchSessionCommand.MESSAGE_USAGE));
         }
 
         return new SearchSessionCommand(initFilter(argMultimap));
