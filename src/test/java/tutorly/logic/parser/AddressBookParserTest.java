@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
+import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIdentities.IDENTITY_FIRST_PERSON;
 
@@ -28,12 +30,15 @@ import tutorly.logic.commands.ExitCommand;
 import tutorly.logic.commands.HelpCommand;
 import tutorly.logic.commands.ListStudentCommand;
 import tutorly.logic.commands.RestoreStudentCommand;
+import tutorly.logic.commands.SearchSessionCommand;
 import tutorly.logic.commands.SearchStudentCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.filter.AttendSessionFilter;
+import tutorly.model.filter.DateSessionFilter;
 import tutorly.model.filter.Filter;
 import tutorly.model.filter.NameContainsKeywordsFilter;
 import tutorly.model.filter.PhoneContainsKeywordsFilter;
+import tutorly.model.filter.SubjectContainsKeywordsFilter;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -94,6 +99,20 @@ public class AddressBookParserTest {
                 new NameContainsKeywordsFilter(keywords),
                 new PhoneContainsKeywordsFilter(keywords)));
         assertEquals(new SearchStudentCommand(filter), command);
+    }
+
+    @Test
+    public void parseCommand_searchSession() throws Exception {
+        LocalDate date = LocalDate.of(2025, 1, 1);
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        SearchSessionCommand command = (SearchSessionCommand) parser.parse(
+                SearchSessionCommand.COMMAND_STRING
+                        + " " + PREFIX_DATE + date
+                        + " " + PREFIX_SUBJECT + keywords.stream().collect(Collectors.joining(" ")));
+        Filter<Session> filter = Filter.any(Arrays.asList(
+                new DateSessionFilter(date),
+                new SubjectContainsKeywordsFilter(keywords)));
+        assertEquals(new SearchSessionCommand(filter), command);
     }
 
     @Test
