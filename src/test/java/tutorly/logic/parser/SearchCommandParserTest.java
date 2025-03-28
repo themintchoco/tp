@@ -5,6 +5,7 @@ import static tutorly.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tutorly.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -38,7 +39,7 @@ public class SearchCommandParserTest {
 
         assertParseSuccess(
                 parser,
-                " " + PREFIX_NAME + " \t \n " + PREFIX_PHONE + " \n \t ",
+                " " + PREFIX_SESSION + " \t \n " + PREFIX_NAME + " \t \n " + PREFIX_PHONE + " \n \t ",
                 expectedSearchCommand);
     }
 

@@ -190,8 +190,9 @@ public class ParserUtil {
      * @throws ParseException if the date format is invalid.
      */
     public static LocalDate parseDate(String dateStr) throws ParseException {
+        requireNonNull(dateStr);
         try {
-            return LocalDate.parse(dateStr, DATE_FORMATTER);
+            return LocalDate.parse(dateStr.trim(), DATE_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
@@ -202,11 +203,12 @@ public class ParserUtil {
      *
      * @param subject The subject string.
      * @return A trimmed subject string.
-     * @throws ParseException if the subject is empty or invalid.
+     * @throws ParseException if the subject is blank.
      */
     public static String parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
         String trimmedSubject = subject.trim();
-        if (trimmedSubject.isEmpty()) {
+        if (trimmedSubject.isBlank()) {
             throw new ParseException(MESSAGE_EMPTY_SUBJECT);
         }
         return trimmedSubject;

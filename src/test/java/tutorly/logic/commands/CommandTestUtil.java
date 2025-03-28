@@ -3,6 +3,7 @@ package tutorly.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tutorly.logic.parser.CliSyntax.PREFIX_ID;
 import static tutorly.logic.parser.CliSyntax.PREFIX_MEMO;
@@ -44,6 +45,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_MEMO_AMY = "Amy requires more help in Math";
     public static final String VALID_MEMO_BOB = "Bob requires more help in English";
+    public static final String VALID_DATE = "2025-03-18";
 
     public static final String ID_DESC_AMY = " " + PREFIX_ID + VALID_ID_AMY;
     public static final String ID_DESC_BOB = " " + PREFIX_ID + VALID_ID_BOB;
@@ -60,6 +62,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String MEMO_DESC_AMY = " " + PREFIX_MEMO + VALID_MEMO_AMY;
     public static final String MEMO_DESC_BOB = " " + PREFIX_MEMO + VALID_MEMO_BOB;
+    public static final String DATE_DESC = " " + PREFIX_DATE + VALID_DATE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
