@@ -232,8 +232,7 @@ Format: `session list`
 
 Edits an existing session.
 
-Format: `student edit SESSION_ID [d/DATE] [sub/SUBJECT]`
-
+Format: `session edit SESSION_ID [d/DATE] [sub/SUBJECT]`
 * Edits the session with the `SESSION_ID`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
