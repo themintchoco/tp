@@ -54,13 +54,13 @@ public class SearchSessionCommandParserTest {
         SearchSessionCommand expectedSearchCommand = new SearchSessionCommand(filters);
         assertParseSuccess(
                 parser,
-                " " + DATE_DESC + " " + PREFIX_SUBJECT + "Math En",
+                DATE_DESC + " " + PREFIX_SUBJECT + "Math En",
                 expectedSearchCommand);
 
         // multiple whitespaces between keywords
         assertParseSuccess(
                 parser,
-                " " + DATE_DESC + " " + PREFIX_SUBJECT + " \n Math \n \t En  \t ",
+                DATE_DESC + " " + PREFIX_SUBJECT + " \n Math \n \t En  \t ",
                 expectedSearchCommand);
     }
 }
