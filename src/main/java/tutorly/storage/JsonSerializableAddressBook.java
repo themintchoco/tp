@@ -30,16 +30,22 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedSession> sessions = new ArrayList<>();
     private final List<JsonAdaptedAttendanceRecord> attendanceRecords = new ArrayList<>();
 
+    private final int nextPersonId;
+    private final int nextSessionId;
+
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons, sessions, and attendance records.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
             @JsonProperty("sessions") List<JsonAdaptedSession> sessions,
-            @JsonProperty("attendanceRecords") List<JsonAdaptedAttendanceRecord> attendanceRecords) {
+            @JsonProperty("attendanceRecords") List<JsonAdaptedAttendanceRecord> attendanceRecords,
+            @JsonProperty("nextPersonId") int nextPersonId, @JsonProperty("nextSessionId") int nextSessionId) {
         this.persons.addAll(persons);
         this.sessions.addAll(sessions);
         this.attendanceRecords.addAll(attendanceRecords);
+        this.nextPersonId = nextPersonId;
+        this.nextSessionId = nextSessionId;
     }
 
     /**
@@ -52,6 +58,8 @@ class JsonSerializableAddressBook {
         sessions.addAll(source.getSessionList().stream().map(JsonAdaptedSession::new).collect(Collectors.toList()));
         attendanceRecords.addAll(source.getAttendanceRecordsList().stream()
                 .map(JsonAdaptedAttendanceRecord::new).collect(Collectors.toList()));
+        nextPersonId = source.getNextPersonId();
+        nextSessionId = source.getNextSessionId();
     }
 
     /**
@@ -60,7 +68,7 @@ class JsonSerializableAddressBook {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = new AddressBook(nextPersonId, nextSessionId);
 
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();

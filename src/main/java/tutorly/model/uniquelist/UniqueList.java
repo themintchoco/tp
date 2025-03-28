@@ -105,6 +105,10 @@ public class UniqueList<T> implements Iterable<T> {
         return internalList.size();
     }
 
+    public void clear() {
+        internalList.clear();
+    }
+
     @Override
     public Iterator<T> iterator() {
         return internalList.iterator();

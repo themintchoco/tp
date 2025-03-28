@@ -25,4 +25,15 @@ public interface ReadOnlyAddressBook {
      * Returns an unmodifiable view of the attendance records list.
      */
     ObservableList<AttendanceRecord> getAttendanceRecordsList();
+
+    /**
+     * Returns the next person ID.
+     */
+    int getNextPersonId();
+
+    /**
+     * Returns the next session ID.
+     */
+    int getNextSessionId();
+
 }

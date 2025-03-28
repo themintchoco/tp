@@ -221,5 +221,15 @@ public class AddressBookTest {
         public ObservableList<AttendanceRecord> getAttendanceRecordsList() {
             return attendanceRecords;
         }
+
+        @Override
+        public int getNextPersonId() {
+            return this.persons.size() + 1;
+        }
+
+        @Override
+        public int getNextSessionId() {
+            return this.sessions.size() + 1;
+        }
     }
 }

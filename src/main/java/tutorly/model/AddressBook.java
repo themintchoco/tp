@@ -26,21 +26,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueSessionList sessions;
     private final UniqueAttendanceRecordList attendanceRecords;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
+    private int nextPersonId;
+    private int nextSessionId;
+
+    /**
+     * Creates an AddressBook.
      */
-    {
+    public AddressBook() {
         persons = new UniquePersonList();
         archivedPersons = new UniquePersonList();
         sessions = new UniqueSessionList();
         attendanceRecords = new UniqueAttendanceRecordList();
+
+        nextPersonId = 1;
+        nextSessionId = 1;
     }
 
-    public AddressBook() {
+    /**
+     * Creates an AddressBook.
+     */
+    public AddressBook(int nextPersonId, int nextSessionId) {
+        this();
+
+        this.nextPersonId = nextPersonId;
+        this.nextSessionId = nextSessionId;
     }
 
     /**
@@ -85,6 +94,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setSessions(newData.getSessionList());
         setAttendanceRecords(newData.getAttendanceRecordsList());
+        archivedPersons.clear();
+
+        nextPersonId = newData.getNextPersonId();
+        nextSessionId = newData.getNextSessionId();
     }
 
     //// person-level operations
@@ -106,7 +119,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         if (p.getId() == 0) {
             // Set the student ID of the person if it has not been set
-            p.setId(getTotalPersons());
+            p.setId(nextPersonId++);
         }
     }
 
@@ -185,7 +198,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         if (s.getId() == 0) {
             // Set the session ID of the session if it has not been set
-            s.setId(sessions.size() + 1);
+            s.setId(nextSessionId++);
         }
     }
 
@@ -251,13 +264,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// util methods
 
-    /**
-     * Returns the total number of persons that have been added to the address book, both current and archived.
-     */
-    public int getTotalPersons() {
-        return persons.size() + archivedPersons.size();
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -284,6 +290,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<AttendanceRecord> getAttendanceRecordsList() {
         return attendanceRecords.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public int getNextPersonId() {
+        return nextPersonId;
+    }
+
+    @Override
+    public int getNextSessionId() {
+        return nextSessionId;
     }
 
     @Override
