@@ -23,8 +23,8 @@ public class UnenrolSessionCommand extends SessionCommand {
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE =
-            COMMAND_STRING + ": Unenrols a student identified by a STUDENT_IDENTIFIER (ID or full name) from a session. "
-                    + "Parameters: STUDENT_IDENTIFIER "
+            COMMAND_STRING + ": Unenrols a student identified by a STUDENT_IDENTIFIER (ID or full name) from a session."
+                    + " Parameters: STUDENT_IDENTIFIER "
                     + PREFIX_SESSION + "SESSION_ID\n"
                     + "Example: " + COMMAND_STRING + " 1 "
                     + PREFIX_SESSION + "2 ";
