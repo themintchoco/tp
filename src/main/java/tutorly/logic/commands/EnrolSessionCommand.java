@@ -18,29 +18,29 @@ import tutorly.ui.Tab;
 /**
  * Creates a new AttendanceRecord for a student to a session.
  */
-public class AssignStudentCommand extends StudentCommand {
+public class EnrolSessionCommand extends SessionCommand {
 
-    public static final String COMMAND_WORD = "assign";
-    public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
+    public static final String COMMAND_WORD = "enrol";
+    public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE =
-            COMMAND_STRING + ": Assigns a student identified by their ID or name to a session. "
-                    + "Parameters: ID/NAME "
+            COMMAND_STRING + ": Enrols a student identified by a STUDENT_IDENTIFIER (ID or full name) to a session. "
+                    + "Parameters: STUDENT_IDENTIFIER "
                     + PREFIX_SESSION + "SESSION_ID\n"
                     + "Example: " + COMMAND_STRING + " 1 "
                     + PREFIX_SESSION + "2 ";
 
-    public static final String MESSAGE_SUCCESS = "%1$s assigned to Session: %2$s";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This student is already assigned to the session";
+    public static final String MESSAGE_SUCCESS = "%1$s enrolled to Session: %2$s";
+    public static final String MESSAGE_DUPLICATE_ENROLMENT = "This student is already enrolled in the session";
     public static final boolean DEFAULT_PRESENCE = false;
 
     private final Identity identity;
     private final int sessionId;
 
     /**
-     * Creates an AssignStudentCommand for the given {@code Person} to the given {@code Session}
+     * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session}
      */
-    public AssignStudentCommand(Identity identity, int sessionId) {
+    public EnrolSessionCommand(Identity identity, int sessionId) {
         requireNonNull(identity);
         this.identity = identity;
         this.sessionId = sessionId;
@@ -62,13 +62,13 @@ public class AssignStudentCommand extends StudentCommand {
 
         AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, DEFAULT_PRESENCE);
         if (model.hasAttendanceRecord(record)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
+            throw new CommandException(MESSAGE_DUPLICATE_ENROLMENT);
         }
 
         model.addAttendanceRecord(record);
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
-                .withTab(Tab.STUDENT)
+                .withTab(Tab.SESSION)
                 .build();
     }
 
@@ -79,12 +79,12 @@ public class AssignStudentCommand extends StudentCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AssignStudentCommand otherAssignStudentCommand)) {
+        if (!(other instanceof EnrolSessionCommand otherEnrolSessionCommand)) {
             return false;
         }
 
-        return identity.equals(otherAssignStudentCommand.identity)
-                && sessionId == otherAssignStudentCommand.sessionId;
+        return identity.equals(otherEnrolSessionCommand.identity)
+                && sessionId == otherEnrolSessionCommand.sessionId;
     }
 
     @Override
