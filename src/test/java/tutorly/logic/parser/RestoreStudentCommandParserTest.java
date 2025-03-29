@@ -12,8 +12,8 @@ import tutorly.logic.commands.RestoreStudentCommand;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Name;
 
-public class RestoreCommandParserTest {
-    private final RestoreCommandParser parser = new RestoreCommandParser();
+public class RestoreStudentCommandParserTest {
+    private final RestoreStudentCommandParser parser = new RestoreStudentCommandParser();
 
     @Test
     public void parse_id_returnsRestoreCommand() {

@@ -14,11 +14,11 @@ import org.junit.jupiter.api.Test;
 import tutorly.logic.commands.EnrolSessionCommand;
 import tutorly.model.person.Identity;
 
-public class EnrolCommandParserTest {
+public class EnrolSessionCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EnrolSessionCommand.MESSAGE_USAGE);
 
-    private final EnrolCommandParser parser = new EnrolCommandParser();
+    private final EnrolSessionCommandParser parser = new EnrolSessionCommandParser();
 
     @Test
     public void parse_emptyPreamble_failure() {

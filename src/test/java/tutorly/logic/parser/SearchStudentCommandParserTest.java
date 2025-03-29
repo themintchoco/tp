@@ -20,9 +20,9 @@ import tutorly.model.filter.NameContainsKeywordsFilter;
 import tutorly.model.filter.PhoneContainsKeywordsFilter;
 import tutorly.model.person.Person;
 
-public class SearchCommandParserTest {
+public class SearchStudentCommandParserTest {
 
-    private SearchCommandParser parser = new SearchCommandParser();
+    private SearchStudentCommandParser parser = new SearchStudentCommandParser();
 
     @Test
     public void parse_preamblePresent_throwsParseException() {

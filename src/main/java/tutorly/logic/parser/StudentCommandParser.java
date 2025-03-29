@@ -24,19 +24,19 @@ public class StudentCommandParser extends AddressBookParser {
             return new ListStudentCommand();
 
         case AddStudentCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(args);
+            return new AddStudentCommandParser().parse(args);
 
         case EditStudentCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(args);
+            return new EditStudentCommandParser().parse(args);
 
         case DeleteStudentCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(args);
+            return new DeleteStudentCommandParser().parse(args);
 
         case RestoreStudentCommand.COMMAND_WORD:
-            return new RestoreCommandParser().parse(args);
+            return new RestoreStudentCommandParser().parse(args);
 
         case SearchStudentCommand.COMMAND_WORD:
-            return new SearchCommandParser().parse(args);
+            return new SearchStudentCommandParser().parse(args);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

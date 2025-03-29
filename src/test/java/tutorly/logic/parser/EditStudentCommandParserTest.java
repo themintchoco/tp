@@ -47,14 +47,14 @@ import tutorly.model.person.Phone;
 import tutorly.model.tag.Tag;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class EditStudentCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStudentCommand.MESSAGE_USAGE);
 
-    private final EditCommandParser parser = new EditCommandParser();
+    private final EditStudentCommandParser parser = new EditStudentCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
