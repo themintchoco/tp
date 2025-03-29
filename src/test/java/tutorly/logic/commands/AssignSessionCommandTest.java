@@ -20,64 +20,64 @@ import tutorly.model.UserPrefs;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Identity;
 
-public class AssignStudentCommandTest {
+public class AssignSessionCommandTest {
     private static final int INVALID_ID = 999;
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Identity bensonIdentity = new Identity(BENSON.getId());
 
     @Test
     public void constructor_nullArg_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AssignStudentCommand(null, 1));
+        assertThrows(NullPointerException.class, () -> new AssignSessionCommand(null, 1));
     }
 
     @Test
     public void execute_attendanceRecordAcceptedByModel_addSuccessful() throws Exception {
-        CommandResult commandResult = new AssignStudentCommand(bensonIdentity, ENGLISH_SESSION.getId()).execute(model);
-        assertEquals(String.format(AssignStudentCommand.MESSAGE_SUCCESS, BENSON.getName().fullName,
+        CommandResult commandResult = new AssignSessionCommand(bensonIdentity, ENGLISH_SESSION.getId()).execute(model);
+        assertEquals(String.format(AssignSessionCommand.MESSAGE_SUCCESS, BENSON.getName().fullName,
                 Messages.format(ENGLISH_SESSION)), commandResult.getFeedbackToUser());
 
         AttendanceRecord expectedRecord = new AttendanceRecord(
-                BENSON.getId(), ENGLISH_SESSION.getId(), AssignStudentCommand.DEFAULT_PRESENCE);
+                BENSON.getId(), ENGLISH_SESSION.getId(), AssignSessionCommand.DEFAULT_PRESENCE);
         assertTrue(model.hasAttendanceRecord(expectedRecord));
     }
 
     @Test
     public void execute_invalidIdentity_throwsCommandException() {
-        AssignStudentCommand assignStudentCommand =
-                new AssignStudentCommand(new Identity(INVALID_ID), ENGLISH_SESSION.getId());
+        AssignSessionCommand assignSessionCommand =
+                new AssignSessionCommand(new Identity(INVALID_ID), ENGLISH_SESSION.getId());
 
         assertThrows(
-                CommandException.class, Messages.MESSAGE_PERSON_NOT_FOUND, () -> assignStudentCommand.execute(model));
+                CommandException.class, Messages.MESSAGE_PERSON_NOT_FOUND, () -> assignSessionCommand.execute(model));
     }
 
     @Test
     public void execute_invalidSessionId_throwsCommandException() {
-        AssignStudentCommand assignStudentCommand = new AssignStudentCommand(bensonIdentity, INVALID_ID);
+        AssignSessionCommand assignSessionCommand = new AssignSessionCommand(bensonIdentity, INVALID_ID);
 
         assertThrows(CommandException.class,
-                Messages.MESSAGE_INVALID_SESSION_ID, () -> assignStudentCommand.execute(model));
+                Messages.MESSAGE_INVALID_SESSION_ID, () -> assignSessionCommand.execute(model));
     }
 
     @Test
     public void execute_duplicateAttendanceRecord_throwsCommandException() {
-        AssignStudentCommand assignStudentCommand = new AssignStudentCommand(bensonIdentity, MATH_SESSION.getId());
+        AssignSessionCommand assignSessionCommand = new AssignSessionCommand(bensonIdentity, MATH_SESSION.getId());
 
         assertThrows(CommandException.class,
-                AssignStudentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, () -> assignStudentCommand.execute(model));
+                AssignSessionCommand.MESSAGE_DUPLICATE_ASSIGNMENT, () -> assignSessionCommand.execute(model));
     }
 
     @Test
     public void equals() {
-        AssignStudentCommand assignBensonMathCommand = new AssignStudentCommand(bensonIdentity, MATH_SESSION.getId());
-        AssignStudentCommand assignAliceMathCommand =
-                new AssignStudentCommand(new Identity(ALICE.getId()), MATH_SESSION.getId());
+        AssignSessionCommand assignBensonMathCommand = new AssignSessionCommand(bensonIdentity, MATH_SESSION.getId());
+        AssignSessionCommand assignAliceMathCommand =
+                new AssignSessionCommand(new Identity(ALICE.getId()), MATH_SESSION.getId());
 
         // same object -> returns true
         assertEquals(assignBensonMathCommand, assignBensonMathCommand);
 
         // same values -> returns true
-        AssignStudentCommand assignBensonMathCommandCopy =
-                new AssignStudentCommand(bensonIdentity, MATH_SESSION.getId());
+        AssignSessionCommand assignBensonMathCommandCopy =
+                new AssignSessionCommand(bensonIdentity, MATH_SESSION.getId());
         assertEquals(assignBensonMathCommand, assignBensonMathCommandCopy);
 
         // different types -> returns false
@@ -90,15 +90,15 @@ public class AssignStudentCommandTest {
         assertNotEquals(assignBensonMathCommand, assignAliceMathCommand);
 
         // different session -> returns false
-        assertNotEquals(assignBensonMathCommand, new AssignStudentCommand(bensonIdentity, ENGLISH_SESSION.getId()));
+        assertNotEquals(assignBensonMathCommand, new AssignSessionCommand(bensonIdentity, ENGLISH_SESSION.getId()));
     }
 
     @Test
     public void toStringMethod() {
-        AssignStudentCommand assignStudentCommand = new AssignStudentCommand(bensonIdentity, MATH_SESSION.getId());
-        String expected = AssignStudentCommand.class.getCanonicalName()
+        AssignSessionCommand assignSessionCommand = new AssignSessionCommand(bensonIdentity, MATH_SESSION.getId());
+        String expected = AssignSessionCommand.class.getCanonicalName()
                 + "{identity=" + bensonIdentity + ", sessionId=" + MATH_SESSION.getId() + "}";
-        assertEquals(expected, assignStudentCommand.toString());
+        assertEquals(expected, assignSessionCommand.toString());
     }
 
 }

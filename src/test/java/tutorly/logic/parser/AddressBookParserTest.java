@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import tutorly.logic.commands.AddSessionCommand;
 import tutorly.logic.commands.AddStudentCommand;
-import tutorly.logic.commands.AssignStudentCommand;
+import tutorly.logic.commands.AssignSessionCommand;
 import tutorly.logic.commands.ClearCommand;
 import tutorly.logic.commands.DeleteStudentCommand;
 import tutorly.logic.commands.EditStudentCommand;
@@ -119,11 +119,11 @@ public class AddressBookParserTest {
     public void parseCommand_assign() throws Exception {
         int id = 1;
         Identity identity = new Identity(id);
-        AssignStudentCommand command = (AssignStudentCommand) parser.parse(
-                AssignStudentCommand.COMMAND_STRING + " " + id
+        AssignSessionCommand command = (AssignSessionCommand) parser.parse(
+                AssignSessionCommand.COMMAND_STRING + " " + id
                 + " " + PREFIX_SESSION + id
         );
-        assertEquals(new AssignStudentCommand(identity, id), command);
+        assertEquals(new AssignSessionCommand(identity, id), command);
     }
 
     @Test

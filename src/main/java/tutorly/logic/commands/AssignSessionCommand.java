@@ -18,10 +18,10 @@ import tutorly.ui.Tab;
 /**
  * Creates a new AttendanceRecord for a student to a session.
  */
-public class AssignStudentCommand extends StudentCommand {
+public class AssignSessionCommand extends SessionCommand {
 
     public static final String COMMAND_WORD = "assign";
-    public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
+    public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE =
             COMMAND_STRING + ": Assigns a student identified by their ID or name to a session. "
@@ -38,9 +38,9 @@ public class AssignStudentCommand extends StudentCommand {
     private final int sessionId;
 
     /**
-     * Creates an AssignStudentCommand for the given {@code Person} to the given {@code Session}
+     * Creates an AssignSessionCommand for the given {@code Person} to the given {@code Session}
      */
-    public AssignStudentCommand(Identity identity, int sessionId) {
+    public AssignSessionCommand(Identity identity, int sessionId) {
         requireNonNull(identity);
         this.identity = identity;
         this.sessionId = sessionId;
@@ -68,7 +68,7 @@ public class AssignStudentCommand extends StudentCommand {
         model.addAttendanceRecord(record);
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
-                .withTab(Tab.STUDENT)
+                .withTab(Tab.SESSION)
                 .build();
     }
 
@@ -79,12 +79,12 @@ public class AssignStudentCommand extends StudentCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AssignStudentCommand otherAssignStudentCommand)) {
+        if (!(other instanceof AssignSessionCommand otherAssignSessionCommand)) {
             return false;
         }
 
-        return identity.equals(otherAssignStudentCommand.identity)
-                && sessionId == otherAssignStudentCommand.sessionId;
+        return identity.equals(otherAssignSessionCommand.identity)
+                && sessionId == otherAssignSessionCommand.sessionId;
     }
 
     @Override

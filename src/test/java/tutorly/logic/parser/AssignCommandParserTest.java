@@ -11,12 +11,12 @@ import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_IDENTITY;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.logic.commands.AssignStudentCommand;
+import tutorly.logic.commands.AssignSessionCommand;
 import tutorly.model.person.Identity;
 
 public class AssignCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignStudentCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignSessionCommand.MESSAGE_USAGE);
 
     private final AssignCommandParser parser = new AssignCommandParser();
 
@@ -41,7 +41,7 @@ public class AssignCommandParserTest {
         assertParseSuccess(
                 parser,
                 VALID_ID_AMY + ID_DESC_SESSION,
-                new AssignStudentCommand(
+                new AssignSessionCommand(
                         new Identity(Integer.parseInt(VALID_ID_AMY)), Integer.parseInt(VALID_ID_SESSION)));
     }
 }
