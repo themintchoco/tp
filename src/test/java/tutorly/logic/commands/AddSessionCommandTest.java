@@ -21,6 +21,7 @@ import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -149,6 +150,11 @@ public class AddSessionCommandTest {
 
         @Override
         public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<Person> getPersonByIdentity(Identity identity, boolean fromArchived) {
             return Optional.empty();
         }
 

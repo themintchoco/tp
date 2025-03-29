@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import tutorly.commons.core.GuiSettings;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -101,6 +102,12 @@ public interface Model {
      * If {@code fromArchived} is true, the person is searched from the archived person list.
      */
     Optional<Person> getPersonByName(Name name, boolean fromArchived);
+
+    /**
+     * Returns an optional of the person with the given identity consisting of either ID or name.
+     * If {@code fromArchived} is true, the person is searched from the archived person list.
+     */
+    Optional<Person> getPersonByIdentity(Identity identity, boolean fromArchived);
 
     /**
      * Returns an unmodifiable view of the person list

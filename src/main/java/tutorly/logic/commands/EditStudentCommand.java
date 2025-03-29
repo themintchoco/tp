@@ -93,7 +93,7 @@ public class EditStudentCommand extends StudentCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Person> personToEdit = identity.getPerson(model);
+        Optional<Person> personToEdit = model.getPersonByIdentity(identity, false);
         if (personToEdit.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }

@@ -50,7 +50,7 @@ public class EnrolSessionCommand extends SessionCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Person> person = identity.getPerson(model);
+        Optional<Person> person = model.getPersonByIdentity(identity, false);
         if (person.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
