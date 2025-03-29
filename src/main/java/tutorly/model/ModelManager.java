@@ -213,6 +213,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void removeAttendanceRecord(AttendanceRecord record) {
+        requireNonNull(record);
+        addressBook.removeAttendanceRecord(record);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
