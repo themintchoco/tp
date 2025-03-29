@@ -173,4 +173,10 @@ public interface Model {
      * {@code record} must not already exist in the address book.
      */
     void addAttendanceRecord(AttendanceRecord record);
+
+    /**
+     * Deletes the given AttendanceRecord.
+     * {@code record} must already exist in the address book.
+     */
+    void removeAttendanceRecord(AttendanceRecord record);
 }

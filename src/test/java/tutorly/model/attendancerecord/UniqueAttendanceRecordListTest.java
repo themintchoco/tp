@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.testutil.Assert.assertThrows;
+import static tutorly.testutil.TypicalAddressBook.ALICE;
 import static tutorly.testutil.TypicalAddressBook.ALICE_ATTEND_ENGLISH;
 import static tutorly.testutil.TypicalAddressBook.BENSON_ATTEND_MATH;
+import static tutorly.testutil.TypicalAddressBook.ENGLISH_SESSION;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -122,6 +124,17 @@ public class UniqueAttendanceRecordListTest {
         uniqueAttendanceRecordList.add(ALICE_ATTEND_ENGLISH);
         uniqueAttendanceRecordList.remove(ALICE_ATTEND_ENGLISH);
         UniqueAttendanceRecordList expectedAttendanceRecordList = new UniqueAttendanceRecordList();
+        assertEquals(expectedAttendanceRecordList, uniqueAttendanceRecordList);
+
+        // removes record with different isPresent field
+        AttendanceRecord aliceAttendEngDiffPresent = new AttendanceRecordBuilder()
+                .withPerson(ALICE)
+                .withSession(ENGLISH_SESSION)
+                .withIsPresent(!ALICE_ATTEND_ENGLISH.getAttendance())
+                .build();
+
+        uniqueAttendanceRecordList.add(aliceAttendEngDiffPresent);
+        uniqueAttendanceRecordList.remove(ALICE_ATTEND_ENGLISH);
         assertEquals(expectedAttendanceRecordList, uniqueAttendanceRecordList);
     }
 
