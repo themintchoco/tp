@@ -21,7 +21,7 @@ public class RestoreStudentCommand extends StudentCommand {
     public static final String COMMAND_STRING = StudentCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
-            + ": Restores a previously deleted student identified either by their ID or name.\n"
+            + ": Restores a recently deleted student identified by a STUDENT_IDENTIFIER (ID or full name).\n"
             + "Parameters: STUDENT_IDENTIFIER\n"
             + "Example: " + COMMAND_STRING + " 1";
 
