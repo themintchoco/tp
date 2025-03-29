@@ -231,6 +231,11 @@ public class AddStudentCommandTest {
         public void addAttendanceRecord(AttendanceRecord record) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void removeAttendanceRecord(AttendanceRecord record) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

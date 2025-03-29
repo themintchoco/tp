@@ -7,6 +7,7 @@ import tutorly.logic.commands.Command;
 import tutorly.logic.commands.EnrolSessionCommand;
 import tutorly.logic.commands.SearchSessionCommand;
 import tutorly.logic.commands.SessionCommand;
+import tutorly.logic.commands.UnenrolSessionCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 
 /**
@@ -25,6 +26,9 @@ public class SessionCommandParser extends AddressBookParser {
 
         case EnrolSessionCommand.COMMAND_WORD:
             return new EnrolSessionCommandParser().parse(args);
+
+        case UnenrolSessionCommand.COMMAND_WORD:
+            return new UnenrolSessionCommandParser().parse(args);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

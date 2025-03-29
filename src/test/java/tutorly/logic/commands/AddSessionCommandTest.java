@@ -213,5 +213,9 @@ public class AddSessionCommandTest {
         @Override
         public void addAttendanceRecord(AttendanceRecord record) {
         }
+
+        @Override
+        public void removeAttendanceRecord(AttendanceRecord record) {
+        }
     }
 }
