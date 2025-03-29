@@ -20,20 +20,20 @@ import tutorly.model.ModelManager;
 import tutorly.model.UserPrefs;
 import tutorly.model.person.Identity;
 
-public class UnassignSessionCommandTest {
+public class UnenrolSessionCommandTest {
     private static final int INVALID_ID = 999;
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Identity bensonIdentity = new Identity(BENSON.getId());
 
     @Test
     public void constructor_nullArg_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new UnassignSessionCommand(null, 1));
+        assertThrows(NullPointerException.class, () -> new UnenrolSessionCommand(null, 1));
     }
 
     @Test
     public void execute_attendanceRecordRemovedByModel_removeSuccessful() throws Exception {
-        CommandResult commandResult = new UnassignSessionCommand(bensonIdentity, MATH_SESSION.getId()).execute(model);
-        assertEquals(String.format(UnassignSessionCommand.MESSAGE_SUCCESS, BENSON.getName().fullName,
+        CommandResult commandResult = new UnenrolSessionCommand(bensonIdentity, MATH_SESSION.getId()).execute(model);
+        assertEquals(String.format(UnenrolSessionCommand.MESSAGE_SUCCESS, BENSON.getName().fullName,
                 Messages.format(MATH_SESSION)), commandResult.getFeedbackToUser());
 
         assertFalse(model.hasAttendanceRecord(BENSON_ATTEND_MATH));
@@ -41,64 +41,64 @@ public class UnassignSessionCommandTest {
 
     @Test
     public void execute_invalidIdentity_throwsCommandException() {
-        UnassignSessionCommand unassignSessionCommand =
-                new UnassignSessionCommand(new Identity(INVALID_ID), ENGLISH_SESSION.getId());
+        UnenrolSessionCommand unenrolSessionCommand =
+                new UnenrolSessionCommand(new Identity(INVALID_ID), ENGLISH_SESSION.getId());
 
         assertThrows(
-                CommandException.class, Messages.MESSAGE_PERSON_NOT_FOUND, () -> unassignSessionCommand.execute(model));
+                CommandException.class, Messages.MESSAGE_PERSON_NOT_FOUND, () -> unenrolSessionCommand.execute(model));
     }
 
     @Test
     public void execute_invalidSessionId_throwsCommandException() {
-        UnassignSessionCommand unassignSessionCommand = new UnassignSessionCommand(bensonIdentity, INVALID_ID);
+        UnenrolSessionCommand unenrolSessionCommand = new UnenrolSessionCommand(bensonIdentity, INVALID_ID);
 
         assertThrows(CommandException.class,
-                Messages.MESSAGE_INVALID_SESSION_ID, () -> unassignSessionCommand.execute(model));
+                Messages.MESSAGE_INVALID_SESSION_ID, () -> unenrolSessionCommand.execute(model));
     }
 
     @Test
     public void execute_missingAttendanceRecord_throwsCommandException() {
-        UnassignSessionCommand unassignSessionCommand =
-                new UnassignSessionCommand(bensonIdentity, ENGLISH_SESSION.getId());
+        UnenrolSessionCommand unenrolSessionCommand =
+                new UnenrolSessionCommand(bensonIdentity, ENGLISH_SESSION.getId());
 
         assertThrows(CommandException.class,
-                UnassignSessionCommand.MESSAGE_MISSING_ASSIGNMENT, () -> unassignSessionCommand.execute(model));
+                UnenrolSessionCommand.MESSAGE_MISSING_ASSIGNMENT, () -> unenrolSessionCommand.execute(model));
     }
 
     @Test
     public void equals() {
-        UnassignSessionCommand unassignBensonMathCommand =
-                new UnassignSessionCommand(bensonIdentity, MATH_SESSION.getId());
-        UnassignSessionCommand unassignAliceMathCommand =
-                new UnassignSessionCommand(new Identity(ALICE.getId()), MATH_SESSION.getId());
+        UnenrolSessionCommand unenrolBensonMathCommand =
+                new UnenrolSessionCommand(bensonIdentity, MATH_SESSION.getId());
+        UnenrolSessionCommand unenrolAliceMathCommand =
+                new UnenrolSessionCommand(new Identity(ALICE.getId()), MATH_SESSION.getId());
 
         // same object -> returns true
-        assertEquals(unassignBensonMathCommand, unassignBensonMathCommand);
+        assertEquals(unenrolBensonMathCommand, unenrolBensonMathCommand);
 
         // same values -> returns true
-        UnassignSessionCommand unassignBensonMathCommandCopy =
-                new UnassignSessionCommand(bensonIdentity, MATH_SESSION.getId());
-        assertEquals(unassignBensonMathCommand, unassignBensonMathCommandCopy);
+        UnenrolSessionCommand unenrolBensonMathCommandCopy =
+                new UnenrolSessionCommand(bensonIdentity, MATH_SESSION.getId());
+        assertEquals(unenrolBensonMathCommand, unenrolBensonMathCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(1, unassignBensonMathCommand);
+        assertNotEquals(1, unenrolBensonMathCommand);
 
         // null -> returns false
-        assertNotEquals(null, unassignBensonMathCommand);
+        assertNotEquals(null, unenrolBensonMathCommand);
 
         // different person -> returns false
-        assertNotEquals(unassignBensonMathCommand, unassignAliceMathCommand);
+        assertNotEquals(unenrolBensonMathCommand, unenrolAliceMathCommand);
 
         // different session -> returns false
-        assertNotEquals(unassignBensonMathCommand, new UnassignSessionCommand(bensonIdentity, ENGLISH_SESSION.getId()));
+        assertNotEquals(unenrolBensonMathCommand, new UnenrolSessionCommand(bensonIdentity, ENGLISH_SESSION.getId()));
     }
 
     @Test
     public void toStringMethod() {
-        UnassignSessionCommand unassignSessionCommand =
-                new UnassignSessionCommand(bensonIdentity, MATH_SESSION.getId());
-        String expected = UnassignSessionCommand.class.getCanonicalName()
+        UnenrolSessionCommand unenrolSessionCommand =
+                new UnenrolSessionCommand(bensonIdentity, MATH_SESSION.getId());
+        String expected = UnenrolSessionCommand.class.getCanonicalName()
                 + "{identity=" + bensonIdentity + ", sessionId=" + MATH_SESSION.getId() + "}";
-        assertEquals(expected, unassignSessionCommand.toString());
+        assertEquals(expected, unenrolSessionCommand.toString());
     }
 }

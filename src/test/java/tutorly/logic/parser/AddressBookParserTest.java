@@ -32,7 +32,7 @@ import tutorly.logic.commands.ListStudentCommand;
 import tutorly.logic.commands.RestoreStudentCommand;
 import tutorly.logic.commands.SearchSessionCommand;
 import tutorly.logic.commands.SearchStudentCommand;
-import tutorly.logic.commands.UnassignSessionCommand;
+import tutorly.logic.commands.UnenrolSessionCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.filter.AttendSessionFilter;
 import tutorly.model.filter.DateSessionFilter;
@@ -128,14 +128,14 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_unassign() throws Exception {
+    public void parseCommand_unenrol() throws Exception {
         int id = 1;
         Identity identity = new Identity(id);
-        UnassignSessionCommand command = (UnassignSessionCommand) parser.parse(
-                UnassignSessionCommand.COMMAND_STRING + " " + id
+        UnenrolSessionCommand command = (UnenrolSessionCommand) parser.parse(
+                UnenrolSessionCommand.COMMAND_STRING + " " + id
                         + " " + PREFIX_SESSION + id
         );
-        assertEquals(new UnassignSessionCommand(identity, id), command);
+        assertEquals(new UnenrolSessionCommand(identity, id), command);
     }
 
     @Test

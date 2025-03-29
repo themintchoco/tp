@@ -18,27 +18,27 @@ import tutorly.ui.Tab;
 /**
  * Removes an AttendanceRecord for a student to a session.
  */
-public class UnassignSessionCommand extends SessionCommand {
-    public static final String COMMAND_WORD = "unassign";
+public class UnenrolSessionCommand extends SessionCommand {
+    public static final String COMMAND_WORD = "unenrol";
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE =
-            COMMAND_STRING + ": Removes a student identified by their ID or name from a session. "
-                    + "Parameters: ID/NAME "
+            COMMAND_STRING + ": Removes a student identified by a STUDENT_IDENTIFIER (ID or full name) from a session. "
+                    + "Parameters: STUDENT_IDENTIFIER "
                     + PREFIX_SESSION + "SESSION_ID\n"
                     + "Example: " + COMMAND_STRING + " 1 "
                     + PREFIX_SESSION + "2 ";
 
     public static final String MESSAGE_SUCCESS = "%1$s has been removed from Session: %2$s";
-    public static final String MESSAGE_MISSING_ASSIGNMENT = "This student is not assigned to the session";
+    public static final String MESSAGE_MISSING_ASSIGNMENT = "This student is not enrolled to the session";
 
     private final Identity identity;
     private final int sessionId;
 
     /**
-     * Creates an UnassignSessionCommand for the given {@code Person} to the given {@code Session}
+     * Creates an UnenrolSessionCommand for the given {@code Person} to the given {@code Session}
      */
-    public UnassignSessionCommand(Identity identity, int sessionId) {
+    public UnenrolSessionCommand(Identity identity, int sessionId) {
         requireNonNull(identity);
         this.identity = identity;
         this.sessionId = sessionId;
@@ -78,12 +78,12 @@ public class UnassignSessionCommand extends SessionCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UnassignSessionCommand otherUnassignSessionCommand)) {
+        if (!(other instanceof UnenrolSessionCommand otherUnenrolSessionCommand)) {
             return false;
         }
 
-        return identity.equals(otherUnassignSessionCommand.identity)
-                && sessionId == otherUnassignSessionCommand.sessionId;
+        return identity.equals(otherUnenrolSessionCommand.identity)
+                && sessionId == otherUnenrolSessionCommand.sessionId;
     }
 
     @Override

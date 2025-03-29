@@ -11,14 +11,14 @@ import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_IDENTITY;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.logic.commands.UnassignSessionCommand;
+import tutorly.logic.commands.UnenrolSessionCommand;
 import tutorly.model.person.Identity;
 
-public class UnassignCommandParserTest {
+public class UnenrolCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnassignSessionCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnenrolSessionCommand.MESSAGE_USAGE);
 
-    private final UnassignCommandParser parser = new UnassignCommandParser();
+    private final UnenrolCommandParser parser = new UnenrolCommandParser();
 
     @Test
     public void parse_emptyPreamble_failure() {
@@ -41,7 +41,7 @@ public class UnassignCommandParserTest {
         assertParseSuccess(
                 parser,
                 VALID_ID_AMY + ID_DESC_SESSION,
-                new UnassignSessionCommand(
+                new UnenrolSessionCommand(
                         new Identity(Integer.parseInt(VALID_ID_AMY)), Integer.parseInt(VALID_ID_SESSION)));
     }
 }
