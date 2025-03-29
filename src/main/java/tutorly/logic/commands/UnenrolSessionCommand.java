@@ -64,6 +64,8 @@ public class UnenrolSessionCommand extends SessionCommand {
             throw new CommandException(MESSAGE_MISSING_ASSIGNMENT);
         }
 
+        // this would usually call UniqueList.remove which uses Object.equals, but it is overridden by
+        // UniqueAttendanceRecordList which removes the record as long as session and person ID are equal.
         model.removeAttendanceRecord(record);
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
