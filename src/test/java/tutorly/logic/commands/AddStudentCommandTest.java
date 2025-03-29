@@ -23,6 +23,7 @@ import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.ReadOnlyUserPrefs;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.filter.Filter;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -164,6 +165,11 @@ public class AddStudentCommandTest {
 
         @Override
         public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Person> getPersonByIdentity(Identity identity, boolean fromArchived) {
             throw new AssertionError("This method should not be called.");
         }
 

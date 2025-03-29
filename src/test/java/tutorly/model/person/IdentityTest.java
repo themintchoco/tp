@@ -4,10 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tutorly.testutil.TypicalAddressBook.ALICE;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
-
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,40 +45,6 @@ class IdentityTest {
     void isNamePresent_nameIsNotSet_returnsFalse() {
         Identity identity = new Identity(10);
         assertFalse(identity.isNamePresent());
-    }
-
-    @Test
-    void getPerson_withIdInModel_returnsPerson() {
-        Identity identity = new Identity(1);
-        Optional<Person> result = identity.getPerson(model);
-
-        assertTrue(result.isPresent());
-        assertEquals(ALICE, result.get());
-    }
-
-    @Test
-    void getPerson_withIdNotInModel_returnsEmptuPerson() {
-        Identity identity = new Identity(100);
-        Optional<Person> result = identity.getPerson(model);
-
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void getPerson_withNameInModel_returnsPerson() {
-        Identity identity = new Identity(ALICE.getName());
-        Optional<Person> result = identity.getPerson(model);
-
-        assertTrue(result.isPresent());
-        assertEquals(ALICE, result.get());
-    }
-
-    @Test
-    void getPerson_withNameNotInModel_returnsEmptyPerson() {
-        Identity identity = new Identity(new Name("Invalid Name"));
-        Optional<Person> result = identity.getPerson(model);
-
-        assertTrue(result.isEmpty());
     }
 
     @Test

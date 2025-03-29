@@ -1,10 +1,8 @@
 package tutorly.model.person;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import tutorly.commons.util.ToStringBuilder;
-import tutorly.model.Model;
 
 /**
  * Represents a Person's identity.
@@ -63,33 +61,6 @@ public class Identity {
      */
     public boolean isNamePresent() {
         return name != null;
-    }
-
-    /**
-     * Returns the person with the identity if it exists in the model.
-     *
-     * @param model        The model to retrieve the person from.
-     * @param fromArchived True if the person is to be retrieved from the archived person list.
-     * @return An optional containing the person with the given ID or name if it exists in the model.
-     */
-    public Optional<Person> getPerson(Model model, boolean fromArchived) {
-        if (isIdPresent()) {
-            return model.getPersonById(id, fromArchived);
-        } else if (isNamePresent()) {
-            return model.getPersonByName(name, fromArchived);
-        }
-
-        return Optional.empty();
-    }
-
-    /**
-     * Returns the person from the current person list with the identity if it exists in the model.
-     *
-     * @param model The model to retrieve the person from.
-     * @return An optional containing the person with the given ID or name if it exists in the model.
-     */
-    public Optional<Person> getPerson(Model model) {
-        return getPerson(model, false);
     }
 
     @Override
