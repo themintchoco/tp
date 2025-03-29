@@ -28,7 +28,7 @@ public class SessionCommandParser extends AddressBookParser {
             return new EnrolCommandParser().parse(args);
 
         case UnenrolSessionCommand.COMMAND_WORD:
-            return new UnenrolCommandParser().parse(args);
+            return new UnenrolSessionCommandParser().parse(args);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
