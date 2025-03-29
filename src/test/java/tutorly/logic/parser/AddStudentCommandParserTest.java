@@ -50,8 +50,8 @@ import tutorly.model.person.Phone;
 import tutorly.model.tag.Tag;
 import tutorly.testutil.PersonBuilder;
 
-public class AddCommandParserTest {
-    private final AddCommandParser parser = new AddCommandParser();
+public class AddStudentCommandParserTest {
+    private final AddStudentCommandParser parser = new AddStudentCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {

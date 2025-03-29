@@ -19,9 +19,9 @@ import tutorly.model.person.Name;
  * The path variation for those two cases occur inside the ParserUtil, and
  * therefore should be covered by the ParserUtilTest.
  */
-public class DeleteCommandParserTest {
+public class DeleteStudentCommandParserTest {
 
-    private final DeleteCommandParser parser = new DeleteCommandParser();
+    private final DeleteStudentCommandParser parser = new DeleteStudentCommandParser();
 
     @Test
     public void parse_id_returnsDeleteCommand() {

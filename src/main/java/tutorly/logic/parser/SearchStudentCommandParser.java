@@ -22,7 +22,7 @@ import tutorly.model.person.Person;
 /**
  * Parses input arguments and creates a new SearchCommand object
  */
-public class SearchCommandParser implements Parser<SearchStudentCommand> {
+public class SearchStudentCommandParser implements Parser<SearchStudentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SearchCommand

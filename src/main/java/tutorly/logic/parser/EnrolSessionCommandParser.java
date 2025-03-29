@@ -13,7 +13,7 @@ import tutorly.model.person.Identity;
 /**
  * Parses input arguments and creates a new EnrolSessionCommand object
  */
-public class EnrolCommandParser implements Parser<EnrolSessionCommand> {
+public class EnrolSessionCommandParser implements Parser<EnrolSessionCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EnrolSessionCommand
      * and returns a EnrolSessionCommand object for execution.

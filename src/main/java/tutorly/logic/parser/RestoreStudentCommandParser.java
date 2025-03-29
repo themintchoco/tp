@@ -9,7 +9,7 @@ import tutorly.model.person.Identity;
 /**
  * Parses input arguments and creates a new RestoreCommand object
  */
-public class RestoreCommandParser implements Parser<RestoreStudentCommand> {
+public class RestoreStudentCommandParser implements Parser<RestoreStudentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the RestoreCommand
