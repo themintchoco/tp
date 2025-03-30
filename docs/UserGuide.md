@@ -128,11 +128,11 @@ The main window will automatically switch to the tab which shows the results of 
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Student Management
+### Student Management: `student ACTION`
 
 The following commands all begin with `student` followed by an action word.
 
-#### Adding a student: `student add`
+#### Adding a student: `add`
 
 Adds a student to the app.
 
@@ -146,13 +146,13 @@ Examples:
 * `student add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 m/loves Math`
 * `student add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-#### Listing all students: `student list`
+#### Listing all students: `list`
 
 Shows a list of all students.
 
 Format: `student list`
 
-#### Editing a student: `student edit`
+#### Editing a student: `edit`
 
 Edits an existing student.
 
@@ -168,7 +168,7 @@ Examples:
 *  `student edit John Doe p/91234567 e/johndoe@example.com` Edits the phone number and email address of John Doe to be `91234567` and `johndoe@example.com` respectively.
 *  `student edit 2 n/Betsy Crower t/` Edits the name of the student with an ID of 2 to be `Betsy Crower` and clears all existing tags.
 
-#### Searching for students: `student search`
+#### Searching for students: `search`
 
 Finds students whose names or phone numbers contain any of the given keywords, or is assigned to a specific session.
 
@@ -185,7 +185,7 @@ Examples:
 * `student search n/alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'search alex david'](images/searchAlexDavidResult.png)
 
-#### Deleting a student: `student delete`
+#### Deleting a student: `delete`
 
 Deletes the student with the specified `STUDENT_IDENTIFIER`. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
 
@@ -195,7 +195,7 @@ Examples:
 * `student delete 2` deletes the student with the ID of 2.
 * `student delete John Doe` deletes the student with the name `John Doe`.
 
-#### Restoring a deleted student: `student restore`
+#### Restoring a deleted student: `restore`
 
 Undoes a deletion of a student.
 
@@ -209,11 +209,11 @@ Examples:
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Session Management
+### Session Management: `session ACTION`
 
 The following commands all begin with `session` followed by an action word.
 
-#### Adding a session: `session add`
+#### Adding a session: `add`
 
 Adds a session to the app.
 
@@ -222,13 +222,13 @@ Format: `session add d/DATE sub/SUBJECT`
 Examples:
 * `session add d/2025-03-18 sub/Mathematics`
 
-#### Listing all sessions: `session list`
+#### Listing all sessions: `list`
 
 Shows a list of all sessions.
 
 Format: `session list`
 
-#### Editing a session: `session edit`
+#### Editing a session: `edit`
 
 Edits an existing session.
 
@@ -241,7 +241,7 @@ Examples:
 *  `session edit 3 d/2025-04-11` Edits the date of the session with the ID 3 to be on `11 April 2025`.
 *  `session edit 2 d/2025-06-20 sub/Math` Edits the date and subject of the session with the ID 2 to be on `20 June 2025` with the subject `Math`.
 
-#### Searching for sessions: `session search`
+#### Searching for sessions: `search`
 
 Finds sessions on a particular date or on a subject which matches any of the given keywords.
 
@@ -257,7 +257,7 @@ Examples:
 * `student search d/2025-05-22` returns sessions that fall on 22 May 2025.
 * `student search sub/Math` returns sessions with subjects `Math`, `Mathematics`<br>
 
-#### Deleting a session: `session delete`
+#### Deleting a session: `delete`
 
 Deletes the session with the given ID.
 
@@ -266,7 +266,7 @@ Format: `session delete SESSION_ID`
 Examples:
 * `session delete 2` deletes the session with the ID of 2.
 
-#### Assigning a student to a session: `session assign`
+#### Assigning a student to a session: `assign`
 
 Assigns a student to a session.
 
@@ -279,7 +279,7 @@ Examples:
 * `session assign 2 ses/3` assigns a student with an ID of 2 to attend a session with an ID of 3.
 * `session assign John Doe ses/4` assigns a student with the name `John Doe` to attend a session with an ID of 4.
 
-#### Removing a student from a session: `session unassign`
+#### Removing a student from a session: `unassign`
 
 Removes the assignment of a student with the specified `STUDENT_IDENTIFIER` from a session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
 
@@ -289,7 +289,7 @@ Examples:
 * `session unassign 2 ses/3` removes a student with an ID of 2 from a session with an ID of 3.
 * `session unassign John Doe ses/4` removes a student with the name `John Doe` from a session with an ID of 4.
 
-#### Marking attendance as present: `session mark`
+#### Marking attendance as present: `mark`
 
 Marks the attendance of a student for a session as present.
 
@@ -301,7 +301,7 @@ Examples:
 * `session mark 2 ses/3` marks the attendance for the student with an ID of 2 for a session with an ID of 3 as present.
 * `session mark John Doe ses/4` marks the attendance for a student with the name `John Doe` for a session with an ID of 4 as present.
 
-#### Marking attendance as absent: `session unmark`
+#### Marking attendance as absent: `unmark`
 
 Marks the attendance of a student for a session as absent.
 
