@@ -5,21 +5,68 @@ title: User Guide
 
 Tutorly is a **desktop app designed to manage your student records efficiently**. It combines the speed and precision of typing commands with the convenience of a visual interface. If you prefer using your keyboard over clicking through menus, Tutorly allows you to complete student management tasks more quickly than traditional apps.
 
-* Table of Contents
-{:toc}
+## Table of Contents
+- [Quick start](#quick-start)
+- [Features](#features)
+  - <details>
+        <summary>
+            <a href="#general-commands">General commands</a>
+        </summary>
+        <a href="#viewing-help-help"> - Viewing help <br></a>
+        <a href="#clearing-all-entries-clear"> - Clearing all entries <br></a>
+        <a href="#exiting-the-program-exit"> - Exiting the program <br></a>
+    </details>
+  - <details>
+        <summary>
+            <a href="#viewing-tabs">Viewing tabs</a>
+        </summary>
+        <a href="#viewing-students-tab-student"> - Viewing students tab <br></a>
+        <a href="#viewing-sessions-tab-session"> - Viewing sessions tab <br></a>
+        <a href="#viewing-attendance-for-a-session-session-id"> - Viewing attendance for a session <br></a>
+    </details>
+  - <details>
+        <summary>
+            <a href="#student-management-student-action">Student Management</a>
+        </summary>
+        <a href="#adding-a-student-add"> - Adding a student <br></a>
+        <a href="#listing-all-students-list"> - Listing all students <br></a>
+        <a href="#editing-a-student-edit"> - Editing a student <br></a>
+        <a href="#searching-for-students-search"> - Searching for students <br></a>
+        <a href="#deleting-a-student-delete"> - Deleting a student <br></a>
+        <a href="#restoring-a-deleted-student-restore"> - Restoring a deleted student <br></a>
+    </details>
+  - <details>
+        <summary>
+            <a href="#session-management-session-action">Session Management</a>
+        </summary>
+        <a href="#adding-a-session-add"> - Adding a session <br></a>
+        <a href="#listing-all-sessions-list"> - Listing all sessions <br></a>
+        <a href="#editing-a-session-edit"> - Editing a session <br></a>
+        <a href="#searching-for-sessions-search"> - Searching for sessions <br></a>
+        <a href="#enrolling-a-student-to-a-session-enrol"> - Enrolling a student to a session <br></a>
+        <a href="#unenrolling-a-student-from-a-session-unenrol"> - Unenrolling a student from a session <br></a>
+        <a href="#marking-attendance-as-present-mark"> - Marking attendance as present <br></a>
+        <a href="#marking-attendance-as-absent-unmark"> - Marking attendance as absent <br></a>
+    </details>
+- [Saving the data](#saving-the-data)
+- [Editing the data file](#editing-the-data-file)
+- [FAQ](#faq)
+- [Known issues](#known-issues)
+- [Command summary](#command-summary)
+- [Glossary](#glossary)
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
 
-1. **Install Java**: Ensure you have Java `17` or above installed in your Computer. You can download the correct JDK for your operating system [here](https://www.oracle.com/sg/java/technologies/downloads/).<br>
+1. **Install Java**: Ensure you have Java `17` or above installed in your Computer. You can download the correct [JDK](#glossary) for your [operating system](#glossary) using this [link](https://www.oracle.com/sg/java/technologies/downloads/).<br>
    **Mac users**: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. **Download Tutorly**: Get the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-T17-3/tp/releases/latest/download/tutorly.jar).
+2. **Download Tutorly**: Get the latest [JAR](#glossary) file from [here](https://github.com/AY2425S2-CS2103T-T17-3/tp/releases/latest/download/tutorly.jar).
 
 3. **Move the file**: Locate the downloaded `tutorly.jar` file and place it in a folder where you want to keep the app's data. This will be the app's _home folder_.
 
-4. **Open a command terminal** - This is a tool that lets you run commands on your computer:
+4. **Open a [command terminal](#glossary)** - This is a tool that lets you run commands on your computer:
    - On **Windows**: Press `Win + R`, type `cmd`, and press **Enter**.
    - On **Mac**: Open **Terminal** from the Applications > Utilities folder.
    - On **Linux**: Open **Terminal** from your applications menu.
@@ -54,10 +101,10 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
 
 **:information_source: Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+* Words in `UPPER_CASE` are the [parameters](#glossary) to be supplied by the user.<br>
   e.g. in `student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
 
-* `STUDENT_IDENTIFIER` can either be the target student's ID, or their full name. Examples: `John Doe` or `2`.
+* [STUDENT_IDENTIFIER](#glossary) can either be the target student's ID, or their full name. Examples: `John Doe` or `2`.
 
 * Parameters in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
