@@ -9,7 +9,9 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_MEMO;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
+import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_TAG;
+import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
 import static tutorly.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -45,6 +47,8 @@ public class CommandTestUtil {
     public static final String VALID_MEMO_AMY = "Amy requires more help in Math";
     public static final String VALID_MEMO_BOB = "Bob requires more help in English";
     public static final String VALID_DATE = "2025-03-18";
+    public static final String VALID_TIMESLOT = "18 Mar 2025 10:00-12:00";
+    public static final String VALID_SUBJECT = "Math";
 
     public static final String ID_DESC_SESSION = " " + PREFIX_SESSION + VALID_ID_SESSION;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -60,6 +64,8 @@ public class CommandTestUtil {
     public static final String MEMO_DESC_AMY = " " + PREFIX_MEMO + VALID_MEMO_AMY;
     public static final String MEMO_DESC_BOB = " " + PREFIX_MEMO + VALID_MEMO_BOB;
     public static final String DATE_DESC = " " + PREFIX_DATE + VALID_DATE;
+    public static final String TIMESLOT_DESC = " " + PREFIX_TIMESLOT + VALID_TIMESLOT;
+    public static final String SUBJECT_DESC = " " + PREFIX_SUBJECT + VALID_SUBJECT;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -67,6 +73,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_MEMO_DESC = " " + PREFIX_MEMO; // empty string not allowed for memos
+    public static final String INVALID_TIMESLOT_DESC = " " + PREFIX_TIMESLOT + "2025-03-18"; // invalid date format
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

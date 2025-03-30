@@ -9,7 +9,6 @@ import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalAddressBook.ALICE;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,6 +23,7 @@ import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.model.uniquelist.exceptions.DuplicateElementException;
 import tutorly.testutil.PersonBuilder;
+import tutorly.testutil.SessionBuilder;
 
 public class AddressBookTest {
 
@@ -117,7 +117,7 @@ public class AddressBookTest {
 
     @Test
     public void addSession_validSession_success() {
-        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        Session session = new SessionBuilder().build();
         addressBook.addSession(session);
         assertTrue(addressBook.hasSession(session));
     }
@@ -129,20 +129,20 @@ public class AddressBookTest {
 
     @Test
     public void hasSession_sessionNotInAddressBook_returnsFalse() {
-        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        Session session = new SessionBuilder().build();
         assertFalse(addressBook.hasSession(session));
     }
 
     @Test
     public void hasSession_sessionInAddressBook_returnsTrue() {
-        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        Session session = new SessionBuilder().build();
         addressBook.addSession(session);
         assertTrue(addressBook.hasSession(session));
     }
 
     @Test
     public void removeSession_existingSession_success() {
-        Session session = new Session(1, LocalDate.parse("2025-03-18"), "Mathematics");
+        Session session = new SessionBuilder().build();
         addressBook.addSession(session);
         addressBook.removeSession(session);
         assertFalse(addressBook.hasSession(session));
@@ -201,7 +201,7 @@ public class AddressBookTest {
         private final ObservableList<AttendanceRecord> attendanceRecords = ObservableListUtil.arrayList();
 
         AddressBookStub(Collection<Person> persons,
-                Collection<Session> sessions, Collection<AttendanceRecord> attendanceRecords) {
+                        Collection<Session> sessions, Collection<AttendanceRecord> attendanceRecords) {
             this.persons.setAll(persons);
             this.sessions.setAll(sessions);
             this.attendanceRecords.setAll(attendanceRecords);

@@ -2,7 +2,7 @@ package tutorly.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +16,7 @@ import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.person.Phone;
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
 
 /**
@@ -53,9 +54,11 @@ public class MessagesTest {
 
     @Test
     public void format_session_correctFormatting() {
-        Session session = new Session(1, LocalDate.of(2025, 3, 20), "Mathematics");
+        Timeslot validTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+                LocalDateTime.of(2025, 3, 25, 12, 0));
+        Session session = new Session(validTimeslot, "Mathematics");
 
-        String expectedFormat = "Date: 2025-03-20; Subject: Mathematics";
+        String expectedFormat = "id: 0; startTime: 2025-03-25T10:00; endTime: 2025-03-25T12:00; Subject: Mathematics";
         assertEquals(expectedFormat, Messages.format(session));
     }
 }

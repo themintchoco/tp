@@ -65,8 +65,12 @@ public class Messages {
      */
     public static String format(Session session) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Date: ")
-                .append(session.getDate())
+        builder.append("id: ")
+                .append(session.getId())
+                .append("; startTime: ")
+                .append(session.getTimeslot().getStartTime())
+                .append("; endTime: ")
+                .append(session.getTimeslot().getEndTime())
                 .append("; Subject: ")
                 .append(session.getSubject());
         return builder.toString();

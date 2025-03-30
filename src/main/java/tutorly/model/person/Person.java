@@ -45,10 +45,6 @@ public class Person {
         this.memo = memo;
     }
 
-    public int getId() {
-        return id;
-    }
-
     /**
      * Sets the student ID assigned by the address book during {@link AddressBook#addPerson(Person)}. Should only be
      * called once per student as the student ID is effectively final.
@@ -63,6 +59,10 @@ public class Person {
         }
 
         this.id = studentId;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Name getName() {
