@@ -170,14 +170,14 @@ Examples:
 
 #### Searching for students: `search`
 
-Finds students whose names or phone numbers contain any of the given keywords, or is assigned to a specific session.
+Finds students whose names or phone numbers contain any of the given keywords, or is enrolled to a specific session.
 
 Format: `student search [ses/SESSION_ID] [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Incomplete words will still be matched e.g. `Han` will match `Hans`
-* Students matching at least one keyword or are assigned to the session will be returned.
+* Students matching at least one keyword or are enrolled to the session will be returned.
   e.g. `n/Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
@@ -266,28 +266,28 @@ Format: `session delete SESSION_ID`
 Examples:
 * `session delete 2` deletes the session with the ID of 2.
 
-#### Assigning a student to a session: `assign`
+#### Enrolling a student to a session: `enrol`
 
-Assigns a student to a session.
+Enrols a student to a session.
 
-Format: `session assign STUDENT_IDENTIFIER ses/SESSION_ID`
+Format: `session enrol STUDENT_IDENTIFIER ses/SESSION_ID`
 
-* Assigns the student with the specified `STUDENT_IDENTIFIER` to the session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
-* The attendance for the student to the session upon assignment is marked as absent by default.
-
-Examples:
-* `session assign 2 ses/3` assigns a student with an ID of 2 to attend a session with an ID of 3.
-* `session assign John Doe ses/4` assigns a student with the name `John Doe` to attend a session with an ID of 4.
-
-#### Removing a student from a session: `unassign`
-
-Removes the assignment of a student with the specified `STUDENT_IDENTIFIER` from a session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
-
-Format: `session unassign STUDENT_IDENTIFIER ses/SESSION_ID`
+* Enrols the student with the specified `STUDENT_IDENTIFIER` to the session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
+* The attendance for the student to the session upon enrolment is marked as absent by default.
 
 Examples:
-* `session unassign 2 ses/3` removes a student with an ID of 2 from a session with an ID of 3.
-* `session unassign John Doe ses/4` removes a student with the name `John Doe` from a session with an ID of 4.
+* `session enrol 2 ses/3` enrols a student with an ID of 2 to attend a session with an ID of 3.
+* `session enrol John Doe ses/4` enrols a student with the name `John Doe` to attend a session with an ID of 4.
+
+#### Unenrolling a student from a session: `unenrol`
+
+Unenrols a student with the specified `STUDENT_IDENTIFIER` from a session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
+
+Format: `session unenrol STUDENT_IDENTIFIER ses/SESSION_ID`
+
+Examples:
+* `session unenrol 2 ses/3` unenrols a student with an ID of 2 from a session with an ID of 3.
+* `session unenrol John Doe ses/4` unenrols a student with the name `John Doe` from a session with an ID of 4.
 
 #### Marking attendance as present: `mark`
 
@@ -365,7 +365,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | Edit             | `session edit SESSION_ID [d/DATE] [sub/SUBJECT_KEYWORDS]`                                     | `session edit 2 d/2025-04-11 sub/Math`     |
 |         | Search           | `session search [d/DATE] [sub/SUBJECT_KEYWORDS]`                                              | `session search d/2025-04-15 sub/Math Eng` |
 |         | Delete           | `session delete SESSION_ID`                                                                   | `session delete 1`                         |
-|         | Assign student   | `session assign STUDENT_IDENTIFIER ses/SESSION_ID `                                           | `session assign 4 ses/3 `                  |
-|         | Remove student   | `session unassign STUDENT_IDENTIFIER ses/SESSION_ID `                                         | `session unassign 4 ses/3 `                |
+|         | Enrol student    | `session enrol STUDENT_IDENTIFIER ses/SESSION_ID `                                            | `session enrol 4 ses/3 `                   |
+|         | Unenrol student  | `session unenrol STUDENT_IDENTIFIER ses/SESSION_ID `                                          | `session unenrol 4 ses/3 `                 |
 |         | Mark Present     | `session mark STUDENT_IDENTIFIER ses/SESSION_ID`                                              | `session mark John Doe ses/2`              |
 |         | Mark Absent      | `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`                                            | `session unmark 3 ses/2`                   |
