@@ -20,6 +20,7 @@ public interface Model {
      * {@code Filter} that always evaluate to true
      */
     Filter<Person> FILTER_SHOW_ALL_PERSONS = ab -> p -> true;
+    Filter<Session> FILTER_SHOW_ALL_SESSIONS = ab -> s -> true;
 
     /**
      * Returns the user prefs.
