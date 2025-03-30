@@ -19,7 +19,7 @@ public class DateSessionFilter implements Filter<Session> {
 
     @Override
     public Predicate<Session> toPredicate(ReadOnlyAddressBook addressBook) {
-        return session -> session.getTimeslot().equals(date);
+        return session -> session.getTimeslot().getStartTime().toLocalDate().equals(date);
     }
 
     @Override
