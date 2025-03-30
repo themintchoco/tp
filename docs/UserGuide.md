@@ -59,7 +59,7 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
 
 * `STUDENT_IDENTIFIER` can either be the target student's ID, or their full name. Examples: `John Doe` or `2`.
 
-* Items in square brackets are optional.<br>
+* Parameters in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
@@ -68,7 +68,7 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
+* Extra parameters for `general` commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -159,7 +159,7 @@ Edits an existing student.
 Format: `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​`
 
 * Edits the student with the specified `STUDENT_IDENTIFIER`. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
-* At least one of the optional fields must be provided.
+* At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
@@ -234,7 +234,7 @@ Edits an existing session.
 
 Format: `session edit SESSION_ID [d/DATE] [sub/SUBJECT]`
 * Edits the session with the `SESSION_ID`.
-* At least one of the optional fields must be provided.
+* At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
 
 Examples:
@@ -255,7 +255,8 @@ Format: `session search [d/DATE] [sub/SUBJECT_KEYWORDS]`
 
 Examples:
 * `student search d/2025-05-22` returns sessions that fall on 22 May 2025.
-* `student search sub/Math` returns sessions with subjects `Math`, `Mathematics`<br>
+* `student search sub/Math d/2025-06-11` returns sessions with subjects `Math`, `Mathematics` and sessions that fall on 11 June 2025.<br>
+* `student search` will simply return all sessions.
 
 #### Deleting a session: `delete`
 
@@ -265,6 +266,11 @@ Format: `session delete SESSION_ID`
 
 Examples:
 * `session delete 2` deletes the session with the ID of 2.
+
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Unlike student delete, there is no restore command for session delete in the current version of Tutorly, i.e. this command is irreversible.
+A restore command for sessions will be added in future versions.
+</div>
 
 #### Enrolling a student to a session: `enrol`
 
@@ -317,11 +323,11 @@ Examples:
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Tutorly data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Tutorly data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
@@ -369,3 +375,16 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | Unenrol student  | `session unenrol STUDENT_IDENTIFIER ses/SESSION_ID `                                          | `session unenrol 4 ses/3 `                 |
 |         | Mark Present     | `session mark STUDENT_IDENTIFIER ses/SESSION_ID`                                              | `session mark John Doe ses/2`              |
 |         | Mark Absent      | `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`                                            | `session unmark 3 ses/2`                   |
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+| Term               | Definition                                                                                                                                                                    |
+|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Command Terminal   | A tool on a computer where you type instructions to make the computer perform tasks.                                                                                          |
+| JAR                | Java Archive file: A package that bundles a Java program and all its necessary parts into a single file, making it easier to share and run.                                   |
+| JDK                | Java Development Kit: A software package that provides everything needed to create and run Java programs.                                                                     |
+| Operating System   | An operating system is the main software that manages a computer’s hardware and allows you to run applications. Some examples include `Windows`, `Mac` and `Linux`.           |
+| Parameters         | These are placeholders in a command that users replace with specific information to customize the command's action. They are usually prefixed with letters like `n/` or `p/`. |
+| STUDENT_IDENTIFIER | A parameter used to identify a student. It can either be the student's ID, or their full name.                                                                                |
