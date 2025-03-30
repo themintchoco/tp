@@ -24,7 +24,7 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
    - On **Mac**: Open **Terminal** from the Applications > Utilities folder.
    - On **Linux**: Open **Terminal** from your applications menu.
 
-5. **Navigate to the folder** - In the terminal, type `cd `(with a space). Then, **click and hold** the _home folder_, **drag** it into the terminal window and **release** it. Doing this will automatically insert the full path of the folder. Press **Enter**.
+5. **Navigate to the folder** - In the terminal, type `cd ` (with a space after). Then, **click and hold** the _home folder_, **drag** it into the terminal window and **release** it. Doing this will automatically insert the full path of the folder. Press **Enter**.
 
 6. **Run Tutorly** - Type `java -jar tutorly.jar` and press **Enter**. This will start the application. A GUI similar to the below should appear in a few seconds, containing some sample data.<br>
    ![Ui](images/Ui.png)
@@ -57,7 +57,7 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
 
-* `STUDENT_IDENTIFIER` can either be the target student's ID, or their full name.
+* `STUDENT_IDENTIFIER` can either be the target student's ID, or their full name. Examples: `John Doe` or `2`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -181,8 +181,8 @@ Format: `student search [ses/SESSION_ID] [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS]`
   e.g. `n/Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `student search n/John` returns `johnathan` and `John Doe`
-* `student search n/alex david` returns `Alex Yeoh`, `David Li`<br>
+* `student search n/John p/9123 8765` returns `johnathan`, `John Doe` and other students with a phone number that contains `9123` or `8765`.
+* `student search ses/3 n/alex david` returns `Alex Yeoh`, `David Li` and other students who attended session with the id 3.<br>
   ![result for 'search alex david'](images/searchAlexDavidResult.png)
 
 #### Deleting a student: `delete`
