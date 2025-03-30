@@ -5,6 +5,7 @@ import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import tutorly.logic.commands.AddSessionCommand;
 import tutorly.logic.commands.Command;
 import tutorly.logic.commands.EnrolSessionCommand;
+import tutorly.logic.commands.ListSessionCommand;
 import tutorly.logic.commands.SearchSessionCommand;
 import tutorly.logic.commands.SessionCommand;
 import tutorly.logic.commands.UnenrolSessionCommand;
@@ -18,6 +19,9 @@ public class SessionCommandParser extends AddressBookParser {
     @Override
     protected Command parseCommand(String command, String args) throws ParseException {
         switch (command) {
+        case ListSessionCommand.COMMAND_WORD:
+            return new ListSessionCommand();
+
         case AddSessionCommand.COMMAND_WORD:
             return new AddSessionCommandParser().parse(args);
 

@@ -28,6 +28,7 @@ import tutorly.logic.commands.EditStudentCommand.EditPersonDescriptor;
 import tutorly.logic.commands.EnrolSessionCommand;
 import tutorly.logic.commands.ExitCommand;
 import tutorly.logic.commands.HelpCommand;
+import tutorly.logic.commands.ListSessionCommand;
 import tutorly.logic.commands.ListStudentCommand;
 import tutorly.logic.commands.RestoreStudentCommand;
 import tutorly.logic.commands.SearchSessionCommand;
@@ -122,7 +123,7 @@ public class AddressBookParserTest {
         Identity identity = new Identity(id);
         EnrolSessionCommand command = (EnrolSessionCommand) parser.parse(
                 EnrolSessionCommand.COMMAND_STRING + " " + id
-                + " " + PREFIX_SESSION + id
+                        + " " + PREFIX_SESSION + id
         );
         assertEquals(new EnrolSessionCommand(identity, id), command);
     }
@@ -148,6 +149,12 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parse(ListStudentCommand.COMMAND_STRING) instanceof ListStudentCommand);
         assertTrue(parser.parse(ListStudentCommand.COMMAND_STRING + " 3") instanceof ListStudentCommand);
+    }
+
+    @Test
+    public void parseCommand_listSession() throws Exception {
+        assertTrue(parser.parse(ListSessionCommand.COMMAND_STRING) instanceof ListSessionCommand);
+        assertTrue(parser.parse(ListSessionCommand.COMMAND_STRING + " 3") instanceof ListSessionCommand);
     }
 
     @Test
