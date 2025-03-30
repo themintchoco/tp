@@ -57,7 +57,7 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start [:fa-solid-angle-up:](#table-of-contents)
+## Quick start
 
 1. **Install Java**: Ensure you have Java `17` or above installed in your Computer. You can download the correct [JDK](#glossary) for your [operating system](#glossary) using this [link](https://www.oracle.com/sg/java/technologies/downloads/).<br>
    **Mac users**: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
@@ -93,9 +93,11 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
 
 8. Refer to the [Features](#features) below for details of each command.
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-## Features [:fa-solid-angle-up:](#table-of-contents)
+## Features
 
 <div markdown="block" class="alert alert-info">
 
@@ -121,9 +123,11 @@ Tutorly is a **desktop app designed to manage your student records efficiently**
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### General Commands [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
 
-#### Viewing help: `help` [:fa-solid-angle-up:](#table-of-contents)
+### General Commands
+
+#### Viewing help: `help`
 
 Shows a message explaining how to access the help page.
 
@@ -131,35 +135,37 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-#### Clearing all entries: `clear` [:fa-solid-angle-up:](#table-of-contents)
+#### Clearing all entries: `clear`
 
 Clears all students and sessions from the app.
 
 Format: `clear`
 
-#### Exiting the program: `exit` [:fa-solid-angle-up:](#table-of-contents)
+#### Exiting the program: `exit`
 
 Closes the Tutorly app.
 
 Format: `exit`
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-### Viewing tabs [:fa-solid-angle-up:](#table-of-contents)
+### Viewing tabs
 
-#### Viewing students tab: `student` [:fa-solid-angle-up:](#table-of-contents)
+#### Viewing students tab: `student`
 
 Shows the student tab in the main window.
 
 Format: `student`
 
-#### Viewing sessions tab: `session` [:fa-solid-angle-up:](#table-of-contents)
+#### Viewing sessions tab: `session`
 
 Shows the session tab in the main window.
 
 Format: `session`
 
-#### Viewing attendance for a session: `session ID` [:fa-solid-angle-up:](#table-of-contents)
+#### Viewing attendance for a session: `session ID`
 
 Shows the attendance of students for a given session.
 
@@ -173,13 +179,15 @@ Examples:
 The main window will automatically switch to the tab which shows the results of the command that has been executed.
 </div>
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-### Student Management: `student ACTION` [:fa-solid-angle-up:](#table-of-contents)
+### Student Management: `student ACTION`
 
 The following commands all begin with `student` followed by an action word.
 
-#### Adding a student: `add` [:fa-solid-angle-up:](#table-of-contents)
+#### Adding a student: `add`
 
 Adds a student to the app.
 
@@ -193,13 +201,17 @@ Examples:
 * `student add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 m/loves Math`
 * `student add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-#### Listing all students: `list` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Listing all students: `list`
 
 Shows a list of all students.
 
 Format: `student list`
 
-#### Editing a student: `edit` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Editing a student: `edit`
 
 Edits an existing student.
 
@@ -215,7 +227,9 @@ Examples:
 *  `student edit John Doe p/91234567 e/johndoe@example.com` Edits the phone number and email address of John Doe to be `91234567` and `johndoe@example.com` respectively.
 *  `student edit 2 n/Betsy Crower t/` Edits the name of the student with an ID of 2 to be `Betsy Crower` and clears all existing tags.
 
-#### Searching for students: `search` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Searching for students: `search`
 
 Finds students whose names or phone numbers contain any of the given keywords, or is enrolled to a specific session.
 
@@ -232,7 +246,9 @@ Examples:
 * `student search ses/3 n/alex david` returns `Alex Yeoh`, `David Li` and other students who attended session with the id 3.<br>
   ![result for 'search alex david'](images/searchAlexDavidResult.png)
 
-#### Deleting a student: `delete` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Deleting a student: `delete`
 
 Deletes the student with the specified `STUDENT_IDENTIFIER`. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
 
@@ -242,7 +258,9 @@ Examples:
 * `student delete 2` deletes the student with the ID of 2.
 * `student delete John Doe` deletes the student with the name `John Doe`.
 
-#### Restoring a deleted student: `restore` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Restoring a deleted student: `restore`
 
 Undoes a deletion of a student.
 
@@ -254,13 +272,15 @@ Format: `student restore STUDENT_IDENTIFIER`
 Examples:
 * `student delete 1` followed by `student restore 1` before the app is closed will restore the deleted student.  
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-### Session Management: `session ACTION` [:fa-solid-angle-up:](#table-of-contents)
+### Session Management: `session ACTION`
 
 The following commands all begin with `session` followed by an action word.
 
-#### Adding a session: `add` [:fa-solid-angle-up:](#table-of-contents)
+#### Adding a session: `add`
 
 Adds a session to the app.
 
@@ -269,13 +289,17 @@ Format: `session add d/DATE sub/SUBJECT`
 Examples:
 * `session add d/2025-03-18 sub/Mathematics`
 
-#### Listing all sessions: `list` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Listing all sessions: `list`
 
 Shows a list of all sessions.
 
 Format: `session list`
 
-#### Editing a session: `edit` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Editing a session: `edit`
 
 Edits an existing session.
 
@@ -288,7 +312,9 @@ Examples:
 *  `session edit 3 d/2025-04-11` Edits the date of the session with the ID 3 to be on `11 April 2025`.
 *  `session edit 2 d/2025-06-20 sub/Math` Edits the date and subject of the session with the ID 2 to be on `20 June 2025` with the subject `Math`.
 
-#### Searching for sessions: `search` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Searching for sessions: `search`
 
 Finds sessions on a particular date or on a subject which matches any of the given keywords.
 
@@ -305,7 +331,9 @@ Examples:
 * `student search sub/Math d/2025-06-11` returns sessions with subjects `Math`, `Mathematics` and sessions that fall on 11 June 2025.<br>
 * `student search` will simply return all sessions.
 
-#### Deleting a session: `delete` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Deleting a session: `delete`
 
 Deletes the session with the given ID.
 
@@ -319,7 +347,9 @@ Unlike student delete, there is no restore command for session delete in the cur
 A restore command for sessions will be added in future versions.
 </div>
 
-#### Enrolling a student to a session: `enrol` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Enrolling a student to a session: `enrol`
 
 Enrols a student to a session.
 
@@ -332,7 +362,9 @@ Examples:
 * `session enrol 2 ses/3` enrols a student with an ID of 2 to attend a session with an ID of 3.
 * `session enrol John Doe ses/4` enrols a student with the name `John Doe` to attend a session with an ID of 4.
 
-#### Unenrolling a student from a session: `unenrol` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Unenrolling a student from a session: `unenrol`
 
 Unenrols a student with the specified `STUDENT_IDENTIFIER` from a session. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
 
@@ -342,7 +374,9 @@ Examples:
 * `session unenrol 2 ses/3` unenrols a student with an ID of 2 from a session with an ID of 3.
 * `session unenrol John Doe ses/4` unenrols a student with the name `John Doe` from a session with an ID of 4.
 
-#### Marking attendance as present: `mark` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Marking attendance as present: `mark`
 
 Marks the attendance of a student for a session as present.
 
@@ -354,7 +388,9 @@ Examples:
 * `session mark 2 ses/3` marks the attendance for the student with an ID of 2 for a session with an ID of 3 as present.
 * `session mark John Doe ses/4` marks the attendance for a student with the name `John Doe` for a session with an ID of 4 as present.
 
-#### Marking attendance as absent: `unmark` [:fa-solid-angle-up:](#table-of-contents)
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
+#### Marking attendance as absent: `unmark`
 
 Marks the attendance of a student for a session as absent.
 
@@ -366,13 +402,15 @@ Examples:
 * `session unmark 2 ses/3` marks the attendance for the student with an ID of 2 for a session with an ID of 3 as absent.
 * `session mark John Doe ses/4` marks the attendance for a student with the name `John Doe` for a session with an ID of 4 as absent.
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-### Saving the data [:fa-solid-angle-up:](#table-of-contents)
+### Saving the data
 
 Tutorly data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file [:fa-solid-angle-up:](#table-of-contents)
+### Editing the data file
 
 Tutorly data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -381,23 +419,29 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ [:fa-solid-angle-up:](#table-of-contents)
+## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues [:fa-solid-angle-up:](#table-of-contents)
+## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary [:fa-solid-angle-up:](#table-of-contents)
+## Command summary
 
 | Context | Action           | Format                                                                                        | Examples                                   |
 |---------|------------------|-----------------------------------------------------------------------------------------------|--------------------------------------------|
@@ -423,9 +467,11 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | Mark Present     | `session mark STUDENT_IDENTIFIER ses/SESSION_ID`                                              | `session mark John Doe ses/2`              |
 |         | Mark Absent      | `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`                                            | `session unmark 3 ses/2`                   |
 
+[:fa-solid-angle-up: Back to top](#table-of-contents)
+
 --------------------------------------------------------------------------------------------------------------------
 
-## Glossary [:fa-solid-angle-up:](#table-of-contents)
+## Glossary
 
 | Term               | Definition                                                                                                                                                                    |
 |--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -435,3 +481,5 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 | Operating System   | An operating system is the main software that manages a computer’s hardware and allows you to run applications. Some examples include `Windows`, `Mac` and `Linux`.           |
 | Parameters         | These are placeholders in a command that users replace with specific information to customize the command's action. They are usually prefixed with letters like `n/` or `p/`. |
 | STUDENT_IDENTIFIER | A parameter used to identify a student. It can either be the student's ID, or their full name.                                                                                |
+
+[:fa-solid-angle-up: Back to top](#table-of-contents)
