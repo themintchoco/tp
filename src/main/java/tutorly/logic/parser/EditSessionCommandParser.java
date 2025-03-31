@@ -1,8 +1,6 @@
 package tutorly.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
-import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;

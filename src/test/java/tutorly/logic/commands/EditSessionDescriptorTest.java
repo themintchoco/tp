@@ -46,6 +46,18 @@ public class EditSessionDescriptorTest {
     }
 
     @Test
+    public void isAnyFieldEdited() throws ParseException {
+        // no change
+        EditSessionDescriptor editSessionDescriptor = new EditSessionDescriptor();
+        assertFalse(editSessionDescriptor.isAnyFieldEdited());
+
+        // with values
+        editSessionDescriptor = new EditSessionDescriptorBuilder(DESC_SESSION_1)
+                .withTimeslot(VALID_TIMESLOT_2).build();
+        assertTrue(editSessionDescriptor.isAnyFieldEdited());
+    }
+
+    @Test
     public void toStringMethod() {
         EditSessionDescriptor editSessionDescriptor = new EditSessionDescriptor();
         String expectedString = "tutorly.logic.commands.EditSessionCommand.EditSessionDescriptor{"

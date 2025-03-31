@@ -94,6 +94,21 @@ public class EditSessionCommand extends SessionCommand {
                 .build();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof EditSessionCommand)) {
+            return false;
+        }
+
+        EditSessionCommand e = (EditSessionCommand) other;
+        return sessionId == e.sessionId
+                && editSessionDescriptor.equals(e.editSessionDescriptor);
+    }
+
     /**
      * Stores the details to edit the session with. Each non-empty field value will replace the
      * corresponding field value of the session.

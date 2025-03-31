@@ -1,11 +1,11 @@
 package tutorly.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static tutorly.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tutorly.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tutorly.testutil.TypicalAddressBook.ENGLISH_SESSION;
 import static tutorly.testutil.TypicalAddressBook.MATH_SESSION;
-import static tutorly.testutil.TypicalAddressBook.MATH_SESSION_OVERLAP;
 import static tutorly.testutil.TypicalAddressBook.MATH_TIMESLOT_OVERLAP;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
@@ -76,5 +76,31 @@ public class EditSessionCommandTest {
         expectedModel.setSession(MATH_SESSION, editedSession);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        EditSessionDescriptor descriptor = new EditSessionDescriptorBuilder(MATH_SESSION).build();
+        EditSessionCommand editCommand1 = new EditSessionCommand(MATH_SESSION.getId(), descriptor);
+        EditSessionCommand editCommand2 = new EditSessionCommand(ENGLISH_SESSION.getId(), descriptor);
+
+        // same object -> returns true
+        assertEquals(editCommand1, editCommand1);
+
+        // same values -> returns true
+        EditSessionCommand editCommand1Copy = new EditSessionCommand(MATH_SESSION.getId(), descriptor);
+        assertEquals(editCommand1, editCommand1Copy);
+
+        // different types -> returns false
+        assertNotEquals(editCommand1, 5);
+
+        // null -> returns false
+        assertNotEquals(editCommand1, null);
+
+        // different session -> returns false
+        assertNotEquals(editCommand1, editCommand2);
+
+        // different objects -> returns false
+        assertNotEquals("test", editCommand1);
     }
 }
