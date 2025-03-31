@@ -5,6 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.util.Callback;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 
@@ -35,10 +36,11 @@ public class AttendanceRecordCard extends UiPart<Region> {
     /**
      * Creates a {@code AttendanceRecordCard} with the given {@code AttendanceRecord} and index to display.
      */
-    public AttendanceRecordCard(AttendanceRecord record, Person student) {
+    public AttendanceRecordCard(AttendanceRecord record, Person student, Callback<Boolean, ?> toggleCallback) {
         super(FXML);
         this.record = record;
         checkbox.setSelected(record.getAttendance());
+        checkbox.setOnAction(event -> toggleCallback.call(!checkbox.isSelected()));
         name.setText(student.getName().fullName);
     }
 }
