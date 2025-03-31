@@ -15,8 +15,8 @@ import tutorly.model.person.Identity;
  */
 public class AttendanceUnmarkSessionCommandParser implements Parser<AttendanceUnmarkSessionCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the AttendanceMarkSessionCommand
-     * and returns a AttendanceMarkSessionCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AttendanceUnmarkSessionCommand
+     * and returns a AttendanceUnmarkSessionCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
