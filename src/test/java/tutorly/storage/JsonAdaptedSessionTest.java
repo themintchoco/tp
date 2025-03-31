@@ -4,61 +4,88 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tutorly.storage.JsonAdaptedSession.MISSING_FIELD_MESSAGE_FORMAT;
 import static tutorly.testutil.Assert.assertThrows;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
 import tutorly.commons.exceptions.IllegalValueException;
+import tutorly.logic.parser.ParserUtil;
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 
 public class JsonAdaptedSessionTest {
     private static final int VALID_SESSION_ID = 1;
-    private static final String VALID_DATE = "2025-03-21";
+    private static final String VALID_START_TIME = "2020-01-01T10:00:00";
+    private static final String VALID_END_TIME = "2020-01-01T12:00:00";
     private static final String VALID_SUBJECT = "Mathematics";
 
     private static final int INVALID_SESSION_ID = 0;
-    private static final String INVALID_DATE = "21-03-2025"; // Incorrect format
+    private static final String INVALID_DATETIME = "21-03-2025"; // Incorrect format
     private static final String INVALID_SUBJECT = ""; // Empty subject
 
     @Test
     public void toModelType_validSessionDetails_returnsSession() throws Exception {
-        JsonAdaptedSession session = new JsonAdaptedSession(new Session(VALID_SESSION_ID,
-                LocalDate.parse(VALID_DATE), VALID_SUBJECT));
-        assertEquals(new Session(VALID_SESSION_ID, LocalDate.parse(VALID_DATE), VALID_SUBJECT), session.toModelType());
+        Timeslot timeslot = new Timeslot(LocalDateTime.parse(VALID_START_TIME), LocalDateTime.parse(VALID_END_TIME));
+        Session session = new Session(timeslot, VALID_SUBJECT);
+        session.setId(VALID_SESSION_ID);
+        JsonAdaptedSession adaptedSession = new JsonAdaptedSession(session);
+        assertEquals(session, adaptedSession.toModelType());
     }
 
     @Test
-    public void toModelType_nullDate_throwsIllegalValueException() {
-        JsonAdaptedSession session = new JsonAdaptedSession(VALID_SESSION_ID, null, VALID_SUBJECT);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "date");
+    public void toModelType_nullStartAndEndTime_throwsIllegalValueException() {
+        JsonAdaptedSession session = new JsonAdaptedSession(VALID_SESSION_ID, null, null, VALID_SUBJECT);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "startTime");
         assertThrows(IllegalValueException.class, expectedMessage, session::toModelType);
     }
 
     @Test
-    public void toModelType_invalidDateFormat_throwsIllegalValueException() {
-        JsonAdaptedSession session = new JsonAdaptedSession(VALID_SESSION_ID, INVALID_DATE, VALID_SUBJECT);
-        String expectedMessage = "Invalid date format. Expected format: YYYY-MM-DD";
+    public void toModelType_nullStartTime_throwsIllegalValueException() {
+        JsonAdaptedSession session = new JsonAdaptedSession(VALID_SESSION_ID, null, VALID_END_TIME, VALID_SUBJECT);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "startTime");
         assertThrows(IllegalValueException.class, expectedMessage, session::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullEndTime_throwsIllegalValueException() {
+        JsonAdaptedSession session = new JsonAdaptedSession(VALID_SESSION_ID, VALID_START_TIME, null, VALID_SUBJECT);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "endTime");
+        assertThrows(IllegalValueException.class, expectedMessage, session::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidStartTime_throwsIllegalValueException() {
+        JsonAdaptedSession session = new JsonAdaptedSession(
+                VALID_SESSION_ID, INVALID_DATETIME, VALID_END_TIME, VALID_SUBJECT);
+        assertThrows(IllegalValueException.class, ParserUtil.MESSAGE_INVALID_DATETIME, session::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidEndTime_throwsIllegalValueException() {
+        JsonAdaptedSession session = new JsonAdaptedSession(
+                VALID_SESSION_ID, VALID_START_TIME, INVALID_DATETIME, VALID_SUBJECT);
+        assertThrows(IllegalValueException.class, ParserUtil.MESSAGE_INVALID_DATETIME, session::toModelType);
     }
 
     @Test
     public void toModelType_nullSubject_throwsIllegalValueException() {
-        JsonAdaptedSession session = new JsonAdaptedSession(VALID_SESSION_ID, VALID_DATE, null);
+        JsonAdaptedSession session = new JsonAdaptedSession(VALID_SESSION_ID, VALID_START_TIME, VALID_END_TIME, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "subject");
         assertThrows(IllegalValueException.class, expectedMessage, session::toModelType);
     }
 
     @Test
     public void toModelType_emptySubject_throwsIllegalValueException() {
-        JsonAdaptedSession session = new JsonAdaptedSession(VALID_SESSION_ID, VALID_DATE, INVALID_SUBJECT);
+        JsonAdaptedSession session = new JsonAdaptedSession(
+                VALID_SESSION_ID, VALID_START_TIME, VALID_END_TIME, INVALID_SUBJECT);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "subject");
         assertThrows(IllegalValueException.class, expectedMessage, session::toModelType);
     }
 
     @Test
     public void toModelType_invalidSessionId_throwsIllegalValueException() {
-        JsonAdaptedSession session = new JsonAdaptedSession(INVALID_SESSION_ID, VALID_DATE, VALID_SUBJECT);
-        String expectedMessage = "Session ID must be a positive integer.";
-        assertThrows(IllegalValueException.class, expectedMessage, session::toModelType);
+        JsonAdaptedSession session = new JsonAdaptedSession(
+                INVALID_SESSION_ID, VALID_START_TIME, VALID_END_TIME, VALID_SUBJECT);
+        assertThrows(IllegalValueException.class, Session.MESSAGE_INVALID_ID, session::toModelType);
     }
 }

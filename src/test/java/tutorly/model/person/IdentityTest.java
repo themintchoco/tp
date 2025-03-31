@@ -4,16 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import tutorly.model.Model;
-import tutorly.model.ModelManager;
-import tutorly.model.UserPrefs;
-
 class IdentityTest {
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     void constructor_withValidArgs_setsFields() {

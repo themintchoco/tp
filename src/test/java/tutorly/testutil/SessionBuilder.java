@@ -1,27 +1,29 @@
 package tutorly.testutil;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 
 /**
  * A utility class to help with building Session objects.
  */
 public class SessionBuilder {
 
-    public static final LocalDate DEFAULT_DATE = LocalDate.of(2020, 1, 1);
+    public static final Timeslot DEFAULT_TIMESLOT = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+            LocalDateTime.of(2025, 3, 25, 12, 0));
     public static final String DEFAULT_SUBJECT = "Math";
 
     private int id;
-    private LocalDate date;
+    private Timeslot timeslot;
     private String subject;
 
     /**
      * Creates a {@code SessionBuilder} with the default details.
      */
     public SessionBuilder() {
-        id = 0;
-        date = DEFAULT_DATE;
+        id = 1;
+        timeslot = DEFAULT_TIMESLOT;
         subject = DEFAULT_SUBJECT;
     }
 
@@ -30,7 +32,7 @@ public class SessionBuilder {
      */
     public SessionBuilder(Session sessionToCopy) {
         id = sessionToCopy.getId();
-        date = sessionToCopy.getDate();
+        timeslot = sessionToCopy.getTimeslot();
         subject = sessionToCopy.getSubject();
     }
 
@@ -43,10 +45,10 @@ public class SessionBuilder {
     }
 
     /**
-     * Sets the {@code date} of the {@code Session} that we are building.
+     * Sets the {@code timeslot} of the {@code Session} that we are building.
      */
-    public SessionBuilder withDate(LocalDate date) {
-        this.date = date;
+    public SessionBuilder withTimeslot(Timeslot timeslot) {
+        this.timeslot = timeslot;
         return this;
     }
 
@@ -58,8 +60,13 @@ public class SessionBuilder {
         return this;
     }
 
+    /**
+     * Builds a {@code Session} with the given details.
+     */
     public Session build() {
-        return new Session(id, date, subject);
+        Session session = new Session(timeslot, subject);
+        session.setId(id);
+        return session;
     }
 
 }

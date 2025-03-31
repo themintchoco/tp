@@ -2,10 +2,11 @@ package tutorly.model.session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import tutorly.model.uniquelist.exceptions.DuplicateElementException;
 import tutorly.model.uniquelist.exceptions.ElementNotFoundException;
+import tutorly.testutil.SessionBuilder;
 
 /**
  * Test class for UniqueSessionList.
@@ -29,21 +31,37 @@ public class UniqueSessionListTest {
     @BeforeEach
     void setUp() {
         sessionList = new UniqueSessionList();
-        session1 = new Session(101, LocalDate.of(2024, 3, 20), "Math");
-        session2 = new Session(102, LocalDate.of(2024, 3, 21), "Science");
-        session3 = new Session(103, LocalDate.of(2024, 3, 22), "English");
+        Timeslot timeslot1 = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+                LocalDateTime.of(2025, 3, 25, 12, 0));
+        Timeslot timeslot2 = new Timeslot(LocalDateTime.of(2025, 3, 25, 11, 0),
+                LocalDateTime.of(2025, 3, 25, 13, 0));
+        Timeslot timeslot3 = new Timeslot(LocalDateTime.of(2025, 3, 25, 12, 0),
+                LocalDateTime.of(2025, 3, 25, 13, 0));
+
+        session1 = new SessionBuilder().withId(1).withTimeslot(timeslot1).withSubject("Math").build();
+        session2 = new SessionBuilder().withId(2).withTimeslot(timeslot2).withSubject("Science").build();
+        session3 = new SessionBuilder().withId(3).withTimeslot(timeslot3).withSubject("English").build();
     }
 
     @Test
     void testAddSuccess() {
         sessionList.add(session1);
+        sessionList.add(session3);
         assertTrue(sessionList.contains(session1));
+        assertTrue(sessionList.contains(session3));
     }
 
     @Test
     void testAddDuplicateThrowsException() {
         sessionList.add(session1);
         assertThrows(DuplicateElementException.class, () -> sessionList.add(session1));
+    }
+
+    @Test
+    void testAddOverlappingTimeslotThrowsException() {
+        sessionList.add(session1);
+        Session session = new SessionBuilder().withId(1).withTimeslot(session2.getTimeslot()).build();
+        assertThrows(DuplicateElementException.class, () -> sessionList.add(session));
     }
 
     @Test
@@ -80,7 +98,7 @@ public class UniqueSessionListTest {
 
     @Test
     void testSetSessionsSuccess() {
-        List<Session> newSessions = List.of(session1, session2);
+        List<Session> newSessions = List.of(session1, session3);
         sessionList.setAll(newSessions);
         assertEquals(2, sessionList.asUnmodifiableObservableList().size());
     }
@@ -101,13 +119,13 @@ public class UniqueSessionListTest {
     @Test
     void testIterator() {
         sessionList.add(session1);
-        sessionList.add(session2);
+        sessionList.add(session3);
 
         Iterator<Session> iterator = sessionList.iterator();
         assertTrue(iterator.hasNext());
         assertEquals(session1, iterator.next());
         assertTrue(iterator.hasNext());
-        assertEquals(session2, iterator.next());
+        assertEquals(session3, iterator.next());
         assertFalse(iterator.hasNext());
     }
 
@@ -120,8 +138,8 @@ public class UniqueSessionListTest {
         anotherSessionList.add(session1);
         assertEquals(sessionList, anotherSessionList); // Lists with the same content should be equal
 
-        sessionList.add(session2);
-        assertFalse(sessionList.equals(anotherSessionList)); // Different lists should not be equal
+        sessionList.add(session3);
+        assertNotEquals(sessionList, anotherSessionList); // Different lists should not be equal
 
         assertEquals(sessionList.hashCode(), sessionList.hashCode()); // Same object should have the same hashcode
     }
@@ -129,8 +147,8 @@ public class UniqueSessionListTest {
     @Test
     void testToString() {
         sessionList.add(session1);
-        sessionList.add(session2);
-        String expectedString = "[" + session1.toString() + ", " + session2.toString() + "]";
+        sessionList.add(session3);
+        String expectedString = "[" + session1.toString() + ", " + session3.toString() + "]";
         assertEquals(expectedString, sessionList.toString());
     }
 }

@@ -52,11 +52,13 @@
   } ],
   "sessions": [ {
     "id": 1,
-    "date": "2025-01-01",
+    "startTime": "2025-03-25T10:00",
+    "endTime": "2025-03-25T12:00",
     "subject": "Math"
   }, {
     "id": 2,
-    "date": "2025-01-02",
+    "startTime": "2025-03-26T08:00",
+    "endTime": "2025-03-26T10:00",
     "subject": "English"
   } ],
   "attendanceRecords": [ {

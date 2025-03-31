@@ -9,10 +9,13 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
+import static tutorly.logic.parser.ParserUtil.DATE_FORMATTER;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIdentities.IDENTITY_FIRST_PERSON;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +47,7 @@ import tutorly.model.filter.SubjectContainsKeywordsFilter;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 import tutorly.testutil.PersonBuilder;
 import tutorly.testutil.PersonUtil;
@@ -109,7 +113,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchSessionCommand command = (SearchSessionCommand) parser.parse(
                 SearchSessionCommand.COMMAND_STRING
-                        + " " + PREFIX_DATE + date
+                        + " " + PREFIX_DATE + date.format(DATE_FORMATTER)
                         + " " + PREFIX_SUBJECT + keywords.stream().collect(Collectors.joining(" ")));
         Filter<Session> filter = Filter.any(Arrays.asList(
                 new DateSessionFilter(date),
@@ -175,11 +179,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addSession_validInput() throws Exception {
-        String validArgs = "session add d/2025-03-27 sub/Mathematics";
-        Session expectedSession = new Session(0, LocalDate.of(2025, 3, 27), "Mathematics");
+        String timeslot = "25 Mar 2025 10:00-12:00";
+        String subject = "Mathematics";
+        Timeslot validTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+                LocalDateTime.of(2025, 3, 25, 12, 0));
+        Session expectedSession = new Session(validTimeslot, subject);
 
         AddSessionCommand expectedCommand = new AddSessionCommand(expectedSession);
-        AddSessionCommand actualCommand = (AddSessionCommand) parser.parse(validArgs);
+        AddSessionCommand actualCommand = (AddSessionCommand) parser.parse(
+                AddSessionCommand.COMMAND_STRING + " " + PREFIX_TIMESLOT + timeslot + " " + PREFIX_SUBJECT + subject);
 
         assertEquals(expectedCommand, actualCommand);
     }

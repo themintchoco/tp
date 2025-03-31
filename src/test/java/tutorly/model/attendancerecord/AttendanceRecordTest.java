@@ -7,10 +7,11 @@ import org.junit.jupiter.api.Test;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.testutil.PersonBuilder;
+import tutorly.testutil.SessionBuilder;
 
 public class AttendanceRecordTest {
     private final Person student = new PersonBuilder().build();
-    private final Session session = new Session(1, null, "Math");
+    private final Session session = new SessionBuilder().withId(1).build();
 
     @Test
     public void getStudent() {
@@ -74,7 +75,6 @@ public class AttendanceRecordTest {
     @Test
     public void toStringMethod() {
         AttendanceRecord attendanceRecord = new AttendanceRecord(student.getId(), session.getId(), false);
-        System.out.println(attendanceRecord.toString());
         String expected = AttendanceRecord.class.getCanonicalName() + "{studentId=" + student.getId()
                 + ", sessionId=" + session.getId()
                 + ", isPresent=" + false

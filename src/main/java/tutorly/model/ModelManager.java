@@ -209,6 +209,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteSession(Session target) {
+        addressBook.removeSession(target);
+    }
+
+    @Override
     public Optional<Session> getSessionById(int id) {
         return addressBook.getSessionById(id);
     }

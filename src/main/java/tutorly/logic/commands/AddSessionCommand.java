@@ -1,8 +1,8 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
 
 import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
@@ -20,12 +20,12 @@ public class AddSessionCommand extends SessionCommand {
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
-            + ": Creates a tutoring session. "
+            + ": Creates a tutoring session.\n"
             + "Parameters: "
-            + PREFIX_DATE + "DATE "
+            + PREFIX_TIMESLOT + "TIMESLOT "
             + PREFIX_SUBJECT + "SUBJECT\n"
             + "Example: " + COMMAND_STRING + " "
-            + PREFIX_DATE + "2025-03-18 "
+            + PREFIX_TIMESLOT + "30 Mar 2025 11:30-13:30 "
             + PREFIX_SUBJECT + "Mathematics";
 
     public static final String MESSAGE_SUCCESS = "New session created: %1$s";
@@ -63,11 +63,10 @@ public class AddSessionCommand extends SessionCommand {
             return true;
         }
 
-        if (!(other instanceof AddSessionCommand)) {
+        if (!(other instanceof AddSessionCommand otherCommand)) {
             return false;
         }
 
-        AddSessionCommand otherCommand = (AddSessionCommand) other;
         return toCreate.equals(otherCommand.toCreate);
     }
 

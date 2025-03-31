@@ -8,6 +8,7 @@ import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ import tutorly.model.person.Email;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
+import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -75,7 +77,7 @@ public class ParserUtilTest {
     @Test
     public void parseId_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_ID, ()
-            -> ParserUtil.parseId(Long.toString(Integer.MAX_VALUE + 1)));
+                -> ParserUtil.parseId(Long.toString(Integer.MAX_VALUE + 1)));
         assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("0"));
         assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("-1"));
         assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("1.1"));
@@ -98,7 +100,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -112,7 +114,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -135,7 +137,7 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone(null));
     }
 
     @Test
@@ -158,7 +160,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null));
     }
 
     @Test
@@ -181,7 +183,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail(null));
     }
 
     @Test
@@ -246,5 +248,41 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseTimeslot_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTimeslot(null));
+    }
+
+    @Test
+    public void parseTimeslot_validValueWithoutWhitespace_returnsTimeslot() throws Exception {
+        String validTimeslot = "25 Mar 2025 10:00-12:00";
+        Timeslot expectedTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+                LocalDateTime.of(2025, 3, 25, 12, 0));
+        assertEquals(expectedTimeslot, ParserUtil.parseTimeslot(validTimeslot));
+    }
+
+    @Test
+    public void parseTimeslot_validValueWithWhitespace_returnsTrimmedTimeslot() throws Exception {
+        String timeslotWithWhitespace = WHITESPACE + "25 Mar 2025 10:00-12:00" + WHITESPACE;
+        Timeslot expectedTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+                LocalDateTime.of(2025, 3, 25, 12, 0));
+        assertEquals(expectedTimeslot, ParserUtil.parseTimeslot(timeslotWithWhitespace));
+    }
+
+    @Test
+    public void parseTimeslot_invalidDateFormat_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTimeslot("25/3/2025 10:00-12:00"));
+    }
+
+    @Test
+    public void parseTimeslot_invalidTimeFormat_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTimeslot("25 Mar 2025 10:00-12:00-14:00"));
+    }
+
+    @Test
+    public void parseTimeslot_endBeforeStartTime_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTimeslot("25 Mar 2025 12:00-10:00"));
     }
 }

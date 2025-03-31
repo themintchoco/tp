@@ -8,6 +8,7 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tutorly.logic.parser.ParserUtil.DATE_FORMATTER;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -48,7 +49,7 @@ public class SearchSessionCommandParserTest {
     public void parse_validArgs_returnsSearchCommand() {
         // no leading and trailing whitespaces
         Filter<Session> filters = Filter.any(Arrays.asList(
-                new DateSessionFilter(LocalDate.parse(VALID_DATE)),
+                new DateSessionFilter(LocalDate.parse(VALID_DATE, DATE_FORMATTER)),
                 new SubjectContainsKeywordsFilter(Arrays.asList("Math", "En"))));
         SearchSessionCommand expectedSearchCommand = new SearchSessionCommand(filters);
         assertParseSuccess(
