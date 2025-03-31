@@ -1,14 +1,11 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
 import static tutorly.model.Model.FILTER_SHOW_ALL_SESSIONS;
 
-import java.sql.Time;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import tutorly.commons.util.CollectionUtil;
@@ -16,6 +13,7 @@ import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
+import tutorly.model.ModelManager;
 import tutorly.model.session.Session;
 import tutorly.model.session.Timeslot;
 import tutorly.ui.Tab;
@@ -81,8 +79,10 @@ public class EditSessionCommand extends SessionCommand {
         }
 
         Session editedSession = createEditedSession(sessionToEdit.get(), editSessionDescriptor);
+        Model modelCopy = new ModelManager(model.getAddressBook(), model.getUserPrefs());
+        modelCopy.deleteSession(sessionToEdit.get());
 
-        if (!sessionToEdit.get().isSameSession(editedSession) && model.hasSession(editedSession)) {
+        if (modelCopy.hasSession(editedSession)) {
             throw new CommandException(Messages.MESSAGE_SESSION_OVERLAP);
         }
 
