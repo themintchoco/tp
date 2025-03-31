@@ -28,7 +28,7 @@ public class EditSessionCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecified_sucess() throws ParseException, CommandException {
+    public void execute_allFieldsSpecified_success() throws ParseException, CommandException {
         Session editedSession = new SessionBuilder(MATH_SESSION).withSubject("Science").build();
         EditSessionDescriptor descriptor = new EditSessionDescriptorBuilder(editedSession).build();
         EditSessionCommand editCommand = new EditSessionCommand(MATH_SESSION.getId(), descriptor);
@@ -64,7 +64,7 @@ public class EditSessionCommandTest {
     }
 
     @Test
-    public void execute_sameSessionOverlap_sucess() {
+    public void execute_sameSessionOverlap_success() {
         Session editedSession = new SessionBuilder(MATH_SESSION).withTimeslot(MATH_TIMESLOT_OVERLAP).build();
         EditSessionDescriptor descriptor = new EditSessionDescriptorBuilder(editedSession).build();
         EditSessionCommand editCommand = new EditSessionCommand(MATH_SESSION.getId(), descriptor);
