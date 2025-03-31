@@ -220,6 +220,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord record) {
+        requireNonNull(record);
+        return addressBook.findAttendanceRecord(record);
+    }
+
+    @Override
     public void addAttendanceRecord(AttendanceRecord record) {
         requireNonNull(record);
         addressBook.addAttendanceRecord(record);

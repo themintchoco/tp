@@ -238,6 +238,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns the attendance record equivalent to the given record.
+     */
+    public Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord attendanceRecord) {
+        requireNonNull(attendanceRecord);
+        return attendanceRecords.find(attendanceRecord);
+    }
+
+    /**
      * Adds an attendance record to the address book.
      */
     public void addAttendanceRecord(AttendanceRecord attendanceRecord) {

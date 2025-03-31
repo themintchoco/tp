@@ -177,6 +177,11 @@ public interface Model {
     boolean hasAttendanceRecord(AttendanceRecord record);
 
     /**
+     * Returns the attendance record equivalent to the given record.
+     */
+    Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord record);
+
+    /**
      * Adds the given AttendanceRecord.
      * {@code record} must not already exist in the address book.
      */
