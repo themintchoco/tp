@@ -207,6 +207,11 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public void deleteSession(Session target) {
+            sessions.remove(target);
+        }
+
+        @Override
         public Optional<Session> getSessionById(int id) {
             return Optional.empty();
         }
