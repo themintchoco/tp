@@ -166,6 +166,12 @@ public interface Model {
     void addSession(Session toCreate);
 
     /**
+     * Deletes the given session.
+     * {@code session} must already exist in the address book.
+     */
+    void deleteSession(Session target);
+
+    /**
      * Returns an optional of the session with the given id.
      */
     Optional<Session> getSessionById(int id);
