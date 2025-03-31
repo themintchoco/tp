@@ -23,6 +23,11 @@ public interface Model {
     Filter<Session> FILTER_SHOW_ALL_SESSIONS = ab -> s -> true;
 
     /**
+     * {@code Filter} that always evaluate to true
+     */
+    Filter<Session> FILTER_SHOW_ALL_SESSIONS = ab -> s -> true;
+
+    /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
@@ -170,6 +175,13 @@ public interface Model {
      * {@code session} must already exist in the address book.
      */
     void deleteSession(Session target);
+
+    /**
+     *  Replaces the given session {@code target} with {@code editedSession}.
+     * {@code target} must exist in the address book.
+     */
+    void setSession(Session session, Session editedSession);
+
 
     /**
      * Returns an optional of the session with the given id.

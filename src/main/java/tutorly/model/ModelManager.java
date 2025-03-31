@@ -214,6 +214,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setSession(Session target, Session editedSession) {
+        requireAllNonNull(target, editedSession);
+        addressBook.setSession(target, editedSession);
+    }
+
+    @Override
     public Optional<Session> getSessionById(int id) {
         return addressBook.getSessionById(id);
     }
