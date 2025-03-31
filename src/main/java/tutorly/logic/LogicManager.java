@@ -3,6 +3,7 @@ package tutorly.logic;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -29,11 +30,15 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_PERMISSION_ERROR_FORMAT =
             "Could not save data to file %s due to insufficient permissions to write to the file or the folder.";
 
+    public static final String UNDO_STACK_EMPTY = "No command to undo.";
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+
+    private final Stack<Command> undoStack = new Stack<>();
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -51,6 +56,19 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parse(commandText);
         commandResult = command.execute(model);
+
+        if (commandResult.hasReverseCommand()) {
+            Command reverseCommand = commandResult.getReverseCommand();
+            undoStack.push(reverseCommand);
+        }
+
+        if (commandResult.shouldReverseLast()) {
+            if (undoStack.isEmpty()) {
+                throw new CommandException(UNDO_STACK_EMPTY);
+            }
+            Command lastCommand = undoStack.pop();
+            commandResult = lastCommand.execute(model);
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());

@@ -33,7 +33,6 @@ import tutorly.logic.commands.ExitCommand;
 import tutorly.logic.commands.HelpCommand;
 import tutorly.logic.commands.ListSessionCommand;
 import tutorly.logic.commands.ListStudentCommand;
-import tutorly.logic.commands.RestoreStudentCommand;
 import tutorly.logic.commands.SearchSessionCommand;
 import tutorly.logic.commands.SearchStudentCommand;
 import tutorly.logic.commands.UnenrolSessionCommand;
@@ -159,11 +158,6 @@ public class AddressBookParserTest {
     public void parseCommand_listSession() throws Exception {
         assertTrue(parser.parse(ListSessionCommand.COMMAND_STRING) instanceof ListSessionCommand);
         assertTrue(parser.parse(ListSessionCommand.COMMAND_STRING + " 3") instanceof ListSessionCommand);
-    }
-
-    @Test
-    public void parseCommand_restore() throws Exception {
-        assertTrue(parser.parse(RestoreStudentCommand.COMMAND_STRING + " 3") instanceof RestoreStudentCommand);
     }
 
     @Test
