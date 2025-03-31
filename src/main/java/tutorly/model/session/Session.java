@@ -44,7 +44,9 @@ public class Session {
         this.id = id;
     }
 
-    // TODO: To be removed after refactoring search session command
+    /**
+     * Returns the date of the session based on its start time.
+     */
     public LocalDate getDate() {
         return timeslot.getStartTime().toLocalDate();
     }

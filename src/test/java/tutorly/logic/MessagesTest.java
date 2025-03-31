@@ -46,7 +46,7 @@ public class MessagesTest {
 
         Person person = new Person(name, phone, email, address, tags, memo);
 
-        String expectedFormat = "id: 0; Name: John Doe; Phone: 12345678; Email: john@example.com; Address: 123 Street; "
+        String expectedFormat = "Id: 0; Name: John Doe; Phone: 12345678; Email: john@example.com; Address: 123 Street; "
                 + "Tags: [student, friend]; Memo: Important client";
 
         assertEquals(expectedFormat, Messages.format(person));
@@ -58,7 +58,7 @@ public class MessagesTest {
                 LocalDateTime.of(2025, 3, 25, 12, 0));
         Session session = new Session(validTimeslot, "Mathematics");
 
-        String expectedFormat = "id: 0; startTime: 2025-03-25T10:00; endTime: 2025-03-25T12:00; Subject: Mathematics";
+        String expectedFormat = "Id: 0; Start time: 2025-03-25T10:00; End time: 2025-03-25T12:00; Subject: Mathematics";
         assertEquals(expectedFormat, Messages.format(session));
     }
 }
