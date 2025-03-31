@@ -3,6 +3,8 @@ package tutorly.logic.parser;
 import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import tutorly.logic.commands.AddSessionCommand;
+import tutorly.logic.commands.AttendanceMarkSessionCommand;
+import tutorly.logic.commands.AttendanceUnmarkSessionCommand;
 import tutorly.logic.commands.Command;
 import tutorly.logic.commands.DeleteSessionCommand;
 import tutorly.logic.commands.EnrolSessionCommand;
@@ -37,6 +39,12 @@ public class SessionCommandParser extends AddressBookParser {
 
         case DeleteSessionCommand.COMMAND_WORD:
             return new DeleteSessionCommandParser().parse(args);
+
+        case AttendanceMarkSessionCommand.COMMAND_WORD:
+            return new AttendanceMarkSessionCommandParser().parse(args);
+
+        case AttendanceUnmarkSessionCommand.COMMAND_WORD:
+            return new AttendanceUnmarkSessionCommandParser().parse(args);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -225,6 +225,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord record) {
+        requireNonNull(record);
+        return addressBook.findAttendanceRecord(record);
+    }
+
+    @Override
     public void addAttendanceRecord(AttendanceRecord record) {
         requireNonNull(record);
         addressBook.addAttendanceRecord(record);
@@ -234,6 +240,13 @@ public class ModelManager implements Model {
     public void removeAttendanceRecord(AttendanceRecord record) {
         requireNonNull(record);
         addressBook.removeAttendanceRecord(record);
+    }
+
+    @Override
+    public void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedRecord) {
+        requireAllNonNull(target, editedRecord);
+
+        addressBook.setAttendanceRecord(target, editedRecord);
     }
 
     @Override

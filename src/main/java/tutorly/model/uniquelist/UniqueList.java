@@ -5,6 +5,7 @@ import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.util.ObservableListUtil;
@@ -13,10 +14,10 @@ import tutorly.model.uniquelist.exceptions.ElementNotFoundException;
 
 /**
  * A list that enforces uniqueness between its elements and does not allow nulls.
- * An element is considered unique by comparing using {@code UniqueList<T>#isDistinct(T, T)}. As such, adding and
- * updating of elements uses {@code UniqueList<T>#isDistinct(T, T)} for equality so as to ensure that the element
- * being added or updated is unique in terms of identity in the UniqueList. However, the removal of an element uses
- * {@code T#equals(Object)} so as to ensure that the exact element will be removed.
+ * An element is considered unique by comparing using {@code UniqueList<T>#isEquivalent(T, T)}. As such, adding and
+ * updating of elements uses {@code UniqueList<T>#isEquivalent(T, T)} for equivalence so as to ensure that the element
+ * being added or updated is unique in the UniqueList. However, the removal of an element uses {@code T#equals(Object)}
+ * so as to ensure that the exact element will be removed.
  * <p>
  * Supports a minimal set of list operations.
  */
@@ -30,7 +31,17 @@ public class UniqueList<T> implements Iterable<T> {
      */
     public boolean contains(T toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(element -> !isDistinct(element, toCheck));
+        return internalList.stream().anyMatch(element -> isEquivalent(element, toCheck));
+    }
+
+    /**
+     * Returns the equivalent element in the list.
+     */
+    public Optional<T> find(T toFind) {
+        requireNonNull(toFind);
+        return internalList.stream()
+                .filter(element -> isEquivalent(element, toFind))
+                .findFirst();
     }
 
     /**
@@ -48,7 +59,7 @@ public class UniqueList<T> implements Iterable<T> {
     /**
      * Replaces the element {@code target} in the list with {@code edited}.
      * {@code target} must exist in the list.
-     * The edited element must not be the same as another existing element in the list.
+     * The edited element must not be equivalent to another existing element in the list.
      */
     public void set(T target, T edited) {
         requireAllNonNull(target, edited);
@@ -58,7 +69,7 @@ public class UniqueList<T> implements Iterable<T> {
             throw new ElementNotFoundException();
         }
 
-        if (isDistinct(target, edited) && contains(edited)) {
+        if (!isEquivalent(target, edited) && contains(edited)) {
             throw new DuplicateElementException();
         }
 
@@ -66,7 +77,7 @@ public class UniqueList<T> implements Iterable<T> {
     }
 
     /**
-     * Removes the equivalent element from the list.
+     * Removes the matching element from the list.
      * The element must exist in the list.
      */
     public void remove(T toRemove) {
@@ -76,6 +87,9 @@ public class UniqueList<T> implements Iterable<T> {
         }
     }
 
+    /**
+     * Replaces the contents of this list with {@code replacement}.
+     */
     public void setAll(UniqueList<T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -101,10 +115,17 @@ public class UniqueList<T> implements Iterable<T> {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Returns the number of elements in the list. If the list contains more than {@code Integer.MAX_VALUE} elements,
+     * returns {@code Integer.MAX_VALUE}.
+     */
     public int size() {
         return internalList.size();
     }
 
+    /**
+     * Removes all elements from the list.
+     */
     public void clear() {
         internalList.clear();
     }
@@ -141,10 +162,10 @@ public class UniqueList<T> implements Iterable<T> {
     /**
      * Returns true if the list contains only unique elements.
      */
-    protected boolean elementsAreUnique(List<T> list) {
+    private boolean elementsAreUnique(List<T> list) {
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                if (!isDistinct(list.get(i), list.get(j))) {
+                if (isEquivalent(list.get(i), list.get(j))) {
                     return false;
                 }
             }
@@ -153,9 +174,9 @@ public class UniqueList<T> implements Iterable<T> {
     }
 
     /**
-     * Returns true if two elements are distinct, and false otherwise.
+     * Returns true if two elements are equivalent, and false otherwise.
      */
-    protected boolean isDistinct(T element1, T element2) {
+    protected boolean isEquivalent(T element1, T element2) {
         return element1.equals(element2);
     }
 }

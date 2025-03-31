@@ -222,11 +222,20 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord record) {
+            return Optional.empty();
+        }
+
+        @Override
         public void addAttendanceRecord(AttendanceRecord record) {
         }
 
         @Override
         public void removeAttendanceRecord(AttendanceRecord record) {
+        }
+
+        @Override
+        public void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedRecord) {
         }
     }
 }
