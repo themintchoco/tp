@@ -45,10 +45,17 @@ public class Session {
     }
 
     /**
-     * Returns the date of the session based on its start time.
+     * Returns the start date of the session based on its start time.
      */
-    public LocalDate getDate() {
+    public LocalDate getStartDate() {
         return timeslot.getStartTime().toLocalDate();
+    }
+
+    /**
+     * Returns the end date of the session based on its end time.
+     */
+    public LocalDate getEndDate() {
+        return timeslot.getEndTime().toLocalDate();
     }
 
     public int getId() {

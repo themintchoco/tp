@@ -73,7 +73,7 @@ public class SearchSessionCommandTest {
         List<Session> expectedResult = Collections.singletonList(MATH_SESSION);
         String expectedMessage = String.format(MESSAGE_SESSIONS_LISTED_OVERVIEW, expectedResult.size());
 
-        DateSessionFilter dateFilter = new DateSessionFilter(MATH_SESSION.getDate());
+        DateSessionFilter dateFilter = new DateSessionFilter(MATH_SESSION.getStartDate());
         SubjectContainsKeywordsFilter subjectFilter = prepareSubjectFilter("mat");
 
         Filter<Session> filter = Filter.any(Arrays.asList(dateFilter, subjectFilter));
