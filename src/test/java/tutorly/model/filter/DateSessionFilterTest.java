@@ -1,7 +1,9 @@
 package tutorly.model.filter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.time.LocalDate;
@@ -9,6 +11,9 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import tutorly.model.AddressBook;
+import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
+import tutorly.testutil.SessionBuilder;
 
 public class DateSessionFilterTest {
     private final AddressBook addressBook = getTypicalAddressBook();
@@ -37,18 +42,21 @@ public class DateSessionFilterTest {
         assertNotEquals(firstFilter, secondFilter);
     }
 
-    // TODO: Uncomment this test when date filter method works with timeslot implemented
-    //    @Test
-    //    public void test_sessionOnDate_returnsTrue() {
-    //        DateSessionFilter filter = new DateSessionFilter(firstDate);
-    //        assertTrue(filter.toPredicate(addressBook).test(new SessionBuilder().withTimeslot(firstDate).build()));
-    //    }
-    //
-    //    @Test
-    //    public void test_sessionNotOnDate_returnsFalse() {
-    //        DateSessionFilter filter = new DateSessionFilter(firstDate);
-    //        assertFalse(filter.toPredicate(addressBook).test(new SessionBuilder().withTimeslot(secondDate).build()));
-    //    }
+    @Test
+    public void test_sessionOnDate_returnsTrue() {
+        DateSessionFilter filter = new DateSessionFilter(firstDate);
+        Session session = new SessionBuilder().withTimeslot(
+                new Timeslot(firstDate.atTime(0, 0), firstDate.atTime(1, 0))).build();
+        assertTrue(filter.toPredicate(addressBook).test(session));
+    }
+
+    @Test
+    public void test_sessionNotOnDate_returnsFalse() {
+        DateSessionFilter filter = new DateSessionFilter(firstDate);
+        Session session = new SessionBuilder().withTimeslot(
+                new Timeslot(secondDate.atTime(0, 0), secondDate.atTime(1, 0))).build();
+        assertFalse(filter.toPredicate(addressBook).test(session));
+    }
 
     @Test
     public void toStringMethod() {

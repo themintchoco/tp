@@ -46,7 +46,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_MEMO_AMY = "Amy requires more help in Math";
     public static final String VALID_MEMO_BOB = "Bob requires more help in English";
-    public static final String VALID_DATE = "2025-03-18";
+    public static final String VALID_DATE = "18 Mar 2025";
     public static final String VALID_TIMESLOT = "18 Mar 2025 10:00-12:00";
     public static final String VALID_SUBJECT = "Math";
 
