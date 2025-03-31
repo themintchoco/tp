@@ -48,7 +48,7 @@ public class AddSessionCommand extends SessionCommand {
         requireNonNull(model);
 
         if (model.hasSession(toCreate)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SESSION);
+            throw new CommandException(Messages.MESSAGE_SESSION_OVERLAP);
         }
 
         model.addSession(toCreate);
