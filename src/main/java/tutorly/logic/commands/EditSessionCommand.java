@@ -45,7 +45,7 @@ public class EditSessionCommand extends SessionCommand {
     private final EditSessionDescriptor editSessionDescriptor;
 
     /**
-     * @param id             containing the ID or name of the session to edit
+     * @param id containing the ID or name of the session to edit
      * @param editSessionDescriptor details to edit the session with
      */
     public EditSessionCommand(int id, EditSessionDescriptor editSessionDescriptor) {

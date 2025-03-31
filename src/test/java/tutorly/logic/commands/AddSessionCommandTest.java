@@ -212,6 +212,9 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public void setSession(Session target, Session editedSession) {}
+
+        @Override
         public Optional<Session> getSessionById(int id) {
             return Optional.empty();
         }

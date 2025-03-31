@@ -229,6 +229,11 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void setSession(Session target, Session editedSession) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Optional<Session> getSessionById(int id) {
             throw new AssertionError("This method should not be called.");
         }
