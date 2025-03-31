@@ -75,10 +75,16 @@ public class TypicalAddressBook {
 
     public static final Timeslot MATH_TIMESLOT = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
             LocalDateTime.of(2025, 3, 25, 12, 0));
+    public static final Timeslot MATH_TIMESLOT_OVERLAP = new Timeslot(LocalDateTime.of(2025, 3, 25, 11, 0),
+            LocalDateTime.of(2025, 3, 25, 13, 0));
     public static final Timeslot ENGLISH_TIMESLOT = new Timeslot(LocalDateTime.of(2025, 3, 26, 8, 0),
             LocalDateTime.of(2025, 3, 26, 10, 0));
     public static final Session MATH_SESSION = new SessionBuilder().withId(1)
             .withSubject("Math").withTimeslot(MATH_TIMESLOT).build();
+    public static final Session ENGLISH_SESSION = new SessionBuilder().withId(2)
+            .withSubject("English").withTimeslot(ENGLISH_TIMESLOT).build();
+    public static final Session MATH_SESSION_OVERLAP = new SessionBuilder().withId(3)
+            .withSubject("Math").withTimeslot(MATH_TIMESLOT_OVERLAP).build();
     public static final AttendanceRecord ALICE_ATTEND_MATH = new AttendanceRecordBuilder()
             .withPerson(ALICE).withSession(MATH_SESSION).withIsPresent(true).build();
     public static final AttendanceRecord BENSON_ATTEND_MATH = new AttendanceRecordBuilder()
@@ -87,8 +93,6 @@ public class TypicalAddressBook {
             .withPerson(DANIEL).withSession(MATH_SESSION).withIsPresent(false).build();
     public static final AttendanceRecord ELLE_NOT_ATTEND_MATH = new AttendanceRecordBuilder()
             .withPerson(ELLE).withSession(MATH_SESSION).withIsPresent(false).build();
-    public static final Session ENGLISH_SESSION = new SessionBuilder().withId(2)
-            .withSubject("English").withTimeslot(ENGLISH_TIMESLOT).build();
     public static final AttendanceRecord ALICE_ATTEND_ENGLISH = new AttendanceRecordBuilder()
             .withPerson(ALICE).withSession(ENGLISH_SESSION).withIsPresent(true).build();
     public static final AttendanceRecord CARL_ATTEND_ENGLISH = new AttendanceRecordBuilder()
