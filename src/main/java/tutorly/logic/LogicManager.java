@@ -54,6 +54,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         Command command = addressBookParser.parse(commandText);
+        return execute(command);
+    }
+
+    @Override
+    public CommandResult execute(Command command) throws CommandException {
         CommandResult commandResult = command.execute(model);
 
         if (commandResult.hasReverseCommand()) {

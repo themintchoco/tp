@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import tutorly.commons.core.GuiSettings;
+import tutorly.logic.commands.Command;
 import tutorly.logic.commands.CommandResult;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.logic.parser.exceptions.ParseException;
@@ -25,6 +26,14 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Executes the command and returns the result.
+     * @param command The command to be executed.
+     * @return the result of the command execution.
+     * @throws CommandException If an error occurs during command execution.
+     */
+    CommandResult execute(Command command) throws CommandException;
 
     /**
      * Returns the AddressBook.
