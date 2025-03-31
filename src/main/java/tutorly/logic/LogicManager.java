@@ -53,9 +53,8 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = addressBookParser.parse(commandText);
-        commandResult = command.execute(model);
+        CommandResult commandResult = command.execute(model);
 
         if (commandResult.hasReverseCommand()) {
             Command reverseCommand = commandResult.getReverseCommand();
@@ -67,7 +66,11 @@ public class LogicManager implements Logic {
                 throw new CommandException(UNDO_STACK_EMPTY);
             }
             Command lastCommand = undoStack.pop();
-            commandResult = lastCommand.execute(model);
+            CommandResult undoCommandResult = lastCommand.execute(model);
+
+            commandResult = new CommandResult.Builder(undoCommandResult)
+                    .withFeedback(commandResult.getFeedbackToUser() + "\n" + undoCommandResult.getFeedbackToUser())
+                    .build();
         }
 
         try {

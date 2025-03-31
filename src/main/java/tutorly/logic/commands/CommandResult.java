@@ -13,6 +13,7 @@ import tutorly.ui.Tab;
  */
 public class CommandResult {
 
+    /** Feedback displayed to the user */
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
@@ -27,7 +28,7 @@ public class CommandResult {
     /** Tab that the user should be switched to. */
     private final Optional<Tab> tab;
 
-    /** The command that undos the effects of this command. */
+    /** The command that undoes the effects of this command. */
     private final Optional<Command> reverseCommand;
 
     /**
@@ -40,7 +41,7 @@ public class CommandResult {
         this.feedbackToUser = feedbackToUser;
         this.shouldShowHelp = shouldShowHelp;
         this.shouldExit = shouldExit;
-        this.shouldReverseLast = false;
+        this.shouldReverseLast = shouldReverseLast;
         this.tab = Optional.ofNullable(tab);
         this.reverseCommand = Optional.ofNullable(reverseCommand);
     }
@@ -160,26 +161,45 @@ public class CommandResult {
         }
 
         /**
-         * Sets that help information should be shown to the user.
+         * Constructs a {@code CommandResult.Builder} from an existing {@code CommandResult}.
          */
-        public Builder showHelp() {
-            this.shouldShowHelp = true;
+        public Builder(CommandResult commandResult) {
+            this.feedbackToUser = commandResult.getFeedbackToUser();
+            this.shouldShowHelp = commandResult.shouldShowHelp();
+            this.shouldExit = commandResult.shouldExit();
+            this.shouldReverseLast = commandResult.shouldReverseLast();
+            this.tab = commandResult.tab;
+            this.reverseCommand = commandResult.reverseCommand;
+        }
+
+        /**
+         * Sets the feedback to the user.
+         */
+        public Builder withFeedback(String feedbackToUser) {
+            this.feedbackToUser = feedbackToUser;
             return this;
         }
 
         /**
-         * Sets that the application should exit.
+         * Sets whether help information should be shown to the user.
          */
-        public Builder exit() {
-            this.shouldExit = true;
+        public Builder withShowHelp(boolean shouldShowHelp) {
+            this.shouldShowHelp = shouldShowHelp;
             return this;
         }
 
         /**
-         * Sets that the last reversible command should be reversed.
+         * Sets whether the application should exit.
          */
-        public Builder reverseLast() {
-            this.shouldReverseLast = true;
+        public Builder withExit(boolean shouldExit) {
+            this.shouldExit = shouldExit;
+            return this;
+        }
+        /**
+         * Sets whether the last reversible command should be reversed.
+         */
+        public Builder withReverseLast(boolean shouldReverseLast) {
+            this.shouldReverseLast = shouldReverseLast;
             return this;
         }
 
@@ -197,6 +217,27 @@ public class CommandResult {
         public Builder withReverseCommand(Command reverseCommand) {
             this.reverseCommand = Optional.of(reverseCommand);
             return this;
+        }
+
+        /**
+         * Sets that help information should be shown to the user.
+         */
+        public Builder showHelp() {
+            return withShowHelp(true);
+        }
+
+        /**
+         * Sets that the application should exit.
+         */
+        public Builder exit() {
+            return withExit(true);
+        }
+
+        /**
+         * Sets that the last reversible command should be reversed.
+         */
+        public Builder reverseLast() {
+            return withReverseLast(true);
         }
 
         public CommandResult build() {
