@@ -44,6 +44,10 @@ public class Session {
         this.id = id;
     }
 
+    /**
+     * Checks if a date falls within this session
+     * Inclusive of start and end date.
+     */
     public boolean containsDate(LocalDate date) {
         return timeslot.containsDate(date);
     }

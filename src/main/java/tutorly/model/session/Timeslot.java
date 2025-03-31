@@ -53,6 +53,7 @@ public class Timeslot {
 
     /**
      * Checks if a date falls within this timeslot.
+     * Inclusive of start and end date.
      */
     public boolean containsDate(LocalDate date) {
         return !date.isBefore(startTime.toLocalDate()) && !date.isAfter(endTime.toLocalDate());
