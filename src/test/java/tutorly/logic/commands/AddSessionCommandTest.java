@@ -228,5 +228,9 @@ public class AddSessionCommandTest {
         @Override
         public void removeAttendanceRecord(AttendanceRecord record) {
         }
+
+        @Override
+        public void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedRecord) {
+        }
     }
 }

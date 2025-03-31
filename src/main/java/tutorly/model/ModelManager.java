@@ -238,6 +238,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedRecord) {
+        requireAllNonNull(target, editedRecord);
+
+        addressBook.setAttendanceRecord(target, editedRecord);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

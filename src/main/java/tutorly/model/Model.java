@@ -192,4 +192,10 @@ public interface Model {
      * {@code record} must already exist in the address book.
      */
     void removeAttendanceRecord(AttendanceRecord record);
+
+    /* Replaces the given AttendanceRecord {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The AttendanceRecord {@code editedRecord} must not be equivalent to another existing record.
+     */
+    void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedRecord);
 }
