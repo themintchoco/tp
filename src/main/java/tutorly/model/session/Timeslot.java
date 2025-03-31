@@ -2,6 +2,7 @@ package tutorly.model.session;
 
 import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import tutorly.commons.util.ToStringBuilder;
@@ -50,6 +51,14 @@ public class Timeslot {
         return startTime.isBefore(other.endTime) && endTime.isAfter(other.startTime);
     }
 
+    /**
+     * Checks if a date falls within this timeslot.
+     * Inclusive of start and end date.
+     */
+    public boolean containsDate(LocalDate date) {
+        return !date.isBefore(startTime.toLocalDate()) && !date.isAfter(endTime.toLocalDate());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -71,4 +80,5 @@ public class Timeslot {
                 .add("endTime", endTime)
                 .toString();
     }
+
 }

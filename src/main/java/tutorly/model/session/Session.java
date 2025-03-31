@@ -45,10 +45,11 @@ public class Session {
     }
 
     /**
-     * Returns the date of the session based on its start time.
+     * Checks if a date falls within this session
+     * Inclusive of start and end date.
      */
-    public LocalDate getDate() {
-        return timeslot.getStartTime().toLocalDate();
+    public boolean containsDate(LocalDate date) {
+        return timeslot.containsDate(date);
     }
 
     public int getId() {
