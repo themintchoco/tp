@@ -19,7 +19,7 @@ public class DateSessionFilter implements Filter<Session> {
 
     @Override
     public Predicate<Session> toPredicate(ReadOnlyAddressBook addressBook) {
-        return session -> !date.isBefore(session.getStartDate()) && !date.isAfter(session.getEndDate());
+        return session -> session.containsDate(date);
     }
 
     @Override

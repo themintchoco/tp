@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.Messages.MESSAGE_SESSIONS_LISTED_OVERVIEW;
 import static tutorly.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tutorly.testutil.TypicalAddressBook.MATH_SESSION;
+import static tutorly.testutil.TypicalAddressBook.MATH_TIMESLOT;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static tutorly.testutil.TypicalAddressBook.getTypicalSessions;
 
@@ -73,7 +74,7 @@ public class SearchSessionCommandTest {
         List<Session> expectedResult = Collections.singletonList(MATH_SESSION);
         String expectedMessage = String.format(MESSAGE_SESSIONS_LISTED_OVERVIEW, expectedResult.size());
 
-        DateSessionFilter dateFilter = new DateSessionFilter(MATH_SESSION.getStartDate());
+        DateSessionFilter dateFilter = new DateSessionFilter(MATH_TIMESLOT.getStartTime().toLocalDate());
         SubjectContainsKeywordsFilter subjectFilter = prepareSubjectFilter("mat");
 
         Filter<Session> filter = Filter.any(Arrays.asList(dateFilter, subjectFilter));

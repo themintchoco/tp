@@ -44,18 +44,8 @@ public class Session {
         this.id = id;
     }
 
-    /**
-     * Returns the start date of the session based on its start time.
-     */
-    public LocalDate getStartDate() {
-        return timeslot.getStartTime().toLocalDate();
-    }
-
-    /**
-     * Returns the end date of the session based on its end time.
-     */
-    public LocalDate getEndDate() {
-        return timeslot.getEndTime().toLocalDate();
+    public boolean containsDate(LocalDate date) {
+        return timeslot.containsDate(date);
     }
 
     public int getId() {
