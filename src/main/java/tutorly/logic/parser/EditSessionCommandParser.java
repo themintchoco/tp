@@ -5,6 +5,7 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
 
 import tutorly.logic.Messages;
 import tutorly.logic.commands.EditSessionCommand;
@@ -26,7 +27,7 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_SESSION,
-                PREFIX_DATE,
+                PREFIX_TIMESLOT,
                 PREFIX_SUBJECT);
 
         int sessionId;
@@ -37,12 +38,12 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditSessionCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SESSION, PREFIX_DATE, PREFIX_SUBJECT);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SESSION, PREFIX_TIMESLOT, PREFIX_SUBJECT);
 
         EditSessionCommand.EditSessionDescriptor editSessionDescriptor = new EditSessionCommand.EditSessionDescriptor();
 
-        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
-            editSessionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+        if (argMultimap.getValue(PREFIX_TIMESLOT).isPresent()) {
+            editSessionDescriptor.setTimeslot(ParserUtil.parseTimeslot(argMultimap.getValue(PREFIX_TIMESLOT).get()));
         }
         if (argMultimap.getValue(PREFIX_SUBJECT).isPresent()) {
             editSessionDescriptor.setSubject(ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get()));

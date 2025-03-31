@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
 import static tutorly.model.Model.FILTER_SHOW_ALL_SESSIONS;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -15,6 +17,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 import tutorly.ui.Tab;
 
 /**
@@ -29,11 +32,11 @@ public class EditSessionCommand extends SessionCommand {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: SESSION_ID "
             + PREFIX_SESSION + "SESSION_ID\n"
-            + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_TIMESLOT + "TIMESLOT] "
             + "[" + PREFIX_SUBJECT + "SUBJECT] "
             + "Example: " + COMMAND_STRING + " 1 "
-            + PREFIX_DATE + "2023-10-01 "
-            + PREFIX_SUBJECT + "Maths";
+            + PREFIX_TIMESLOT + "30 Mar 2025 11:30-13:30 "
+            + PREFIX_SUBJECT + "Mathematics";
 
     public static final String MESSAGE_EDIT_SESSION_SUCCESS = "Edited session: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -59,10 +62,13 @@ public class EditSessionCommand extends SessionCommand {
     private static Session createEditedSession(Session sessionToEdit, EditSessionDescriptor editSessionDescriptor) {
         assert sessionToEdit != null;
 
-        LocalDate updatedDate = editSessionDescriptor.getDate().orElse(sessionToEdit.getDate());
+        Timeslot updatedDate = editSessionDescriptor.getTimeslot().orElse(sessionToEdit.getTimeslot());
         String updatedSubject = editSessionDescriptor.getSubject().orElse(sessionToEdit.getSubject());
 
-        return new Session(sessionToEdit.getId(), updatedDate, updatedSubject);
+        Session newSession = new Session(updatedDate, updatedSubject);
+        newSession.setId(sessionToEdit.getId());
+
+        return newSession;
     }
 
     @Override
@@ -76,9 +82,14 @@ public class EditSessionCommand extends SessionCommand {
 
         Session editedSession = createEditedSession(sessionToEdit.get(), editSessionDescriptor);
 
+        if (!sessionToEdit.get().isSameSession(editedSession) && model.hasSession(editedSession)) {
+            throw new CommandException(Messages.MESSAGE_SESSION_OVERLAP);
+        }
+
         model.setSession(sessionToEdit.get(), editedSession);
         model.updateFilteredSessionList(FILTER_SHOW_ALL_SESSIONS);
-        return new CommandResult.Builder(String.format(MESSAGE_EDIT_SESSION_SUCCESS, editedSession))
+
+        return new CommandResult.Builder(String.format(MESSAGE_EDIT_SESSION_SUCCESS, Messages.format(editedSession)))
                 .withTab(Tab.SESSION)
                 .build();
     }
@@ -88,7 +99,7 @@ public class EditSessionCommand extends SessionCommand {
      * corresponding field value of the session.
      */
     public static class EditSessionDescriptor {
-        private LocalDate date;
+        private Timeslot timeslot;
         private String subject;
 
         public EditSessionDescriptor() {
@@ -98,7 +109,7 @@ public class EditSessionCommand extends SessionCommand {
          * Copy constructor.
          */
         public EditSessionDescriptor(EditSessionDescriptor toCopy) {
-            setDate(toCopy.date);
+            setTimeslot(toCopy.timeslot);
             setSubject(toCopy.subject);
         }
 
@@ -106,15 +117,15 @@ public class EditSessionCommand extends SessionCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(date, subject);
+            return CollectionUtil.isAnyNonNull(timeslot, subject);
         }
 
-        Optional<LocalDate> getDate() {
-            return Optional.ofNullable(date);
+        Optional<Timeslot> getTimeslot() {
+            return Optional.ofNullable(timeslot);
         }
 
-        public void setDate(LocalDate date) {
-            this.date = date;
+        public void setTimeslot(Timeslot date) {
+            this.timeslot = date;
         }
 
         Optional<String> getSubject() {
@@ -137,14 +148,14 @@ public class EditSessionCommand extends SessionCommand {
 
             EditSessionDescriptor e = (EditSessionDescriptor) other;
 
-            return getDate().equals(e.getDate())
+            return getTimeslot().equals(e.getTimeslot())
                     && getSubject().equals(e.getSubject());
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("date", date)
+                    .add("timeslot", timeslot)
                     .add("subject", subject)
                     .toString();
         }
