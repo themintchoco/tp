@@ -11,13 +11,13 @@ import tutorly.commons.util.ToStringBuilder;
  */
 public class Timeslot {
 
-    public static final String MESSAGE_END_BEFORE_START_DATETIME = "Start time must be before end time.";
+    public static final String MESSAGE_END_BEFORE_START_DATETIME = "Start datetime must not be after end datetime.";
 
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 
     /**
-     * Constructs a Timeslot with the given start and end datetimes. Start datetime must be before end datetime.
+     * Constructs a Timeslot with the given start and end datetimes. Start datetime must not be after end datetime.
      *
      * @param startTime The start datetime of the timeslot.
      * @param endTime   The end datetime of the timeslot.
