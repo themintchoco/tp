@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <CheckBox fx:id="checkbox" disable="true" mnemonicParsing="false">
+   <CheckBox fx:id="checkbox" mnemonicParsing="false">
       <HBox.margin>
          <Insets left="20.0" />
       </HBox.margin></CheckBox>

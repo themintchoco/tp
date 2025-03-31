@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Region;
+import javafx.util.Callback;
 import tutorly.commons.util.ObservableListUtil;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
@@ -16,18 +17,20 @@ import tutorly.model.session.Session;
 public class AttendanceRecordListPanel extends ListPanel<AttendanceRecord> {
 
     private final ObservableList<Person> students;
+    private final Callback<AttendanceRecord, ?> toggleCallback;
 
     /**
      * Creates a {@code AttendanceRecordListPanel} with the given records, students, and selected sessions.
      */
-    public AttendanceRecordListPanel(ObservableList<AttendanceRecord> records,
-            ObservableList<Person> students, ObservableList<Session> sessions) {
+    public AttendanceRecordListPanel(ObservableList<AttendanceRecord> records, ObservableList<Person> students,
+            ObservableList<Session> sessions, Callback<AttendanceRecord, ?> toggleCallback) {
         super(ObservableListUtil.filteredList(records,
                 record -> sessions.stream().anyMatch(session -> session.getId() == record.getSessionId())
                         && students.stream().anyMatch(student -> student.getId() == record.getStudentId()),
                 List.of(students, sessions)));
 
         this.students = students;
+        this.toggleCallback = toggleCallback;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class AttendanceRecordListPanel extends ListPanel<AttendanceRecord> {
                 .stream().findFirst();
         assert recordStudent.isPresent();
 
-        return new AttendanceRecordCard(record, recordStudent.get());
+        return new AttendanceRecordCard(record, recordStudent.get(), newAttendance -> toggleCallback.call(record));
     };
 
 }
