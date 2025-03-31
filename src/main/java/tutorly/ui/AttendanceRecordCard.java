@@ -40,7 +40,7 @@ public class AttendanceRecordCard extends UiPart<Region> {
         super(FXML);
         this.record = record;
         checkbox.setSelected(record.getAttendance());
-        checkbox.setOnAction(event -> toggleCallback.call(!checkbox.isSelected()));
+        checkbox.setOnAction(event -> toggleCallback.call(!record.getAttendance()));
         name.setText(student.getName().fullName);
     }
 }
