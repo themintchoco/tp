@@ -3,10 +3,13 @@ package tutorly.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import tutorly.commons.core.index.Index;
@@ -18,6 +21,7 @@ import tutorly.model.person.Identity;
 import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
+import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
 
 /**
@@ -28,9 +32,13 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_IDENTITY = "Identity provided is not a valid ID or name.";
     public static final String MESSAGE_INVALID_ID = "ID is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DATETIME = "Invalid datetime provided.";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Please use YYYY-MM-DD.";
+    public static final String MESSAGE_INVALID_TIMESLOT_FORMAT =
+            "Invalid timeslot format. Please use dd MMM yyyy HH:mm-HH:mm";
     public static final String MESSAGE_EMPTY_SUBJECT = "Subject cannot be empty.";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     /**
      * Parses {@code String identity} into an {@code Identity} and returns it. Leading and trailing whitespaces will be
@@ -196,6 +204,50 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
+    }
+
+    /**
+     * Parses a {@code String timeslot} into a {@code Timeslot}.
+     * The timeslot format must be dd MMM yyyy HH:mm-HH:mm.
+     *
+     * @param timeslot The timeslot to parse.
+     * @return The parsed Timeslot.
+     * @throws ParseException if the date format is invalid.
+     */
+    public static Timeslot parseTimeslot(String timeslot) throws ParseException {
+        requireNonNull(timeslot);
+        String[] tokens = timeslot.trim().split("\\s+");
+        if (tokens.length != 4) {
+            throw new ParseException(MESSAGE_INVALID_TIMESLOT_FORMAT);
+        }
+        String dateStr = tokens[0] + " " + tokens[1] + " " + tokens[2];
+
+        // Split the time range into start and end times
+        String[] timeTokens = tokens[3].split("-");
+        if (timeTokens.length != 2) {
+            throw new ParseException(MESSAGE_INVALID_TIMESLOT_FORMAT);
+        }
+
+        LocalDate date;
+        LocalTime startTime;
+        LocalTime endTime;
+        try {
+            date = LocalDate.parse(dateStr, DATE_FORMATTER);
+            startTime = LocalTime.parse(timeTokens[0], TIME_FORMATTER);
+            endTime = LocalTime.parse(timeTokens[1], TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_INVALID_TIMESLOT_FORMAT);
+        }
+
+        // Combine date and time into LocalDateTime objects
+        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
+
+        if (startDateTime.isAfter(endDateTime)) {
+            throw new ParseException(Timeslot.MESSAGE_END_BEFORE_START_DATETIME);
+        }
+
+        return new Timeslot(startDateTime, endDateTime);
     }
 
     /**

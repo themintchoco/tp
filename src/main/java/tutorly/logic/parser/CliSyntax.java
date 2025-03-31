@@ -15,6 +15,7 @@ public class CliSyntax {
 
     /* Prefix definitions for sessions */
     public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_TIMESLOT = new Prefix("t/");
     public static final Prefix PREFIX_SUBJECT = new Prefix("sub/");
     public static final Prefix PREFIX_SESSION = new Prefix("ses/");
 }

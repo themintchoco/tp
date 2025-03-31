@@ -1,13 +1,15 @@
 package tutorly.storage;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import tutorly.commons.exceptions.IllegalValueException;
+import tutorly.logic.parser.ParserUtil;
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 
 /**
  * Jackson-friendly version of {@link Session}.
@@ -17,7 +19,8 @@ class JsonAdaptedSession {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Session's %s field is missing!";
 
     private final int id;
-    private final String date;
+    private final String startTime;
+    private final String endTime;
     private final String subject;
 
     /**
@@ -25,10 +28,12 @@ class JsonAdaptedSession {
      */
     @JsonCreator
     public JsonAdaptedSession(@JsonProperty("id") int id,
-                              @JsonProperty("date") String date,
+                              @JsonProperty("startTime") String startTime,
+                              @JsonProperty("endTime") String endTime,
                               @JsonProperty("subject") String subject) {
         this.id = id;
-        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.subject = subject;
     }
 
@@ -37,8 +42,11 @@ class JsonAdaptedSession {
      */
     public JsonAdaptedSession(Session source) {
         this.id = source.getId();
-        this.date = source.getDate().toString();
         this.subject = source.getSubject();
+
+        Timeslot timeslot = source.getTimeslot();
+        this.startTime = timeslot.getStartTime().toString();
+        this.endTime = timeslot.getEndTime().toString();
     }
 
     /**
@@ -47,25 +55,32 @@ class JsonAdaptedSession {
      * @throws IllegalValueException if there were any data constraints violated in the adapted session.
      */
     public Session toModelType() throws IllegalValueException {
-        if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "date"));
+        if (id <= 0) {
+            throw new IllegalValueException(Session.MESSAGE_INVALID_ID);
         }
 
-        LocalDate modelDate;
+        if (startTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "startTime"));
+        }
+
+        if (endTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "endTime"));
+        }
+
+        final Timeslot modelTimeslot;
         try {
-            modelDate = LocalDate.parse(date);
+            modelTimeslot = new Timeslot(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException("Invalid date format. Expected format: YYYY-MM-DD");
+            throw new IllegalValueException(ParserUtil.MESSAGE_INVALID_DATETIME);
         }
 
         if (subject == null || subject.isEmpty()) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "subject"));
         }
 
-        if (id < 1) {
-            throw new IllegalValueException("Session ID must be a positive integer.");
-        }
+        Session session = new Session(modelTimeslot, subject);
+        session.setId(id);
 
-        return new Session(id, modelDate, subject);
+        return session;
     }
 }

@@ -13,7 +13,7 @@ import static tutorly.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +22,7 @@ import tutorly.model.AddressBook;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -72,31 +73,35 @@ public class TypicalAddressBook {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .withMemo(VALID_MEMO_BOB).build();
 
+    public static final Timeslot MATH_TIMESLOT = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+            LocalDateTime.of(2025, 3, 25, 12, 0));
+    public static final Timeslot ENGLISH_TIMESLOT = new Timeslot(LocalDateTime.of(2025, 3, 26, 8, 0),
+            LocalDateTime.of(2025, 3, 26, 10, 0));
     public static final Session MATH_SESSION = new SessionBuilder().withId(1)
-            .withSubject("Math").withDate(LocalDate.of(2025, 1, 1)).build();
-    public static final Session ENGLISH_SESSION = new SessionBuilder().withId(2)
-            .withSubject("English").withDate(LocalDate.of(2025, 1, 2)).build();
-
+            .withSubject("Math").withTimeslot(MATH_TIMESLOT).build();
     public static final AttendanceRecord ALICE_ATTEND_MATH = new AttendanceRecordBuilder()
             .withPerson(ALICE).withSession(MATH_SESSION).withIsPresent(true).build();
-    public static final AttendanceRecord ALICE_ATTEND_ENGLISH = new AttendanceRecordBuilder()
-            .withPerson(ALICE).withSession(ENGLISH_SESSION).withIsPresent(true).build();
     public static final AttendanceRecord BENSON_ATTEND_MATH = new AttendanceRecordBuilder()
-        .withPerson(BENSON).withSession(MATH_SESSION).withIsPresent(true).build();
-    public static final AttendanceRecord CARL_ATTEND_ENGLISH = new AttendanceRecordBuilder()
-            .withPerson(CARL).withSession(ENGLISH_SESSION).withIsPresent(true).build();
+            .withPerson(BENSON).withSession(MATH_SESSION).withIsPresent(true).build();
     public static final AttendanceRecord DANIEL_NOT_ATTEND_MATH = new AttendanceRecordBuilder()
             .withPerson(DANIEL).withSession(MATH_SESSION).withIsPresent(false).build();
-    public static final AttendanceRecord DANIEL_NOT_ATTEND_ENGLISH = new AttendanceRecordBuilder()
-            .withPerson(DANIEL).withSession(ENGLISH_SESSION).withIsPresent(false).build();
     public static final AttendanceRecord ELLE_NOT_ATTEND_MATH = new AttendanceRecordBuilder()
             .withPerson(ELLE).withSession(MATH_SESSION).withIsPresent(false).build();
+    public static final Session ENGLISH_SESSION = new SessionBuilder().withId(2)
+            .withSubject("English").withTimeslot(ENGLISH_TIMESLOT).build();
+    public static final AttendanceRecord ALICE_ATTEND_ENGLISH = new AttendanceRecordBuilder()
+            .withPerson(ALICE).withSession(ENGLISH_SESSION).withIsPresent(true).build();
+    public static final AttendanceRecord CARL_ATTEND_ENGLISH = new AttendanceRecordBuilder()
+            .withPerson(CARL).withSession(ENGLISH_SESSION).withIsPresent(true).build();
+    public static final AttendanceRecord DANIEL_NOT_ATTEND_ENGLISH = new AttendanceRecordBuilder()
+            .withPerson(DANIEL).withSession(ENGLISH_SESSION).withIsPresent(false).build();
     public static final AttendanceRecord FIONA_NOT_ATTEND_ENGLISH = new AttendanceRecordBuilder()
             .withPerson(FIONA).withSession(ENGLISH_SESSION).withIsPresent(false).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalAddressBook() {} // prevents instantiation
+    private TypicalAddressBook() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
