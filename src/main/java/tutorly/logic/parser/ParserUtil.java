@@ -216,8 +216,7 @@ public class ParserUtil {
      */
     public static Timeslot parseTimeslot(String timeslot) throws ParseException {
         requireNonNull(timeslot);
-        String[] tokens = timeslot.trim().split(" ");
-
+        String[] tokens = timeslot.trim().split("\\s+");
         if (tokens.length != 4) {
             throw new ParseException(MESSAGE_INVALID_TIMESLOT_FORMAT);
         }
