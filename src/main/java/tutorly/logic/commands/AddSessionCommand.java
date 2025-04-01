@@ -54,6 +54,7 @@ public class AddSessionCommand extends SessionCommand {
         model.addSession(toCreate);
         return new CommandResult.Builder(String.format(MESSAGE_SUCCESS, Messages.format(toCreate)))
                 .withTab(Tab.SESSION)
+                .withReverseCommand(new DeleteSessionCommand(toCreate.getId()))
                 .build();
     }
 

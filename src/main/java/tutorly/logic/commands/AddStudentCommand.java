@@ -12,6 +12,7 @@ import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
+import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.ui.Tab;
 
@@ -64,6 +65,7 @@ public class AddStudentCommand extends StudentCommand {
         model.addPerson(toAdd);
         return new CommandResult.Builder(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)))
                 .withTab(Tab.STUDENT)
+                .withReverseCommand(new DeleteStudentCommand(new Identity(toAdd.getId())))
                 .build();
     }
 
