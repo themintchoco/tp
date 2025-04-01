@@ -106,11 +106,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void restorePerson(Person target) {
-        addressBook.restorePerson(target);
-    }
-
-    @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
@@ -124,29 +119,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Person> getPersonById(int id, boolean fromArchived) {
-        if (fromArchived) {
-            return addressBook.getArchivedPersonById(id);
-        }
-
+    public Optional<Person> getPersonById(int id) {
         return addressBook.getPersonById(id);
     }
 
     @Override
-    public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
-        if (fromArchived) {
-            return addressBook.getArchivedPersonByName(name);
-        }
-
+    public Optional<Person> getPersonByName(Name name) {
         return addressBook.getPersonByName(name);
     }
 
     @Override
-    public Optional<Person> getPersonByIdentity(Identity identity, boolean fromArchived) {
+    public Optional<Person> getPersonByIdentity(Identity identity) {
         if (identity.isIdPresent()) {
-            return getPersonById(identity.getId(), fromArchived);
+            return getPersonById(identity.getId());
         } else if (identity.isNamePresent()) {
-            return getPersonByName(identity.getName(), fromArchived);
+            return getPersonByName(identity.getName());
         }
 
         return Optional.empty();
@@ -180,11 +167,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Person> getArchivedPersonList() {
-        return addressBook.getArchivedPersonList();
-    }
-
-    @Override
     public void updateFilteredPersonList(Filter<Person> filter) {
         requireNonNull(filter);
         filteredPersons.setPredicate(filter.toPredicate(getAddressBook()));
@@ -209,6 +191,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteSession(Session target) {
+        addressBook.removeSession(target);
+    }
+
+    @Override
     public Optional<Session> getSessionById(int id) {
         return addressBook.getSessionById(id);
     }
@@ -217,6 +204,12 @@ public class ModelManager implements Model {
     public boolean hasAttendanceRecord(AttendanceRecord record) {
         requireNonNull(record);
         return addressBook.hasAttendanceRecord(record);
+    }
+
+    @Override
+    public Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord record) {
+        requireNonNull(record);
+        return addressBook.findAttendanceRecord(record);
     }
 
     @Override
@@ -229,6 +222,13 @@ public class ModelManager implements Model {
     public void removeAttendanceRecord(AttendanceRecord record) {
         requireNonNull(record);
         addressBook.removeAttendanceRecord(record);
+    }
+
+    @Override
+    public void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedRecord) {
+        requireAllNonNull(target, editedRecord);
+
+        addressBook.setAttendanceRecord(target, editedRecord);
     }
 
     @Override

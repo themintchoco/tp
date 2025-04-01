@@ -36,21 +36,31 @@ public class EnrolSessionCommand extends SessionCommand {
 
     private final Identity identity;
     private final int sessionId;
+    private final boolean presence;
 
     /**
-     * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session}
+     * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session} with the given
+     * {@code presence} status.
      */
-    public EnrolSessionCommand(Identity identity, int sessionId) {
+    public EnrolSessionCommand(Identity identity, int sessionId, boolean presence) {
         requireNonNull(identity);
         this.identity = identity;
         this.sessionId = sessionId;
+        this.presence = presence;
+    }
+
+    /**
+     * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session} with default presence.
+     */
+    public EnrolSessionCommand(Identity identity, int sessionId) {
+        this(identity, sessionId, DEFAULT_PRESENCE);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Person> person = model.getPersonByIdentity(identity, false);
+        Optional<Person> person = model.getPersonByIdentity(identity);
         if (person.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
@@ -60,7 +70,7 @@ public class EnrolSessionCommand extends SessionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_SESSION_ID);
         }
 
-        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, DEFAULT_PRESENCE);
+        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, presence);
         if (model.hasAttendanceRecord(record)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENROLMENT);
         }
@@ -69,6 +79,7 @@ public class EnrolSessionCommand extends SessionCommand {
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
                 .withTab(Tab.SESSION)
+                .withReverseCommand(new UnenrolSessionCommand(identity, sessionId))
                 .build();
     }
 

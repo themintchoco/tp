@@ -48,7 +48,7 @@ public class UnenrolSessionCommand extends SessionCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Person> person = identity.getPerson(model);
+        Optional<Person> person = model.getPersonByIdentity(identity);
         if (person.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
@@ -59,17 +59,17 @@ public class UnenrolSessionCommand extends SessionCommand {
         }
 
         // value of isPresent is not used when checking if a record is in AddressBook, set to false as a placeholder
-        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, false);
-        if (!model.hasAttendanceRecord(record)) {
+        Optional<AttendanceRecord> record = model.findAttendanceRecord(
+                new AttendanceRecord(person.get().getId(), sessionId, false));
+        if (record.isEmpty()) {
             throw new CommandException(MESSAGE_MISSING_ASSIGNMENT);
         }
 
-        // this would usually call UniqueList.remove which uses Object.equals, but it is overridden by
-        // UniqueAttendanceRecordList which removes the record as long as session and person ID are equal.
-        model.removeAttendanceRecord(record);
+        model.removeAttendanceRecord(record.get());
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
                 .withTab(Tab.SESSION)
+                .withReverseCommand(new EnrolSessionCommand(identity, sessionId, record.get().getAttendance()))
                 .build();
     }
 

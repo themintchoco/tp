@@ -1,72 +1,71 @@
 package tutorly.model.session;
+
 import java.time.LocalDate;
+
+import tutorly.commons.util.ToStringBuilder;
+import tutorly.model.AddressBook;
 
 /**
  * Represents a tutoring session for a student.
  */
 public class Session {
+
+    public static final String MESSAGE_REASSIGNED_ID = "Session ID has already been set for this session.";
+    public static final String MESSAGE_INVALID_ID = "Session ID must be a positive integer.";
+
     private int id; // id field is effectively final
-    private final LocalDate date;
+    private final Timeslot timeslot;
     private final String subject;
 
     /**
-     * Constructs a new Session with an auto-incremented session ID.
+     * Constructs a new Session. Every field must be present and not null.
      *
-     * @param id The unique identifier of the student.
-     * @param date The date of the session.
+     * @param timeslot The start and end datetime of the session.
      * @param subject The subject of the session.
      */
-    public Session(int id, LocalDate date, String subject) {
-        this.id = id;
-        this.date = date;
+    public Session(Timeslot timeslot, String subject) {
+        this.timeslot = timeslot;
         this.subject = subject;
     }
 
     /**
-     * Sets the session ID of the session.
-     * @param id The session ID to set.
+     * Sets the session ID assigned by the address book during {@link AddressBook#addSession(Session)}. Should only be
+     * called once per session as the session ID is effectively final.
      */
     public void setId(int id) {
         if (this.id != 0) {
-            throw new IllegalStateException("Session ID has already been set for this session.");
+            throw new IllegalStateException(MESSAGE_REASSIGNED_ID);
         }
 
         if (id < 1) {
-            throw new IllegalArgumentException("Session ID must be a positive integer.");
+            throw new IllegalArgumentException(MESSAGE_INVALID_ID);
         }
 
         this.id = id;
     }
 
     /**
-     * Gets the session ID associated with this session.
-     *
-     * @return The session ID.
+     * Checks if a date falls within this session
+     * Inclusive of start and end date.
      */
+    public boolean containsDate(LocalDate date) {
+        return timeslot.containsDate(date);
+    }
+
     public int getId() {
         return id;
     }
 
-    /**
-     * Gets the session date.
-     *
-     * @return The date of the session.
-     */
-    public LocalDate getDate() {
-        return date;
+    public Timeslot getTimeslot() {
+        return timeslot;
     }
 
-    /**
-     * Gets the subject of the session.
-     *
-     * @return The subject of the session.
-     */
     public String getSubject() {
         return subject;
     }
 
     /**
-     * Returns true if the session ID is the same.
+     * Returns true if both sessions have overlapping timeslots.
      * This defines a weaker notion of equality between two sessions.
      */
     public boolean isSameSession(Session otherSession) {
@@ -74,7 +73,8 @@ public class Session {
             return true;
         }
 
-        return otherSession != null && id == otherSession.id;
+        return otherSession != null
+                && timeslot.isOverlapping(otherSession.timeslot);
     }
 
     /**
@@ -92,18 +92,21 @@ public class Session {
         }
 
         return id == otherSession.id
-                && date.equals(otherSession.date)
+                && timeslot.equals(otherSession.timeslot)
                 && subject.equals(otherSession.subject);
     }
 
     /**
      * Returns a string representation of the session.
      *
-     * @return A formatted string with student ID, session ID, date, and subject.
+     * @return A formatted string with session ID, timeslot, and subject.
      */
     @Override
     public String toString() {
-        return "Session{sessionId="
-                + id + ", date=" + date + ", subject=" + subject + "}";
+        return new ToStringBuilder(this)
+                .add("id", id)
+                .add("timeslot", timeslot)
+                .add("subject", subject)
+                .toString();
     }
 }

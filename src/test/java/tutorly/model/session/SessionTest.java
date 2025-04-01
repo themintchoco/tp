@@ -2,7 +2,7 @@ package tutorly.model.session;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,46 +10,44 @@ import org.junit.jupiter.api.Test;
  * Test class for Session.
  */
 public class SessionTest {
+    public static final Timeslot TIMESLOT = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+            LocalDateTime.of(2025, 3, 25, 12, 0));
+    public static final String SUBJECT = "Mathematics";
 
     @Test
     public void constructor_validInput_success() {
-        LocalDate date = LocalDate.of(2025, 3, 20);
-        Session session = new Session(1, date, "Mathematics");
+        Session session = new Session(TIMESLOT, SUBJECT);
 
-        assertEquals(1, session.getId());
-        assertEquals(date, session.getDate());
-        assertEquals("Mathematics", session.getSubject());
+        assertEquals(0, session.getId());
+        assertEquals(TIMESLOT, session.getTimeslot());
+        assertEquals(SUBJECT, session.getSubject());
     }
 
     @Test
     public void equals_sameObject_true() {
-        LocalDate date = LocalDate.of(2025, 3, 20);
-        Session session = new Session(1, date, "Mathematics");
+        Session session = new Session(TIMESLOT, SUBJECT);
         assertEquals(session, session);
     }
 
     @Test
-    public void equals_differentObjectSameValues_false() {
-        LocalDate date = LocalDate.of(2025, 3, 20);
-        Session session1 = new Session(1, date, "Mathematics");
-        Session session2 = new Session(1, date, "Mathematics");
+    public void equals_differentObjectSameValues_true() {
+        Session session1 = new Session(TIMESLOT, SUBJECT);
+        Session session2 = new Session(TIMESLOT, SUBJECT);
         assertEquals(session1, session2);
     }
 
     @Test
     public void toString_correctFormat() {
-        LocalDate date = LocalDate.of(2025, 3, 20);
-        Session session = new Session(1, date, "Mathematics");
-
-        String expected = "Session{sessionId=" + session.getId()
-                + ", date=2025-03-20, subject=Mathematics}";
+        Session session = new Session(TIMESLOT, SUBJECT);
+        String expected = Session.class.getCanonicalName() + "{id=" + session.getId()
+                + ", timeslot=" + session.getTimeslot() + ", subject=" + session.getSubject() + "}";
         assertEquals(expected, session.toString());
     }
 
     @Test
     public void setId_validId_success() {
-        LocalDate date = LocalDate.of(2025, 3, 20);
-        Session session = new Session(0, date, "Mathematics"); // Assume session ID is initially unset (0)
+        Session session = new Session(TIMESLOT, SUBJECT); // Assume session ID is initially unset (0)
+        assertEquals(0, session.getId());
         session.setId(1);
         assertEquals(1, session.getId());
     }

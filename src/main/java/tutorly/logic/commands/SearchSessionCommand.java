@@ -26,7 +26,7 @@ public class SearchSessionCommand extends SessionCommand {
             + "Parameters: "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_SUBJECT + "SUBJECT_KEYWORDS]\n"
-            + "Example: " + COMMAND_STRING + " " + PREFIX_DATE + "2025-03-18 " + PREFIX_SUBJECT + "Math Eng";
+            + "Example: " + COMMAND_STRING + " " + PREFIX_DATE + "18 Mar 2025 " + PREFIX_SUBJECT + "Math Eng";
 
     private final Filter<Session> filter;
 

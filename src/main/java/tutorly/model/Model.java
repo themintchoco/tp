@@ -20,6 +20,7 @@ public interface Model {
      * {@code Filter} that always evaluate to true
      */
     Filter<Person> FILTER_SHOW_ALL_PERSONS = ab -> p -> true;
+    Filter<Session> FILTER_SHOW_ALL_SESSIONS = ab -> s -> true;
 
     /**
      * Returns the user prefs.
@@ -73,12 +74,6 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
-     * Restores the given person.
-     * The person must exist in the archived person list.
-     */
-    void restorePerson(Person target);
-
-    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
@@ -93,21 +88,18 @@ public interface Model {
 
     /**
      * Returns an optional of the person with the given id.
-     * If {@code fromArchived} is true, the person is searched from the archived person list.
      */
-    Optional<Person> getPersonById(int id, boolean fromArchived);
+    Optional<Person> getPersonById(int id);
 
     /**
      * Returns an optional of the person with the given name.
-     * If {@code fromArchived} is true, the person is searched from the archived person list.
      */
-    Optional<Person> getPersonByName(Name name, boolean fromArchived);
+    Optional<Person> getPersonByName(Name name);
 
     /**
      * Returns an optional of the person with the given identity consisting of either ID or name.
-     * If {@code fromArchived} is true, the person is searched from the archived person list.
      */
-    Optional<Person> getPersonByIdentity(Identity identity, boolean fromArchived);
+    Optional<Person> getPersonByIdentity(Identity identity);
 
     /**
      * Returns an unmodifiable view of the person list
@@ -135,11 +127,6 @@ public interface Model {
     ObservableList<AttendanceRecord> getAttendanceRecordList();
 
     /**
-     * Returns an unmodifiable view of the archived person list
-     */
-    ObservableList<Person> getArchivedPersonList();
-
-    /**
      * Updates the filter of the filtered person list to filter by the given {@code filter}.
      *
      * @throws NullPointerException if {@code filter} is null.
@@ -165,6 +152,12 @@ public interface Model {
     void addSession(Session toCreate);
 
     /**
+     * Deletes the given session.
+     * {@code session} must already exist in the address book.
+     */
+    void deleteSession(Session target);
+
+    /**
      * Returns an optional of the session with the given id.
      */
     Optional<Session> getSessionById(int id);
@@ -174,6 +167,11 @@ public interface Model {
      * {@code record} exists in the address book.
      */
     boolean hasAttendanceRecord(AttendanceRecord record);
+
+    /**
+     * Returns the attendance record equivalent to the given record.
+     */
+    Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord record);
 
     /**
      * Adds the given AttendanceRecord.
@@ -186,4 +184,10 @@ public interface Model {
      * {@code record} must already exist in the address book.
      */
     void removeAttendanceRecord(AttendanceRecord record);
+
+    /* Replaces the given AttendanceRecord {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The AttendanceRecord {@code editedRecord} must not be equivalent to another existing record.
+     */
+    void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedRecord);
 }

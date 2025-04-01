@@ -42,6 +42,6 @@ public class SessionCard extends UiPart<Region> {
         subject.setText(session.getSubject());
 
         date.setGraphic(Icons.getCalendarIcon());
-        date.setText(session.getDate().toString());
+        date.setText(session.getTimeslot().getStartTime() + " - " + session.getTimeslot().getEndTime());
     }
 }

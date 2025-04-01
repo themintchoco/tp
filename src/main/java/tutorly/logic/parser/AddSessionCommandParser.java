@@ -1,15 +1,15 @@
 package tutorly.logic.parser;
 
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
 
-import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import tutorly.logic.commands.AddSessionCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 
 /**
  * Parses input arguments and creates a new AddSessionCommand object.
@@ -31,23 +31,18 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public AddSessionCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_SUBJECT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TIMESLOT, PREFIX_SUBJECT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_SUBJECT) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TIMESLOT, PREFIX_SUBJECT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSessionCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATE, PREFIX_SUBJECT);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TIMESLOT, PREFIX_SUBJECT);
 
-        try {
-            LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-            String subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
+        Timeslot timeslot = ParserUtil.parseTimeslot(argMultimap.getValue(PREFIX_TIMESLOT).get());
+        String subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
 
-            // Session ID is typically generated automatically, so we pass a placeholder (e.g., 0)
-            Session session = new Session(0, date, subject);
-            return new AddSessionCommand(session);
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(e.getMessage());
-        }
+        Session session = new Session(timeslot, subject);
+        return new AddSessionCommand(session);
     }
 }

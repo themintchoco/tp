@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +25,7 @@ import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.model.session.UniqueSessionList;
+import tutorly.testutil.SessionBuilder;
 
 /**
  * Test class for AddSessionCommand.
@@ -39,7 +39,7 @@ public class AddSessionCommandTest {
     @BeforeEach
     void setUp() {
         model = new ModelStub();
-        session = new Session(101, LocalDate.of(2025, 3, 18), "Mathematics");
+        session = new SessionBuilder().build();
         addSessionCommand = new AddSessionCommand(session);
     }
 
@@ -69,7 +69,7 @@ public class AddSessionCommandTest {
 
     @Test
     void equals_differentObjects() {
-        Session differentSession = new Session(102, LocalDate.of(2025, 3, 19), "Science");
+        Session differentSession = new SessionBuilder().withSubject("English").build();
         AddSessionCommand differentCommand = new AddSessionCommand(differentSession);
         assertNotEquals(addSessionCommand, differentCommand);
     }
@@ -132,10 +132,6 @@ public class AddSessionCommandTest {
         }
 
         @Override
-        public void restorePerson(Person target) {
-        }
-
-        @Override
         public void addPerson(Person person) {
         }
 
@@ -144,17 +140,17 @@ public class AddSessionCommandTest {
         }
 
         @Override
-        public Optional<Person> getPersonById(int id, boolean fromArchived) {
+        public Optional<Person> getPersonById(int id) {
             return Optional.empty();
         }
 
         @Override
-        public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
+        public Optional<Person> getPersonByName(Name name) {
             return Optional.empty();
         }
 
         @Override
-        public Optional<Person> getPersonByIdentity(Identity identity, boolean fromArchived) {
+        public Optional<Person> getPersonByIdentity(Identity identity) {
             return Optional.empty();
         }
 
@@ -184,11 +180,6 @@ public class AddSessionCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getArchivedPersonList() {
-            return null;
-        }
-
-        @Override
         public void updateFilteredPersonList(Filter<Person> predicate) {
         }
 
@@ -207,6 +198,11 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public void deleteSession(Session target) {
+            sessions.remove(target);
+        }
+
+        @Override
         public Optional<Session> getSessionById(int id) {
             return Optional.empty();
         }
@@ -217,11 +213,20 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord record) {
+            return Optional.empty();
+        }
+
+        @Override
         public void addAttendanceRecord(AttendanceRecord record) {
         }
 
         @Override
         public void removeAttendanceRecord(AttendanceRecord record) {
+        }
+
+        @Override
+        public void setAttendanceRecord(AttendanceRecord target, AttendanceRecord editedRecord) {
         }
     }
 }

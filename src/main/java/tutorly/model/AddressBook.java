@@ -22,7 +22,6 @@ import tutorly.model.session.UniqueSessionList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final UniquePersonList archivedPersons;
     private final UniqueSessionList sessions;
     private final UniqueAttendanceRecordList attendanceRecords;
 
@@ -34,7 +33,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook() {
         persons = new UniquePersonList();
-        archivedPersons = new UniquePersonList();
         sessions = new UniqueSessionList();
         attendanceRecords = new UniqueAttendanceRecordList();
 
@@ -94,7 +92,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setSessions(newData.getSessionList());
         setAttendanceRecords(newData.getAttendanceRecordsList());
-        archivedPersons.clear();
 
         nextPersonId = newData.getNextPersonId();
         nextSessionId = newData.getNextSessionId();
@@ -138,20 +135,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns the person with the given ID if it exists in the archived persons address book.
-     */
-    public Optional<Person> getArchivedPersonById(int id) {
-        return archivedPersons.getPersonById(id);
-    }
-
-    /**
-     * Returns the person with the given name if it exists in the archived persons address book.
-     */
-    public Optional<Person> getArchivedPersonByName(Name name) {
-        return archivedPersons.getPersonByName(name);
-    }
-
-    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -167,16 +150,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
-        archivedPersons.add(key);
-    }
-
-    /**
-     * Restores {@code key} from the archived persons list.
-     * {@code key} must exist in the archived persons list.
-     */
-    public void restorePerson(Person key) {
-        archivedPersons.remove(key);
-        persons.add(key);
     }
 
     //// session-level operations
@@ -238,6 +211,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns the attendance record equivalent to the given record.
+     */
+    public Optional<AttendanceRecord> findAttendanceRecord(AttendanceRecord attendanceRecord) {
+        requireNonNull(attendanceRecord);
+        return attendanceRecords.find(attendanceRecord);
+    }
+
+    /**
      * Adds an attendance record to the address book.
      */
     public void addAttendanceRecord(AttendanceRecord attendanceRecord) {
@@ -281,10 +262,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Session> getSessionList() {
         return sessions.asUnmodifiableObservableList();
-    }
-
-    public ObservableList<Person> getArchivedPersonList() {
-        return archivedPersons.asUnmodifiableObservableList();
     }
 
     @Override
