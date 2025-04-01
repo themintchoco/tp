@@ -93,7 +93,7 @@ public class EditStudentCommand extends StudentCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Person> personToEdit = model.getPersonByIdentity(identity, false);
+        Optional<Person> personToEdit = model.getPersonByIdentity(identity);
         if (personToEdit.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
@@ -108,6 +108,8 @@ public class EditStudentCommand extends StudentCommand {
         model.updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
         return new CommandResult.Builder(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)))
                 .withTab(Tab.STUDENT)
+                .withReverseCommand(new EditStudentCommand(
+                        identity, EditPersonDescriptor.fromPerson(personToEdit.get())))
                 .build();
     }
 
@@ -160,6 +162,20 @@ public class EditStudentCommand extends StudentCommand {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setMemo(toCopy.memo);
+        }
+
+        /**
+         * Returns a {@code EditPersonDescriptor} with the same values as {@code person}.
+         */
+        public static EditPersonDescriptor fromPerson(Person person) {
+            EditPersonDescriptor descriptor = new EditPersonDescriptor();
+            descriptor.setName(person.getName());
+            descriptor.setPhone(person.getPhone());
+            descriptor.setEmail(person.getEmail());
+            descriptor.setAddress(person.getAddress());
+            descriptor.setTags(person.getTags());
+            descriptor.setMemo(person.getMemo());
+            return descriptor;
         }
 
         /**

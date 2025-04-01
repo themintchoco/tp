@@ -7,7 +7,6 @@ import tutorly.logic.commands.Command;
 import tutorly.logic.commands.DeleteStudentCommand;
 import tutorly.logic.commands.EditStudentCommand;
 import tutorly.logic.commands.ListStudentCommand;
-import tutorly.logic.commands.RestoreStudentCommand;
 import tutorly.logic.commands.SearchStudentCommand;
 import tutorly.logic.commands.StudentCommand;
 import tutorly.logic.parser.exceptions.ParseException;
@@ -19,6 +18,8 @@ public class StudentCommandParser extends AddressBookParser {
 
     @Override
     protected Command parseCommand(String command, String args) throws ParseException {
+        command = command.toLowerCase();
+
         switch (command) {
         case ListStudentCommand.COMMAND_WORD:
             return new ListStudentCommand();
@@ -31,9 +32,6 @@ public class StudentCommandParser extends AddressBookParser {
 
         case DeleteStudentCommand.COMMAND_WORD:
             return new DeleteStudentCommandParser().parse(args);
-
-        case RestoreStudentCommand.COMMAND_WORD:
-            return new RestoreStudentCommandParser().parse(args);
 
         case SearchStudentCommand.COMMAND_WORD:
             return new SearchStudentCommandParser().parse(args);

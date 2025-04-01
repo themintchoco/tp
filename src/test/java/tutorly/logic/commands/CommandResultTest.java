@@ -59,17 +59,21 @@ public class CommandResultTest {
         CommandResult commandResult = new CommandResult("feedback");
         String expected = CommandResult.class.getCanonicalName()
                 + "{feedbackToUser=" + commandResult.getFeedbackToUser()
+                + ", shouldShowHelp=" + commandResult.shouldShowHelp()
+                + ", shouldExit=" + commandResult.shouldExit()
+                + ", shouldReverseLast=" + commandResult.shouldReverseLast()
                 + ", tab=null"
-                + ", showHelp=" + commandResult.isShowHelp()
-                + ", exit=" + commandResult.isExit() + "}";
+                + ", reverseCommand=null}";
         assertEquals(expected, commandResult.toString());
 
         commandResult = new CommandResult.Builder("feedback").withTab(Tab.STUDENT).showHelp().build();
         expected = CommandResult.class.getCanonicalName()
                 + "{feedbackToUser=" + commandResult.getFeedbackToUser()
+                + ", shouldShowHelp=" + commandResult.shouldShowHelp()
+                + ", shouldExit=" + commandResult.shouldExit()
+                + ", shouldReverseLast=" + commandResult.shouldReverseLast()
                 + ", tab=" + commandResult.getTab()
-                + ", showHelp=" + commandResult.isShowHelp()
-                + ", exit=" + commandResult.isExit() + "}";
+                + ", reverseCommand=null}";
         assertEquals(expected, commandResult.toString());
     }
 }

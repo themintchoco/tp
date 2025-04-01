@@ -27,7 +27,7 @@ public class DeleteStudentCommandTest {
 
     @Test
     public void execute_validIdentity_success() {
-        Person personToDelete = model.getPersonByIdentity(IDENTITY_FIRST_PERSON, false).get();
+        Person personToDelete = model.getPersonByIdentity(IDENTITY_FIRST_PERSON).get();
         DeleteStudentCommand deleteCommand = new DeleteStudentCommand(IDENTITY_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_PERSON_SUCCESS,

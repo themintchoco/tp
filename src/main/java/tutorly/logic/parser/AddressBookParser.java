@@ -14,6 +14,7 @@ import tutorly.logic.commands.ExitCommand;
 import tutorly.logic.commands.HelpCommand;
 import tutorly.logic.commands.SessionCommand;
 import tutorly.logic.commands.StudentCommand;
+import tutorly.logic.commands.UndoCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 
 /**
@@ -64,6 +65,8 @@ public class AddressBookParser implements Parser<Command> {
      * Parses a command word and arguments into a command.
      */
     protected Command parseCommand(String command, String args) throws ParseException {
+        command = command.toLowerCase();
+
         switch (command) {
         case StudentCommand.COMMAND_WORD:
             return new StudentCommandParser().parse(args);
@@ -76,6 +79,9 @@ public class AddressBookParser implements Parser<Command> {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

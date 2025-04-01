@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
@@ -35,23 +36,30 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_ID = "ID is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "Invalid datetime provided.";
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Please use YYYY-MM-DD.";
+    public static final String MESSAGE_INVALID_DATE_FORMAT =
+            "Invalid date format. Please ensure it uses 'dd MMM yyyy' (e.g. '25 Dec 2025').";
     public static final String MESSAGE_INVALID_TIMESLOT_FORMAT =
-            "Invalid timeslot format. Please use dd MMM yyyy HH:mm-HH:mm";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
-    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+            "Invalid timeslot format. Please ensure it uses 'dd MMM yyyy HH:mm-HH:mm' "
+            + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00').";
+    public static final String MESSAGE_EMPTY_SUBJECT = "Subject cannot be empty.";
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu", Locale.ENGLISH)
+            .withResolverStyle(ResolverStyle.STRICT);
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
     public static final String MESSAGE_INVALID_SUBJECT =
             "Subjects should only contain letters and spaces, and it should not be blank";
 
+
     /**
-     * Parses {@code String identity} into an {@code Identity} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses {@code String identity} into an {@code Identity} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * Multiple intermediate spaces will be collapsed into one space.
      *
      * @throws ParseException if the specified identity is invalid (not non-zero unsigned integer or valid name).
      */
     public static Identity parseIdentity(String identity) throws ParseException {
         requireNonNull(identity);
-        String trimmedIdentity = identity.trim();
+        String trimmedIdentity = identity.trim().replaceAll("\\s+", " ");
         if (StringUtil.isNonZeroUnsignedInteger(trimmedIdentity)) {
             return new Identity(Integer.parseInt(trimmedIdentity));
         }
@@ -93,12 +101,13 @@ public class ParserUtil {
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
+     * Multiple intermediate spaces will be collapsed into one space.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = name.trim().replaceAll("\\s+", " ");
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -123,12 +132,13 @@ public class ParserUtil {
     /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
+     * Multiple intermediate spaces will be collapsed into one space.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
-        String trimmedAddress = address.trim();
+        String trimmedAddress = address.trim().replaceAll("\\s+", " ");
         if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
@@ -211,7 +221,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String timeslot} into a {@code Timeslot}.
-     * The timeslot format must be dd MMM yyyy HH:mm-HH:mm.
+     * The timeslot format must be dd MMM yyyy HH:mm-HH:mm or dd MMM yyyy HH:mm-dd MMM yyyy HH:mm.
      *
      * @param timeslot The timeslot to parse.
      * @return The parsed Timeslot.
@@ -219,32 +229,53 @@ public class ParserUtil {
      */
     public static Timeslot parseTimeslot(String timeslot) throws ParseException {
         requireNonNull(timeslot);
-        String[] tokens = timeslot.trim().split("\\s+");
-        if (tokens.length != 4) {
+
+        // Split the timeslot into start and end times based on the first hyphen
+        String[] tokens = timeslot.trim().split("-");
+        if (tokens.length != 2) {
             throw new ParseException(MESSAGE_INVALID_TIMESLOT_FORMAT);
         }
-        String dateStr = tokens[0] + " " + tokens[1] + " " + tokens[2];
+        String startDateTimeStr = tokens[0].trim();
+        String endDateTimeStr = tokens[1].trim();
 
-        // Split the time range into start and end times
-        String[] timeTokens = tokens[3].split("-");
-        if (timeTokens.length != 2) {
+        // Process start datetime
+        String[] startTokens = startDateTimeStr.split("\\s+");
+        if (startTokens.length != 4) {
+            throw new ParseException(MESSAGE_INVALID_TIMESLOT_FORMAT);
+        }
+        String startDateStr = startTokens[0] + " " + startTokens[1] + " " + startTokens[2];
+        String startTimeStr = startTokens[3];
+
+        // Process end datetime
+        String[] endTokens = endDateTimeStr.split("\\s+");
+        String endDateStr;
+        String endTimeStr;
+        if (endTokens.length == 1) {
+            endDateStr = startDateStr;
+            endTimeStr = endTokens[0];
+        } else if (endTokens.length == 4) {
+            endDateStr = endTokens[0] + " " + endTokens[1] + " " + endTokens[2];
+            endTimeStr = endTokens[3];
+        } else {
             throw new ParseException(MESSAGE_INVALID_TIMESLOT_FORMAT);
         }
 
-        LocalDate date;
+        LocalDate startDate;
+        LocalDate endDate;
         LocalTime startTime;
         LocalTime endTime;
         try {
-            date = LocalDate.parse(dateStr, DATE_FORMATTER);
-            startTime = LocalTime.parse(timeTokens[0], TIME_FORMATTER);
-            endTime = LocalTime.parse(timeTokens[1], TIME_FORMATTER);
+            startDate = LocalDate.parse(startDateStr, DATE_FORMATTER);
+            endDate = LocalDate.parse(endDateStr, DATE_FORMATTER);
+            startTime = LocalTime.parse(startTimeStr, TIME_FORMATTER);
+            endTime = LocalTime.parse(endTimeStr, TIME_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_TIMESLOT_FORMAT);
         }
 
         // Combine date and time into LocalDateTime objects
-        LocalDateTime startDateTime = LocalDateTime.of(date, startTime);
-        LocalDateTime endDateTime = LocalDateTime.of(date, endTime);
+        LocalDateTime startDateTime = LocalDateTime.of(startDate, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(endDate, endTime);
 
         if (startDateTime.isAfter(endDateTime)) {
             throw new ParseException(Timeslot.MESSAGE_END_BEFORE_START_DATETIME);

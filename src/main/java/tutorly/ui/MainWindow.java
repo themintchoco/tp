@@ -1,5 +1,7 @@
 package tutorly.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -14,9 +16,14 @@ import javafx.stage.Stage;
 import tutorly.commons.core.GuiSettings;
 import tutorly.commons.core.LogsCenter;
 import tutorly.logic.Logic;
+import tutorly.logic.commands.AttendanceMarkSessionCommand;
+import tutorly.logic.commands.AttendanceUnmarkSessionCommand;
+import tutorly.logic.commands.Command;
 import tutorly.logic.commands.CommandResult;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.logic.parser.exceptions.ParseException;
+import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.person.Identity;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -129,7 +136,7 @@ public class MainWindow extends UiPart<Stage> {
         sessionListPanelPlaceholder.getChildren().add(sessionListPanel.getRoot());
 
         attendanceRecordListPanel = new AttendanceRecordListPanel(logic.getAttendanceRecordList(),
-                    logic.getPersonList(), sessionListPanel.getSelected());
+                    logic.getPersonList(), sessionListPanel.getSelected(), this::toggleAttendanceRecord);
         attendanceRecordListPanelPlaceholder.getChildren().add(attendanceRecordListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -193,15 +200,15 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isSwitchTab()) {
+            if (commandResult.shouldSwitchTab()) {
                 tabPane.getSelectionModel().select(commandResult.getTab().ordinal());
             }
 
-            if (commandResult.isShowHelp()) {
+            if (commandResult.shouldShowHelp()) {
                 handleHelp();
             }
 
-            if (commandResult.isExit()) {
+            if (commandResult.shouldExit()) {
                 handleExit();
             }
 
@@ -211,5 +218,25 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Toggles the attendance record of a student for a session.
+     */
+    private Void toggleAttendanceRecord(AttendanceRecord record) {
+        requireNonNull(record);
+
+        Command command = record.getAttendance()
+                ? new AttendanceUnmarkSessionCommand(new Identity(record.getStudentId()), record.getSessionId())
+                : new AttendanceMarkSessionCommand(new Identity(record.getStudentId()), record.getSessionId());
+
+        try {
+            CommandResult commandResult = logic.execute(command);
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+        } catch (CommandException e) {
+            resultDisplay.setFeedbackToUser(e.getMessage());
+        }
+
+        return null;
     }
 }

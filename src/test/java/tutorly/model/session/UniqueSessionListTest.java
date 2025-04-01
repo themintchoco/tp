@@ -79,9 +79,9 @@ public class UniqueSessionListTest {
     @Test
     void testSetSessionSuccess() {
         sessionList.add(session1);
-        sessionList.set(session1, session2);
+        sessionList.set(session1, session3);
         assertFalse(sessionList.contains(session1));
-        assertTrue(sessionList.contains(session2));
+        assertTrue(sessionList.contains(session3));
     }
 
     @Test
@@ -92,8 +92,8 @@ public class UniqueSessionListTest {
     @Test
     void testSetSessionDuplicateThrowsException() {
         sessionList.add(session1);
-        sessionList.add(session2);
-        assertThrows(DuplicateElementException.class, () -> sessionList.set(session1, session2));
+        sessionList.add(session3);
+        assertThrows(DuplicateElementException.class, () -> sessionList.set(session1, session3));
     }
 
     @Test

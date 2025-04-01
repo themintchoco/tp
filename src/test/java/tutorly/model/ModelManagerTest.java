@@ -94,26 +94,13 @@ public class ModelManagerTest {
     @Test
     public void getPersonByIdentity_personInAddressBook_returnsPerson() {
         modelManager.addPerson(ALICE);
-        assertEquals(ALICE, modelManager.getPersonByIdentity(new Identity(ALICE.getId()), false).get());
+        assertEquals(ALICE, modelManager.getPersonByIdentity(new Identity(ALICE.getId())).get());
     }
 
     @Test
     public void getPersonByIdentity_personNotInAddressBook_returnsEmpty() {
-        assertTrue(modelManager.getPersonByIdentity(new Identity(ALICE.getId()), false).isEmpty());
+        assertTrue(modelManager.getPersonByIdentity(new Identity(ALICE.getId())).isEmpty());
     }
-
-    @Test
-    public void getPersonByIdentity_personInArchivedList_returnsPerson() {
-        modelManager.addPerson(ALICE);
-        modelManager.deletePerson(ALICE);
-        assertEquals(ALICE, modelManager.getPersonByIdentity(new Identity(ALICE.getName()), true).get());
-    }
-
-    @Test
-    public void getPersonByIdentity_personNotInArchivedList_returnsEmpty() {
-        assertTrue(modelManager.getPersonByIdentity(new Identity(ALICE.getId()), true).isEmpty());
-    }
-
 
     @Test
     public void hasAttendanceRecord_recordInAddressBook_returnsFalse() {

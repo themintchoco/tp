@@ -49,7 +49,7 @@ public class AttendanceMarkSessionCommand extends SessionCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Person> person = model.getPersonByIdentity(identity, false);
+        Optional<Person> person = model.getPersonByIdentity(identity);
         if (person.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
@@ -75,6 +75,7 @@ public class AttendanceMarkSessionCommand extends SessionCommand {
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
                 .withTab(Tab.SESSION)
+                .withReverseCommand(new AttendanceUnmarkSessionCommand(identity, sessionId))
                 .build();
     }
 

@@ -37,7 +37,7 @@ public class DeleteStudentCommand extends StudentCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Optional<Person> toDelete = model.getPersonByIdentity(identity, false);
+        Optional<Person> toDelete = model.getPersonByIdentity(identity);
         if (toDelete.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND);
         }
@@ -45,6 +45,7 @@ public class DeleteStudentCommand extends StudentCommand {
         model.deletePerson(toDelete.get());
         return new CommandResult.Builder(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(toDelete.get())))
                 .withTab(Tab.STUDENT)
+                .withReverseCommand(new AddStudentCommand(toDelete.get()))
                 .build();
     }
 
