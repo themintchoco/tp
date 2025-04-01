@@ -61,8 +61,10 @@ public class UnenrolSessionCommandTest {
         UnenrolSessionCommand unenrolSessionCommand =
                 new UnenrolSessionCommand(bensonIdentity, ENGLISH_SESSION.getId());
 
-        assertThrows(CommandException.class,
-                UnenrolSessionCommand.MESSAGE_MISSING_ENROLMENT, () -> unenrolSessionCommand.execute(model));
+        assertThrows(CommandException.class, String.format(
+                UnenrolSessionCommand.MESSAGE_MISSING_ENROLMENT,
+                BENSON.getName().fullName,
+                Messages.format(ENGLISH_SESSION)), () -> unenrolSessionCommand.execute(model));
     }
 
     @Test
