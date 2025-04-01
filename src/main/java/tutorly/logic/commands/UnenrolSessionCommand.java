@@ -30,7 +30,7 @@ public class UnenrolSessionCommand extends SessionCommand {
                     + PREFIX_SESSION + "2 ";
 
     public static final String MESSAGE_SUCCESS = "%1$s has been unenrolled from Session: %2$s";
-    public static final String MESSAGE_MISSING_ASSIGNMENT = "This student is not enrolled to the session";
+    public static final String MESSAGE_MISSING_ENROLMENT = "%1$s is not enrolled to Session: %2$s";
 
     private final Identity identity;
     private final int sessionId;
@@ -62,7 +62,8 @@ public class UnenrolSessionCommand extends SessionCommand {
         Optional<AttendanceRecord> record = model.findAttendanceRecord(
                 new AttendanceRecord(person.get().getId(), sessionId, false));
         if (record.isEmpty()) {
-            throw new CommandException(MESSAGE_MISSING_ASSIGNMENT);
+            throw new CommandException(String.format(
+                    MESSAGE_MISSING_ENROLMENT, person.get().getName().fullName, Messages.format(session.get())));
         }
 
         model.removeAttendanceRecord(record.get());
