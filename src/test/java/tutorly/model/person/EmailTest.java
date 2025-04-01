@@ -52,6 +52,12 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("peterjack@example.com-")); // domain name ends with a hyphen
         assertFalse(Email.isValidEmail("peterjack@example.c")); // top level domain has less than two chars
 
+        // length constraints check
+        String longEmail = "a".repeat(Email.MAX_LENGTH - 13) + "@example.com";
+        assertTrue(Email.isValidEmail(longEmail));
+        assertTrue(Email.isValidEmail("a" + longEmail));
+        assertFalse(Email.isValidEmail("aa" + longEmail)); // too long email
+
         // valid email
         assertTrue(Email.isValidEmail("PeterJack_1190@example.com")); // underscore in local part
         assertTrue(Email.isValidEmail("PeterJack.1190@example.com")); // period in local part

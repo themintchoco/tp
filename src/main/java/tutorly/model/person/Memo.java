@@ -9,7 +9,10 @@ import static tutorly.commons.util.AppUtil.checkArgument;
  */
 public class Memo {
 
-    public static final String MESSAGE_CONSTRAINTS = "Memo can take any values, and it should not be blank";
+    public static final int MAX_LENGTH = 200;
+
+    public static final String MESSAGE_CONSTRAINTS = "Memo can take any values, and it should not be blank. "
+            + "The maximum length is " + MAX_LENGTH + " characters.";
 
     /*
      * The first character of the memo must not be a whitespace,
@@ -50,7 +53,7 @@ public class Memo {
      * Returns true if a given string is a valid memo.
      */
     public static boolean isValidMemo(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
     }
 
     @Override

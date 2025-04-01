@@ -31,11 +31,14 @@ public class NameTest {
         assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
         assertFalse(Name.isValidName("12345")); // contains digits
         assertFalse(Name.isValidName("peter the 2nd")); // contains digits
+        assertFalse(Name.isValidName("a".repeat(Name.MAX_LENGTH) + "a")); // extra long names
+
 
         // valid name
         assertTrue(Name.isValidName("peter jack")); // alphabets only
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr")); // long names
+        assertTrue(Name.isValidName("a".repeat(Name.MAX_LENGTH))); // long names
     }
 
     @Test

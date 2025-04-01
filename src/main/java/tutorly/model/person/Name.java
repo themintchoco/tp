@@ -9,11 +9,13 @@ import static tutorly.commons.util.AppUtil.checkArgument;
  */
 public class Name {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain letters and spaces, and it should not be blank";
+    public static final int MAX_LENGTH = 50;
+
+    public static final String MESSAGE_CONSTRAINTS = "Names should only contain letters and spaces, "
+            + "and it should not be blank. The maximum length is " + MAX_LENGTH + " characters.";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[A-Za-z][A-Za-z ]*";
@@ -35,7 +37,7 @@ public class Name {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
     }
 
 
