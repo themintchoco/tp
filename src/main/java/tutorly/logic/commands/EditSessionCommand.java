@@ -15,6 +15,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 import tutorly.ui.Tab;
 
@@ -61,7 +62,7 @@ public class EditSessionCommand extends SessionCommand {
         requireAllNonNull(sessionToEdit, editSessionDescriptor);
 
         Timeslot updatedTimeslot = editSessionDescriptor.getTimeslot().orElse(sessionToEdit.getTimeslot());
-        String updatedSubject = editSessionDescriptor.getSubject().orElse(sessionToEdit.getSubject());
+        Subject updatedSubject = editSessionDescriptor.getSubject().orElse(sessionToEdit.getSubject());
 
         Session newSession = new Session(updatedTimeslot , updatedSubject);
         newSession.setId(sessionToEdit.getId());
@@ -115,7 +116,7 @@ public class EditSessionCommand extends SessionCommand {
      */
     public static class EditSessionDescriptor {
         private Timeslot timeslot;
-        private String subject;
+        private Subject subject;
 
         public EditSessionDescriptor() {
         }
@@ -153,11 +154,11 @@ public class EditSessionCommand extends SessionCommand {
             this.timeslot = date;
         }
 
-        Optional<String> getSubject() {
+        Optional<Subject> getSubject() {
             return Optional.ofNullable(subject);
         }
 
-        public void setSubject(String subject) {
+        public void setSubject(Subject subject) {
             this.subject = subject;
         }
 
