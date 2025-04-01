@@ -60,8 +60,11 @@ public class ParserUtilTest {
         assertEquals(new Identity(1), ParserUtil.parseIdentity("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(new Identity(new Name(VALID_NAME)), ParserUtil.parseIdentity("  " + VALID_NAME + "  "));
-        assertEquals(new Identity(1), ParserUtil.parseIdentity("  1  "));
+        assertEquals(new Identity(new Name(VALID_NAME)),
+                ParserUtil.parseIdentity(WHITESPACE + VALID_NAME + WHITESPACE));
+        assertEquals(new Identity(1), ParserUtil.parseIdentity(WHITESPACE + 1 + WHITESPACE));
+        assertEquals(new Identity(new Name("Bob Charlie")),
+                ParserUtil.parseIdentity(WHITESPACE + "Bob     Charlie" + WHITESPACE));
     }
 
     @Test

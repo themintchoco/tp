@@ -46,14 +46,15 @@ public class ParserUtil {
             .withResolverStyle(ResolverStyle.STRICT);
 
     /**
-     * Parses {@code String identity} into an {@code Identity} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses {@code String identity} into an {@code Identity} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * Multiple intermediate spaces will be collapsed into one space.
      *
      * @throws ParseException if the specified identity is invalid (not non-zero unsigned integer or valid name).
      */
     public static Identity parseIdentity(String identity) throws ParseException {
         requireNonNull(identity);
-        String trimmedIdentity = identity.trim();
+        String trimmedIdentity = identity.trim().replaceAll("\\s+", " ");
         if (StringUtil.isNonZeroUnsignedInteger(trimmedIdentity)) {
             return new Identity(Integer.parseInt(trimmedIdentity));
         }
