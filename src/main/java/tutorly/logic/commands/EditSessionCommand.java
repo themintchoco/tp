@@ -146,7 +146,7 @@ public class EditSessionCommand extends SessionCommand {
             return CollectionUtil.isAnyNonNull(timeslot, subject);
         }
 
-        Optional<Timeslot> getTimeslot() {
+        public Optional<Timeslot> getTimeslot() {
             return Optional.ofNullable(timeslot);
         }
 
@@ -154,7 +154,7 @@ public class EditSessionCommand extends SessionCommand {
             this.timeslot = date;
         }
 
-        Optional<Subject> getSubject() {
+        public Optional<Subject> getSubject() {
             return Optional.ofNullable(subject);
         }
 
