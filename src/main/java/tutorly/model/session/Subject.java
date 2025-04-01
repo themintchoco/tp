@@ -12,7 +12,8 @@ public class Subject {
     public static final int MAX_LENGTH = 20;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Subjects should only contain letters, numbers, spaces, and the following symbols: & + , -"
+            "Subjects should not be blank and only contain letters, numbers, "
+                    + "spaces, and the following symbols: & + , -. "
                     + "The maximum length is " + MAX_LENGTH + " characters.";
 
     /*
