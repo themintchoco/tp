@@ -88,6 +88,8 @@ public class EditSessionCommand extends SessionCommand {
 
         return new CommandResult.Builder(String.format(MESSAGE_EDIT_SESSION_SUCCESS, Messages.format(editedSession)))
                 .withTab(Tab.SESSION)
+                .withReverseCommand(new EditSessionCommand(
+                        sessionId, EditSessionDescriptor.fromSession(sessionToEdit.get())))
                 .build();
     }
 
