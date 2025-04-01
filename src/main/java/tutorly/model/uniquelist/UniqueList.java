@@ -18,6 +18,8 @@ import tutorly.model.uniquelist.exceptions.ElementNotFoundException;
  * updating of elements uses {@code UniqueList<T>#isEquivalent(T, T)} for equivalence so as to ensure that the element
  * being added or updated is unique in the UniqueList. However, the removal of an element uses {@code T#equals(Object)}
  * so as to ensure that the exact element will be removed.
+ * Order can be enforced by implementing {@code UniqueList<T>#compare(T, T)}. This guarantees that the list will always
+ * be sorted in the defined order.
  * <p>
  * Supports a minimal set of list operations.
  */
@@ -53,7 +55,9 @@ public class UniqueList<T> implements Iterable<T> {
         if (contains(toAdd)) {
             throw new DuplicateElementException();
         }
+
         internalList.add(toAdd);
+        internalList.sort(this::compare);
     }
 
     /**
@@ -74,6 +78,7 @@ public class UniqueList<T> implements Iterable<T> {
         }
 
         internalList.set(index, edited);
+        internalList.sort(this::compare);
     }
 
     /**
@@ -89,10 +94,10 @@ public class UniqueList<T> implements Iterable<T> {
 
     /**
      * Replaces the contents of this list with {@code replacement}.
+     * {@code replacement} must not contain duplicate elements.
      */
     public void setAll(UniqueList<T> replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
+        setAll(replacement.internalList);
     }
 
     /**
@@ -106,6 +111,7 @@ public class UniqueList<T> implements Iterable<T> {
         }
 
         internalList.setAll(replacement);
+        internalList.sort(this::compare);
     }
 
     /**
@@ -178,5 +184,15 @@ public class UniqueList<T> implements Iterable<T> {
      */
     protected boolean isEquivalent(T element1, T element2) {
         return element1.equals(element2);
+    }
+
+    /**
+     * Compares two elements and returns an integer indicating their order.
+     *
+     * @return A negative integer, zero, or a positive integer as the first argument is less than,
+     *         equal to, or greater than the second.
+     */
+    protected int compare(T element1, T element2) {
+        return 0;
     }
 }

@@ -282,10 +282,10 @@ public class AddStudentCommandTest {
         @Override
         public void addPerson(Person person) {
             requireNonNull(person);
-            personsAdded.add(person);
             if (person.getId() == 0) {
-                person.setId(personsAdded.size());
+                person.setId(personsAdded.size() + 1);
             }
+            personsAdded.add(person);
         }
 
         @Override
