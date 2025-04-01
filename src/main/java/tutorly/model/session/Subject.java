@@ -9,10 +9,11 @@ import static tutorly.commons.util.AppUtil.checkArgument;
  */
 public class Subject {
 
+    public static final int MAX_LENGTH = 20;
+
     public static final String MESSAGE_CONSTRAINTS =
             "Subjects should only contain letters, numbers, spaces, and the following symbols: & + , -"
-            + " and it should not be blank. It should also not exceed 20 characters.";
-    public static final int MAX_LENGTH = 20;
+                    + "The maximum length is " + MAX_LENGTH + " characters.";
 
     /*
      * The first character of the subject must not be a whitespace,
