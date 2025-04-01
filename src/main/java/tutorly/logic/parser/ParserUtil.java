@@ -14,7 +14,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import tutorly.commons.core.index.Index;
-import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.commons.util.StringUtil;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.person.Address;
@@ -41,13 +40,10 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_TIMESLOT_FORMAT =
             "Invalid timeslot format. Please ensure it uses 'dd MMM yyyy HH:mm-HH:mm' "
             + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00').";
-    public static final String MESSAGE_EMPTY_SUBJECT = "Subject cannot be empty.";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu", Locale.ENGLISH)
             .withResolverStyle(ResolverStyle.STRICT);
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
-    public static final String MESSAGE_INVALID_SUBJECT =
-            "Subjects should only contain letters, numbers, spaces, and the following symbols: & + , -";
 
 
     /**
@@ -290,7 +286,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code subject} is invalid.
      */
-    public static Subject parseSubject(String subject) throws IllegalValueException {
+    public static Subject parseSubject(String subject) throws ParseException {
         requireNonNull(subject);
         String trimmedSubject = subject.trim();
         if (!Subject.isValidSubject(trimmedSubject)) {

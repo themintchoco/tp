@@ -49,7 +49,7 @@ public class AddSessionCommandParserTest {
     @Test
     public void parse_emptySubject_throwsParseException() {
         String userInput = TIMESLOT_DESC + " " + PREFIX_SUBJECT;
-        assertParseFailure(parser, userInput, ParserUtil.MESSAGE_INVALID_SUBJECT);
+        assertParseFailure(parser, userInput, Subject.MESSAGE_CONSTRAINTS);
     }
 
     @Test
