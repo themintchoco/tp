@@ -18,4 +18,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIMESLOT = new Prefix("t/");
     public static final Prefix PREFIX_SUBJECT = new Prefix("sub/");
     public static final Prefix PREFIX_SESSION = new Prefix("ses/");
+    public static final Prefix PREFIX_FEEDBACK = new Prefix("f/");
 }
