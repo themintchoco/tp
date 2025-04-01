@@ -57,7 +57,7 @@ public class Name {
             return false;
         }
 
-        return fullName.toLowerCase().equals(otherName.fullName.toLowerCase());
+        return fullName.equalsIgnoreCase(otherName.fullName);
     }
 
     @Override
