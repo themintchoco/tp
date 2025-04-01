@@ -20,6 +20,10 @@ public interface Model {
      * {@code Filter} that always evaluate to true
      */
     Filter<Person> FILTER_SHOW_ALL_PERSONS = ab -> p -> true;
+
+    /**
+     * {@code Filter} that always evaluate to true
+     */
     Filter<Session> FILTER_SHOW_ALL_SESSIONS = ab -> s -> true;
 
     /**
@@ -146,6 +150,11 @@ public interface Model {
     boolean hasSession(Session toCreate);
 
     /**
+     * Returns true if the session to be created has overlapping timeslot with an existing session.
+     */
+    boolean hasOverlappingSession(Session toCreate);
+
+    /**
      * Adds the given session.
      * {@code session} must not already exist in the address book.
      */
@@ -156,6 +165,13 @@ public interface Model {
      * {@code session} must already exist in the address book.
      */
     void deleteSession(Session target);
+
+    /**
+     *  Replaces the given session {@code session} with {@code editedSession}.
+     * {@code session} must exist in the address book.
+     */
+    void setSession(Session session, Session editedSession);
+
 
     /**
      * Returns an optional of the session with the given id.

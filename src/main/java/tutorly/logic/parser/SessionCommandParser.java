@@ -7,6 +7,7 @@ import tutorly.logic.commands.AttendanceMarkSessionCommand;
 import tutorly.logic.commands.AttendanceUnmarkSessionCommand;
 import tutorly.logic.commands.Command;
 import tutorly.logic.commands.DeleteSessionCommand;
+import tutorly.logic.commands.EditSessionCommand;
 import tutorly.logic.commands.EnrolSessionCommand;
 import tutorly.logic.commands.ListSessionCommand;
 import tutorly.logic.commands.SearchSessionCommand;
@@ -41,6 +42,9 @@ public class SessionCommandParser extends AddressBookParser {
 
         case DeleteSessionCommand.COMMAND_WORD:
             return new DeleteSessionCommandParser().parse(args);
+
+        case EditSessionCommand.COMMAND_WORD:
+            return new EditSessionCommandParser().parse(args);
 
         case AttendanceMarkSessionCommand.COMMAND_WORD:
             return new AttendanceMarkSessionCommandParser().parse(args);

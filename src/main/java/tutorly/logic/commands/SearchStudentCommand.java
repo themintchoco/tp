@@ -44,7 +44,7 @@ public class SearchStudentCommand extends StudentCommand {
         model.updateFilteredPersonList(filter);
         return new CommandResult.Builder(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()))
-                .withTab(Tab.STUDENT)
+                .withTab(Tab.student())
                 .build();
     }
 

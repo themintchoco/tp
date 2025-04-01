@@ -15,7 +15,7 @@ public class SessionCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult.Builder(Messages.MESSAGE_SESSIONS_SHOWN).withTab(Tab.SESSION).build();
+        return new CommandResult.Builder(Messages.MESSAGE_SESSIONS_SHOWN).withTab(Tab.session()).build();
     }
 
 }

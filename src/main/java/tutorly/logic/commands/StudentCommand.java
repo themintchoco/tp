@@ -15,7 +15,7 @@ public class StudentCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult.Builder(Messages.MESSAGE_PERSONS_SHOWN).withTab(Tab.STUDENT).build();
+        return new CommandResult.Builder(Messages.MESSAGE_PERSONS_SHOWN).withTab(Tab.student()).build();
     }
 
 }
