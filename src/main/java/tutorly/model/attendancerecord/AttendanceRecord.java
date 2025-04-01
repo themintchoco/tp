@@ -44,10 +44,6 @@ public class AttendanceRecord {
         return feedback;
     }
 
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
-    }
-
     /**
      * Returns true if the record is for the same student and session.
      * This defines a weaker notion of equality between two attendance records.
