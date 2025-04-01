@@ -25,6 +25,7 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
             <a href="#viewing-tabs">Viewing tabs</a>
         </summary>
         <a href="#viewing-students-tab-student"> - Viewing students tab <br></a>
+        <a href="#viewing-student-card-student-student_identifier"> - Viewing student card <br></a>
         <a href="#viewing-sessions-tab-session"> - Viewing sessions tab <br></a>
         <a href="#viewing-attendance-for-a-session-session-id"> - Viewing attendance for a session <br></a>
     </details>
@@ -187,11 +188,25 @@ Examples:
 
 ### Viewing tabs
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+The main window will automatically switch to the tab which shows the results of the command that has been executed.
+</div>
+
 #### Viewing students tab: `student`
 
 Shows the student tab in the main window.
 
 Format: `student`
+
+#### Viewing student card: `student STUDENT_IDENTIFIER`
+
+Scrolls to the details of the student with the specified [STUDENT_IDENTIFIER](#glossary) in the window of the student tab.
+
+Format: `student STUDENT_IDENTIFIER`
+
+Examples:
+* `student 1`
+* `student John Doe`
 
 #### Viewing sessions tab: `session`
 
@@ -208,10 +223,6 @@ Format: `session SESSION_ID`
 Examples:
 * `session 1`
 * `session 5`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-The main window will automatically switch to the tab which shows the results of the command that has been executed.
-</div>
 
 [Back to top :fa-solid-angle-up:](#table-of-contents)
 
@@ -502,7 +513,8 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | Clear data        | `clear`                                                                                       | -                                                      |
 |         | Exit              | `exit`                                                                                        | -                                                      |
 |         | Undo command      | `undo`                                                                                        | -                                                      |
-| Tab     | Show student tab  | `student`                                                                                     | -                                                      |
+| Tab     | Show students tab | `student`                                                                                     | -                                                      |
+| Tab     | Show student card | `student STUDENT_IDENTIFIER`                                                                  | `student 1` or `student John Doe`                      |
 |         | Show session tab  | `session`                                                                                     | -                                                      |
 |         | Show attendance   | `session ID`                                                                                  | `session 4`                                            |
 | Student | Add               | `student add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​`                | `student add n/John Doe p/98765432`                    |
