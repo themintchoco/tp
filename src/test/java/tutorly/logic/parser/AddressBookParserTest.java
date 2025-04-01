@@ -47,6 +47,7 @@ import tutorly.model.filter.SubjectContainsKeywordsFilter;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 import tutorly.testutil.EditPersonDescriptorBuilder;
 import tutorly.testutil.PersonBuilder;
@@ -180,7 +181,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addSession_validInput() throws Exception {
         String timeslot = "25 Mar 2025 10:00-12:00";
-        String subject = "Mathematics";
+        Subject subject = new Subject("Mathematics");
         Timeslot validTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
                 LocalDateTime.of(2025, 3, 25, 12, 0));
         Session expectedSession = new Session(validTimeslot, subject);

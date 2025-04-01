@@ -3,6 +3,7 @@ package tutorly.testutil;
 import java.time.LocalDateTime;
 
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 
 /**
@@ -12,11 +13,11 @@ public class SessionBuilder {
 
     public static final Timeslot DEFAULT_TIMESLOT = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
             LocalDateTime.of(2025, 3, 25, 12, 0));
-    public static final String DEFAULT_SUBJECT = "Math";
+    public static final Subject DEFAULT_SUBJECT = new Subject("Math");
 
     private int id;
     private Timeslot timeslot;
-    private String subject;
+    private Subject subject;
 
     /**
      * Creates a {@code SessionBuilder} with the default details.
@@ -56,7 +57,7 @@ public class SessionBuilder {
      * Sets the {@code subject} of the {@code Session} that we are building.
      */
     public SessionBuilder withSubject(String subject) {
-        this.subject = subject;
+        this.subject = new Subject(subject);
         return this;
     }
 

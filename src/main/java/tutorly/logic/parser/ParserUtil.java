@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import tutorly.commons.core.index.Index;
+import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.commons.util.StringUtil;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.person.Address;
@@ -21,6 +22,7 @@ import tutorly.model.person.Identity;
 import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
 
@@ -36,9 +38,10 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Please use YYYY-MM-DD.";
     public static final String MESSAGE_INVALID_TIMESLOT_FORMAT =
             "Invalid timeslot format. Please use dd MMM yyyy HH:mm-HH:mm";
-    public static final String MESSAGE_EMPTY_SUBJECT = "Subject cannot be empty.";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH);
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+    public static final String MESSAGE_INVALID_SUBJECT =
+            "Subjects should only contain letters and spaces, and it should not be blank";
 
     /**
      * Parses {@code String identity} into an {@code Identity} and returns it. Leading and trailing whitespaces will be
@@ -251,18 +254,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String subject} and returns a trimmed string.
+     * Parses a {@code String subject} into a {@code Subject}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @param subject The subject string.
-     * @return A trimmed subject string.
-     * @throws ParseException if the subject is blank.
+     * @throws ParseException if the given {@code subject} is invalid.
      */
-    public static String parseSubject(String subject) throws ParseException {
+    public static Subject parseSubject(String subject) throws IllegalValueException {
         requireNonNull(subject);
         String trimmedSubject = subject.trim();
-        if (trimmedSubject.isBlank()) {
-            throw new ParseException(MESSAGE_EMPTY_SUBJECT);
+        if (!Subject.isValidSubject(trimmedSubject)) {
+            throw new ParseException(Subject.MESSAGE_CONSTRAINTS);
         }
-        return trimmedSubject;
+        return new Subject(trimmedSubject);
     }
 }

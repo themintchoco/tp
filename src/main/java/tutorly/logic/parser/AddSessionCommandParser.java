@@ -6,9 +6,11 @@ import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
 
 import java.util.stream.Stream;
 
+import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.logic.commands.AddSessionCommand;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 
 /**
@@ -39,10 +41,14 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TIMESLOT, PREFIX_SUBJECT);
 
-        Timeslot timeslot = ParserUtil.parseTimeslot(argMultimap.getValue(PREFIX_TIMESLOT).get());
-        String subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
+        try {
+            Timeslot timeslot = ParserUtil.parseTimeslot(argMultimap.getValue(PREFIX_TIMESLOT).get());
+            Subject subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
 
-        Session session = new Session(timeslot, subject);
-        return new AddSessionCommand(session);
+            Session session = new Session(timeslot, subject);
+            return new AddSessionCommand(session);
+        } catch (IllegalValueException e) {
+            throw new ParseException(e.getMessage(), e);
+        }
     }
 }

@@ -16,6 +16,7 @@ import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.person.Phone;
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
 
@@ -54,9 +55,10 @@ public class MessagesTest {
 
     @Test
     public void format_session_correctFormatting() {
+        Subject subject = new Subject("Mathematics");
         Timeslot validTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
                 LocalDateTime.of(2025, 3, 25, 12, 0));
-        Session session = new Session(validTimeslot, "Mathematics");
+        Session session = new Session(validTimeslot, subject);
 
         String expectedFormat = "Id: 0; Start time: 2025-03-25T10:00; End time: 2025-03-25T12:00; Subject: Mathematics";
         assertEquals(expectedFormat, Messages.format(session));

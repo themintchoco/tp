@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public class SessionTest {
     public static final Timeslot TIMESLOT = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
             LocalDateTime.of(2025, 3, 25, 12, 0));
-    public static final String SUBJECT = "Mathematics";
+    public static final Subject SUBJECT = new Subject("Mathematics");
 
     @Test
     public void constructor_validInput_success() {

@@ -39,7 +39,7 @@ public class SessionCard extends UiPart<Region> {
         super(FXML);
         this.session = session;
         id.setText(session.getId() + ". ");
-        subject.setText(session.getSubject());
+        subject.setText(session.getSubject().subjectName);
 
         date.setGraphic(Icons.getCalendarIcon());
         date.setText(session.getTimeslot().getStartTime() + " - " + session.getTimeslot().getEndTime());

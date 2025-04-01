@@ -15,7 +15,7 @@ public class Session {
 
     private int id; // id field is effectively final
     private final Timeslot timeslot;
-    private final String subject;
+    private final Subject subject;
 
     /**
      * Constructs a new Session. Every field must be present and not null.
@@ -23,7 +23,7 @@ public class Session {
      * @param timeslot The start and end datetime of the session.
      * @param subject The subject of the session.
      */
-    public Session(Timeslot timeslot, String subject) {
+    public Session(Timeslot timeslot, Subject subject) {
         this.timeslot = timeslot;
         this.subject = subject;
     }
@@ -60,7 +60,7 @@ public class Session {
         return timeslot;
     }
 
-    public String getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
