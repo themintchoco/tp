@@ -20,16 +20,18 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_PERSON_NOT_FOUND = "Person not found!";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "Student not found!";
     public static final String MESSAGE_SESSION_NOT_FOUND = "Session not found!";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
     public static final String MESSAGE_SESSION_OVERLAP = "This session overlaps with another session.";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The student index provided is invalid";
     public static final String MESSAGE_INVALID_SESSION_ID = "The session ID provided is invalid";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_SESSIONS_LISTED_OVERVIEW = "%1$d sessions listed!";
-    public static final String MESSAGE_PERSONS_SHOWN = "Showing persons";
+    public static final String MESSAGE_PERSONS_SHOWN = "Showing students";
+    public static final String MESSAGE_PERSON_SHOWN = "Showing student %1$s";
     public static final String MESSAGE_SESSIONS_SHOWN = "Showing sessions";
+    public static final String MESSAGE_SESSION_SHOWN = "Showing session %1$s";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 

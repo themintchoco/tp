@@ -125,7 +125,7 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, tab, shouldShowHelp, shouldExit, reverseCommand);
+        return Objects.hash(feedbackToUser, shouldShowHelp, shouldExit, shouldReverseLast, tab, reverseCommand);
     }
 
     @Override
