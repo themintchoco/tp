@@ -18,7 +18,7 @@ public class Subject {
      * The first character of the subject must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[A-Za-z][A-Za-z0-9 &+,-]*$";
+    public static final String VALIDATION_REGEX = "[^\s][A-Za-z0-9 &+,-]*";
 
     public final String subjectName;
 
