@@ -59,8 +59,8 @@ public class AttendanceMarkSessionCommand extends SessionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_SESSION_ID);
         }
 
-        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, true);
-        Optional<AttendanceRecord> existingRecord = model.findAttendanceRecord(record);
+        AttendanceRecord dummyRecord = new AttendanceRecord(person.get().getId(), sessionId, true, "");
+        Optional<AttendanceRecord> existingRecord = model.findAttendanceRecord(dummyRecord);
         if (existingRecord.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_RECORD_NOT_FOUND,
                     person.get().getName().fullName, Messages.format(session.get())));
@@ -70,6 +70,9 @@ public class AttendanceMarkSessionCommand extends SessionCommand {
             throw new CommandException(String.format(MESSAGE_ALREADY_MARKED,
                     person.get().getName().fullName, Messages.format(session.get())));
         }
+
+        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId,
+                true, existingRecord.get().getFeedback());
 
         model.setAttendanceRecord(existingRecord.get(), record);
         return new CommandResult.Builder(
