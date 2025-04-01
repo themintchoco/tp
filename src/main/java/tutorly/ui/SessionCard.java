@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import tutorly.logic.Messages;
 import tutorly.model.session.Session;
 
 /**
@@ -30,7 +31,7 @@ public class SessionCard extends UiPart<Region> {
     @FXML
     private Label subject;
     @FXML
-    private Label date;
+    private Label timeslot;
 
     /**
      * Creates a {@code SessionCard} with the given {@code Session}.
@@ -41,7 +42,7 @@ public class SessionCard extends UiPart<Region> {
         id.setText(session.getId() + ". ");
         subject.setText(session.getSubject().subjectName);
 
-        date.setGraphic(Icons.getCalendarIcon());
-        date.setText(session.getTimeslot().getStartTime() + " - " + session.getTimeslot().getEndTime());
+        timeslot.setGraphic(Icons.getCalendarIcon());
+        timeslot.setText(Messages.format(session.getTimeslot()));
     }
 }
