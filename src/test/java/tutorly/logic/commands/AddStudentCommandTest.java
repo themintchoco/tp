@@ -209,12 +209,22 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public boolean hasOverlappingSession(Session toCheck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addSession(Session toCreate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteSession(Session target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSession(Session target, Session editedSession) {
             throw new AssertionError("This method should not be called.");
         }
 

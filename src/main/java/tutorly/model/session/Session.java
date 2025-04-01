@@ -65,10 +65,22 @@ public class Session {
     }
 
     /**
-     * Returns true if both sessions have overlapping timeslots.
+     * Returns true if both sessions have the same ID.
      * This defines a weaker notion of equality between two sessions.
      */
     public boolean isSameSession(Session otherSession) {
+        if (otherSession == this) {
+            return true;
+        }
+
+        return otherSession != null
+                && id == otherSession.id;
+    }
+
+    /**
+     * Returns true if both sessions have overlapping timeslots.
+     */
+    public boolean hasOverlappingTimeslot(Session otherSession) {
         if (otherSession == this) {
             return true;
         }
