@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import tutorly.model.AddressBook;
 import tutorly.model.ReadOnlyAddressBook;
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
 import tutorly.model.person.Memo;
@@ -62,12 +63,12 @@ public class SampleDataUtil {
 
     public static AttendanceRecord[] getSampleAttendanceRecords() {
         return new AttendanceRecord[] {
-            new AttendanceRecord(1, 1, true),
-            new AttendanceRecord(3, 1, false),
-            new AttendanceRecord(5, 1, true),
-            new AttendanceRecord(1, 2, false),
-            new AttendanceRecord(2, 2, true),
-            new AttendanceRecord(4, 2, false)
+            new AttendanceRecord(1, 1, true, Feedback.empty()),
+            new AttendanceRecord(3, 1, false, Feedback.empty()),
+            new AttendanceRecord(5, 1, true, Feedback.empty()),
+            new AttendanceRecord(1, 2, false, Feedback.empty()),
+            new AttendanceRecord(2, 2, true, Feedback.empty()),
+            new AttendanceRecord(4, 2, false, Feedback.empty()),
         };
     }
 

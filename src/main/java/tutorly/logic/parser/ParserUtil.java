@@ -16,6 +16,7 @@ import java.util.Set;
 import tutorly.commons.core.index.Index;
 import tutorly.commons.util.StringUtil;
 import tutorly.logic.parser.exceptions.ParseException;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
 import tutorly.model.person.Identity;
@@ -293,5 +294,20 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_EMPTY_SUBJECT);
         }
         return trimmedSubject;
+    }
+
+    /**
+     * Parses a {@code String feedback} into a {@code Feedback}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code feedback} is invalid.
+     */
+    public static Feedback parseFeedback(String feedback) throws ParseException {
+        requireNonNull(feedback);
+        String trimmedFeedback = feedback.trim();
+        if (!Feedback.isValidFeedback(trimmedFeedback)) {
+            throw new ParseException(Feedback.MESSAGE_CONSTRAINTS);
+        }
+        return new Feedback(trimmedFeedback);
     }
 }

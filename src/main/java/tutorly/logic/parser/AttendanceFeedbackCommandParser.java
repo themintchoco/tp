@@ -1,14 +1,16 @@
 package tutorly.logic.parser;
 
+import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_FEEDBACK;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
-import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tutorly.logic.parser.ParserUtil.parseFeedback;
 import static tutorly.logic.parser.ParserUtil.parseId;
 
 import java.util.Optional;
 
 import tutorly.logic.commands.AttendanceFeedbackCommand;
 import tutorly.logic.parser.exceptions.ParseException;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Identity;
 
 /**
@@ -25,16 +27,21 @@ public class AttendanceFeedbackCommandParser implements Parser<AttendanceFeedbac
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SESSION, PREFIX_FEEDBACK);
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SESSION, PREFIX_FEEDBACK);
         Optional<String> sessionId = argMultimap.getValue(PREFIX_SESSION);
-        Optional<String> feedback = argMultimap.getValue(PREFIX_FEEDBACK);
+        Feedback feedback;
+        if (argMultimap.getValue(PREFIX_FEEDBACK).isPresent()) {
+            feedback = parseFeedback(argMultimap.getValue(PREFIX_FEEDBACK).get());
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AttendanceFeedbackCommand.MESSAGE_USAGE));
+        }
 
-        if (sessionId.isEmpty() || sessionId.get().isBlank()
-                || argMultimap.getPreamble().isEmpty() || feedback.isEmpty()) {
+        if (sessionId.isEmpty() || sessionId.get().isBlank() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AttendanceFeedbackCommand.MESSAGE_USAGE));
         }
 
         Identity identity = ParserUtil.parseIdentity(argMultimap.getPreamble());
 
-        return new AttendanceFeedbackCommand(identity, parseId(sessionId.get()), feedback.get());
+        return new AttendanceFeedbackCommand(identity, parseId(sessionId.get()), feedback);
     }
 }

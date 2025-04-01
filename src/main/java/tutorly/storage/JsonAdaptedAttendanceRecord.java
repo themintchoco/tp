@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
+import tutorly.model.person.Memo;
 
 /**
  * Jackson-friendly version of {@link AttendanceRecord}.
@@ -14,17 +16,20 @@ public class JsonAdaptedAttendanceRecord {
     private final int studentId;
     private final int sessionId;
     private final boolean isPresent;
+    private final String feedback;
 
     /**
      * Constructs a {@code JsonAdaptedAttendanceRecord} with the given attendance record details.
      */
     @JsonCreator
     public JsonAdaptedAttendanceRecord(@JsonProperty("studentId") int studentId,
-            @JsonProperty("sessionId") int sessionId,
-            @JsonProperty("isPresent") boolean isPresent) {
+                                       @JsonProperty("sessionId") int sessionId,
+                                       @JsonProperty("isPresent") boolean isPresent,
+                                       @JsonProperty("feedback") String feedback) {
         this.studentId = studentId;
         this.sessionId = sessionId;
         this.isPresent = isPresent;
+        this.feedback = feedback;
     }
 
     /**
@@ -34,6 +39,7 @@ public class JsonAdaptedAttendanceRecord {
         studentId = source.getStudentId();
         sessionId = source.getSessionId();
         isPresent = source.getAttendance();
+        feedback = source.getFeedback().value;
     }
 
     /**
@@ -46,7 +52,25 @@ public class JsonAdaptedAttendanceRecord {
             throw new IllegalValueException(AttendanceRecord.MESSAGE_CONSTRAINTS);
         }
 
-        return new AttendanceRecord(studentId, sessionId, isPresent);
+//        final Memo modelMemo;
+//        if (memo == null || memo.isEmpty()) {
+//            modelMemo = Memo.empty();
+//        } else if (!Memo.isValidMemo(memo)) {
+//            throw new IllegalValueException(Memo.MESSAGE_CONSTRAINTS);
+//        } else {
+//            modelMemo = new Memo(memo);
+//        }
+
+        final Feedback modelFeedback;
+        if (feedback == null || feedback.isEmpty()) {
+            modelFeedback = Feedback.empty();
+        } else if (!Feedback.isValidFeedback(feedback)) {
+            throw new IllegalValueException(Feedback.MESSAGE_CONSTRAINTS);
+        } else {
+            modelFeedback = new Feedback(feedback);
+        }
+
+        return new AttendanceRecord(studentId, sessionId, isPresent, modelFeedback);
     }
 
 }

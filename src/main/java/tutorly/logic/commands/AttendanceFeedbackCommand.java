@@ -1,6 +1,7 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tutorly.logic.parser.CliSyntax.PREFIX_FEEDBACK;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 
 import java.util.Optional;
@@ -10,6 +11,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -27,20 +29,22 @@ public class AttendanceFeedbackCommand extends SessionCommand {
             + ": Provides feedback for a student in a session. "
             + "Parameters: STUDENT_IDENTIFIER\n"
             + PREFIX_SESSION + "SESSION_ID\n"
+            + PREFIX_FEEDBACK + "FEEDBACK\n"
             + "Example: " + COMMAND_STRING + " 1 "
-            + PREFIX_SESSION + "2 ";
+            + PREFIX_SESSION + "2 "
+            + PREFIX_FEEDBACK + "Good job!";
 
     public static final String MESSAGE_SUCCESS = "Feedback provided for %1$s in Session: %2$s";
     public static final String MESSAGE_RECORD_NOT_FOUND = "%1$s is not assigned to Session: %2$s";
 
     private final Identity identity;
     private final int sessionId;
-    private final String feedback;
+    private final Feedback feedback;
 
     /**
      * Creates an AttendanceFeedbackCommand for the given {@code identity} and {@code Session}
      */
-    public AttendanceFeedbackCommand(Identity identity, int sessionId, String feedback) {
+    public AttendanceFeedbackCommand(Identity identity, int sessionId, Feedback feedback) {
         this.identity = requireNonNull(identity);
         this.sessionId = sessionId;
         this.feedback = requireNonNull(feedback);
@@ -60,7 +64,7 @@ public class AttendanceFeedbackCommand extends SessionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_SESSION_ID);
         }
 
-        AttendanceRecord dummyRecord = new AttendanceRecord(person.get().getId(), sessionId, true, "");
+        AttendanceRecord dummyRecord = new AttendanceRecord(person.get().getId(), sessionId, true, Feedback.empty());
         Optional<AttendanceRecord> existingRecord = model.findAttendanceRecord(dummyRecord);
         if (existingRecord.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_RECORD_NOT_FOUND,

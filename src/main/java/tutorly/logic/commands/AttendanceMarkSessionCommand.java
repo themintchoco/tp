@@ -10,6 +10,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -59,7 +60,8 @@ public class AttendanceMarkSessionCommand extends SessionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_SESSION_ID);
         }
 
-        AttendanceRecord dummyRecord = new AttendanceRecord(person.get().getId(), sessionId, true, "");
+        AttendanceRecord dummyRecord = new AttendanceRecord(person.get().getId(), sessionId,
+                true, Feedback.empty());
         Optional<AttendanceRecord> existingRecord = model.findAttendanceRecord(dummyRecord);
         if (existingRecord.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_RECORD_NOT_FOUND,
