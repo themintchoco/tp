@@ -185,6 +185,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasOverlappingSession(Session toCreate) {
+        requireAllNonNull(toCreate);
+        return addressBook.hasOverlappingSession(toCreate);
+    }
+
+    @Override
     public void addSession(Session toCreate) {
         requireAllNonNull(toCreate);
         addressBook.addSession(toCreate);
@@ -193,6 +199,12 @@ public class ModelManager implements Model {
     @Override
     public void deleteSession(Session target) {
         addressBook.removeSession(target);
+    }
+
+    @Override
+    public void setSession(Session target, Session editedSession) {
+        requireAllNonNull(target, editedSession);
+        addressBook.setSession(target, editedSession);
     }
 
     @Override

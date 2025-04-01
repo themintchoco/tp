@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import tutorly.logic.commands.AddSessionCommand;
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 
 public class AddSessionCommandParserTest {
@@ -28,7 +29,7 @@ public class AddSessionCommandParserTest {
         String userInput = " " + PREFIX_TIMESLOT + "25 Mar 2025 10:00-12:00 " + PREFIX_SUBJECT + "Mathematics";
         Timeslot timeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
                 LocalDateTime.of(2025, 3, 25, 12, 0));
-        Session expectedSession = new Session(timeslot, "Mathematics");
+        Session expectedSession = new Session(timeslot, new Subject("Mathematics"));
         AddSessionCommand expectedCommand = new AddSessionCommand(expectedSession);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -48,7 +49,7 @@ public class AddSessionCommandParserTest {
     @Test
     public void parse_emptySubject_throwsParseException() {
         String userInput = TIMESLOT_DESC + " " + PREFIX_SUBJECT;
-        assertParseFailure(parser, userInput, ParserUtil.MESSAGE_EMPTY_SUBJECT);
+        assertParseFailure(parser, userInput, Subject.MESSAGE_CONSTRAINTS);
     }
 
     @Test

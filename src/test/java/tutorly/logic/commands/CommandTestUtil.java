@@ -20,11 +20,13 @@ import java.util.List;
 
 import tutorly.commons.core.index.Index;
 import tutorly.logic.commands.exceptions.CommandException;
+import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.AddressBook;
 import tutorly.model.Model;
 import tutorly.model.filter.NameContainsKeywordsFilter;
 import tutorly.model.person.Person;
 import tutorly.testutil.EditPersonDescriptorBuilder;
+import tutorly.testutil.EditSessionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -49,6 +51,8 @@ public class CommandTestUtil {
     public static final String VALID_DATE = "18 Mar 2025";
     public static final String VALID_TIMESLOT = "18 Mar 2025 10:00-12:00";
     public static final String VALID_SUBJECT = "Math";
+    public static final String VALID_TIMESLOT_2 = "19 Mar 2025 14:00-16:00";
+    public static final String VALID_SUBJECT_2 = "English";
 
     public static final String ID_DESC_SESSION = " " + PREFIX_SESSION + VALID_ID_SESSION;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -80,6 +84,8 @@ public class CommandTestUtil {
 
     public static final EditStudentCommand.EditPersonDescriptor DESC_AMY;
     public static final EditStudentCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditSessionCommand.EditSessionDescriptor DESC_SESSION_1;
+    public static final EditSessionCommand.EditSessionDescriptor DESC_SESSION_2;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -88,7 +94,20 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        try {
+            DESC_SESSION_1 = new EditSessionDescriptorBuilder()
+                    .withTimeslot(VALID_TIMESLOT).withSubject(VALID_SUBJECT).build();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            DESC_SESSION_2 = new EditSessionDescriptorBuilder()
+                    .withTimeslot(VALID_TIMESLOT_2).withSubject(VALID_SUBJECT_2).build();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
     /**
      * Executes the given {@code command}, confirms that <br>

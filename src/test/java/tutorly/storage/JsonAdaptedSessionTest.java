@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.logic.parser.ParserUtil;
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 
 public class JsonAdaptedSessionTest {
@@ -26,7 +27,7 @@ public class JsonAdaptedSessionTest {
     @Test
     public void toModelType_validSessionDetails_returnsSession() throws Exception {
         Timeslot timeslot = new Timeslot(LocalDateTime.parse(VALID_START_TIME), LocalDateTime.parse(VALID_END_TIME));
-        Session session = new Session(timeslot, VALID_SUBJECT);
+        Session session = new Session(timeslot, new Subject(VALID_SUBJECT));
         session.setId(VALID_SESSION_ID);
         JsonAdaptedSession adaptedSession = new JsonAdaptedSession(session);
         assertEquals(session, adaptedSession.toModelType());
@@ -75,11 +76,10 @@ public class JsonAdaptedSessionTest {
     }
 
     @Test
-    public void toModelType_emptySubject_throwsIllegalValueException() {
+    public void toModelType_invalidSubject_throwsIllegalValueException() {
         JsonAdaptedSession session = new JsonAdaptedSession(
                 VALID_SESSION_ID, VALID_START_TIME, VALID_END_TIME, INVALID_SUBJECT);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "subject");
-        assertThrows(IllegalValueException.class, expectedMessage, session::toModelType);
+        assertThrows(IllegalValueException.class, Subject.MESSAGE_CONSTRAINTS, session::toModelType);
     }
 
     @Test

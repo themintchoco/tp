@@ -21,7 +21,7 @@ public class SubjectContainsKeywordsFilter implements Filter<Session> {
     @Override
     public Predicate<Session> toPredicate(ReadOnlyAddressBook addressBook) {
         return session -> keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(session.getSubject(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(session.getSubject().subjectName, keyword));
     }
 
     @Override

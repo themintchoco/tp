@@ -57,6 +57,14 @@ public class AddSessionCommandTest {
     }
 
     @Test
+    void execute_overlappingSession_throwsException() throws CommandException {
+        addSessionCommand.execute(model);
+        Session overlappingSession = new SessionBuilder().withTimeslot(session.getTimeslot()).withId(2).build();
+        AddSessionCommand overlappingCommand = new AddSessionCommand(overlappingSession);
+        assertThrows(CommandException.class, () -> overlappingCommand.execute(model));
+    }
+
+    @Test
     void equals_sameObject() {
         assertEquals(addSessionCommand, addSessionCommand);
     }
@@ -193,6 +201,11 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public boolean hasOverlappingSession(Session session) {
+            return sessions.hasOverlappingSession(session);
+        }
+
+        @Override
         public void addSession(Session session) {
             sessions.add(session);
         }
@@ -201,6 +214,9 @@ public class AddSessionCommandTest {
         public void deleteSession(Session target) {
             sessions.remove(target);
         }
+
+        @Override
+        public void setSession(Session target, Session editedSession) {}
 
         @Override
         public Optional<Session> getSessionById(int id) {

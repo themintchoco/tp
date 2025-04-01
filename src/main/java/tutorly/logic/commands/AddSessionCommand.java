@@ -47,7 +47,9 @@ public class AddSessionCommand extends SessionCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasSession(toCreate)) {
+        if (model.hasOverlappingSession(toCreate)) {
+            throw new CommandException(Messages.MESSAGE_SESSION_OVERLAP);
+        } else if (model.hasSession(toCreate)) {
             throw new CommandException(MESSAGE_DUPLICATE_SESSION);
         }
 
