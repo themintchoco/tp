@@ -150,6 +150,11 @@ public interface Model {
     boolean hasSession(Session toCreate);
 
     /**
+     * Returns true if the session to be created has overlapping timeslot with an existing session.
+     */
+    boolean hasOverlappingSession(Session toCreate);
+
+    /**
      * Adds the given session.
      * {@code session} must not already exist in the address book.
      */

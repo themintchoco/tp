@@ -163,6 +163,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if the session {@code toCheck} overlaps with any existing sessions in the address book.
+     */
+    public boolean hasOverlappingSession(Session toCheck) {
+        requireNonNull(toCheck);
+        return sessions.hasOverlappingSession(toCheck);
+    }
+
+    /**
      * Adds a session to the address book.
      * The session must not already exist in the address book.
      */

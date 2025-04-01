@@ -185,6 +185,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasOverlappingSession(Session toCreate) {
+        requireAllNonNull(toCreate);
+        return addressBook.hasOverlappingSession(toCreate);
+    }
+
+    @Override
     public void addSession(Session toCreate) {
         requireAllNonNull(toCreate);
         addressBook.addSession(toCreate);
