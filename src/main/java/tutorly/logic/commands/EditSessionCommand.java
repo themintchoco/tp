@@ -13,7 +13,6 @@ import tutorly.commons.util.ToStringBuilder;
 import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
-import tutorly.model.ModelManager;
 import tutorly.model.session.Session;
 import tutorly.model.session.Timeslot;
 import tutorly.ui.Tab;
