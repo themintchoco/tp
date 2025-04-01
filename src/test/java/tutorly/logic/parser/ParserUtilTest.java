@@ -2,9 +2,9 @@ package tutorly.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_ID;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_IDENTITY;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_SESSION_ID;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -79,11 +79,11 @@ public class ParserUtilTest {
 
     @Test
     public void parseId_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_ID, ()
+        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, ()
                 -> ParserUtil.parseId(Long.toString(Integer.MAX_VALUE + 1)));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("0"));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("-1"));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("1.1"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("0"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("-1"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("1.1"));
     }
 
     @Test

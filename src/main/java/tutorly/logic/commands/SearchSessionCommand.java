@@ -22,11 +22,11 @@ public class SearchSessionCommand extends SessionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Searches for all sessions on a particular date, or "
-            + "whose subject contain any of the specified keywords (case-insensitive) and displays them as a list.\n"
-            + "Parameters: "
+            + "whose subject contain any of the specified keywords (case-insensitive) and displays them as a list."
+            + "\n\nParameters: "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_SUBJECT + "SUBJECT_KEYWORDS]\n"
-            + "Example: " + COMMAND_STRING + " " + PREFIX_DATE + "18 Mar 2025 " + PREFIX_SUBJECT + "Math Eng";
+            + "[" + PREFIX_SUBJECT + "SUBJECT_KEYWORDS]"
+            + "\n\nExample: " + COMMAND_STRING + " " + PREFIX_DATE + "18 Mar 2025 " + PREFIX_SUBJECT + "Math Eng";
 
     private final Filter<Session> filter;
 

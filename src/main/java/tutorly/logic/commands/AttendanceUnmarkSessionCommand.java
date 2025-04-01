@@ -24,10 +24,10 @@ public class AttendanceUnmarkSessionCommand extends SessionCommand {
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
-            + ": Unmarks attendance for a student in a session. "
-            + "Parameters: STUDENT_IDENTIFIER\n"
-            + PREFIX_SESSION + "SESSION_ID\n"
-            + "Example: " + COMMAND_STRING + " 1 "
+            + ": Unmarks attendance for a student in a session."
+            + "\n\nParameters: STUDENT_IDENTIFIER"
+            + PREFIX_SESSION + "SESSION_ID"
+            + "\n\nExample: " + COMMAND_STRING + " 1 "
             + PREFIX_SESSION + "2 ";
 
     public static final String MESSAGE_SUCCESS = "Unmarked %1$s's for Session: %2$s";

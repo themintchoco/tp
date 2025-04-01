@@ -30,8 +30,8 @@ import tutorly.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_IDENTITY = "Identity provided is not a valid ID or name.";
-    public static final String MESSAGE_INVALID_ID = "ID is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_IDENTITY = "STUDENT_IDENTIFIER provided is not a valid ID or name.";
+    public static final String MESSAGE_INVALID_SESSION_ID = "Session ID is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "Invalid datetime provided.";
     public static final String MESSAGE_INVALID_DATE_FORMAT =
@@ -65,7 +65,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String id} into an {@code int} and returns it. Leading and trailing whitespaces will be
+     * Parses Session {@code String id} into an {@code int} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      *
      * @throws ParseException if the specified id is invalid (not non-zero unsigned integer).
@@ -74,7 +74,7 @@ public class ParserUtil {
         requireNonNull(id);
         String trimmedId = id.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedId)) {
-            throw new ParseException(MESSAGE_INVALID_ID);
+            throw new ParseException(MESSAGE_INVALID_SESSION_ID);
         }
         return Integer.parseInt(trimmedId);
     }
