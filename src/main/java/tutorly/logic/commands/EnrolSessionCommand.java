@@ -23,7 +23,7 @@ public class EnrolSessionCommand extends SessionCommand {
     public static final String COMMAND_WORD = "enrol";
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE = COMMAND_STRING 
+    public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Enrols a student identified by a STUDENT_IDENTIFIER (ID or full name) to a session."
             + "\n\nParameters: STUDENT_IDENTIFIER "
             + PREFIX_SESSION + "SESSION_ID"
