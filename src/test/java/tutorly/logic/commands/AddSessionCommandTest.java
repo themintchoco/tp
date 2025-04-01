@@ -193,6 +193,11 @@ public class AddSessionCommandTest {
         }
 
         @Override
+        public boolean hasOverlappingSession(Session session) {
+            return sessions.hasOverlappingSession(session);
+        }
+
+        @Override
         public void addSession(Session session) {
             sessions.add(session);
         }
