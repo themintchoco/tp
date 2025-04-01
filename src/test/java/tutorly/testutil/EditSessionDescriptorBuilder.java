@@ -6,7 +6,6 @@ import static tutorly.logic.parser.ParserUtil.parseTimeslot;
 import tutorly.logic.commands.EditSessionCommand.EditSessionDescriptor;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.session.Session;
-import tutorly.model.session.Subject;
 
 /**
  * A utility class to help with building EditSessionDescriptor objects.

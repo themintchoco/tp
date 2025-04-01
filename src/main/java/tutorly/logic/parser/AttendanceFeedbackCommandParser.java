@@ -26,7 +26,7 @@ public class AttendanceFeedbackCommandParser implements Parser<AttendanceFeedbac
     public AttendanceFeedbackCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SESSION, PREFIX_FEEDBACK);
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_SESSION, PREFIX_FEEDBACK);
-        Optional<String> sessionId = argMultimap.getValue(PREFIX_SESSION);
+
         Feedback feedback;
         if (argMultimap.getValue(PREFIX_FEEDBACK).isPresent()) {
             feedback = parseFeedback(argMultimap.getValue(PREFIX_FEEDBACK).get());
@@ -35,6 +35,7 @@ public class AttendanceFeedbackCommandParser implements Parser<AttendanceFeedbac
                     AttendanceFeedbackCommand.MESSAGE_USAGE));
         }
 
+        Optional<String> sessionId = argMultimap.getValue(PREFIX_SESSION);
         if (sessionId.isEmpty() || sessionId.get().isBlank() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AttendanceFeedbackCommand.MESSAGE_USAGE));

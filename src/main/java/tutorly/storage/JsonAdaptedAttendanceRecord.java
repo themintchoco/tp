@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.attendancerecord.Feedback;
-import tutorly.model.person.Memo;
 
 /**
  * Jackson-friendly version of {@link AttendanceRecord}.
@@ -51,15 +50,6 @@ public class JsonAdaptedAttendanceRecord {
         if (studentId <= 0 || sessionId <= 0) {
             throw new IllegalValueException(AttendanceRecord.MESSAGE_CONSTRAINTS);
         }
-
-//        final Memo modelMemo;
-//        if (memo == null || memo.isEmpty()) {
-//            modelMemo = Memo.empty();
-//        } else if (!Memo.isValidMemo(memo)) {
-//            throw new IllegalValueException(Memo.MESSAGE_CONSTRAINTS);
-//        } else {
-//            modelMemo = new Memo(memo);
-//        }
 
         final Feedback modelFeedback;
         if (feedback == null || feedback.isEmpty()) {

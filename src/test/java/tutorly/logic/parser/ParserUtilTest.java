@@ -17,6 +17,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import tutorly.logic.parser.exceptions.ParseException;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
 import tutorly.model.person.Identity;
@@ -32,6 +33,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_FEEDBACK = "";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -39,6 +41,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_FEEDBACK = "Great session!";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -472,5 +475,26 @@ public class ParserUtilTest {
     public void parseTimeslot_missingDateComponent_throwsParseException() {
         // Missing the month field
         assertThrows(ParseException.class, () -> ParserUtil.parseTimeslot("25 2025 10:00-12:00"));
+    }
+
+    @Test
+    public void parseFeedback_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFeedback(null));
+    }
+
+    @Test
+    public void parseFeedback_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFeedback(INVALID_FEEDBACK));
+    }
+
+    @Test
+    public void parseFeedback_validValueWithoutWhitespace_returnsFeedback() throws Exception {
+        assertEquals(new Feedback(VALID_FEEDBACK), ParserUtil.parseFeedback(VALID_FEEDBACK));
+    }
+
+    @Test
+    public void parseFeedback_validValueWithWhitespace_returnsTrimmedFeedback() throws Exception {
+        String feedbackWithWhitespace = WHITESPACE + VALID_FEEDBACK + WHITESPACE;
+        assertEquals(new Feedback(VALID_FEEDBACK), ParserUtil.parseFeedback(feedbackWithWhitespace));
     }
 }
