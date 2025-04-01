@@ -17,6 +17,11 @@ public class UniquePersonList extends UniqueList<Person> {
         return a.isSamePerson(b);
     }
 
+    @Override
+    protected int compare(Person a, Person b) {
+        return Integer.compare(a.getId(), b.getId());
+    }
+
     /**
      * Returns the person with the given ID if it exists.
      *

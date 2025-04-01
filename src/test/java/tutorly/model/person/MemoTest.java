@@ -29,6 +29,7 @@ public class MemoTest {
         // invalid memos
         assertFalse(Memo.isValidMemo("")); // empty string
         assertFalse(Memo.isValidMemo(" ")); // spaces only
+        assertFalse(Memo.isValidMemo("a".repeat(Memo.MAX_LENGTH) + "a")); // extra long memo
 
         // valid memos
         assertTrue(Memo.isValidMemo("Needs to improve on his English")); // alphabets only
@@ -38,14 +39,22 @@ public class MemoTest {
                 + "1) Overall academic performance.\n"
                 + "2) Areas of improvement such as organization, clarity,\n"
                 + "   and depth of analysis.\n"
-                + "3) Suggested resources for skill enhancement.\n"
-                + "\n"
-                + "Additional notes: Student has shown consistent growth "
-                + "since the last meeting but needs more practice on complex "
-                + "problem-solving tasks. Further guidance on research "
-                + "techniques and project management is recommended. "
-                + "Meeting again in two weeks to evaluate progress.";
+                + "3) Suggested resources for skill enhancement.\n";
         assertTrue(Memo.isValidMemo(longMemo)); // long memo
+        assertTrue(Memo.isValidMemo("a".repeat(Memo.MAX_LENGTH))); // long memo
+        assertTrue(Memo.isValidMemo("This is a memo with special characters: @#$%^&*()")); // special characters
+        assertTrue(Memo.isValidMemo("This is a memo with numbers: 1234567890")); // numbers
+        assertTrue(Memo.isValidMemo("This is a memo with emojis: 😊👍")); // emojis
+        assertTrue(Memo.isValidMemo("This is a memo with line breaks:\n"
+                + "Line 1\n"
+                + "Line 2\n"
+                + "Line 3")); // line breaks
+        assertTrue(Memo.isValidMemo("This is a memo with tabs:\t"
+                + "Tab 1\t"
+                + "Tab 2\t"
+                + "Tab 3")); // tabs
+        assertTrue(Memo.isValidMemo("This is a memo with spaces:    ")); // spaces
+
     }
 
     @Test

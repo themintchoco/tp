@@ -1,5 +1,7 @@
 package tutorly.model.tag;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,18 @@ public class TagTest {
     public void isValidTagName() {
         // null tag name
         assertThrows(NullPointerException.class, () -> Tag.isValidTagName(null));
+
+        // invalid tag names
+        assertFalse(Tag.isValidTagName("")); // empty string
+        assertFalse(Tag.isValidTagName(" ")); // spaces only
+        assertFalse(Tag.isValidTagName("a".repeat(Tag.MAX_LENGTH) + "a")); // extra long tag name
+        assertFalse(Tag.isValidTagName("tag_name")); // special characters
+
+        // valid tag names
+        assertTrue(Tag.isValidTagName("tagname")); // alphabets only
+        assertTrue(Tag.isValidTagName("tag123")); // alphanumeric
+        assertTrue(Tag.isValidTagName("a".repeat(Tag.MAX_LENGTH))); // long tag name
+
     }
 
 }

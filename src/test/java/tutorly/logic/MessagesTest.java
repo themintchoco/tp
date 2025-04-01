@@ -54,11 +54,19 @@ public class MessagesTest {
 
     @Test
     public void format_session_correctFormatting() {
-        Timeslot validTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
-                LocalDateTime.of(2025, 3, 25, 12, 0));
-        Session session = new Session(validTimeslot, "Mathematics");
+        LocalDateTime start = LocalDateTime.of(2025, 3, 25, 10, 0);
+        LocalDateTime end = LocalDateTime.of(2025, 3, 25, 12, 0);
+        String subject = "Mathematics";
+        Timeslot validTimeslot = new Timeslot(start, end);
+        Session session = new Session(validTimeslot, subject);
 
-        String expectedFormat = "Id: 0; Start time: 2025-03-25T10:00; End time: 2025-03-25T12:00; Subject: Mathematics";
+        String expectedFormat = "Id: 0; Timeslot: 25 Mar 2025 10:00 - 12:00; Subject: Mathematics";
+        assertEquals(expectedFormat, Messages.format(session));
+
+        end = end.withDayOfMonth(26);
+        validTimeslot = new Timeslot(start, end);
+        session = new Session(validTimeslot, subject);
+        expectedFormat = "Id: 0; Timeslot: 25 Mar 2025 10:00 - 26 Mar 2025 12:00; Subject: Mathematics";
         assertEquals(expectedFormat, Messages.format(session));
     }
 }

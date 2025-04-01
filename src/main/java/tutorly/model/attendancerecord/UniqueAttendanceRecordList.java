@@ -15,4 +15,9 @@ public class UniqueAttendanceRecordList extends UniqueList<AttendanceRecord> {
         return a.isSameRecord(b);
     }
 
+    @Override
+    protected int compare(AttendanceRecord a, AttendanceRecord b) {
+        return Integer.compare(a.getStudentId(), b.getStudentId());
+    }
+
 }

@@ -1,5 +1,9 @@
 package tutorly.logic;
 
+import static tutorly.logic.parser.ParserUtil.DATE_FORMATTER;
+import static tutorly.logic.parser.ParserUtil.TIME_FORMATTER;
+
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -7,6 +11,7 @@ import java.util.stream.Stream;
 import tutorly.logic.parser.Prefix;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
+import tutorly.model.session.Timeslot;
 
 /**
  * Container for user visible messages.
@@ -61,16 +66,29 @@ public class Messages {
     }
 
     /**
+     * Formats the {@code timeslot} for display to the user.
+     */
+    public static String format(Timeslot timeslot) {
+        LocalDateTime start = timeslot.getStartTime();
+        LocalDateTime end = timeslot.getEndTime();
+        if (start.toLocalDate().equals(end.toLocalDate())) {
+            return String.format("%s %s - %s", start.format(DATE_FORMATTER), start.format(TIME_FORMATTER),
+                    end.format(TIME_FORMATTER));
+        }
+
+        return String.format("%s %s - %s %s", start.format(DATE_FORMATTER), start.format(TIME_FORMATTER),
+                end.format(DATE_FORMATTER), end.format(TIME_FORMATTER));
+    }
+
+    /**
      * Formats the {@code session} for display to the user.
      */
     public static String format(Session session) {
         final StringBuilder builder = new StringBuilder();
         builder.append("Id: ")
                 .append(session.getId())
-                .append("; Start time: ")
-                .append(session.getTimeslot().getStartTime())
-                .append("; End time: ")
-                .append(session.getTimeslot().getEndTime())
+                .append("; Timeslot: ")
+                .append(format(session.getTimeslot()))
                 .append("; Subject: ")
                 .append(session.getSubject());
         return builder.toString();
