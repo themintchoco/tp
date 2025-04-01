@@ -47,7 +47,7 @@ public class ParserUtil {
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
     public static final String MESSAGE_INVALID_SUBJECT =
-            "Subjects should only contain letters and spaces, and it should not be blank";
+            "Subjects should only contain letters, numbers, spaces, and the following symbols: & + , -";
 
 
     /**
