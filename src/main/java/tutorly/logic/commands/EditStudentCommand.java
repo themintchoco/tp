@@ -107,7 +107,7 @@ public class EditStudentCommand extends StudentCommand {
         model.setPerson(personToEdit.get(), editedPerson);
         model.updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
         return new CommandResult.Builder(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)))
-                .withTab(Tab.STUDENT)
+                .withTab(Tab.student(editedPerson))
                 .withReverseCommand(new EditStudentCommand(
                         identity, EditPersonDescriptor.fromPerson(personToEdit.get())))
                 .build();
