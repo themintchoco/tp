@@ -78,7 +78,8 @@ public class AttendanceFeedbackCommand extends SessionCommand {
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
                 .withTab(Tab.session())
-                .withReverseCommand(new AttendanceUnmarkSessionCommand(identity, sessionId))
+                .withReverseCommand(new AttendanceFeedbackCommand(identity, sessionId,
+                        existingRecord.get().getFeedback()))
                 .build();
     }
 
