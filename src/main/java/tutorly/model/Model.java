@@ -167,8 +167,8 @@ public interface Model {
     void deleteSession(Session target);
 
     /**
-     *  Replaces the given session {@code target} with {@code editedSession}.
-     * {@code target} must exist in the address book.
+     *  Replaces the given session {@code session} with {@code editedSession}.
+     * {@code session} must exist in the address book.
      */
     void setSession(Session session, Session editedSession);
 

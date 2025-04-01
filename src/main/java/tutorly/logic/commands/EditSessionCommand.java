@@ -1,6 +1,7 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
@@ -57,12 +58,12 @@ public class EditSessionCommand extends SessionCommand {
      * edited with {@code editSessionDescriptor}. The ID of the session cannot be edited.
      */
     private static Session createEditedSession(Session sessionToEdit, EditSessionDescriptor editSessionDescriptor) {
-        assert sessionToEdit != null;
+        requireAllNonNull(sessionToEdit, editSessionDescriptor);
 
-        Timeslot updatedDate = editSessionDescriptor.getTimeslot().orElse(sessionToEdit.getTimeslot());
+        Timeslot updatedTimeslot = editSessionDescriptor.getTimeslot().orElse(sessionToEdit.getTimeslot());
         String updatedSubject = editSessionDescriptor.getSubject().orElse(sessionToEdit.getSubject());
 
-        Session newSession = new Session(updatedDate, updatedSubject);
+        Session newSession = new Session(updatedTimeslot , updatedSubject);
         newSession.setId(sessionToEdit.getId());
 
         return newSession;
