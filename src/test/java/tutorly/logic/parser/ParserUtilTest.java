@@ -136,6 +136,13 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseName_validValueWithIntermediateWhitespace_returnsTrimmedName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + "Alice     Bob   Pauline" + WHITESPACE;
+        Name expectedName = new Name("Alice Bob Pauline");
+        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
     public void parsePhone_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone(null));
     }
@@ -178,6 +185,13 @@ public class ParserUtilTest {
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
+        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    }
+
+    @Test
+    public void parseAddress_validValueWithIntermediateWhitespace_returnsTrimmedAddress() throws Exception {
+        String addressWithWhitespace = WHITESPACE + "123     Main    Street     #0505" + WHITESPACE;
+        Address expectedAddress = new Address("123 Main Street #0505");
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
     }
 
