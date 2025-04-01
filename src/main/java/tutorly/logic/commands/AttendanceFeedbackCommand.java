@@ -27,10 +27,10 @@ public class AttendanceFeedbackCommand extends SessionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Provides feedback for a student in a session. "
-            + "Parameters: STUDENT_IDENTIFIER\n"
-            + PREFIX_SESSION + "SESSION_ID\n"
-            + PREFIX_FEEDBACK + "FEEDBACK\n"
-            + "Example: " + COMMAND_STRING + " 1 "
+            + "\n\nParameters: STUDENT_IDENTIFIER "
+            + PREFIX_SESSION + "SESSION_ID "
+            + PREFIX_FEEDBACK + "FEEDBACK"
+            + "\n\nExample: " + COMMAND_STRING + " 1 "
             + PREFIX_SESSION + "2 "
             + PREFIX_FEEDBACK + "Good job!";
 
