@@ -65,6 +65,8 @@ public class AddressBookParser implements Parser<Command> {
      * Parses a command word and arguments into a command.
      */
     protected Command parseCommand(String command, String args) throws ParseException {
+        command = command.toLowerCase();
+
         switch (command) {
         case StudentCommand.COMMAND_WORD:
             return new StudentCommandParser().parse(args);

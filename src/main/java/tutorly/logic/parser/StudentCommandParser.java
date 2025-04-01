@@ -18,6 +18,8 @@ public class StudentCommandParser extends AddressBookParser {
 
     @Override
     protected Command parseCommand(String command, String args) throws ParseException {
+        command = command.toLowerCase();
+
         switch (command) {
         case ListStudentCommand.COMMAND_WORD:
             return new ListStudentCommand();
