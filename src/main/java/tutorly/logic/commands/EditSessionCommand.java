@@ -79,10 +79,8 @@ public class EditSessionCommand extends SessionCommand {
         }
 
         Session editedSession = createEditedSession(sessionToEdit.get(), editSessionDescriptor);
-        Model modelCopy = new ModelManager(model.getAddressBook(), model.getUserPrefs());
-        modelCopy.deleteSession(sessionToEdit.get());
 
-        if (modelCopy.hasSession(editedSession)) {
+        if (model.hasOverlappingSession(editedSession)) {
             throw new CommandException(Messages.MESSAGE_SESSION_OVERLAP);
         }
 
