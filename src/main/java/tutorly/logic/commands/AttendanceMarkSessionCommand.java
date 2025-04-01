@@ -79,7 +79,7 @@ public class AttendanceMarkSessionCommand extends SessionCommand {
         model.setAttendanceRecord(existingRecord.get(), record);
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
-                .withTab(Tab.SESSION)
+                .withTab(Tab.attendanceRecord(session.get(), record))
                 .withReverseCommand(new AttendanceUnmarkSessionCommand(identity, sessionId))
                 .build();
     }

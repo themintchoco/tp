@@ -201,7 +201,11 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.shouldSwitchTab()) {
-                tabPane.getSelectionModel().select(commandResult.getTab().ordinal());
+                tabPane.getSelectionModel().select(commandResult.getTab().getTabId());
+
+                commandResult.getTab().getTargetPerson().ifPresent(person -> personListPanel.select(person));
+                commandResult.getTab().getTargetSession().ifPresent(session -> sessionListPanel.select(session));
+                commandResult.getTab().getTargetRecord().ifPresent(record -> attendanceRecordListPanel.select(record));
             }
 
             if (commandResult.shouldShowHelp()) {

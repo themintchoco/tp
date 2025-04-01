@@ -32,7 +32,7 @@ public class EditSessionDescriptorBuilder {
         if (!session.getTimeslot().toString().isEmpty()) {
             descriptor.setTimeslot(session.getTimeslot());
         }
-        if (!session.getSubject().toString().isEmpty()) {
+        if (!session.getSubject().subjectName.isEmpty()) {
             descriptor.setSubject(session.getSubject());
         }
     }

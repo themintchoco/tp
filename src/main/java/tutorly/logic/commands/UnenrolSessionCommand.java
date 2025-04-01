@@ -70,7 +70,7 @@ public class UnenrolSessionCommand extends SessionCommand {
         model.removeAttendanceRecord(record.get());
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
-                .withTab(Tab.SESSION)
+                .withTab(Tab.session(session.get()))
                 .withReverseCommand(new EnrolSessionCommand(identity, sessionId, record.get().getAttendance()))
                 .build();
     }

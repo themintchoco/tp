@@ -44,7 +44,7 @@ public class DeleteStudentCommand extends StudentCommand {
 
         model.deletePerson(toDelete.get());
         return new CommandResult.Builder(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(toDelete.get())))
-                .withTab(Tab.STUDENT)
+                .withTab(Tab.student())
                 .withReverseCommand(new AddStudentCommand(toDelete.get()))
                 .build();
     }

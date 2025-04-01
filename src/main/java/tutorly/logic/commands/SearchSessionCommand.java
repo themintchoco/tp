@@ -40,7 +40,7 @@ public class SearchSessionCommand extends SessionCommand {
         model.updateFilteredSessionList(filter);
         return new CommandResult.Builder(
                 String.format(Messages.MESSAGE_SESSIONS_LISTED_OVERVIEW, model.getFilteredSessionList().size()))
-                .withTab(Tab.SESSION)
+                .withTab(Tab.session())
                 .build();
     }
 

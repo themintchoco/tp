@@ -89,7 +89,7 @@ public class EditSessionCommand extends SessionCommand {
         model.updateFilteredSessionList(FILTER_SHOW_ALL_SESSIONS);
 
         return new CommandResult.Builder(String.format(MESSAGE_EDIT_SESSION_SUCCESS, Messages.format(editedSession)))
-                .withTab(Tab.SESSION)
+                .withTab(Tab.session(editedSession))
                 .withReverseCommand(new EditSessionCommand(
                         sessionId, EditSessionDescriptor.fromSession(sessionToEdit.get())))
                 .build();
@@ -146,7 +146,7 @@ public class EditSessionCommand extends SessionCommand {
             return CollectionUtil.isAnyNonNull(timeslot, subject);
         }
 
-        Optional<Timeslot> getTimeslot() {
+        public Optional<Timeslot> getTimeslot() {
             return Optional.ofNullable(timeslot);
         }
 
@@ -154,7 +154,7 @@ public class EditSessionCommand extends SessionCommand {
             this.timeslot = date;
         }
 
-        Optional<Subject> getSubject() {
+        public Optional<Subject> getSubject() {
             return Optional.ofNullable(subject);
         }
 

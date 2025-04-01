@@ -64,7 +64,7 @@ public class AddStudentCommand extends StudentCommand {
 
         model.addPerson(toAdd);
         return new CommandResult.Builder(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)))
-                .withTab(Tab.STUDENT)
+                .withTab(Tab.student(toAdd))
                 .withReverseCommand(new DeleteStudentCommand(new Identity(toAdd.getId())))
                 .build();
     }

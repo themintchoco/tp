@@ -23,7 +23,7 @@ public class SessionBuilder {
      * Creates a {@code SessionBuilder} with the default details.
      */
     public SessionBuilder() {
-        id = 1;
+        id = 0;
         timeslot = DEFAULT_TIMESLOT;
         subject = DEFAULT_SUBJECT;
     }
@@ -66,7 +66,9 @@ public class SessionBuilder {
      */
     public Session build() {
         Session session = new Session(timeslot, subject);
-        session.setId(id);
+        if (id > 0) {
+            session.setId(id);
+        }
         return session;
     }
 
