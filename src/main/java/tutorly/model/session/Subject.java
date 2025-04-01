@@ -10,7 +10,9 @@ import static tutorly.commons.util.AppUtil.checkArgument;
 public class Subject {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Subjects should only contain letters, numbers, spaces, and the following symbols: & + , -";
+            "Subjects should only contain letters, numbers, spaces, and the following symbols: & + , -"
+            + " and it should not be blank. It should also not exceed 20 characters.";
+    public static final int MAX_LENGTH = 20;
 
     /*
      * The first character of the subject must not be a whitespace,
@@ -35,7 +37,7 @@ public class Subject {
      * Returns true if a given string is a valid subject name.
      */
     public static boolean isValidSubject(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
     }
 
     @Override
