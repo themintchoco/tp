@@ -31,6 +31,8 @@ public class AttendanceRecordCard extends UiPart<Region> {
     @FXML
     private CheckBox checkbox;
     @FXML
+    private Label id;
+    @FXML
     private Label name;
 
     /**
@@ -41,6 +43,7 @@ public class AttendanceRecordCard extends UiPart<Region> {
         this.record = record;
         checkbox.setSelected(record.getAttendance());
         checkbox.setOnAction(event -> toggleCallback.call(!record.getAttendance()));
+        id.setText(student.getId() + ". ");
         name.setText(student.getName().fullName);
     }
 }
