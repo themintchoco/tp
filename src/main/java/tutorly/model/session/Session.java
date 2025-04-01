@@ -74,6 +74,19 @@ public class Session {
         }
 
         return otherSession != null
+                && id == otherSession.id;
+    }
+
+    /**
+     * Returns true if both sessions have overlapping timeslots.
+     * This defines a weaker notion of equality between two sessions.
+     */
+    public boolean hasOverlappingTimeslot(Session otherSession) {
+        if (otherSession == this) {
+            return true;
+        }
+
+        return otherSession != null
                 && timeslot.isOverlapping(otherSession.timeslot);
     }
 
