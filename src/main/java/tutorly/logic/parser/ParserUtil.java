@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Collection;
@@ -38,9 +39,12 @@ public class ParserUtil {
             "Invalid date format. Please ensure it uses 'dd MMM yyyy' (e.g. '25 Dec 2025').";
     public static final String MESSAGE_INVALID_TIMESLOT_FORMAT =
             "Invalid timeslot format. Please ensure it uses 'dd MMM yyyy HH:mm-HH:mm' "
-            + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00').";
+                    + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00').";
     public static final String MESSAGE_EMPTY_SUBJECT = "Subject cannot be empty.";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu", Locale.ENGLISH)
+    public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
+            .parseCaseInsensitive()
+            .appendPattern("dd MMM uuuu")
+            .toFormatter(Locale.ENGLISH)
             .withResolverStyle(ResolverStyle.STRICT);
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
