@@ -22,6 +22,8 @@ public class SessionCommandParser extends AddressBookParser {
 
     @Override
     protected Command parseCommand(String command, String args) throws ParseException {
+        command = command.toLowerCase();
+
         switch (command) {
         case ListSessionCommand.COMMAND_WORD:
             return new ListSessionCommand();

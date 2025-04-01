@@ -30,8 +30,8 @@ import tutorly.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_IDENTITY = "Identity provided is not a valid ID or name.";
-    public static final String MESSAGE_INVALID_ID = "ID is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_IDENTITY = "STUDENT_IDENTIFIER provided is not a valid ID or name.";
+    public static final String MESSAGE_INVALID_SESSION_ID = "Session ID is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "Invalid datetime provided.";
     public static final String MESSAGE_INVALID_DATE_FORMAT =
@@ -46,14 +46,15 @@ public class ParserUtil {
             .withResolverStyle(ResolverStyle.STRICT);
 
     /**
-     * Parses {@code String identity} into an {@code Identity} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses {@code String identity} into an {@code Identity} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * Multiple intermediate spaces will be collapsed into one space.
      *
      * @throws ParseException if the specified identity is invalid (not non-zero unsigned integer or valid name).
      */
     public static Identity parseIdentity(String identity) throws ParseException {
         requireNonNull(identity);
-        String trimmedIdentity = identity.trim();
+        String trimmedIdentity = identity.trim().replaceAll("\\s+", " ");
         if (StringUtil.isNonZeroUnsignedInteger(trimmedIdentity)) {
             return new Identity(Integer.parseInt(trimmedIdentity));
         }
@@ -64,7 +65,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String id} into an {@code int} and returns it. Leading and trailing whitespaces will be
+     * Parses Session {@code String id} into an {@code int} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      *
      * @throws ParseException if the specified id is invalid (not non-zero unsigned integer).
@@ -73,7 +74,7 @@ public class ParserUtil {
         requireNonNull(id);
         String trimmedId = id.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedId)) {
-            throw new ParseException(MESSAGE_INVALID_ID);
+            throw new ParseException(MESSAGE_INVALID_SESSION_ID);
         }
         return Integer.parseInt(trimmedId);
     }
@@ -95,12 +96,13 @@ public class ParserUtil {
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
+     * Multiple intermediate spaces will be collapsed into one space.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = name.trim().replaceAll("\\s+", " ");
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -125,12 +127,13 @@ public class ParserUtil {
     /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
+     * Multiple intermediate spaces will be collapsed into one space.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
-        String trimmedAddress = address.trim();
+        String trimmedAddress = address.trim().replaceAll("\\s+", " ");
         if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }

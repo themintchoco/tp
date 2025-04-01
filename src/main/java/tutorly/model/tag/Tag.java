@@ -9,7 +9,15 @@ import static tutorly.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final int MAX_LENGTH = 20;
+
+    public static final String MESSAGE_CONSTRAINTS = "Tag names should be alphanumeric, and it should not be blank. "
+            + "The maximum length is " + MAX_LENGTH + " characters.";
+
+    /*
+     * The first character of the tag must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
@@ -29,7 +37,7 @@ public class Tag {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && test.length() <= MAX_LENGTH;
     }
 
     @Override
@@ -39,11 +47,10 @@ public class Tag {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Tag)) {
+        if (!(other instanceof Tag otherTag)) {
             return false;
         }
 
-        Tag otherTag = (Tag) other;
         return tagName.equals(otherTag.tagName);
     }
 

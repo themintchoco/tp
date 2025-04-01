@@ -22,15 +22,15 @@ public class UnenrolSessionCommand extends SessionCommand {
     public static final String COMMAND_WORD = "unenrol";
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE =
-            COMMAND_STRING + ": Unenrols a student identified by a STUDENT_IDENTIFIER (ID or full name) from a session."
-                    + " Parameters: STUDENT_IDENTIFIER "
-                    + PREFIX_SESSION + "SESSION_ID\n"
-                    + "Example: " + COMMAND_STRING + " 1 "
-                    + PREFIX_SESSION + "2 ";
+    public static final String MESSAGE_USAGE = COMMAND_STRING
+            + ": Unenrols a student identified by a STUDENT_IDENTIFIER (ID or full name) from a session."
+            + "\n\nParameters: STUDENT_IDENTIFIER "
+            + PREFIX_SESSION + "SESSION_ID"
+            + "\n\nExample: " + COMMAND_STRING + " 1 "
+            + PREFIX_SESSION + "2 ";
 
     public static final String MESSAGE_SUCCESS = "%1$s has been unenrolled from Session: %2$s";
-    public static final String MESSAGE_MISSING_ASSIGNMENT = "This student is not enrolled to the session";
+    public static final String MESSAGE_MISSING_ENROLMENT = "%1$s is not enrolled to Session: %2$s";
 
     private final Identity identity;
     private final int sessionId;
@@ -62,7 +62,8 @@ public class UnenrolSessionCommand extends SessionCommand {
         Optional<AttendanceRecord> record = model.findAttendanceRecord(
                 new AttendanceRecord(person.get().getId(), sessionId, false, ""));
         if (record.isEmpty()) {
-            throw new CommandException(MESSAGE_MISSING_ASSIGNMENT);
+            throw new CommandException(String.format(
+                    MESSAGE_MISSING_ENROLMENT, person.get().getName().fullName, Messages.format(session.get())));
         }
 
         model.removeAttendanceRecord(record.get());
