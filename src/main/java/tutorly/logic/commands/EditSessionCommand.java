@@ -128,6 +128,16 @@ public class EditSessionCommand extends SessionCommand {
         }
 
         /**
+        * Returns a {@code EditSessionDescriptor} with the same values as {@code session}.
+        */
+        public static EditSessionDescriptor fromSession(Session session) {
+            EditSessionDescriptor descriptor = new EditSessionDescriptor();
+            descriptor.setTimeslot(session.getTimeslot());
+            descriptor.setSubject(session.getSubject());
+            return descriptor;
+        }
+
+        /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
