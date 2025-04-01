@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
+import static tutorly.logic.parser.CliSyntax.PREFIX_FEEDBACK;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import tutorly.logic.commands.AddSessionCommand;
 import tutorly.logic.commands.AddStudentCommand;
+import tutorly.logic.commands.AttendanceFeedbackCommand;
 import tutorly.logic.commands.AttendanceMarkSessionCommand;
 import tutorly.logic.commands.AttendanceUnmarkSessionCommand;
 import tutorly.logic.commands.ClearCommand;
@@ -43,6 +45,7 @@ import tutorly.logic.commands.StudentCommand;
 import tutorly.logic.commands.UndoCommand;
 import tutorly.logic.commands.UnenrolSessionCommand;
 import tutorly.logic.parser.exceptions.ParseException;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.filter.AttendSessionFilter;
 import tutorly.model.filter.DateSessionFilter;
 import tutorly.model.filter.Filter;
@@ -219,6 +222,17 @@ public class AddressBookParserTest {
         AttendanceUnmarkSessionCommand command = (AttendanceUnmarkSessionCommand) parser.parse(
                 AttendanceUnmarkSessionCommand.COMMAND_STRING + " " + id + " " + PREFIX_SESSION + id);
         assertEquals(new AttendanceUnmarkSessionCommand(identity, id), command);
+    }
+
+    @Test
+    public void parseCommand_sessionFeedback() throws Exception {
+        int id = 1;
+        Identity identity = new Identity(id);
+        String feedback = "Good job!";
+        AttendanceFeedbackCommand command = (AttendanceFeedbackCommand) parser.parse(
+                AttendanceFeedbackCommand.COMMAND_STRING + " " + id + " " + PREFIX_SESSION + id
+                        + " " + PREFIX_FEEDBACK + feedback);
+        assertEquals(new AttendanceFeedbackCommand(identity, id, new Feedback(feedback)), command);
     }
 
     @Test
