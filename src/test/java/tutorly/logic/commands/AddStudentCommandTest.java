@@ -149,27 +149,22 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void restorePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Optional<Person> getPersonById(int id, boolean fromArchived) {
+        public Optional<Person> getPersonById(int id) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
+        public Optional<Person> getPersonByName(Name name) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Optional<Person> getPersonByIdentity(Identity identity, boolean fromArchived) {
+        public Optional<Person> getPersonByIdentity(Identity identity) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -195,11 +190,6 @@ public class AddStudentCommandTest {
 
         @Override
         public ObservableList<AttendanceRecord> getAttendanceRecordList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getArchivedPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -298,6 +288,9 @@ public class AddStudentCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+            if (person.getId() == 0) {
+                person.setId(personsAdded.size());
+            }
         }
 
         @Override

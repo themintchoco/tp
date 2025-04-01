@@ -23,6 +23,7 @@ import tutorly.logic.commands.AddStudentCommand;
 import tutorly.logic.commands.CommandResult;
 import tutorly.logic.commands.DeleteStudentCommand;
 import tutorly.logic.commands.ListStudentCommand;
+import tutorly.logic.commands.UndoCommand;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.Model;
@@ -70,6 +71,25 @@ public class LogicManagerTest {
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListStudentCommand.COMMAND_STRING;
         assertCommandSuccess(listCommand, ListStudentCommand.MESSAGE_SUCCESS, model);
+    }
+
+    @Test
+    public void execute_undoCommand_success() throws Exception {
+        String addCommand = AddStudentCommand.COMMAND_STRING + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + MEMO_DESC_AMY;
+        logic.execute(addCommand);
+
+        Person expectedPerson = new PersonBuilder(AMY).withId(1).withTags().build();
+        Model expectedModel = new ModelManager();
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS + "\n"
+                + String.format(DeleteStudentCommand.MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(expectedPerson)),
+                expectedModel);
+    }
+
+    @Test
+    public void execute_undoCommandNothingToUndo_throwsCommandException() {
+        String undoCommand = "undo";
+        assertCommandException(undoCommand, LogicManager.UNDO_STACK_EMPTY);
     }
 
     @Test

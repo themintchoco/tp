@@ -132,10 +132,6 @@ public class AddSessionCommandTest {
         }
 
         @Override
-        public void restorePerson(Person target) {
-        }
-
-        @Override
         public void addPerson(Person person) {
         }
 
@@ -144,17 +140,17 @@ public class AddSessionCommandTest {
         }
 
         @Override
-        public Optional<Person> getPersonById(int id, boolean fromArchived) {
+        public Optional<Person> getPersonById(int id) {
             return Optional.empty();
         }
 
         @Override
-        public Optional<Person> getPersonByName(Name name, boolean fromArchived) {
+        public Optional<Person> getPersonByName(Name name) {
             return Optional.empty();
         }
 
         @Override
-        public Optional<Person> getPersonByIdentity(Identity identity, boolean fromArchived) {
+        public Optional<Person> getPersonByIdentity(Identity identity) {
             return Optional.empty();
         }
 
@@ -180,11 +176,6 @@ public class AddSessionCommandTest {
 
         @Override
         public ObservableList<AttendanceRecord> getAttendanceRecordList() {
-            return null;
-        }
-
-        @Override
-        public ObservableList<Person> getArchivedPersonList() {
             return null;
         }
 

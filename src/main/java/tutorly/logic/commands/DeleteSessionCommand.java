@@ -44,6 +44,7 @@ public class DeleteSessionCommand extends SessionCommand {
         model.deleteSession(toDelete.get());
         return new CommandResult.Builder(String.format(MESSAGE_DELETE_SESSION_SUCCESS, Messages.format(toDelete.get())))
                 .withTab(Tab.SESSION)
+                .withReverseCommand(new AddSessionCommand(toDelete.get()))
                 .build();
     }
 
