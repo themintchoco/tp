@@ -1,6 +1,7 @@
 package tutorly.testutil;
 
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 
@@ -12,6 +13,7 @@ public class AttendanceRecordBuilder {
     private int studentId;
     private int sessionId;
     private boolean isPresent;
+    private Feedback feedback;
 
     /**
      * Creates a {@code AttendanceRecordBuilder} with the default details.
@@ -20,6 +22,7 @@ public class AttendanceRecordBuilder {
         studentId = 0;
         sessionId = 0;
         isPresent = false;
+        feedback = Feedback.empty();
     }
 
     /**
@@ -29,6 +32,7 @@ public class AttendanceRecordBuilder {
         studentId = attendanceRecordToCopy.getStudentId();
         sessionId = attendanceRecordToCopy.getSessionId();
         isPresent = attendanceRecordToCopy.getAttendance();
+        feedback = attendanceRecordToCopy.getFeedback();
     }
 
     /**
@@ -69,8 +73,16 @@ public class AttendanceRecordBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code feedback} of the {@code AttendanceRecord} that we are building.
+     */
+    public AttendanceRecordBuilder withFeedback(Feedback feedback) {
+        this.feedback = feedback;
+        return this;
+    }
+
     public AttendanceRecord build() {
-        return new AttendanceRecord(studentId, sessionId, isPresent);
+        return new AttendanceRecord(studentId, sessionId, isPresent, feedback);
     }
 
 }

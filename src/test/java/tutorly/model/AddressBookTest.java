@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import tutorly.commons.util.ObservableListUtil;
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
 import tutorly.model.uniquelist.exceptions.DuplicateElementException;
@@ -59,7 +60,8 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateAttendanceRecords_throwsDuplicateElementException() {
-        AttendanceRecord attendanceRecord = new AttendanceRecord(1, 1, false);
+        AttendanceRecord attendanceRecord = new AttendanceRecord(1, 1,
+                false, Feedback.empty());
         List<AttendanceRecord> newAttendanceRecords = Arrays.asList(attendanceRecord, attendanceRecord);
         AddressBookStub newData = new AddressBookStub(List.of(), List.of(), newAttendanceRecords);
 
@@ -137,20 +139,23 @@ public class AddressBookTest {
 
     @Test
     public void hasAttendanceRecord_attendanceRecordNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasAttendanceRecord(new AttendanceRecord(1, 1, false)));
+        assertFalse(addressBook.hasAttendanceRecord(new AttendanceRecord(1, 1,
+                false, Feedback.empty())));
     }
 
     @Test
     public void hasAttendanceRecord_attendanceRecordInAddressBook_returnsTrue() {
-        AttendanceRecord attendanceRecord = new AttendanceRecord(1, 1, false);
+        AttendanceRecord attendanceRecord = new AttendanceRecord(1, 1,
+                false, Feedback.empty());
         addressBook.addAttendanceRecord(attendanceRecord);
         assertTrue(addressBook.hasAttendanceRecord(attendanceRecord));
     }
 
     @Test
     public void hasAttendanceRecord_equivalentAttendanceRecordInAddressBook_returnsTrue() {
-        addressBook.addAttendanceRecord(new AttendanceRecord(1, 1, false));
-        assertTrue(addressBook.hasAttendanceRecord(new AttendanceRecord(1, 1, true)));
+        addressBook.addAttendanceRecord(new AttendanceRecord(1, 1, false, Feedback.empty()));
+        assertTrue(addressBook.hasAttendanceRecord(new AttendanceRecord(1, 1,
+                true, Feedback.empty())));
     }
 
     @Test
