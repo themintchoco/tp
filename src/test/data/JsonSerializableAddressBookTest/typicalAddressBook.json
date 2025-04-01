@@ -93,5 +93,7 @@
     "studentId": 6,
     "sessionId": 2,
     "isPresent": false
-  } ]
+  } ],
+  "nextPersonId": 8,
+  "nextSessionId": 3
 }

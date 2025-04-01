@@ -17,6 +17,11 @@ public class UniqueSessionList extends UniqueList<Session> {
         return a.isSameSession(b);
     }
 
+    @Override
+    protected int compare(Session a, Session b) {
+        return Integer.compare(a.getId(), b.getId());
+    }
+
     /**
      * Returns the session with the given ID if it exists.
      *

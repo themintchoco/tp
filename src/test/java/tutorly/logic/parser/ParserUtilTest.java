@@ -2,9 +2,9 @@ package tutorly.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_ID;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_IDENTITY;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_SESSION_ID;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -60,8 +60,11 @@ public class ParserUtilTest {
         assertEquals(new Identity(1), ParserUtil.parseIdentity("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(new Identity(new Name(VALID_NAME)), ParserUtil.parseIdentity("  " + VALID_NAME + "  "));
-        assertEquals(new Identity(1), ParserUtil.parseIdentity("  1  "));
+        assertEquals(new Identity(new Name(VALID_NAME)),
+                ParserUtil.parseIdentity(WHITESPACE + VALID_NAME + WHITESPACE));
+        assertEquals(new Identity(1), ParserUtil.parseIdentity(WHITESPACE + 1 + WHITESPACE));
+        assertEquals(new Identity(new Name("Bob Charlie")),
+                ParserUtil.parseIdentity(WHITESPACE + "Bob     Charlie" + WHITESPACE));
     }
 
     @Test
@@ -76,11 +79,11 @@ public class ParserUtilTest {
 
     @Test
     public void parseId_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_ID, ()
+        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, ()
                 -> ParserUtil.parseId(Long.toString(Integer.MAX_VALUE + 1)));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("0"));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("-1"));
-        assertThrows(ParseException.class, MESSAGE_INVALID_ID, () -> ParserUtil.parseId("1.1"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("0"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("-1"));
+        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("1.1"));
     }
 
     @Test
@@ -136,6 +139,13 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseName_validValueWithIntermediateWhitespace_returnsTrimmedName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + "Alice     Bob   Pauline" + WHITESPACE;
+        Name expectedName = new Name("Alice Bob Pauline");
+        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
     public void parsePhone_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone(null));
     }
@@ -178,6 +188,13 @@ public class ParserUtilTest {
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
+        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    }
+
+    @Test
+    public void parseAddress_validValueWithIntermediateWhitespace_returnsTrimmedAddress() throws Exception {
+        String addressWithWhitespace = WHITESPACE + "123     Main    Street     #0505" + WHITESPACE;
+        Address expectedAddress = new Address("123 Main Street #0505");
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
     }
 
