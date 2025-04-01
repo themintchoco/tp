@@ -10,7 +10,7 @@ import static tutorly.commons.util.AppUtil.checkArgument;
 public class Subject {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Subjects should only contain letters and spaces, and it should not be blank";
+            "Subjects should only contain letters, numbers, spaces, and the following symbols: & + , -";
 
     /*
      * The first character of the subject must not be a whitespace,
