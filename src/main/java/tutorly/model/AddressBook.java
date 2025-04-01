@@ -112,12 +112,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
-        persons.add(p);
-
         if (p.getId() == 0) {
             // Set the student ID of the person if it has not been set
             p.setId(nextPersonId++);
         }
+
+        persons.add(p);
     }
 
     /**
@@ -167,12 +167,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The session must not already exist in the address book.
      */
     public void addSession(Session s) {
-        sessions.add(s);
-
         if (s.getId() == 0) {
             // Set the session ID of the session if it has not been set
             s.setId(nextSessionId++);
         }
+
+        sessions.add(s);
     }
 
     /**
