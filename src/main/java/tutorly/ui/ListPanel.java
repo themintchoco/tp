@@ -32,6 +32,14 @@ public abstract class ListPanel<T> extends UiPart<Region> {
     }
 
     /**
+     * Selects the given item.
+     */
+    public void select(T item) {
+        listView.scrollTo(item);
+        listView.getSelectionModel().select(item);
+    }
+
+    /**
      * Returns the graphic for the given item.
      */
     protected abstract UiPart<Region> getItemGraphic(T item);

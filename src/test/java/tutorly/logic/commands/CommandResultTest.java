@@ -66,7 +66,7 @@ public class CommandResultTest {
                 + ", reverseCommand=null}";
         assertEquals(expected, commandResult.toString());
 
-        commandResult = new CommandResult.Builder("feedback").withTab(Tab.STUDENT).showHelp().build();
+        commandResult = new CommandResult.Builder("feedback").withTab(Tab.student()).showHelp().build();
         expected = CommandResult.class.getCanonicalName()
                 + "{feedbackToUser=" + commandResult.getFeedbackToUser()
                 + ", shouldShowHelp=" + commandResult.shouldShowHelp()
