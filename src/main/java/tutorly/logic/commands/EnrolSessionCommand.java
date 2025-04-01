@@ -70,7 +70,7 @@ public class EnrolSessionCommand extends SessionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_SESSION_ID);
         }
 
-        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, presence);
+        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, presence, "");
         if (model.hasAttendanceRecord(record)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENROLMENT);
         }

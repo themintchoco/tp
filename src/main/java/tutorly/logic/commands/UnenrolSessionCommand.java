@@ -60,7 +60,7 @@ public class UnenrolSessionCommand extends SessionCommand {
 
         // value of isPresent is not used when checking if a record is in AddressBook, set to false as a placeholder
         Optional<AttendanceRecord> record = model.findAttendanceRecord(
-                new AttendanceRecord(person.get().getId(), sessionId, false));
+                new AttendanceRecord(person.get().getId(), sessionId, false, ""));
         if (record.isEmpty()) {
             throw new CommandException(MESSAGE_MISSING_ASSIGNMENT);
         }
