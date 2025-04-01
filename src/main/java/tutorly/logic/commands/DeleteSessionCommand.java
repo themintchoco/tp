@@ -20,9 +20,9 @@ public class DeleteSessionCommand extends SessionCommand {
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
-            + ": Deletes the session identified by a SESSION_ID.\n"
-            + "Parameters: SESSION_ID\n"
-            + "Example: " + COMMAND_STRING + " 1";
+            + ": Deletes the session identified by a SESSION_ID."
+            + "\n\nParameters: SESSION_ID"
+            + "\n\nExample: " + COMMAND_STRING + " 1";
 
     public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted session: %1$s";
 

@@ -23,12 +23,12 @@ public class EnrolSessionCommand extends SessionCommand {
     public static final String COMMAND_WORD = "enrol";
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
-    public static final String MESSAGE_USAGE =
-            COMMAND_STRING + ": Enrols a student identified by a STUDENT_IDENTIFIER (ID or full name) to a session. "
-                    + "Parameters: STUDENT_IDENTIFIER "
-                    + PREFIX_SESSION + "SESSION_ID\n"
-                    + "Example: " + COMMAND_STRING + " 1 "
-                    + PREFIX_SESSION + "2 ";
+    public static final String MESSAGE_USAGE = COMMAND_STRING 
+            + ": Enrols a student identified by a STUDENT_IDENTIFIER (ID or full name) to a session."
+            + "\n\nParameters: STUDENT_IDENTIFIER "
+            + PREFIX_SESSION + "SESSION_ID"
+            + "\n\nExample: " + COMMAND_STRING + " 1 "
+            + PREFIX_SESSION + "2 ";
 
     public static final String MESSAGE_SUCCESS = "%1$s enrolled to Session: %2$s";
     public static final String MESSAGE_DUPLICATE_ENROLMENT = "This student is already enrolled in the session";
