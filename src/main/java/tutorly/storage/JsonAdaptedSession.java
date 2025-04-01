@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import tutorly.commons.exceptions.IllegalValueException;
 import tutorly.logic.parser.ParserUtil;
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 
 /**
@@ -42,7 +43,7 @@ class JsonAdaptedSession {
      */
     public JsonAdaptedSession(Session source) {
         this.id = source.getId();
-        this.subject = source.getSubject();
+        this.subject = source.getSubject().subjectName;
 
         Timeslot timeslot = source.getTimeslot();
         this.startTime = timeslot.getStartTime().toString();
@@ -74,11 +75,16 @@ class JsonAdaptedSession {
             throw new IllegalValueException(ParserUtil.MESSAGE_INVALID_DATETIME);
         }
 
-        if (subject == null || subject.isEmpty()) {
+        if (subject == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "subject"));
         }
+        if (!Subject.isValidSubject(subject)) {
+            throw new IllegalValueException(Subject.MESSAGE_CONSTRAINTS);
+        }
+        final Subject modelSubject = new Subject(subject);
 
-        Session session = new Session(modelTimeslot, subject);
+
+        Session session = new Session(modelTimeslot, modelSubject);
         session.setId(id);
 
         return session;
