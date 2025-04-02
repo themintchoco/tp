@@ -62,5 +62,22 @@ public class Tab {
         return targetRecord;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Tab)) {
+            return false;
+        }
+
+        Tab otherTab = (Tab) other;
+        return tabId == otherTab.tabId
+                && targetPerson.equals(otherTab.targetPerson)
+                && targetSession.equals(otherTab.targetSession)
+                && targetRecord.equals(otherTab.targetRecord);
+    }
+
 }
 

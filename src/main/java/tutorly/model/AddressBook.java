@@ -3,6 +3,7 @@ package tutorly.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -305,6 +306,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return persons.hashCode() ^ sessions.hashCode() ^ attendanceRecords.hashCode();
+        return Objects.hash(persons, sessions, attendanceRecords, nextPersonId, nextSessionId);
     }
 }
