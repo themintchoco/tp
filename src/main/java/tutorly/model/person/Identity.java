@@ -3,7 +3,6 @@ package tutorly.model.person;
 import java.util.Objects;
 
 import tutorly.commons.util.ToStringBuilder;
-import tutorly.model.session.Session;
 
 /**
  * Represents a Person's identity.
@@ -12,6 +11,7 @@ import tutorly.model.session.Session;
 public class Identity {
 
     public static final String MESSAGE_INVALID_IDENTITY = "STUDENT_IDENTIFIER provided is not a valid ID or name.";
+    public static final String MESSAGE_INVALID_ID = "Student ID must be a positive integer.";
 
     private int id;
     private Name name;
@@ -32,7 +32,7 @@ public class Identity {
      */
     public Identity(int id) {
         if (id < 1) {
-            throw new IllegalArgumentException(Session.MESSAGE_INVALID_ID);
+            throw new IllegalArgumentException(MESSAGE_INVALID_ID);
         }
 
         this.id = id;
