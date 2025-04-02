@@ -111,17 +111,24 @@ public class TypicalAddressBook {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+        List<Person> persons = getTypicalPersons();
+        List<Session> sessions = getTypicalSessions();
+        List<AttendanceRecord> attendanceRecords = getTypicalAttendanceRecords();
 
-        for (Person person : getTypicalPersons()) {
+        int nextPersonId = persons.stream().mapToInt(Person::getId).max().orElse(0) + 1;
+        int nextSessionId = sessions.stream().mapToInt(Session::getId).max().orElse(0) + 1;
+
+        AddressBook ab = new AddressBook(nextPersonId, nextSessionId);
+
+        for (Person person : persons) {
             ab.addPerson(person);
         }
 
-        for (Session session : getTypicalSessions()) {
+        for (Session session : sessions) {
             ab.addSession(session);
         }
 
-        for (AttendanceRecord attendanceRecord : getTypicalAttendanceRecords()) {
+        for (AttendanceRecord attendanceRecord : attendanceRecords) {
             ab.addAttendanceRecord(attendanceRecord);
         }
 
