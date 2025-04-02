@@ -4,6 +4,9 @@ Copyright by Susumu Yoshida - http://www.mcdodesign.com/
 - address_book_32.png
 - AddressApp.ico
 
-Copyright by Jan Jan Kovařík - http://glyphicons.com/
+Copyright by Emojipedia - https://emojipedia.org/
 - calendar.png
-- edit.png
+- email.png
+- house.png
+- memo.png
+- telephone.png
