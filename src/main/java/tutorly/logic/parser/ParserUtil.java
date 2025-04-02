@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Collection;
@@ -22,6 +23,7 @@ import tutorly.model.person.Identity;
 import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
 
@@ -38,9 +40,12 @@ public class ParserUtil {
             "Invalid date format. Please ensure it uses 'dd MMM yyyy' (e.g. '25 Dec 2025').";
     public static final String MESSAGE_INVALID_TIMESLOT_FORMAT =
             "Invalid timeslot format. Please ensure it uses 'dd MMM yyyy HH:mm-HH:mm' "
-            + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00').";
+                    + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00').";
     public static final String MESSAGE_EMPTY_SUBJECT = "Subject cannot be empty.";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd MMM uuuu", Locale.ENGLISH)
+    public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
+            .parseCaseInsensitive()
+            .appendPattern("dd MMM uuuu")
+            .toFormatter(Locale.ENGLISH)
             .withResolverStyle(ResolverStyle.STRICT);
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
@@ -280,18 +285,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String subject} and returns a trimmed string.
+     * Parses a {@code String subject} into a {@code Subject}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @param subject The subject string.
-     * @return A trimmed subject string.
-     * @throws ParseException if the subject is blank.
+     * @throws ParseException if the given {@code subject} is invalid.
      */
-    public static String parseSubject(String subject) throws ParseException {
+    public static Subject parseSubject(String subject) throws ParseException {
         requireNonNull(subject);
         String trimmedSubject = subject.trim();
-        if (trimmedSubject.isBlank()) {
-            throw new ParseException(MESSAGE_EMPTY_SUBJECT);
+        if (!Subject.isValidSubject(trimmedSubject)) {
+            throw new ParseException(Subject.MESSAGE_CONSTRAINTS);
         }
-        return trimmedSubject;
+        return new Subject(trimmedSubject);
     }
 }

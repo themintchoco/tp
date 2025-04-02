@@ -3,6 +3,7 @@ package tutorly.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -163,6 +164,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if the session {@code toCheck} overlaps with any existing sessions in the address book.
+     */
+    public boolean hasOverlappingSession(Session toCheck) {
+        requireNonNull(toCheck);
+        return sessions.hasOverlappingSession(toCheck);
+    }
+
+    /**
      * Adds a session to the address book.
      * The session must not already exist in the address book.
      */
@@ -297,6 +306,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return persons.hashCode() ^ sessions.hashCode() ^ attendanceRecords.hashCode();
+        return Objects.hash(persons, sessions, attendanceRecords, nextPersonId, nextSessionId);
     }
 }

@@ -1,7 +1,5 @@
 package tutorly.logic.parser;
 
-import static tutorly.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import tutorly.logic.commands.AddStudentCommand;
 import tutorly.logic.commands.Command;
 import tutorly.logic.commands.DeleteStudentCommand;
@@ -37,13 +35,17 @@ public class StudentCommandParser extends AddressBookParser {
             return new SearchStudentCommandParser().parse(args);
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            return defaultCommand(command);
         }
     }
 
     @Override
     protected Command defaultCommand() {
         return new StudentCommand();
+    }
+
+    private Command defaultCommand(String args) throws ParseException {
+        return new StudentCommand(ParserUtil.parseIdentity(args));
     }
 
 }

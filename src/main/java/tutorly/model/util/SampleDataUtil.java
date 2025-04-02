@@ -15,6 +15,7 @@ import tutorly.model.person.Name;
 import tutorly.model.person.Person;
 import tutorly.model.person.Phone;
 import tutorly.model.session.Session;
+import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
 
@@ -51,12 +52,12 @@ public class SampleDataUtil {
                     new Timeslot(
                             LocalDateTime.of(2025, 2, 20, 11, 30),
                             LocalDateTime.of(2025, 2, 20, 13, 30)),
-                    "Math"),
+                    new Subject("Math")),
             new Session(
                     new Timeslot(
                             LocalDateTime.of(2025, 2, 21, 23, 0),
                             LocalDateTime.of(2025, 2, 22, 1, 0)),
-                    "English"),
+                    new Subject("English")),
         };
     }
 

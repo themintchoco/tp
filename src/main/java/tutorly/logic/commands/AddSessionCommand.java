@@ -47,13 +47,15 @@ public class AddSessionCommand extends SessionCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasSession(toCreate)) {
+        if (model.hasOverlappingSession(toCreate)) {
+            throw new CommandException(Messages.MESSAGE_SESSION_OVERLAP);
+        } else if (model.hasSession(toCreate)) {
             throw new CommandException(MESSAGE_DUPLICATE_SESSION);
         }
 
         model.addSession(toCreate);
         return new CommandResult.Builder(String.format(MESSAGE_SUCCESS, Messages.format(toCreate)))
-                .withTab(Tab.SESSION)
+                .withTab(Tab.session(toCreate))
                 .withReverseCommand(new DeleteSessionCommand(toCreate.getId()))
                 .build();
     }

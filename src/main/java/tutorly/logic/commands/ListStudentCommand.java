@@ -21,6 +21,6 @@ public class ListStudentCommand extends StudentCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(FILTER_SHOW_ALL_PERSONS);
-        return new CommandResult.Builder(MESSAGE_SUCCESS).withTab(Tab.STUDENT).build();
+        return new CommandResult.Builder(MESSAGE_SUCCESS).withTab(Tab.student()).build();
     }
 }

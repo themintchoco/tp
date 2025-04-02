@@ -33,4 +33,18 @@ public class UniqueSessionList extends UniqueList<Session> {
                 .filter(session -> session.getId() == id)
                 .findFirst();
     }
+
+    /**
+     * Returns true if the session {@code toCheck} overlaps with any existing sessions in the list.
+     * This is done by checking if the timeslot of the session overlaps with any other session's timeslot.
+     * Conflicts with the same session are ignored.
+     *
+     * @param toCheck The session to check for overlap.
+     * @return True if there is an overlapping session, false otherwise.
+     */
+    public boolean hasOverlappingSession(Session toCheck) {
+        return internalList.stream()
+                .anyMatch(session -> !session.isSameSession(toCheck)
+                        && session.hasOverlappingTimeslot(toCheck));
+    }
 }

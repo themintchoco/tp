@@ -21,6 +21,6 @@ public class ListSessionCommand extends SessionCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredSessionList(FILTER_SHOW_ALL_SESSIONS);
-        return new CommandResult.Builder(MESSAGE_SUCCESS).withTab(Tab.SESSION).build();
+        return new CommandResult.Builder(MESSAGE_SUCCESS).withTab(Tab.session()).build();
     }
 }
