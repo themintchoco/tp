@@ -19,6 +19,8 @@ public class Timeslot {
 
     /**
      * Constructs a Timeslot with the given start and end datetimes. Start datetime must not be after end datetime.
+     * We allow the start and end datetimes to be the same in the event the tutor does not know how long the session
+     * will last.
      *
      * @param startTime The start datetime of the timeslot.
      * @param endTime   The end datetime of the timeslot.

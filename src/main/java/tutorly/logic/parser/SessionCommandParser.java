@@ -65,7 +65,7 @@ public class SessionCommandParser extends AddressBookParser {
     }
 
     private Command defaultCommand(String args) throws ParseException {
-        return new SessionCommand(ParserUtil.parseId(args));
+        return new SessionCommand(ParserUtil.parseSessionId(args));
     }
 
 }

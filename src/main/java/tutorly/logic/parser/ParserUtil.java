@@ -23,6 +23,7 @@ import tutorly.model.person.Identity;
 import tutorly.model.person.Memo;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
+import tutorly.model.session.Session;
 import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
@@ -32,15 +33,14 @@ import tutorly.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_IDENTITY = "STUDENT_IDENTIFIER provided is not a valid ID or name.";
-    public static final String MESSAGE_INVALID_SESSION_ID = "Session ID is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_DATETIME = "Invalid datetime provided.";
-    public static final String MESSAGE_INVALID_DATE_FORMAT =
-            "Invalid date format. Please ensure it uses 'dd MMM yyyy' (e.g. '25 Dec 2025') and is an actual date.";
-    public static final String MESSAGE_INVALID_TIMESLOT_FORMAT =
-            "Invalid timeslot format. Please ensure it uses 'dd MMM yyyy HH:mm-HH:mm' "
-                    + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00'), "
-                    + "and the date and time provided is valid.";
+    public static final String MESSAGE_INVALID_DATETIME = "Invalid datetime or incorrect datetime format. "
+            + "Please ensure it follows the format 'yyyy-MM-ddTHH:mm' (e.g. '2025-12-25T10:00') and is a valid "
+            + "datetime.";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date or incorrect date format. "
+            + "Please ensure it follows the format 'dd MMM yyyy' (e.g. '25 Dec 2025') and is a valid date.";
+    public static final String MESSAGE_INVALID_TIMESLOT_FORMAT = "Invalid timeslot or incorrect timeslot format. "
+            + "Please ensure it follows the format 'dd MMM yyyy HH:mm-HH:mm' or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' "
+            + "(e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00'), and the date and time provided is valid.";
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .appendPattern("d MMM uuuu")
@@ -65,7 +65,7 @@ public class ParserUtil {
         if (Name.isValidName(trimmedIdentity)) {
             return new Identity(new Name(trimmedIdentity));
         }
-        throw new ParseException(MESSAGE_INVALID_IDENTITY);
+        throw new ParseException(Identity.MESSAGE_INVALID_IDENTITY);
     }
 
     /**
@@ -74,11 +74,11 @@ public class ParserUtil {
      *
      * @throws ParseException if the specified id is invalid (not non-zero unsigned integer).
      */
-    public static int parseId(String id) throws ParseException {
+    public static int parseSessionId(String id) throws ParseException {
         requireNonNull(id);
         String trimmedId = id.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedId)) {
-            throw new ParseException(MESSAGE_INVALID_SESSION_ID);
+            throw new ParseException(Session.MESSAGE_INVALID_ID);
         }
         return Integer.parseInt(trimmedId);
     }

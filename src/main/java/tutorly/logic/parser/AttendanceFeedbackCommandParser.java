@@ -4,7 +4,7 @@ import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_FEEDBACK;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.ParserUtil.parseFeedback;
-import static tutorly.logic.parser.ParserUtil.parseId;
+import static tutorly.logic.parser.ParserUtil.parseSessionId;
 
 import java.util.Optional;
 
@@ -43,6 +43,6 @@ public class AttendanceFeedbackCommandParser implements Parser<AttendanceFeedbac
 
         Identity identity = ParserUtil.parseIdentity(argMultimap.getPreamble());
 
-        return new AttendanceFeedbackCommand(identity, parseId(sessionId.get()), feedback);
+        return new AttendanceFeedbackCommand(identity, parseSessionId(sessionId.get()), feedback);
     }
 }

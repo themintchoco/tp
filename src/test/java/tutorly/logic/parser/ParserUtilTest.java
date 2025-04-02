@@ -2,8 +2,7 @@ package tutorly.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_IDENTITY;
-import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_SESSION_ID;
+import static tutorly.model.person.Identity.MESSAGE_INVALID_IDENTITY;
 import static tutorly.testutil.Assert.assertThrows;
 
 import java.time.LocalDateTime;
@@ -21,6 +20,7 @@ import tutorly.model.person.Email;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Name;
 import tutorly.model.person.Phone;
+import tutorly.model.session.Session;
 import tutorly.model.session.Timeslot;
 import tutorly.model.tag.Tag;
 
@@ -44,18 +44,18 @@ public class ParserUtilTest {
     private static final String WHITESPACE = " \t\r\n";
 
     @Test
-    public void parseIdentity_null_throwsNullPointerException() {
+    public void parseSessionIdentity_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseIdentity(null));
     }
 
     @Test
-    public void parseIdentity_invalidValue_throwsParseException() {
+    public void parseIdentity_invalidValue_throwsParseSessionException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_IDENTITY, () -> ParserUtil.parseIdentity(INVALID_NAME));
         assertThrows(ParseException.class, MESSAGE_INVALID_IDENTITY, () -> ParserUtil.parseIdentity(INVALID_ID));
     }
 
     @Test
-    public void parseIdentity_validInput_success() throws Exception {
+    public void parseSessionIdentity_validInput_success() throws Exception {
         // No whitespaces
         assertEquals(new Identity(new Name(VALID_NAME)), ParserUtil.parseIdentity(VALID_NAME));
         assertEquals(new Identity(1), ParserUtil.parseIdentity("1"));
@@ -69,31 +69,31 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseId_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseId(null));
+    public void parseSessionId_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseSessionId(null));
     }
 
     @Test
-    public void parseId_invalidInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseId("10 a"));
+    public void parseId_invalidInput_throwsParseSessionException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseSessionId("10 a"));
     }
 
     @Test
-    public void parseId_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, ()
-                -> ParserUtil.parseId(Long.toString(Integer.MAX_VALUE + 1)));
-        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("0"));
-        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("-1"));
-        assertThrows(ParseException.class, MESSAGE_INVALID_SESSION_ID, () -> ParserUtil.parseId("1.1"));
+    public void parseId_outOfRangeInput_throwsParseSessionException() {
+        assertThrows(ParseException.class, Session.MESSAGE_INVALID_ID, ()
+                -> ParserUtil.parseSessionId(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, Session.MESSAGE_INVALID_ID, () -> ParserUtil.parseSessionId("0"));
+        assertThrows(ParseException.class, Session.MESSAGE_INVALID_ID, () -> ParserUtil.parseSessionId("-1"));
+        assertThrows(ParseException.class, Session.MESSAGE_INVALID_ID, () -> ParserUtil.parseSessionId("1.1"));
     }
 
     @Test
-    public void parseId_validInput_success() throws Exception {
+    public void parseSessionId_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(1, ParserUtil.parseId("1"));
+        assertEquals(1, ParserUtil.parseSessionId("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(1, ParserUtil.parseId("  1  "));
+        assertEquals(1, ParserUtil.parseSessionId("  1  "));
     }
 
     @Test
