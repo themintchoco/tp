@@ -11,16 +11,14 @@ public class Subject {
 
     public static final int MAX_LENGTH = 20;
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Subjects should not be blank and only contain letters, numbers, "
-                    + "spaces, and the following symbols: & + , -. "
-                    + "The maximum length is " + MAX_LENGTH + " characters.";
+    public static final String MESSAGE_CONSTRAINTS = "Subjects can take any values, and it should not be blank. "
+            + "The maximum length is " + MAX_LENGTH + " characters.";
 
     /*
      * The first character of the subject must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\s][A-Za-z0-9 &+,-]*";
+    public static final String VALIDATION_REGEX = "[^\\s](?s).*";
 
     public final String subjectName;
 

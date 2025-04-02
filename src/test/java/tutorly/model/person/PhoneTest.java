@@ -30,8 +30,6 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("91")); // less than 3 numbers
         assertFalse(Phone.isValidPhone("phone")); // non-numeric
         assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
-        assertFalse(Phone.isValidPhone("+6593121534")); // plus within digits
         assertFalse(Phone.isValidPhone("9".repeat(Phone.MAX_LENGTH) + "9")); // extra long phone number
 
         // valid phone numbers
@@ -39,6 +37,8 @@ public class PhoneTest {
         assertTrue(Phone.isValidPhone("93121534"));
         assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers
         assertTrue(Phone.isValidPhone("9".repeat(Phone.MAX_LENGTH))); // long phone numbers
+        assertTrue(Phone.isValidPhone("9312 1534")); // spaces within digits
+        assertTrue(Phone.isValidPhone("+6593121534")); // country prefix
     }
 
     @Test
