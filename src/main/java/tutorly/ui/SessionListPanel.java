@@ -15,7 +15,7 @@ public class SessionListPanel extends ListPanel<Session> {
 
     @Override
     protected UiPart<Region> getItemGraphic(Session session) {
-        return new SessionCard(session);
+        return new SessionCard(session, getSelected().contains(session));
     };
 
 }

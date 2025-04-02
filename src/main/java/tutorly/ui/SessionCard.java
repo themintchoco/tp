@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import tutorly.logic.Messages;
 import tutorly.model.session.Session;
 
@@ -31,18 +32,18 @@ public class SessionCard extends UiPart<Region> {
     @FXML
     private Label subject;
     @FXML
-    private Label timeslot;
+    private VBox container;
 
     /**
      * Creates a {@code SessionCard} with the given {@code Session}.
      */
-    public SessionCard(Session session) {
+    public SessionCard(Session session, boolean isSelected) {
         super(FXML);
         this.session = session;
         id.setText(session.getId() + ". ");
         subject.setText(session.getSubject().subjectName);
 
-        timeslot.setGraphic(Icons.getCalendarIcon());
-        timeslot.setText(Messages.format(session.getTimeslot()));
+        container.getChildren().add(
+                new IconLabel(Icons.getCalendarIcon(), Messages.format(session.getTimeslot()), isSelected).getRoot());
     }
 }

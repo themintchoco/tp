@@ -1,43 +1,44 @@
 package tutorly.ui;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * Utility class for getting icons displayed.
  */
 public class Icons {
 
+    private static final String TELEPHONE_PATH = "/images/telephone.png";
+    private static final String HOUSE_PATH = "/images/house.png";
+    private static final String EMAIL_PATH = "/images/email.png";
+    private static final String MEMO_PATH = "/images/memo.png";
+    private static final String CALENDAR_PATH = "/images/calendar.png";
+
     /**
-     * Returns a 16x16 ImageView of the icon at the specified path.
+     * Returns the Image of the icon at the specified path.
      *
      * @param iconPath The path to the icon image.
      */
-    public static ImageView getIcon(String iconPath) {
-        ImageView img = new ImageView(new Image(Icons.class.getResourceAsStream(iconPath)));
-        img.setFitHeight(16);
-        img.setFitWidth(16);
-
-        return img;
+    public static Image getIcon(String iconPath) {
+        return new Image(iconPath);
     }
 
-    public static ImageView getTelephoneIcon() {
-        return getIcon("/images/telephone.png");
+    public static Image getTelephoneIcon() {
+        return getIcon(TELEPHONE_PATH);
     }
 
-    public static ImageView getHouseIcon() {
-        return getIcon("/images/house.png");
+    public static Image getHouseIcon() {
+        return getIcon(HOUSE_PATH);
     }
 
-    public static ImageView getEmailIcon() {
-        return getIcon("/images/email.png");
+    public static Image getEmailIcon() {
+        return getIcon(EMAIL_PATH);
     }
 
-    public static ImageView getMemoIcon() {
-        return getIcon("/images/memo.png");
+    public static Image getMemoIcon() {
+        return getIcon(MEMO_PATH);
     }
 
-    public static ImageView getCalendarIcon() {
-        return getIcon("/images/calendar.png");
+    public static Image getCalendarIcon() {
+        return getIcon(CALENDAR_PATH);
     }
 }

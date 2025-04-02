@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import tutorly.model.person.Address;
 import tutorly.model.person.Email;
 import tutorly.model.person.Memo;
@@ -37,59 +38,41 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
     private FlowPane tags;
     @FXML
-    private Label memo;
+    private VBox container;
 
     /**
      * Creates a {@code PersonCard} with the given {@code Person}.
      */
-    public PersonCard(Person person) {
+    public PersonCard(Person person, boolean isSelected) {
         super(FXML);
         this.person = person;
         id.setText(person.getId() + ". ");
         name.setText(person.getName().fullName);
 
-        if (person.getPhone() == Phone.empty()) {
-            phone.setVisible(false);
-            phone.setManaged(false);
-        } else {
-            phone.setGraphic(Icons.getTelephoneIcon());
-            phone.setText(person.getPhone().value);
-        }
-
-        if (person.getAddress() == Address.empty()) {
-            address.setVisible(false);
-            address.setManaged(false);
-        } else {
-            address.setGraphic(Icons.getHouseIcon());
-            address.setText(person.getAddress().value);
-        }
-
-        if (person.getEmail() == Email.empty()) {
-            email.setVisible(false);
-            email.setManaged(false);
-        } else {
-            email.setGraphic(Icons.getEmailIcon());
-            email.setText(person.getEmail().value);
-        }
-
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        if (person.getMemo() == Memo.empty()) {
-            memo.setVisible(false);
-            memo.setManaged(false);
-        } else {
-            memo.setGraphic(Icons.getMemoIcon());
-            memo.setText(person.getMemo().value);
+        if (person.getPhone() != Phone.empty()) {
+            container.getChildren().add(
+                    new IconLabel(Icons.getTelephoneIcon(), person.getPhone().value, isSelected).getRoot());
+        }
+
+        if (person.getAddress() != Address.empty()) {
+            container.getChildren().add(
+                    new IconLabel(Icons.getHouseIcon(), person.getAddress().value, isSelected).getRoot());
+        }
+
+        if (person.getEmail() != Email.empty()) {
+            container.getChildren().add(
+                    new IconLabel(Icons.getEmailIcon(), person.getEmail().value, isSelected).getRoot());
+        }
+
+        if (person.getMemo() != Memo.empty()) {
+            container.getChildren().add(
+                    new IconLabel(Icons.getMemoIcon(), person.getMemo().value, isSelected).getRoot());
         }
     }
 }
