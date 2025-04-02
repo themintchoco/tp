@@ -37,17 +37,17 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "Invalid datetime provided.";
     public static final String MESSAGE_INVALID_DATE_FORMAT =
-            "Invalid date format. Please ensure it uses 'dd MMM yyyy' (e.g. '25 Dec 2025').";
+            "Invalid date format. Please ensure it uses 'dd MMM yyyy' (e.g. '25 Dec 2025') and is an actual date.";
     public static final String MESSAGE_INVALID_TIMESLOT_FORMAT =
             "Invalid timeslot format. Please ensure it uses 'dd MMM yyyy HH:mm-HH:mm' "
-                    + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00').";
-    public static final String MESSAGE_EMPTY_SUBJECT = "Subject cannot be empty.";
+                    + "or 'dd MMM yyyy HH:mm-dd MMM yyyy HH:mm' (e.g. '25 Dec 2025 10:00-25 Dec 2025 12:00'), "
+                    + "and the date and time provided is valid.";
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
-            .appendPattern("dd MMM uuuu")
+            .appendPattern("d MMM uuuu")
             .toFormatter(Locale.ENGLISH)
             .withResolverStyle(ResolverStyle.STRICT);
-    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm")
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("H:mm")
             .withResolverStyle(ResolverStyle.STRICT);
 
     /**
@@ -204,7 +204,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String date} into a {@code LocalDate}.
-     * The date format must be YYYY-MM-DD.
+     * The date format must be d MMM yyyy.
      *
      * @param dateStr The date string to parse.
      * @return The parsed LocalDate.
@@ -221,7 +221,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String timeslot} into a {@code Timeslot}.
-     * The timeslot format must be dd MMM yyyy HH:mm-HH:mm or dd MMM yyyy HH:mm-dd MMM yyyy HH:mm.
+     * The timeslot format must be d MMM yyyy H:mm-H:mm or d MMM yyyy H:mm-d MMM yyyy H:mm.
      *
      * @param timeslot The timeslot to parse.
      * @return The parsed Timeslot.

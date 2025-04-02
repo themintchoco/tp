@@ -282,16 +282,16 @@ public class ParserUtilTest {
 
     @Test
     public void parseTimeslot_validValueWithoutWhitespaceWithEndDate_returnsTimeslot() throws Exception {
-        String validTimeslot = "25 Mar 2025 10:00-26 Mar 2025 12:00";
-        Timeslot expectedTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
-                LocalDateTime.of(2025, 3, 26, 12, 0));
+        String validTimeslot = "9 Mar 2025 9:00-10 Mar 2025 12:00";
+        Timeslot expectedTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 9, 9, 0),
+                LocalDateTime.of(2025, 3, 10, 12, 0));
         assertEquals(expectedTimeslot, ParserUtil.parseTimeslot(validTimeslot));
     }
 
     @Test
     public void parseTimeslot_validValueWithWhitespace_returnsTrimmedTimeslot() throws Exception {
-        String timeslotWithWhitespace = WHITESPACE + "25  Mar  2025  10:00  -  12:00" + WHITESPACE;
-        Timeslot expectedTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 10, 0),
+        String timeslotWithWhitespace = WHITESPACE + "25  Mar  2025  09:00  -  12:00" + WHITESPACE;
+        Timeslot expectedTimeslot = new Timeslot(LocalDateTime.of(2025, 3, 25, 9, 0),
                 LocalDateTime.of(2025, 3, 25, 12, 0));
         assertEquals(expectedTimeslot, ParserUtil.parseTimeslot(timeslotWithWhitespace));
     }
