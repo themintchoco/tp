@@ -33,12 +33,12 @@ public class UnenrolSessionCommand extends SessionCommand {
     public static final String MESSAGE_MISSING_ENROLMENT = "%1$s is not enrolled to Session: %2$s";
 
     private final Identity identity;
-    private final int sessionId;
+    private final long sessionId;
 
     /**
      * Creates an UnenrolSessionCommand for the given {@code Person} to the given {@code Session}
      */
-    public UnenrolSessionCommand(Identity identity, int sessionId) {
+    public UnenrolSessionCommand(Identity identity, long sessionId) {
         requireNonNull(identity);
         this.identity = identity;
         this.sessionId = sessionId;

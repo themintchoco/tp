@@ -15,12 +15,12 @@ import tutorly.model.session.Subject;
 import tutorly.model.session.Timeslot;
 
 public class JsonAdaptedSessionTest {
-    private static final int VALID_SESSION_ID = 1;
+    private static final long VALID_SESSION_ID = 1;
     private static final String VALID_START_TIME = "2020-01-01T10:00:00";
     private static final String VALID_END_TIME = "2020-01-01T12:00:00";
     private static final String VALID_SUBJECT = "Mathematics";
 
-    private static final int INVALID_SESSION_ID = 0;
+    private static final long INVALID_SESSION_ID = 0;
     private static final String INVALID_DATETIME = "21-03-2025"; // Incorrect format
     private static final String INVALID_SUBJECT = ""; // Empty subject
 

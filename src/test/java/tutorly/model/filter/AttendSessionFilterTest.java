@@ -21,8 +21,8 @@ public class AttendSessionFilterTest {
 
     @Test
     public void equals() {
-        int firstFilterSessionId = 1;
-        int secondFilterSessionId = 2;
+        long firstFilterSessionId = 1;
+        long secondFilterSessionId = 2;
 
         AttendSessionFilter firstFilter = new AttendSessionFilter(firstFilterSessionId);
         AttendSessionFilter secondFilter = new AttendSessionFilter(secondFilterSessionId);
@@ -64,7 +64,7 @@ public class AttendSessionFilterTest {
 
     @Test
     public void toStringMethod() {
-        int sessionId = MATH_SESSION.getId();
+        long sessionId = MATH_SESSION.getId();
         AttendSessionFilter filter = new AttendSessionFilter(sessionId);
 
         String expected = AttendSessionFilter.class.getCanonicalName() + "{sessionId=" + sessionId + "}";

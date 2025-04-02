@@ -45,6 +45,39 @@ public class StringUtilTest {
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
+    @Test
+    public void isNonZeroUnsignedLong() {
+
+        // EP: empty strings
+        assertFalse(StringUtil.isNonZeroUnsignedLong("")); // Boundary value
+        assertFalse(StringUtil.isNonZeroUnsignedLong("  "));
+
+        // EP: not a number
+        assertFalse(StringUtil.isNonZeroUnsignedLong("a"));
+        assertFalse(StringUtil.isNonZeroUnsignedLong("aaa"));
+
+        // EP: zero
+        assertFalse(StringUtil.isNonZeroUnsignedLong("0"));
+
+        // EP: zero as prefix
+        assertTrue(StringUtil.isNonZeroUnsignedLong("01"));
+
+        // EP: signed numbers
+        assertFalse(StringUtil.isNonZeroUnsignedLong("-1"));
+        assertFalse(StringUtil.isNonZeroUnsignedLong("+1"));
+
+        // EP: numbers with white space
+        assertFalse(StringUtil.isNonZeroUnsignedLong(" 10 ")); // Leading/trailing spaces
+        assertFalse(StringUtil.isNonZeroUnsignedLong("1 0")); // Spaces in the middle
+
+        // EP: number larger than Long.MAX_VALUE
+        assertFalse(StringUtil.isNonZeroUnsignedLong("9223372036854775808")); // Long.MAX_VALUE + 1
+
+        // EP: valid numbers, should return true
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("1")); // Boundary value
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
+    }
+
 
     //---------------- Tests for containsWordIgnoreCase --------------------------------------
 

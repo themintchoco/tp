@@ -29,11 +29,11 @@ public interface ReadOnlyAddressBook {
     /**
      * Returns the next person ID.
      */
-    int getNextPersonId();
+    long getNextPersonId();
 
     /**
      * Returns the next session ID.
      */
-    int getNextSessionId();
+    long getNextSessionId();
 
 }

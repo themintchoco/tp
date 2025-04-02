@@ -19,7 +19,7 @@ public class UniqueSessionList extends UniqueList<Session> {
 
     @Override
     protected int compare(Session a, Session b) {
-        return Integer.compare(a.getId(), b.getId());
+        return Long.compare(a.getId(), b.getId());
     }
 
     /**
@@ -28,7 +28,7 @@ public class UniqueSessionList extends UniqueList<Session> {
      * @param id The ID of the session to retrieve.
      * @return The session with the given ID.
      */
-    public Optional<Session> getSessionById(int id) {
+    public Optional<Session> getSessionById(long id) {
         return internalList.stream()
                 .filter(session -> session.getId() == id)
                 .findFirst();

@@ -26,8 +26,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueSessionList sessions;
     private final UniqueAttendanceRecordList attendanceRecords;
 
-    private int nextPersonId;
-    private int nextSessionId;
+    private long nextPersonId;
+    private long nextSessionId;
 
     /**
      * Creates an AddressBook.
@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Creates an AddressBook.
      */
-    public AddressBook(int nextPersonId, int nextSessionId) {
+    public AddressBook(long nextPersonId, long nextSessionId) {
         this();
 
         this.nextPersonId = nextPersonId;
@@ -115,6 +115,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addPerson(Person p) {
         if (p.getId() == 0) {
             // Set the student ID of the person if it has not been set
+            if (nextPersonId >= Long.MAX_VALUE) {
+                throw new IllegalStateException();
+            }
+
             p.setId(nextPersonId++);
         }
 
@@ -124,7 +128,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns the person with the given ID if it exists in the persons address book.
      */
-    public Optional<Person> getPersonById(int id) {
+    public Optional<Person> getPersonById(long id) {
         return persons.getPersonById(id);
     }
 
@@ -178,6 +182,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addSession(Session s) {
         if (s.getId() == 0) {
             // Set the session ID of the session if it has not been set
+            if (nextSessionId >= Long.MAX_VALUE) {
+                throw new IllegalStateException();
+            }
+
             s.setId(nextSessionId++);
         }
 
@@ -187,7 +195,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns the person with the given ID if it exists in the address book.
      */
-    public Optional<Session> getSessionById(int id) {
+    public Optional<Session> getSessionById(long id) {
         return sessions.getSessionById(id);
     }
 
@@ -279,12 +287,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public int getNextPersonId() {
+    public long getNextPersonId() {
         return nextPersonId;
     }
 
     @Override
-    public int getNextSessionId() {
+    public long getNextSessionId() {
         return nextSessionId;
     }
 

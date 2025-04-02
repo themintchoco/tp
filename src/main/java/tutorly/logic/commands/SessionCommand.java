@@ -16,9 +16,9 @@ public class SessionCommand extends Command {
     public static final String COMMAND_WORD = "session";
     public static final String COMMAND_STRING = COMMAND_WORD;
 
-    private final Optional<Integer> sessionId;
+    private final Optional<Long> sessionId;
 
-    public SessionCommand(int sessionId) {
+    public SessionCommand(long sessionId) {
         this.sessionId = Optional.of(sessionId);
     }
 

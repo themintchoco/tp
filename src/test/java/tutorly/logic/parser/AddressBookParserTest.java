@@ -123,7 +123,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_studentSearch() throws Exception {
-        int sessionId = 1;
+        long sessionId = 1;
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchStudentCommand command = (SearchStudentCommand) parser.parse(
                 SearchStudentCommand.COMMAND_STRING
@@ -189,7 +189,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_sessionEnrol() throws Exception {
-        int id = 1;
+        long id = 1;
         Identity identity = new Identity(id);
         EnrolSessionCommand command = (EnrolSessionCommand) parser.parse(
                 EnrolSessionCommand.COMMAND_STRING + " " + id + " " + PREFIX_SESSION + id);
@@ -198,7 +198,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_sessionUnenrol() throws Exception {
-        int id = 1;
+        long id = 1;
         Identity identity = new Identity(id);
         UnenrolSessionCommand command = (UnenrolSessionCommand) parser.parse(
                 UnenrolSessionCommand.COMMAND_STRING + " " + id + " " + PREFIX_SESSION + id);
@@ -207,7 +207,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_sessionMark() throws Exception {
-        int id = 1;
+        long id = 1;
         Identity identity = new Identity(id);
         AttendanceMarkSessionCommand command = (AttendanceMarkSessionCommand) parser.parse(
                 AttendanceMarkSessionCommand.COMMAND_STRING + " " + id + " " + PREFIX_SESSION + id);
@@ -216,7 +216,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_sessionUnmark() throws Exception {
-        int id = 1;
+        long id = 1;
         Identity identity = new Identity(id);
         AttendanceUnmarkSessionCommand command = (AttendanceUnmarkSessionCommand) parser.parse(
                 AttendanceUnmarkSessionCommand.COMMAND_STRING + " " + id + " " + PREFIX_SESSION + id);

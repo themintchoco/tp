@@ -93,7 +93,7 @@ public interface Model {
     /**
      * Returns an optional of the person with the given id.
      */
-    Optional<Person> getPersonById(int id);
+    Optional<Person> getPersonById(long id);
 
     /**
      * Returns an optional of the person with the given name.
@@ -176,7 +176,7 @@ public interface Model {
     /**
      * Returns an optional of the session with the given id.
      */
-    Optional<Session> getSessionById(int id);
+    Optional<Session> getSessionById(long id);
 
     /**
      * Returns true if an AttendanceRecord with the same identity as

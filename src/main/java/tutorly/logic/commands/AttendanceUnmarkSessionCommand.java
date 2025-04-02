@@ -35,12 +35,12 @@ public class AttendanceUnmarkSessionCommand extends SessionCommand {
     public static final String MESSAGE_ALREADY_UNMARKED = "%1$s's attendance is not marked for Session: %2$s";
 
     private final Identity identity;
-    private final int sessionId;
+    private final long sessionId;
 
     /**
      * Creates an AttendanceUnmarkSessionCommand for the given {@code identity} and {@code Session}
      */
-    public AttendanceUnmarkSessionCommand(Identity identity, int sessionId) {
+    public AttendanceUnmarkSessionCommand(Identity identity, long sessionId) {
         this.identity = requireNonNull(identity);
         this.sessionId = sessionId;
     }

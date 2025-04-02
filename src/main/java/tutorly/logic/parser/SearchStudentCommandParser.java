@@ -49,7 +49,7 @@ public class SearchStudentCommandParser implements Parser<SearchStudentCommand> 
 
         Optional<String> sessionIdQuery = argMultimap.getValue(PREFIX_SESSION);
         if (sessionIdQuery.isPresent() && !sessionIdQuery.get().isBlank()) {
-            int sessionId = parseId(sessionIdQuery.get());
+            long sessionId = parseId(sessionIdQuery.get());
             filters.add(new AttendSessionFilter(sessionId));
         }
 

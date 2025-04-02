@@ -148,7 +148,7 @@ public class AddSessionCommandTest {
         }
 
         @Override
-        public Optional<Person> getPersonById(int id) {
+        public Optional<Person> getPersonById(long id) {
             return Optional.empty();
         }
 
@@ -219,7 +219,7 @@ public class AddSessionCommandTest {
         public void setSession(Session target, Session editedSession) {}
 
         @Override
-        public Optional<Session> getSessionById(int id) {
+        public Optional<Session> getSessionById(long id) {
             return Optional.empty();
         }
 

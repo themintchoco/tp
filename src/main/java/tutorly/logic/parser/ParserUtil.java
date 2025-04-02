@@ -60,8 +60,8 @@ public class ParserUtil {
     public static Identity parseIdentity(String identity) throws ParseException {
         requireNonNull(identity);
         String trimmedIdentity = identity.trim().replaceAll("\\s+", " ");
-        if (StringUtil.isNonZeroUnsignedInteger(trimmedIdentity)) {
-            return new Identity(Integer.parseInt(trimmedIdentity));
+        if (StringUtil.isNonZeroUnsignedLong(trimmedIdentity)) {
+            return new Identity(Long.parseLong(trimmedIdentity));
         }
         if (Name.isValidName(trimmedIdentity)) {
             return new Identity(new Name(trimmedIdentity));
@@ -75,13 +75,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the specified id is invalid (not non-zero unsigned integer).
      */
-    public static int parseId(String id) throws ParseException {
+    public static long parseId(String id) throws ParseException {
         requireNonNull(id);
         String trimmedId = id.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedId)) {
+        if (!StringUtil.isNonZeroUnsignedLong(trimmedId)) {
             throw new ParseException(MESSAGE_INVALID_SESSION_ID);
         }
-        return Integer.parseInt(trimmedId);
+        return Long.parseLong(trimmedId);
     }
 
     /**

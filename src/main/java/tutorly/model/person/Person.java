@@ -22,7 +22,7 @@ public class Person {
     public static final String MESSAGE_INVALID_ID = "Student ID must be a positive integer.";
 
     // Identity fields
-    private int id; // id field is effectively final
+    private long id; // id field is effectively final
     private final Name name;
 
     // Data fields
@@ -49,7 +49,7 @@ public class Person {
      * Sets the student ID assigned by the address book during {@link AddressBook#addPerson(Person)}. Should only be
      * called once per student as the student ID is effectively final.
      */
-    public void setId(int studentId) {
+    public void setId(long studentId) {
         if (this.id != 0) {
             throw new IllegalStateException(MESSAGE_REASSIGNED_ID);
         }
@@ -61,7 +61,7 @@ public class Person {
         this.id = studentId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

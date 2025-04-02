@@ -22,7 +22,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
-    private int id;
+    private long id;
     private Name name;
     private Phone phone;
     private Email email;
@@ -59,7 +59,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code id} of the {@code Person} that we are building.
      */
-    public PersonBuilder withId(int id) {
+    public PersonBuilder withId(long id) {
         this.id = id;
         return this;
     }

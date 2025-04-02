@@ -38,7 +38,7 @@ public class DeleteSessionCommandTest {
 
     @Test
     public void execute_invalidSessionId_throwsCommandException() {
-        int invalidSessionId = model.getFilteredSessionList().size() + 1;
+        long invalidSessionId = model.getFilteredSessionList().size() + 1;
         DeleteSessionCommand deleteCommand = new DeleteSessionCommand(invalidSessionId);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_SESSION_ID);
@@ -46,8 +46,8 @@ public class DeleteSessionCommandTest {
 
     @Test
     public void equals() {
-        int sessionIdFirst = 1;
-        int sessionIdSecond = 2;
+        long sessionIdFirst = 1;
+        long sessionIdSecond = 2;
 
         DeleteSessionCommand deleteFirstCommand = new DeleteSessionCommand(sessionIdFirst);
         DeleteSessionCommand deleteSecondCommand = new DeleteSessionCommand(sessionIdSecond);
@@ -71,7 +71,7 @@ public class DeleteSessionCommandTest {
 
     @Test
     public void toStringMethod() {
-        int sessionId = 1;
+        long sessionId = 1;
         DeleteSessionCommand deleteCommand = new DeleteSessionCommand(sessionId);
         String expected = DeleteSessionCommand.class.getCanonicalName() + "{sessionId=" + sessionId + "}";
         assertEquals(expected, deleteCommand.toString());

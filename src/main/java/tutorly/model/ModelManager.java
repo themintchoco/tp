@@ -119,7 +119,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Person> getPersonById(int id) {
+    public Optional<Person> getPersonById(long id) {
         return addressBook.getPersonById(id);
     }
 
@@ -208,7 +208,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Optional<Session> getSessionById(int id) {
+    public Optional<Session> getSessionById(long id) {
         return addressBook.getSessionById(id);
     }
 

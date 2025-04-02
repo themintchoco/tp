@@ -13,7 +13,7 @@ public class Session {
     public static final String MESSAGE_REASSIGNED_ID = "Session ID has already been set for this session.";
     public static final String MESSAGE_INVALID_ID = "Session ID must be a positive integer.";
 
-    private int id; // id field is effectively final
+    private long id; // id field is effectively final
     private final Timeslot timeslot;
     private final Subject subject;
 
@@ -32,7 +32,7 @@ public class Session {
      * Sets the session ID assigned by the address book during {@link AddressBook#addSession(Session)}. Should only be
      * called once per session as the session ID is effectively final.
      */
-    public void setId(int id) {
+    public void setId(long id) {
         if (this.id != 0) {
             throw new IllegalStateException(MESSAGE_REASSIGNED_ID);
         }
@@ -52,7 +52,7 @@ public class Session {
         return timeslot.containsDate(date);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

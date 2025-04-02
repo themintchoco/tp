@@ -35,14 +35,14 @@ public class EnrolSessionCommand extends SessionCommand {
     public static final boolean DEFAULT_PRESENCE = false;
 
     private final Identity identity;
-    private final int sessionId;
+    private final long sessionId;
     private final boolean presence;
 
     /**
      * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session} with the given
      * {@code presence} status.
      */
-    public EnrolSessionCommand(Identity identity, int sessionId, boolean presence) {
+    public EnrolSessionCommand(Identity identity, long sessionId, boolean presence) {
         requireNonNull(identity);
         this.identity = identity;
         this.sessionId = sessionId;
@@ -52,7 +52,7 @@ public class EnrolSessionCommand extends SessionCommand {
     /**
      * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session} with default presence.
      */
-    public EnrolSessionCommand(Identity identity, int sessionId) {
+    public EnrolSessionCommand(Identity identity, long sessionId) {
         this(identity, sessionId, DEFAULT_PRESENCE);
     }
 

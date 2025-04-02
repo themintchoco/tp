@@ -12,7 +12,7 @@ public class Identity {
 
     public static final String MESSAGE_INVALID_ID = "Student ID must be a positive integer.";
 
-    private int id;
+    private long id;
     private Name name;
 
     /**
@@ -29,7 +29,7 @@ public class Identity {
      *
      * @param id The ID of the person.
      */
-    public Identity(int id) {
+    public Identity(long id) {
         if (id < 1) {
             throw new IllegalArgumentException(MESSAGE_INVALID_ID);
         }
@@ -37,7 +37,7 @@ public class Identity {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

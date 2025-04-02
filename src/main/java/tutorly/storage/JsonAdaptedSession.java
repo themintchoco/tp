@@ -19,7 +19,7 @@ class JsonAdaptedSession {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Session's %s field is missing!";
 
-    private final int id;
+    private final long id;
     private final String startTime;
     private final String endTime;
     private final String subject;
@@ -28,7 +28,7 @@ class JsonAdaptedSession {
      * Constructs a {@code JsonAdaptedSession} with the given session details.
      */
     @JsonCreator
-    public JsonAdaptedSession(@JsonProperty("id") int id,
+    public JsonAdaptedSession(@JsonProperty("id") long id,
                               @JsonProperty("startTime") String startTime,
                               @JsonProperty("endTime") String endTime,
                               @JsonProperty("subject") String subject) {

@@ -15,7 +15,7 @@ public class SessionBuilder {
             LocalDateTime.of(2025, 3, 25, 12, 0));
     public static final Subject DEFAULT_SUBJECT = new Subject("Math");
 
-    private int id;
+    private long id;
     private Timeslot timeslot;
     private Subject subject;
 
@@ -40,7 +40,7 @@ public class SessionBuilder {
     /**
      * Sets the {@code id} of the {@code Session} that we are building.
      */
-    public SessionBuilder withId(int id) {
+    public SessionBuilder withId(long id) {
         this.id = id;
         return this;
     }

@@ -11,16 +11,16 @@ import tutorly.model.attendancerecord.AttendanceRecord;
  */
 public class JsonAdaptedAttendanceRecord {
 
-    private final int studentId;
-    private final int sessionId;
+    private final long studentId;
+    private final long sessionId;
     private final boolean isPresent;
 
     /**
      * Constructs a {@code JsonAdaptedAttendanceRecord} with the given attendance record details.
      */
     @JsonCreator
-    public JsonAdaptedAttendanceRecord(@JsonProperty("studentId") int studentId,
-            @JsonProperty("sessionId") int sessionId,
+    public JsonAdaptedAttendanceRecord(@JsonProperty("studentId") long studentId,
+            @JsonProperty("sessionId") long sessionId,
             @JsonProperty("isPresent") boolean isPresent) {
         this.studentId = studentId;
         this.sessionId = sessionId;

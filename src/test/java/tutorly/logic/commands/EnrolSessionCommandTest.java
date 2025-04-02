@@ -21,7 +21,7 @@ import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Identity;
 
 public class EnrolSessionCommandTest {
-    private static final int INVALID_ID = 999;
+    private static final long INVALID_ID = 999;
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Identity bensonIdentity = new Identity(BENSON.getId());
 

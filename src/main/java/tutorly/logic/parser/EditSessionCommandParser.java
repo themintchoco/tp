@@ -28,7 +28,7 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
                 PREFIX_TIMESLOT,
                 PREFIX_SUBJECT);
 
-        int sessionId;
+        long sessionId;
         try {
             sessionId = ParserUtil.parseId(argMultimap.getPreamble());
         } catch (ParseException pe) {

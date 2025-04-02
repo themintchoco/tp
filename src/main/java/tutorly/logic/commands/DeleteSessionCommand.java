@@ -26,9 +26,9 @@ public class DeleteSessionCommand extends SessionCommand {
 
     public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted session: %1$s";
 
-    private final int sessionId;
+    private final long sessionId;
 
-    public DeleteSessionCommand(int sessionId) {
+    public DeleteSessionCommand(long sessionId) {
         this.sessionId = sessionId;
     }
 

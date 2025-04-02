@@ -40,14 +40,14 @@ public class EditSessionCommand extends SessionCommand {
     public static final String MESSAGE_EDIT_SESSION_SUCCESS = "Edited session: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
-    private final int sessionId;
+    private final long sessionId;
     private final EditSessionDescriptor editSessionDescriptor;
 
     /**
      * @param id containing the ID or name of the session to edit
      * @param editSessionDescriptor details to edit the session with
      */
-    public EditSessionCommand(int id, EditSessionDescriptor editSessionDescriptor) {
+    public EditSessionCommand(long id, EditSessionDescriptor editSessionDescriptor) {
         requireNonNull(editSessionDescriptor);
 
         this.sessionId = id;

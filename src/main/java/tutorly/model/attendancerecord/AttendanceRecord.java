@@ -9,8 +9,8 @@ public class AttendanceRecord {
 
     public static final String MESSAGE_CONSTRAINTS = "Attendance record must have a valid student ID and session ID.";
 
-    private int studentId;
-    private int sessionId;
+    private long studentId;
+    private long sessionId;
     private boolean isPresent;
     private String feedback;
 
@@ -21,18 +21,18 @@ public class AttendanceRecord {
      * @param sessionId The ID of the session for which attendance is being recorded.
      * @param isPresent Whether the student is present for the session.
      */
-    public AttendanceRecord(int studentId, int sessionId, boolean isPresent) {
+    public AttendanceRecord(long studentId, long sessionId, boolean isPresent) {
         this.studentId = studentId;
         this.sessionId = sessionId;
         this.isPresent = isPresent;
         this.feedback = "";
     }
 
-    public int getStudentId() {
+    public long getStudentId() {
         return studentId;
     }
 
-    public int getSessionId() {
+    public long getSessionId() {
         return sessionId;
     }
 

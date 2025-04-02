@@ -19,7 +19,7 @@ public class DeleteSessionCommandParser implements Parser<DeleteSessionCommand> 
      */
     public DeleteSessionCommand parse(String args) throws ParseException {
         try {
-            int sessionId = parseId(args.trim());
+            long sessionId = parseId(args.trim());
             return new DeleteSessionCommand(sessionId);
         } catch (ParseException pe) {
             throw new ParseException(

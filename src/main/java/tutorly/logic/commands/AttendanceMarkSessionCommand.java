@@ -35,12 +35,12 @@ public class AttendanceMarkSessionCommand extends SessionCommand {
     public static final String MESSAGE_ALREADY_MARKED = "%1$s's attendance is already marked for Session: %2$s";
 
     private final Identity identity;
-    private final int sessionId;
+    private final long sessionId;
 
     /**
      * Creates an AttendanceMarkSessionCommand for the given {@code identity} and {@code Session}
      */
-    public AttendanceMarkSessionCommand(Identity identity, int sessionId) {
+    public AttendanceMarkSessionCommand(Identity identity, long sessionId) {
         this.identity = requireNonNull(identity);
         this.sessionId = sessionId;
     }

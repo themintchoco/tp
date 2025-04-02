@@ -14,9 +14,9 @@ import tutorly.model.person.Person;
  * Represents a filter for a {@code Person} who attends a session with the given session ID.
  */
 public class AttendSessionFilter implements Filter<Person> {
-    private final int sessionId;
+    private final long sessionId;
 
-    public AttendSessionFilter(int sessionId) {
+    public AttendSessionFilter(long sessionId) {
         this.sessionId = sessionId;
     }
 

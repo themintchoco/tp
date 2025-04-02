@@ -9,8 +9,8 @@ import tutorly.model.session.Session;
  */
 public class AttendanceRecordBuilder {
 
-    private int studentId;
-    private int sessionId;
+    private long studentId;
+    private long sessionId;
     private boolean isPresent;
 
     /**
@@ -34,7 +34,7 @@ public class AttendanceRecordBuilder {
     /**
      * Sets the {@code studentId} of the {@code AttendanceRecord} that we are building.
      */
-    public AttendanceRecordBuilder withStudentId(int studentId) {
+    public AttendanceRecordBuilder withStudentId(long studentId) {
         this.studentId = studentId;
         return this;
     }
@@ -49,7 +49,7 @@ public class AttendanceRecordBuilder {
     /**
      * Sets the {@code sessionId} of the {@code AttendanceRecord} that we are building.
      */
-    public AttendanceRecordBuilder withSessionId(int sessionId) {
+    public AttendanceRecordBuilder withSessionId(long sessionId) {
         this.sessionId = sessionId;
         return this;
     }

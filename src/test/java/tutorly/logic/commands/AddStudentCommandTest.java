@@ -154,7 +154,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public Optional<Person> getPersonById(int id) {
+        public Optional<Person> getPersonById(long id) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -229,7 +229,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public Optional<Session> getSessionById(int id) {
+        public Optional<Session> getSessionById(long id) {
             throw new AssertionError("This method should not be called.");
         }
 

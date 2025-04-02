@@ -24,7 +24,7 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
-    private final int id;
+    private final long id;
     private final String name;
     private final String phone;
     private final String email;
@@ -36,7 +36,7 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("id") int id, @JsonProperty("name") String name,
+    public JsonAdaptedPerson(@JsonProperty("id") long id, @JsonProperty("name") String name,
             @JsonProperty("phone") String phone, @JsonProperty("email") String email,
             @JsonProperty("address") String address, @JsonProperty("tags") List<JsonAdaptedTag> tags,
             @JsonProperty("memo") String memo) {

@@ -199,12 +199,12 @@ public class AddressBookTest {
         }
 
         @Override
-        public int getNextPersonId() {
+        public long getNextPersonId() {
             return this.persons.size() + 1;
         }
 
         @Override
-        public int getNextSessionId() {
+        public long getNextSessionId() {
             return this.sessions.size() + 1;
         }
     }

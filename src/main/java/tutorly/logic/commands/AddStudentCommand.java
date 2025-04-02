@@ -43,6 +43,8 @@ public class AddStudentCommand extends StudentCommand {
             + PREFIX_MEMO + "Needs extra help in understanding OOP";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
+    public static final String MESSAGE_LIMIT_REACHED = "Limit reached; cannot add any more students. "
+            + "Use the clear command to reset.";
 
     private final Person toAdd;
 
@@ -62,7 +64,12 @@ public class AddStudentCommand extends StudentCommand {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        try {
+            model.addPerson(toAdd);
+        } catch (IllegalStateException e) {
+            throw new CommandException(MESSAGE_LIMIT_REACHED);
+        }
+
         return new CommandResult.Builder(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)))
                 .withTab(Tab.student(toAdd))
                 .withReverseCommand(new DeleteStudentCommand(new Identity(toAdd.getId())))

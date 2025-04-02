@@ -19,7 +19,7 @@ public class UniquePersonList extends UniqueList<Person> {
 
     @Override
     protected int compare(Person a, Person b) {
-        return Integer.compare(a.getId(), b.getId());
+        return Long.compare(a.getId(), b.getId());
     }
 
     /**
@@ -28,7 +28,7 @@ public class UniquePersonList extends UniqueList<Person> {
      * @param id The ID of the person to retrieve.
      * @return The person with the given ID.
      */
-    public Optional<Person> getPersonById(int id) {
+    public Optional<Person> getPersonById(long id) {
         return internalList.stream()
                 .filter(person -> person.getId() == id)
                 .findFirst();
