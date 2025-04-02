@@ -65,7 +65,7 @@ public class SampleDataUtil {
     public static AttendanceRecord[] getSampleAttendanceRecords() {
         return new AttendanceRecord[] {
             new AttendanceRecord(1, 1, true, new Feedback("Good effort shown")),
-            new AttendanceRecord(3, 1, false, Feedback.empty()),
+            new AttendanceRecord(3, 1, false, new Feedback("Absent without notice")),
             new AttendanceRecord(5, 1, true, new Feedback("Did not complete homework")),
             new AttendanceRecord(1, 2, false, Feedback.empty()),
             new AttendanceRecord(2, 2, true, Feedback.empty()),
