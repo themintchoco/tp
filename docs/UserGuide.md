@@ -51,6 +51,7 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
         <a href="#unenrolling-a-student-from-a-session-unenrol"> - Unenrolling a student from a session <br></a>
         <a href="#marking-attendance-mark"> - Marking attendance <br></a>
         <a href="#unmarking-attendance-unmark"> - Unmarking attendance <br></a>
+        <a href="#updating-feedback-feedback"> - Updating feedback <br></a>
     </details>
 - [Saving the data](#saving-the-data)
 - [Editing the data file](#editing-the-data-file)
@@ -260,11 +261,10 @@ Format: `student list`
 
 #### Editing a student: `edit`
 
-Edits an existing student.
+Edits an existing student with the specified [STUDENT_IDENTIFIER](#glossary).
 
 Format: `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​`
 
-* Edits the student with the specified [STUDENT_IDENTIFIER](#glossary).
 * At least one of the optional parameters must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -393,11 +393,10 @@ Running the [undo](#undoing-a-command-undo) command after `session delete` adds 
 
 #### Enrolling a student to a session: `enrol`
 
-Enrols a student to a session.
+Enrols a student with the specified [STUDENT_IDENTIFIER](#glossary) to a session.
 
 Format: `session enrol STUDENT_IDENTIFIER ses/SESSION_ID`
 
-* Enrols the student with the specified [STUDENT_IDENTIFIER](#glossary) to the session.
 * The attendance for the student to the session upon enrolment is marked as absent by default.
 
 Examples:
@@ -424,11 +423,9 @@ Running the [undo](#undoing-a-command-undo) command after `session unenrol` will
 
 #### Marking attendance: `mark`
 
-Marks the attendance of a student for a session.
+Marks the attendance of a student with the specified [STUDENT_IDENTIFIER](#glossary) for a session.
 
 Format: `session mark STUDENT_IDENTIFIER ses/SESSION_ID`
-
-* Marks the attendance for the student with the specified [STUDENT_IDENTIFIER](#glossary).
 
 Examples:
 * `session mark 2 ses/3` marks the attendance for the student with an ID of 2 for a session with an ID of 3 as present.
@@ -444,11 +441,9 @@ You can also click on the checkbox next to a student's name in a session's atten
 
 #### Unmarking attendance: `unmark`
 
-Unmarks the attendance of a student for a session.
+Unmarks the attendance of a student with the specified [STUDENT_IDENTIFIER](#glossary) for a session.
 
 Format: `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`
-
-* Unmarks the attendance for the student with the specified [STUDENT_IDENTIFIER](#glossary).
 
 Examples:
 * `session unmark 2 ses/3` unmarks the attendance for the student with an ID of 2 for a session with an ID of 3.
@@ -459,6 +454,24 @@ Running the [undo](#undoing-a-command-undo) command after `session unmark` will 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 You can also click on the checkbox next to a student's name in a session's attendance list to toggle the marking of attendance.
 </div>
+
+[Back to top :fa-solid-angle-up:](#table-of-contents)
+
+#### Updating feedback: `feedback`
+
+Updates the feedback for a student with the specified [STUDENT_IDENTIFIER](#glossary) in a session.
+
+Format: `session feedback STUDENT_IDENTIFIER ses/SESSION_ID f/FEEDBACK`
+
+* If no feedback exists, a new feedback will be added for the student in the session.
+* If a feedback already exists, the old feedback will be overwritten, i.e. Only one feedback is allowed per student per session.
+* Feedback for a student is viewable in the attendance list of a session.
+
+Examples:
+* `session feedback 2 ses/3 f/Good Job!` updates the feedback `Good Job!` for the student with an ID of 2 for a session with an ID of 3.
+* `session feedback John Doe ses/4 f/Sick leave` updates the feedback `Sick leave` for a student with the name `John Doe` for a session with an ID of 4.
+
+Running the [undo](#undoing-a-command-undo) command after `session feedback` reverts the feedback back to before the command was run.
 
 [Back to top :fa-solid-angle-up:](#table-of-contents)
 
@@ -531,6 +544,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | Unenrol student   | `session unenrol STUDENT_IDENTIFIER ses/SESSION_ID `                                          | `session unenrol 4 ses/3 `                             |
 |         | Mark attendance   | `session mark STUDENT_IDENTIFIER ses/SESSION_ID`                                              | `session mark John Doe ses/2`                          |
 |         | Unmark attendance | `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`                                            | `session unmark 3 ses/2`                               |
+|         | Update feedback   | `session feedback STUDENT_IDENTIFIER ses/SESSION_ID f/FEEDBACK`                               | `session feedback 3 ses/2 f/Good Job!`                 |
 
 [Back to top :fa-solid-angle-up:](#table-of-contents)
 
