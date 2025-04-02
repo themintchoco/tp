@@ -34,7 +34,7 @@ public class AttendanceFeedbackCommand extends SessionCommand {
             + PREFIX_SESSION + "2 "
             + PREFIX_FEEDBACK + "Good job!";
 
-    public static final String MESSAGE_SUCCESS = "Feedback provided for %1$s in Session: %2$s";
+    public static final String MESSAGE_SUCCESS = "Feedback updated for %1$s in Session: %2$s";
     public static final String MESSAGE_RECORD_NOT_FOUND = "%1$s is not assigned to Session: %2$s";
 
     private final Identity identity;
