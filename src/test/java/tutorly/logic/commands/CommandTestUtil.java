@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static tutorly.logic.parser.CliSyntax.PREFIX_DATE;
 import static tutorly.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static tutorly.logic.parser.CliSyntax.PREFIX_FEEDBACK;
 import static tutorly.logic.parser.CliSyntax.PREFIX_MEMO;
 import static tutorly.logic.parser.CliSyntax.PREFIX_NAME;
 import static tutorly.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -53,6 +54,7 @@ public class CommandTestUtil {
     public static final String VALID_SUBJECT = "Math";
     public static final String VALID_TIMESLOT_2 = "19 Mar 2025 14:00-16:00";
     public static final String VALID_SUBJECT_2 = "English";
+    public static final String VALID_FEEDBACK = "Good job!";
 
     public static final String ID_DESC_SESSION = " " + PREFIX_SESSION + VALID_ID_SESSION;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -70,6 +72,7 @@ public class CommandTestUtil {
     public static final String DATE_DESC = " " + PREFIX_DATE + VALID_DATE;
     public static final String TIMESLOT_DESC = " " + PREFIX_TIMESLOT + VALID_TIMESLOT;
     public static final String SUBJECT_DESC = " " + PREFIX_SUBJECT + VALID_SUBJECT;
+    public static final String FEEDBACK_DESC = " " + PREFIX_FEEDBACK + VALID_FEEDBACK;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

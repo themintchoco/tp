@@ -18,6 +18,7 @@ import tutorly.model.Model;
 import tutorly.model.ModelManager;
 import tutorly.model.UserPrefs;
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Identity;
 
 public class EnrolSessionCommandTest {
@@ -37,7 +38,7 @@ public class EnrolSessionCommandTest {
                 Messages.format(ENGLISH_SESSION)), commandResult.getFeedbackToUser());
 
         AttendanceRecord expectedRecord = new AttendanceRecord(
-                BENSON.getId(), ENGLISH_SESSION.getId(), EnrolSessionCommand.DEFAULT_PRESENCE);
+                BENSON.getId(), ENGLISH_SESSION.getId(), EnrolSessionCommand.DEFAULT_PRESENCE, Feedback.empty());
         assertTrue(model.hasAttendanceRecord(expectedRecord));
     }
 

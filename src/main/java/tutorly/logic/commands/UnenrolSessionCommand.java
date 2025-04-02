@@ -10,6 +10,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -60,7 +61,7 @@ public class UnenrolSessionCommand extends SessionCommand {
 
         // value of isPresent is not used when checking if a record is in AddressBook, set to false as a placeholder
         Optional<AttendanceRecord> record = model.findAttendanceRecord(
-                new AttendanceRecord(person.get().getId(), sessionId, false));
+                new AttendanceRecord(person.get().getId(), sessionId, false, Feedback.empty()));
         if (record.isEmpty()) {
             throw new CommandException(String.format(
                     MESSAGE_MISSING_ENROLMENT, person.get().getName().fullName, Messages.format(session.get())));

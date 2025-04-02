@@ -1,6 +1,7 @@
 package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tutorly.logic.parser.CliSyntax.PREFIX_FEEDBACK;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 
 import java.util.Optional;
@@ -17,33 +18,36 @@ import tutorly.model.session.Session;
 import tutorly.ui.Tab;
 
 /**
- * Unmarks attendance for a student in a session.
+ * Provides feedback for a student in a session.
  */
-public class AttendanceUnmarkSessionCommand extends SessionCommand {
+public class AttendanceFeedbackCommand extends SessionCommand {
 
-    public static final String COMMAND_WORD = "unmark";
+    public static final String COMMAND_WORD = "feedback";
     public static final String COMMAND_STRING = SessionCommand.COMMAND_STRING + " " + COMMAND_WORD;
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
-            + ": Unmarks attendance for a student in a session."
+            + ": Provides feedback for a student in a session. "
             + "\n\nParameters: STUDENT_IDENTIFIER "
-            + PREFIX_SESSION + "SESSION_ID"
+            + PREFIX_SESSION + "SESSION_ID "
+            + PREFIX_FEEDBACK + "FEEDBACK"
             + "\n\nExample: " + COMMAND_STRING + " 1 "
-            + PREFIX_SESSION + "2 ";
+            + PREFIX_SESSION + "2 "
+            + PREFIX_FEEDBACK + "Good job!";
 
-    public static final String MESSAGE_SUCCESS = "Unmarked %1$s's for Session: %2$s";
+    public static final String MESSAGE_SUCCESS = "Feedback updated for %1$s in Session: %2$s";
     public static final String MESSAGE_RECORD_NOT_FOUND = "%1$s is not assigned to Session: %2$s";
-    public static final String MESSAGE_ALREADY_UNMARKED = "%1$s's attendance is not marked for Session: %2$s";
 
     private final Identity identity;
     private final int sessionId;
+    private final Feedback feedback;
 
     /**
-     * Creates an AttendanceUnmarkSessionCommand for the given {@code identity} and {@code Session}
+     * Creates an AttendanceFeedbackCommand for the given {@code identity} and {@code Session}
      */
-    public AttendanceUnmarkSessionCommand(Identity identity, int sessionId) {
+    public AttendanceFeedbackCommand(Identity identity, int sessionId, Feedback feedback) {
         this.identity = requireNonNull(identity);
         this.sessionId = sessionId;
+        this.feedback = requireNonNull(feedback);
     }
 
     @Override
@@ -60,43 +64,36 @@ public class AttendanceUnmarkSessionCommand extends SessionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_SESSION_ID);
         }
 
-        AttendanceRecord dummyRecord = new AttendanceRecord(person.get().getId(), sessionId,
-                false, Feedback.empty());
+        AttendanceRecord dummyRecord = new AttendanceRecord(person.get().getId(), sessionId, true, Feedback.empty());
         Optional<AttendanceRecord> existingRecord = model.findAttendanceRecord(dummyRecord);
         if (existingRecord.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_RECORD_NOT_FOUND,
                     person.get().getName().fullName, Messages.format(session.get())));
         }
 
-        if (!existingRecord.get().getAttendance()) {
-            throw new CommandException(String.format(MESSAGE_ALREADY_UNMARKED,
-                    person.get().getName().fullName, Messages.format(session.get())));
-        }
-
         AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId,
-                false, existingRecord.get().getFeedback());
+                existingRecord.get().getAttendance(), feedback);
 
         model.setAttendanceRecord(existingRecord.get(), record);
         return new CommandResult.Builder(
                 String.format(MESSAGE_SUCCESS, person.get().getName().fullName, Messages.format(session.get())))
-                .withTab(Tab.attendanceRecord(session.get(), record))
-                .withReverseCommand(new AttendanceMarkSessionCommand(identity, sessionId))
+                .withTab(Tab.session())
+                .withReverseCommand(new AttendanceFeedbackCommand(identity, sessionId,
+                        existingRecord.get().getFeedback()))
                 .build();
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
+        if (this == other) {
             return true;
         }
-
-        // instanceof handles nulls
-        if (!(other instanceof AttendanceUnmarkSessionCommand otherAttendanceUnmarkSessionCommand)) {
+        if (!(other instanceof AttendanceFeedbackCommand otherCommand)) {
             return false;
         }
-
-        return identity.equals(otherAttendanceUnmarkSessionCommand.identity)
-                && sessionId == otherAttendanceUnmarkSessionCommand.sessionId;
+        return identity.equals(otherCommand.identity)
+                && sessionId == otherCommand.sessionId
+                && feedback.equals(otherCommand.feedback);
     }
 
     @Override
@@ -104,7 +101,7 @@ public class AttendanceUnmarkSessionCommand extends SessionCommand {
         return new ToStringBuilder(this)
                 .add("identity", identity)
                 .add("sessionId", sessionId)
+                .add("feedback", feedback)
                 .toString();
     }
-
 }

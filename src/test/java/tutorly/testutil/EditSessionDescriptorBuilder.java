@@ -1,11 +1,11 @@
 package tutorly.testutil;
 
+import static tutorly.logic.parser.ParserUtil.parseSubject;
 import static tutorly.logic.parser.ParserUtil.parseTimeslot;
 
 import tutorly.logic.commands.EditSessionCommand.EditSessionDescriptor;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.session.Session;
-import tutorly.model.session.Subject;
 
 /**
  * A utility class to help with building EditSessionDescriptor objects.
@@ -47,8 +47,8 @@ public class EditSessionDescriptorBuilder {
     /**
      * Sets the {@code Subject} of the {@code EditSessionDescriptor} that we are building.
      */
-    public EditSessionDescriptorBuilder withSubject(String subject) {
-        descriptor.setSubject(new Subject(subject));
+    public EditSessionDescriptorBuilder withSubject(String subject) throws ParseException {
+        descriptor.setSubject(parseSubject(subject));
         return this;
     }
 

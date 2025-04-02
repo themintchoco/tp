@@ -12,7 +12,7 @@ public class AttendanceRecord {
     private int studentId;
     private int sessionId;
     private boolean isPresent;
-    private String feedback;
+    private Feedback feedback;
 
     /**
      * Constructs a new AttendanceRecord.
@@ -21,11 +21,11 @@ public class AttendanceRecord {
      * @param sessionId The ID of the session for which attendance is being recorded.
      * @param isPresent Whether the student is present for the session.
      */
-    public AttendanceRecord(int studentId, int sessionId, boolean isPresent) {
+    public AttendanceRecord(int studentId, int sessionId, boolean isPresent, Feedback feedback) {
         this.studentId = studentId;
         this.sessionId = sessionId;
         this.isPresent = isPresent;
-        this.feedback = "";
+        this.feedback = feedback;
     }
 
     public int getStudentId() {
@@ -40,12 +40,8 @@ public class AttendanceRecord {
         return isPresent;
     }
 
-    public String getFeedback() {
+    public Feedback getFeedback() {
         return feedback;
-    }
-
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
     }
 
     /**

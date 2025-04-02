@@ -10,6 +10,7 @@ import tutorly.logic.Messages;
 import tutorly.logic.commands.exceptions.CommandException;
 import tutorly.model.Model;
 import tutorly.model.attendancerecord.AttendanceRecord;
+import tutorly.model.attendancerecord.Feedback;
 import tutorly.model.person.Identity;
 import tutorly.model.person.Person;
 import tutorly.model.session.Session;
@@ -70,7 +71,7 @@ public class EnrolSessionCommand extends SessionCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_SESSION_ID);
         }
 
-        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, presence);
+        AttendanceRecord record = new AttendanceRecord(person.get().getId(), sessionId, presence, Feedback.empty());
         if (model.hasAttendanceRecord(record)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENROLMENT);
         }
