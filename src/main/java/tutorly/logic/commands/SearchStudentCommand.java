@@ -55,11 +55,10 @@ public class SearchStudentCommand extends StudentCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SearchStudentCommand)) {
+        if (!(other instanceof SearchStudentCommand otherSearchCommand)) {
             return false;
         }
 
-        SearchStudentCommand otherSearchCommand = (SearchStudentCommand) other;
         return filter.equals(otherSearchCommand.filter);
     }
 

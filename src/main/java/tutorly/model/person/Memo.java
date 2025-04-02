@@ -9,7 +9,7 @@ import static tutorly.commons.util.AppUtil.checkArgument;
  */
 public class Memo {
 
-    public static final int MAX_LENGTH = 200;
+    public static final int MAX_LENGTH = 255;
 
     public static final String MESSAGE_CONSTRAINTS = "Memo can take any values, and it should not be blank. "
             + "The maximum length is " + MAX_LENGTH + " characters.";

@@ -30,6 +30,8 @@ public class AddSessionCommand extends SessionCommand {
 
     public static final String MESSAGE_SUCCESS = "New session created: %1$s";
     public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists.";
+    public static final String MESSAGE_LIMIT_REACHED = "Limit reached; cannot add any more sessions. "
+            + "Use the clear command to reset.";
 
     private final Session toCreate;
 
@@ -53,7 +55,12 @@ public class AddSessionCommand extends SessionCommand {
             throw new CommandException(MESSAGE_DUPLICATE_SESSION);
         }
 
-        model.addSession(toCreate);
+        try {
+            model.addSession(toCreate);
+        } catch (IllegalStateException e) {
+            throw new CommandException(MESSAGE_LIMIT_REACHED);
+        }
+
         return new CommandResult.Builder(String.format(MESSAGE_SUCCESS, Messages.format(toCreate)))
                 .withTab(Tab.session(toCreate))
                 .withReverseCommand(new DeleteSessionCommand(toCreate.getId()))

@@ -22,9 +22,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_PERSON_NOT_FOUND = "Student not found!";
     public static final String MESSAGE_SESSION_NOT_FOUND = "Session not found!";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists.";
     public static final String MESSAGE_SESSION_OVERLAP = "This session overlaps with another session.";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The student index provided is invalid";
     public static final String MESSAGE_INVALID_SESSION_ID = "The session ID provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d students listed!";
     public static final String MESSAGE_SESSIONS_LISTED_OVERVIEW = "%1$d sessions listed!";

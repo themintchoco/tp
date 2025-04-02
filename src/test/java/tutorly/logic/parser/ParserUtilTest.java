@@ -3,10 +3,8 @@ package tutorly.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_IDENTITY;
-import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_SESSION_ID;
 import static tutorly.testutil.Assert.assertThrows;
-import static tutorly.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -28,8 +26,8 @@ import tutorly.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_ID = "-1";
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_NAME = "R!chel";
+    private static final String INVALID_PHONE = "++651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
@@ -96,26 +94,6 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(1, ParserUtil.parseId("  1  "));
-    }
-
-    @Test
-    public void parseIndex_invalidInput_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));
-    }
-
-    @Test
-    public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
-    }
-
-    @Test
-    public void parseIndex_validInput_success() throws Exception {
-        // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
-
-        // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
     }
 
     @Test

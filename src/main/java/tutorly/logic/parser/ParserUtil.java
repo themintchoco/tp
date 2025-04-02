@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import tutorly.commons.core.index.Index;
 import tutorly.commons.util.StringUtil;
 import tutorly.logic.parser.exceptions.ParseException;
 import tutorly.model.attendancerecord.Feedback;
@@ -35,7 +34,6 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_IDENTITY = "STUDENT_IDENTIFIER provided is not a valid ID or name.";
     public static final String MESSAGE_INVALID_SESSION_ID = "Session ID is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "Invalid datetime provided.";
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Invalid date format. Please ensure it uses 'dd MMM yyyy' (e.g. '25 Dec 2025').";
@@ -83,20 +81,6 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_SESSION_ID);
         }
         return Integer.parseInt(trimmedId);
-    }
-
-    /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     *
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
-     */
-    public static Index parseIndex(String oneBasedIndex) throws ParseException {
-        String trimmedIndex = oneBasedIndex.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
-        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
     /**

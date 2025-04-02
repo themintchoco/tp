@@ -7,6 +7,7 @@ import static tutorly.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tutorly.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tutorly.testutil.Assert.assertThrows;
 import static tutorly.testutil.TypicalAddressBook.ALICE;
+import static tutorly.testutil.TypicalAddressBook.BOB;
 import static tutorly.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -69,6 +70,13 @@ public class AddressBookTest {
     }
 
     @Test
+    public void addPerson_limitReached_throwsInvalidStateException() {
+        addressBook.addPerson(new PersonBuilder(ALICE).withId(Integer.MAX_VALUE - 1).build());
+        Person person = new PersonBuilder(BOB).withId(0).build();
+        assertThrows(IllegalStateException.class, () -> addressBook.addPerson(person));
+    }
+
+    @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
     }
@@ -98,6 +106,13 @@ public class AddressBookTest {
         Session session = new SessionBuilder().build();
         addressBook.addSession(session);
         assertTrue(addressBook.hasSession(session));
+    }
+
+    @Test
+    public void addSession_limitReached_throwsInvalidStateException() {
+        addressBook.addSession(new SessionBuilder().withId(Integer.MAX_VALUE - 1).build());
+        Session session = new SessionBuilder().build();
+        assertThrows(IllegalStateException.class, () -> addressBook.addSession(session));
     }
 
     @Test

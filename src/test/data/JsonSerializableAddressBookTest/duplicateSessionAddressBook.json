@@ -1,0 +1,17 @@
+{
+  "persons": [],
+  "sessions": [ {
+    "id": 1,
+    "startTime": "2025-03-25T10:00",
+    "endTime": "2025-03-25T12:00",
+    "subject": "Math"
+  }, {
+    "id": 1,
+    "startTime": "2025-03-25T12:00",
+    "endTime": "2025-03-25T14:00",
+    "subject": "English"
+  } ],
+  "attendanceRecords": [],
+  "nextPersonId": 1,
+  "nextSessionId": 3
+}
