@@ -90,6 +90,12 @@ Clears all students and sessions from the app.
 
 Format: `clear`
 
+#### Undo the last change: `undo`
+
+Undoes the last change performed.
+
+Format: `undo`
+
 #### Exiting the program: `exit`
 
 Closes the Tutorly app.
@@ -194,18 +200,6 @@ Format: `student delete STUDENT_IDENTIFIER`
 Examples:
 * `student delete 2` deletes the student with the ID of 2.
 * `student delete John Doe` deletes the student with the name `John Doe`.
-
-#### Restoring a deleted student: `student restore`
-
-Undoes a deletion of a student.
-
-Format: `student restore STUDENT_IDENTIFIER`
-
-* Restores the student with the specified `STUDENT_IDENTIFIER`. `STUDENT_IDENTIFIER` can be either the student's ID or full name.
-* This can only restore a student that has been deleted if the app has not been closed since deletion.
-
-Examples:
-* `student delete 1` followed by `student restore 1` before the app is closed will restore the deleted student.  
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -350,6 +344,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |---------|------------------|-----------------------------------------------------------------------------------------------|--------------------------------------------|
 | General | Help             | `help`                                                                                        | -                                          |
 |         | Clear            | `clear`                                                                                       | -                                          |
+|         | Undo             | `undo`                                                                                        | -                                          |
 |         | Exit             | `exit`                                                                                        | -                                          |
 | Tab     | Show student tab | `student`                                                                                     | -                                          |
 |         | Show session tab | `session`                                                                                     | -                                          |
@@ -359,7 +354,6 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 |         | Edit             | `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​` | `student edit 2 n/James Lee p/91234567`    |
 |         | Search           | `student search [ses/SESSION_ID] [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS]`                        | `student search n/alex dav p/9123 8765`    |
 |         | Delete           | `student delete STUDENT_IDENTIFIER`                                                           | `student delete 3`                         |
-|         | Restore          | `student restore STUDENT_IDENTIFIER`                                                          | `student restore 3`                        |
 | Session | Add              | `session add d/DATE sub/SUBJECT`                                                              | `session add d/2025-04-15 sub/Math`        |
 |         | List             | `session list`                                                                                | -                                          |
 |         | Edit             | `session edit SESSION_ID [d/DATE] [sub/SUBJECT_KEYWORDS]`                                     | `session edit 2 d/2025-04-11 sub/Math`     |
