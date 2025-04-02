@@ -10,14 +10,14 @@ import static tutorly.commons.util.AppUtil.checkArgument;
 public class Feedback {
     public static final int MAX_LENGTH = 200;
 
-    public static final String MESSAGE_CONSTRAINTS = "Feedback can take any values, and it should not be blank. "
+    public static final String MESSAGE_CONSTRAINTS = "Feedback can take any values. "
             + "The maximum length is " + MAX_LENGTH + " characters.";
 
     /*
-     * The first character of the feedback must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input. Newlines are allowed.
+     * The first character of the feedback must not be a whitespace. Newlines are allowed.
+     * Fully empty strings are allowed too.
      */
-    public static final String VALIDATION_REGEX = "[^\\s](?s).*";
+    public static final String VALIDATION_REGEX = "^$|[^\\s](?s).*";
 
     private static final Feedback EMPTY_FEEDBACK = new Feedback();
 

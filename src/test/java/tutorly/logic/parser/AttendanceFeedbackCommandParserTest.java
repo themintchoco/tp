@@ -43,8 +43,15 @@ public class AttendanceFeedbackCommandParserTest {
     @Test
     public void parse_missingFeedback_failure() {
         assertParseFailure(parser, VALID_ID_AMY + ID_DESC_SESSION, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, VALID_ID_AMY + ID_DESC_SESSION + " " + PREFIX_FEEDBACK,
-                Feedback.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_validEmptyFeedback_success() {
+        assertParseSuccess(parser,
+                VALID_ID_AMY + ID_DESC_SESSION + " " + PREFIX_FEEDBACK,
+                new AttendanceFeedbackCommand(
+                        new Identity(Integer.parseInt(VALID_ID_AMY)), Integer.parseInt(VALID_ID_SESSION),
+                        Feedback.empty()));
     }
 
     @Test

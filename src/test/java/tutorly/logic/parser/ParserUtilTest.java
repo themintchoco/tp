@@ -31,7 +31,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
-    private static final String INVALID_FEEDBACK = "";
+    private static final String INVALID_FEEDBACK = " Feedback";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -462,7 +462,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseFeedback_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseFeedback(INVALID_FEEDBACK));
+        assertThrows(ParseException.class, () -> ParserUtil.parseFeedback("a" + "a".repeat(Feedback.MAX_LENGTH)));
     }
 
     @Test

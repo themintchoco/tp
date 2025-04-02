@@ -17,7 +17,7 @@ public class FeedbackTest {
 
     @Test
     public void constructor_invalidFeedback_throwsIllegalArgumentException() {
-        String invalidFeedback = "";
+        String invalidFeedback = " feedback";
         assertThrows(IllegalArgumentException.class, () -> new Feedback(invalidFeedback));
     }
 
@@ -27,7 +27,7 @@ public class FeedbackTest {
         assertThrows(NullPointerException.class, () -> Feedback.isValidFeedback(null));
 
         // invalid feedbacks
-        assertFalse(Feedback.isValidFeedback("")); // empty string
+        assertTrue(Feedback.isValidFeedback("")); // empty string
         assertFalse(Feedback.isValidFeedback(" ")); // spaces only
         assertFalse(Feedback.isValidFeedback("a".repeat(Feedback.MAX_LENGTH) + "a")); // extra long feedback
 
