@@ -9,7 +9,7 @@ import static tutorly.commons.util.AppUtil.checkArgument;
  */
 public class Email {
 
-    public static final int MAX_LENGTH = 100;
+    public static final int MAX_LENGTH = 254; // Following erratum for RFC 3696
 
     private static final String SPECIAL_CHARACTERS = "+_.-";
     public static final String MESSAGE_CONSTRAINTS = "The maximum length is " + MAX_LENGTH + " characters. "

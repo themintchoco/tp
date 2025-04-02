@@ -9,16 +9,18 @@ import static tutorly.commons.util.AppUtil.checkArgument;
  */
 public class Name {
 
-    public static final int MAX_LENGTH = 50;
+    public static final int MAX_LENGTH = 255;
 
-    public static final String MESSAGE_CONSTRAINTS = "Names should only contain letters and spaces, "
-            + "and it should not be blank. The maximum length is " + MAX_LENGTH + " characters.";
+    public static final String MESSAGE_CONSTRAINTS = "Names should not be blank. It should only contain letters, "
+            + "numbers, spaces, and these special characters: ()@*-+=:;'<>,?/. "
+            + "Multiple intermediate spaces will be collapsed to one. "
+            + "The maximum length is " + MAX_LENGTH + " characters.";
 
     /*
      * The first character of the name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[A-Za-z][A-Za-z ]*";
+    public static final String VALIDATION_REGEX = "[\\p{L}][\\p{L} .'-@/]*";
 
     public final String fullName;
 
