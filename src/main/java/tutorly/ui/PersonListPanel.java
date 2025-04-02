@@ -15,7 +15,7 @@ public class PersonListPanel extends ListPanel<Person> {
 
     @Override
     protected UiPart<Region> getItemGraphic(Person person) {
-        return new PersonCard(person);
+        return new PersonCard(person, getSelected().contains(person));
     };
 
 }
