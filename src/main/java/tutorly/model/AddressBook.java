@@ -115,7 +115,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addPerson(Person p) {
         if (p.getId() == 0) {
             // Set the student ID of the person if it has not been set
+            if (nextPersonId >= Integer.MAX_VALUE) {
+                throw new IllegalStateException();
+            }
+
             p.setId(nextPersonId++);
+        } else if (p.getId() >= nextPersonId) {
+            nextPersonId = p.getId() + 1;
         }
 
         persons.add(p);
@@ -178,7 +184,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addSession(Session s) {
         if (s.getId() == 0) {
             // Set the session ID of the session if it has not been set
+            if (nextSessionId >= Integer.MAX_VALUE) {
+                throw new IllegalStateException();
+            }
+
             s.setId(nextSessionId++);
+        } else if (s.getId() >= nextSessionId) {
+            nextSessionId = s.getId() + 1;
         }
 
         sessions.add(s);

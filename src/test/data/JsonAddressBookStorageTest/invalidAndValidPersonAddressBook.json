@@ -13,5 +13,7 @@
     "address": "4th street"
   } ],
   "sessions": [],
-  "attendanceRecords": []
+  "attendanceRecords": [],
+  "nextPersonId": 3,
+  "nextSessionId": 1
 }

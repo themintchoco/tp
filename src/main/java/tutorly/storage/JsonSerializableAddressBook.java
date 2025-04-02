@@ -25,6 +25,8 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_SESSION = "Sessions list contains duplicate session(s).";
     public static final String MESSAGE_DUPLICATE_ATTENDANCE_RECORD =
             "Attendance records list contains duplicate attendance record(s).";
+    public static final String MESSAGE_ILLEGAL_NEXT_PERSON_ID = "Next person ID is not valid.";
+    public static final String MESSAGE_ILLEGAL_NEXT_SESSION_ID = "Next session ID is not valid.";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedSession> sessions = new ArrayList<>();
@@ -70,10 +72,21 @@ class JsonSerializableAddressBook {
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook(nextPersonId, nextSessionId);
 
+        if (nextPersonId <= 0) {
+            throw new IllegalValueException(MESSAGE_ILLEGAL_NEXT_PERSON_ID);
+        }
+
+        if (nextSessionId <= 0) {
+            throw new IllegalValueException(MESSAGE_ILLEGAL_NEXT_SESSION_ID);
+        }
+
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
             if (addressBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
+            if (person.getId() >= nextPersonId) {
+                throw new IllegalValueException(MESSAGE_ILLEGAL_NEXT_PERSON_ID);
             }
             addressBook.addPerson(person);
         }
@@ -82,6 +95,9 @@ class JsonSerializableAddressBook {
             Session session = jsonAdaptedSession.toModelType();
             if (addressBook.hasSession(session)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_SESSION);
+            }
+            if (session.getId() >= nextSessionId) {
+                throw new IllegalValueException(MESSAGE_ILLEGAL_NEXT_SESSION_ID);
             }
             addressBook.addSession(session);
         }
