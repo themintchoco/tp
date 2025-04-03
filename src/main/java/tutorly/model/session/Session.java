@@ -1,5 +1,7 @@
 package tutorly.model.session;
 
+import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.LocalDate;
 
 import tutorly.commons.util.ToStringBuilder;
@@ -24,6 +26,7 @@ public class Session {
      * @param subject The subject of the session.
      */
     public Session(Timeslot timeslot, Subject subject) {
+        requireAllNonNull(timeslot, subject);
         this.timeslot = timeslot;
         this.subject = subject;
     }
