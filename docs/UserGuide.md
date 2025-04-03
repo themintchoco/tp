@@ -73,7 +73,7 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
 
 **:information_source: Notes about the command format:**<br>
 
-* Words in `UPPER_CASE` are the [parameters](#glossary) to be supplied by the user.<br>
+* Words in `UPPER_CASE` are the [parameters](#parameter-summary) to be supplied by the user.<br>
   e.g. in `student add n/NAME`, `NAME` is a parameter which can be used as `student add n/John Doe`.
 
 * [STUDENT_IDENTIFIER](#glossary) can either be the target student's ID, or their full name. Examples: `John Doe` or `2`.
@@ -130,14 +130,15 @@ Format: `exit`
 Undoes the last successfully executed command.
 
 Commands that can be undone:
+* The `clear` command.
 * The `add`, `delete` and `edit` commands for [student](#student-management-student-action) and [session](#session-management-session-action).
 * The `enrol`, `unenrol`, `mark`, `unmark` and `feedback` commands for [session](#session-management-session-action).
 
 Format: `undo`
 
-* This command will undo the **latest possible undoable** command listed above.
+* This command will undo the **latest possible undo-able** command listed above.
 * Commands that are not successfully executed due to errors will not be undone.
-* Closing the app will also mean that previously ran commands will be **permanent** and no longer undoable.
+* Closing the app will also mean that previously ran commands will be **permanent** and no longer undo-able.
 
 Examples:
 * `session delete` followed by `undo` will undo the delete command by adding the session back.
@@ -524,6 +525,24 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 [Back to top :arrow_up:](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Parameter summary
+
+| Parameter | Constraint                                                                              | Length             | Example                          |
+|-----------|-----------------------------------------------------------------------------------------|--------------------|----------------------------------|
+| ADDRESS   | -                                                                                       | Max: 255           | Blk 30 Geylang Street 29, #06-40 |
+| DATE      | Format: `dd MMM yyyy`                                                                   | -                  | 11 Apr 2025                      |
+| EMAIL     | Format: `local-part@domain`                                                             | Max: 254           | hello@tutorly.com                |
+| FEEDBACK  | -                                                                                       | Max: 200           | Did not complete homework        |
+| MEMO      | -                                                                                       | Max: 255           | Adept at calculus                |
+| NAME      | Only contain letters, numbers, spaces, and these special characters: `()@*-+=:;'<>,?/.` | Max: 255           | John Doe                         |
+| PHONE     | Only contain numbers, spaces, hyphens, and an optional country code prefix              | Min: 3<br/>Max: 20 | +65 98765432                     |
+| SUBJECT   | -                                                                                       | Max: 20            | Mathematics                      |
+| TAG       | -                                                                                       | Max: 20            | A-Levels                         |
+| TIMESLOT  | Format: `dd MMM  yyyy HH:mm-HH:mm` or `dd MMM yyyy HH:mm-dd MMM yyyy HH:mm`             | -                  | 11 Apr 2025 16:00-18:00          |
+
 
 --------------------------------------------------------------------------------------------------------------------
 
