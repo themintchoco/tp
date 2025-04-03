@@ -48,7 +48,7 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
 
 8. Refer to the [Features](#features) below for details of each command.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -91,7 +91,7 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 ### General Commands
 
@@ -134,7 +134,7 @@ Examples:
 * If the following commands were ran in order: `student edit`, `student add`, `student search`, `help`, running `undo` will undo the `student add` command.
 * Running `undo` after closing and re-opening the app will not undo any previous commands before the app was closed.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -176,7 +176,7 @@ Examples:
 * `session 1`
 * `session 5`
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -203,7 +203,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `student add` **deletes** the newly added student.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Listing all students: `list`
 
@@ -211,7 +211,7 @@ Shows a list of all students.
 
 Format: `student list`
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Editing a student: `edit`
 
@@ -232,7 +232,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `student edit` reverts the student's details back to before the edit was made.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Searching for students: `search`
 
@@ -251,7 +251,7 @@ Examples:
 * `student search ses/3 n/alex david` returns `Alex Yeoh`, `David Li` and other students who attended session with the id 3.
 * `student search` will simply return all students.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Deleting a student: `delete`
 
@@ -265,7 +265,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `student delete` adds the deleted student back.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -287,7 +287,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session add` deletes the newly added session.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Listing all sessions: `list`
 
@@ -295,7 +295,7 @@ Shows a list of all sessions.
 
 Format: `session list`
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Editing a session: `edit`
 
@@ -313,7 +313,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session edit` reverts the session's details back to before the edit was made.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Searching for sessions: `search`
 
@@ -332,7 +332,7 @@ Examples:
 * `session search sub/Math d/11 Jun 2025` returns sessions with subjects `Math`, `Mathematics` and sessions with timeslots that include 11 June 2025.<br>
 * `session search` will simply return all sessions.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Deleting a session: `delete`
 
@@ -345,7 +345,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session delete` adds the deleted session back.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Enrolling a student to a session: `enrol`
 
@@ -361,7 +361,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session enrol` will unenrol the student from the session.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Unenrolling a student from a session: `unenrol`
 
@@ -375,7 +375,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session unenrol` will enrol the student back into the session.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Marking attendance: `mark`
 
@@ -393,7 +393,7 @@ Running the [undo](#undoing-a-command-undo) command after `session mark` will un
 You can also click on the checkbox next to a student's name in a session's attendance list to toggle the marking of attendance.
 </div>
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Unmarking attendance: `unmark`
 
@@ -411,7 +411,7 @@ Running the [undo](#undoing-a-command-undo) command after `session unmark` will 
 You can also click on the checkbox next to a student's name in a session's attendance list to toggle the marking of attendance.
 </div>
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Adding or updating feedback: `feedback`
 
@@ -429,7 +429,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session feedback` reverts the feedback back to before the command was run.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -446,7 +446,7 @@ If your changes to the data file makes its format invalid, Tutorly will discard 
 Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -464,7 +464,7 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 **Q**: How should I fill in the `STUDENT_IDENTIFIER` parameter?<br>
 **A**: The `STUDENT_IDENTIFIER` can either be the student's ID or their full name, both of which are viewable from the UI.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -473,7 +473,7 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -505,7 +505,7 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 |         | Unmark attendance      | `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`                                            | `session unmark 3 ses/2`                               |
 |         | Add or Update feedback | `session feedback STUDENT_IDENTIFIER ses/SESSION_ID f/FEEDBACK`                               | `session feedback 3 ses/2 f/Good Job!`                 |
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -521,7 +521,7 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 | Parameters         | These are placeholders in a command that users replace with specific information to customize the command's action. They are usually prefixed with letters like `n/` or `p/`. |
 | STUDENT_IDENTIFIER | A parameter used to identify a student. It can either be the student's ID, or their full name.                                                                                |
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 ## Coming soon
 
@@ -532,6 +532,6 @@ Planned features that will be added in the coming versions.
 3. `class` management commands that handles adding of **multiple** sessions and **mass** enrolling/marking of attendance for students.
 4. Viewing sessions each student is enrolled in via the `students` tab.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
