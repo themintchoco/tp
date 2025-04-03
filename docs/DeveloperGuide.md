@@ -514,3 +514,12 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+1. A `redo` command to undo an `undo` command.
+2. `student search` via other fields including **tags**.
+3. `class` management commands that handles adding of **multiple** sessions and **mass** enrolling/marking of attendance for students.
+4. Viewing sessions each student is enrolled in via the `students` tab.
