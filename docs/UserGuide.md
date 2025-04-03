@@ -121,7 +121,7 @@ Undoes the last successfully executed command.
 
 Commands that can be undone:
 * The `add`, `delete` and `edit` commands for [student](#student-management-student-action) and [session](#session-management-session-action).
-* The `enrol`, `unenrol`, `mark` and `unmark` commands for [session](#session-management-session-action).
+* The `enrol`, `unenrol`, `mark`, `unmark` and `feedback` commands for [session](#session-management-session-action).
 
 Format: `undo`
 
