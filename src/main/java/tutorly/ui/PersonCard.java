@@ -50,6 +50,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(person.getId() + ". ");
         name.setText(person.getName().fullName);
+        name.setWrapText(isSelected);
 
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
