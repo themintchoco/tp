@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-Tutorly is a desktop app designed for Singaporean private tutors to **manage their student records efficiently**.
+Tutorly is a desktop app designed for private tutors to **manage their student and lesson records efficiently**.
 It combines the speed and precision of typing commands with the convenience of a visual interface.
 If you prefer using your keyboard over clicking through menus, Tutorly allows you to complete student management tasks more quickly than traditional apps.
 
@@ -439,11 +439,11 @@ Tutorly data are saved in the hard disk automatically after any command that cha
 
 ### Editing the data file
 
-Tutorly data are saved automatically as a JSON file `[home_folder]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Tutorly data are saved automatically as a JSON file `[home_folder]/data/tutorly.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, Tutorly will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
 [Back to top :fa-solid-angle-up:](#table-of-contents)
@@ -453,7 +453,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Tutorly _home folder_.
 
 **Q**: What is the difference between the `student list` and `student` commands?<br>
 **A**: The `student list` command will list all students in Tutorly. The `student` command simply switches the active tab to students and preserves results from any previous `student search` commands. The same applies to `session` and `session list`. 
@@ -514,6 +514,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 | Term               | Definition                                                                                                                                                                    |
 |--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Command Terminal   | A tool on a computer where you type instructions to make the computer perform tasks.                                                                                          |
+| Home folder        | The folder which contains the `tutorly.jar` file and data folder.                                                                                                             |
 | JAR                | Java Archive file: A package that bundles a Java program and all its necessary parts into a single file, making it easier to share and run.                                   |
 | JDK                | Java Development Kit: A software package that provides everything needed to create and run Java programs.                                                                     |
 | Operating System   | An operating system is the main software that manages a computer’s hardware and allows you to run applications. Some examples include `Windows`, `Mac` and `Linux`.           |
@@ -521,3 +522,16 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 | STUDENT_IDENTIFIER | A parameter used to identify a student. It can either be the student's ID, or their full name.                                                                                |
 
 [Back to top :fa-solid-angle-up:](#table-of-contents)
+
+## Coming soon
+
+Planned features that will be added in the coming versions.
+
+1. A `redo` command in case you want to undo your `undo`.
+2. `student search` via other fields including **tags**.
+3. `class` management commands that handles adding of **multiple** sessions and **mass** enrolling/marking of attendance for students.
+4. Viewing sessions each student is enrolled in via the `students` tab.
+
+[Back to top :fa-solid-angle-up:](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
