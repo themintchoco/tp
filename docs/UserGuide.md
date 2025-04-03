@@ -198,7 +198,7 @@ A student can have any number of tags (including 0)
 
 Examples:
 * `student add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 m/loves Math`
-* `student add n/Mary Jane t/o-levels e/maryjane@example.com p/81234567 t/priority`
+* `student add n/Mary Jane t/olevels e/maryjane@example.com p/81234567 t/priority`
 * `student add n/Mary Jane` when a student with the name `Mary Jane` already exists will show an error.
 
 Running the [undo](#undoing-a-command-undo) command after `student add` **deletes** the newly added student.
@@ -415,17 +415,19 @@ You can also click on the checkbox next to a student's name in a session's atten
 
 #### Adding or updating feedback: `feedback`
 
-Updates the feedback for a student with the specified [STUDENT_IDENTIFIER](#glossary) in a session.
+Adds or updates the feedback for a student with the specified [STUDENT_IDENTIFIER](#glossary) in a session.
 
 Format: `session feedback STUDENT_IDENTIFIER ses/SESSION_ID f/FEEDBACK`
 
 * If no feedback exists, a new feedback will be added for the student in the session.
 * If a feedback already exists, the old feedback will be overwritten, i.e. Only one feedback is allowed per student per session.
+* You can remove a previously set feedback by typing f/ without specifying any feedback after it.
 * Feedback for a student is viewable in the attendance list of a session.
 
 Examples:
 * `session feedback 2 ses/3 f/Good Job!` updates the feedback `Good Job!` for the student with an ID of 2 for a session with an ID of 3.
 * `session feedback John Doe ses/4 f/Sick leave` updates the feedback `Sick leave` for a student with the name `John Doe` for a session with an ID of 4.
+* `session feedback Betsy Crower ses/4 f/` clears the feedback for a student with the name `Betsy Crower` for a session with an ID of 4.
 
 Running the [undo](#undoing-a-command-undo) command after `session feedback` reverts the feedback back to before the command was run.
 
