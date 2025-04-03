@@ -136,9 +136,9 @@ Commands that can be undone:
 
 Format: `undo`
 
-* This command will undo the **latest possible undo-able** command listed above.
+* This command will undo the **latest possible undoable** command listed above.
 * Commands that are not successfully executed due to errors will not be undone.
-* Closing the app will also mean that previously ran commands will be **permanent** and no longer undo-able.
+* Closing the app will also mean that previously ran commands will be **permanent** and no longer undoable.
 
 Examples:
 * `session delete` followed by `undo` will undo the delete command by adding the session back.
@@ -541,7 +541,7 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 | PHONE     | Only contain numbers, spaces, hyphens, and an optional country code prefix              | Min: 3<br/>Max: 20 | +65 98765432                     |
 | SUBJECT   | -                                                                                       | Max: 20            | Mathematics                      |
 | TAG       | -                                                                                       | Max: 20            | A-Levels                         |
-| TIMESLOT  | Format: `dd MMM  yyyy HH:mm-HH:mm` or `dd MMM yyyy HH:mm-dd MMM yyyy HH:mm`             | -                  | 11 Apr 2025 16:00-18:00          |
+| TIMESLOT  | Format: `dd MMM yyyy HH:mm-HH:mm` or `dd MMM yyyy HH:mm-dd MMM yyyy HH:mm`              | -                  | 11 Apr 2025 16:00-18:00          |
 
 
 --------------------------------------------------------------------------------------------------------------------
