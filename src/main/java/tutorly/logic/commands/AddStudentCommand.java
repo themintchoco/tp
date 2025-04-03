@@ -26,14 +26,14 @@ public class AddStudentCommand extends StudentCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Adds a student to the app."
-            + "\n\nParameters: "
+            + "\nParameters: "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_MEMO + "MEMO]"
-            + "\n\nExample: " + COMMAND_STRING + " "
+            + "\nExample: " + COMMAND_STRING + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "

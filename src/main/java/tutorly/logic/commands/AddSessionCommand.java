@@ -21,10 +21,10 @@ public class AddSessionCommand extends SessionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Creates a tutoring session."
-            + "\n\nParameters: "
+            + "\nParameters: "
             + PREFIX_TIMESLOT + "TIMESLOT "
             + PREFIX_SUBJECT + "SUBJECT"
-            + "\n\nExample: " + COMMAND_STRING + " "
+            + "\nExample: " + COMMAND_STRING + " "
             + PREFIX_TIMESLOT + "30 Mar 2025 11:30-13:30 "
             + PREFIX_SUBJECT + "Mathematics";
 

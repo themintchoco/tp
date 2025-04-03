@@ -2,7 +2,6 @@ package tutorly.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static tutorly.commons.util.CollectionUtil.requireAllNonNull;
-import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_TIMESLOT;
 import static tutorly.model.Model.FILTER_SHOW_ALL_SESSIONS;
@@ -28,12 +27,11 @@ public class EditSessionCommand extends SessionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Edits the details of the session identified by a SESSION_ID. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: SESSION_ID "
-            + PREFIX_SESSION + "SESSION_ID\n"
+            + "Existing values will be overwritten by the input values."
+            + "\nParameters: SESSION_ID "
             + "[" + PREFIX_TIMESLOT + "TIMESLOT] "
             + "[" + PREFIX_SUBJECT + "SUBJECT] "
-            + "Example: " + COMMAND_STRING + " 1 "
+            + "\nExample: " + COMMAND_STRING + " 1 "
             + PREFIX_TIMESLOT + "30 Mar 2025 11:30-13:30 "
             + PREFIX_SUBJECT + "Mathematics";
 
@@ -44,7 +42,7 @@ public class EditSessionCommand extends SessionCommand {
     private final EditSessionDescriptor editSessionDescriptor;
 
     /**
-     * @param id containing the ID or name of the session to edit
+     * @param id                    containing the ID or name of the session to edit
      * @param editSessionDescriptor details to edit the session with
      */
     public EditSessionCommand(int id, EditSessionDescriptor editSessionDescriptor) {
@@ -64,7 +62,7 @@ public class EditSessionCommand extends SessionCommand {
         Timeslot updatedTimeslot = editSessionDescriptor.getTimeslot().orElse(sessionToEdit.getTimeslot());
         Subject updatedSubject = editSessionDescriptor.getSubject().orElse(sessionToEdit.getSubject());
 
-        Session newSession = new Session(updatedTimeslot , updatedSubject);
+        Session newSession = new Session(updatedTimeslot, updatedSubject);
         newSession.setId(sessionToEdit.getId());
 
         return newSession;
@@ -101,11 +99,10 @@ public class EditSessionCommand extends SessionCommand {
             return true;
         }
 
-        if (!(other instanceof EditSessionCommand)) {
+        if (!(other instanceof EditSessionCommand e)) {
             return false;
         }
 
-        EditSessionCommand e = (EditSessionCommand) other;
         return sessionId == e.sessionId
                 && editSessionDescriptor.equals(e.editSessionDescriptor);
     }
@@ -130,8 +127,8 @@ public class EditSessionCommand extends SessionCommand {
         }
 
         /**
-        * Returns a {@code EditSessionDescriptor} with the same values as {@code session}.
-        */
+         * Returns a {@code EditSessionDescriptor} with the same values as {@code session}.
+         */
         public static EditSessionDescriptor fromSession(Session session) {
             EditSessionDescriptor descriptor = new EditSessionDescriptor();
             descriptor.setTimeslot(session.getTimeslot());
@@ -168,11 +165,9 @@ public class EditSessionCommand extends SessionCommand {
                 return true;
             }
 
-            if (!(other instanceof EditSessionDescriptor)) {
+            if (!(other instanceof EditSessionDescriptor e)) {
                 return false;
             }
-
-            EditSessionDescriptor e = (EditSessionDescriptor) other;
 
             return getTimeslot().equals(e.getTimeslot())
                     && getSubject().equals(e.getSubject());
