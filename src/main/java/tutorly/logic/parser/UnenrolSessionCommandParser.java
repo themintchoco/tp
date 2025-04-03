@@ -2,7 +2,7 @@ package tutorly.logic.parser;
 
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
-import static tutorly.logic.parser.ParserUtil.parseId;
+import static tutorly.logic.parser.ParserUtil.parseSessionId;
 
 import java.util.Optional;
 
@@ -31,6 +31,6 @@ public class UnenrolSessionCommandParser implements Parser<UnenrolSessionCommand
         }
 
         Identity identity = ParserUtil.parseIdentity(argMultimap.getPreamble());
-        return new UnenrolSessionCommand(identity, parseId(sessionId.get()));
+        return new UnenrolSessionCommand(identity, parseSessionId(sessionId.get()));
     }
 }

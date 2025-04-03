@@ -1,7 +1,7 @@
 package tutorly.logic.parser;
 
 import static tutorly.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tutorly.logic.parser.ParserUtil.parseId;
+import static tutorly.logic.parser.ParserUtil.parseSessionId;
 
 import tutorly.logic.commands.DeleteSessionCommand;
 import tutorly.logic.parser.exceptions.ParseException;
@@ -19,7 +19,7 @@ public class DeleteSessionCommandParser implements Parser<DeleteSessionCommand> 
      */
     public DeleteSessionCommand parse(String args) throws ParseException {
         try {
-            int sessionId = parseId(args.trim());
+            int sessionId = parseSessionId(args.trim());
             return new DeleteSessionCommand(sessionId);
         } catch (ParseException pe) {
             throw new ParseException(

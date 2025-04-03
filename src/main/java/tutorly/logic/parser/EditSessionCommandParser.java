@@ -30,7 +30,7 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
 
         int sessionId;
         try {
-            sessionId = ParserUtil.parseId(argMultimap.getPreamble());
+            sessionId = ParserUtil.parseSessionId(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditSessionCommand.MESSAGE_USAGE), pe);

@@ -7,7 +7,7 @@ import static tutorly.logic.commands.CommandTestUtil.VALID_ID_SESSION;
 import static tutorly.logic.parser.CliSyntax.PREFIX_SESSION;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tutorly.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tutorly.logic.parser.ParserUtil.MESSAGE_INVALID_IDENTITY;
+import static tutorly.model.person.Identity.MESSAGE_INVALID_IDENTITY;
 
 import org.junit.jupiter.api.Test;
 
