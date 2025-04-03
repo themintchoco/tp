@@ -7,6 +7,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":StudentCommandParser" as StudentCommandParser LOGIC_COLOR
 participant ":DeleteStudentCommandParser" as DeleteStudentCommandParser LOGIC_COLOR
+participant "i:Identity" as Identity LOGIC_COLOR
 participant "d:DeleteStudentCommand" as DeleteStudentCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -25,7 +26,7 @@ create StudentCommandParser
 AddressBookParser -> StudentCommandParser
 activate StudentCommandParser
 
-StudentCommandParser -> AddressBookParser
+StudentCommandParser --> AddressBookParser
 deactivate StudentCommandParser
 
 AddressBookParser -> StudentCommandParser : parse("delete 1")
@@ -41,8 +42,15 @@ deactivate DeleteStudentCommandParser
 StudentCommandParser -> DeleteStudentCommandParser : parse("1")
 activate DeleteStudentCommandParser
 
+create Identity
+DeleteStudentCommandParser -> Identity
+activate Identity
+
+Identity --> DeleteStudentCommandParser
+deactivate Identity
+
 create DeleteStudentCommand
-DeleteStudentCommandParser -> DeleteStudentCommand
+DeleteStudentCommandParser -> DeleteStudentCommand : DeleteStudentCommand(i)
 activate DeleteStudentCommand
 
 DeleteStudentCommand --> DeleteStudentCommandParser :
@@ -66,7 +74,13 @@ deactivate AddressBookParser
 LogicManager -> DeleteStudentCommand : execute(m)
 activate DeleteStudentCommand
 
-DeleteStudentCommand -> Model : deletePerson(1)
+DeleteStudentCommand -> Model : getPersonByIdentity(i)
+activate Model
+
+Model --> DeleteStudentCommand : p
+deactivate Model
+
+DeleteStudentCommand -> Model : deletePerson(p)
 activate Model
 
 Model --> DeleteStudentCommand
