@@ -16,7 +16,7 @@ import tutorly.commons.core.LogsCenter;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2425s2-cs2103t-t17-3.github.io/tp/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String HELP_MESSAGE = "For more info, refer to the user guide: " + USERGUIDE_URL;
     public static final String COMMAND_SUMMARY = """
 Command Summary:
     - General commands:
@@ -32,7 +32,7 @@ Command Summary:
         - session SESSION_ID: Shows the attendance for the specified session.
 
     - Student management:
-        - student add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​: Adds a student.
+        - student add n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​: Adds a student.
         - student list: Lists all students.
         - student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​ : \
 Edits a student's details.
