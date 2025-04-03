@@ -1,5 +1,7 @@
 package tutorly.model.attendancerecord;
 
+import static java.util.Objects.requireNonNull;
+
 import tutorly.commons.util.ToStringBuilder;
 
 /**
@@ -20,8 +22,10 @@ public class AttendanceRecord {
      * @param studentId The ID of the student whose attendance is being recorded.
      * @param sessionId The ID of the session for which attendance is being recorded.
      * @param isPresent Whether the student is present for the session.
+     * @param feedback The feedback given by the student for the session.
      */
     public AttendanceRecord(int studentId, int sessionId, boolean isPresent, Feedback feedback) {
+        requireNonNull(feedback);
         this.studentId = studentId;
         this.sessionId = sessionId;
         this.isPresent = isPresent;

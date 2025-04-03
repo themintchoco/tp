@@ -4,8 +4,7 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
-skinparam Padding 8
-skinparam Shadowing true
+skinparam Padding 4
 
 Package Model as ModelPackage <<Rectangle>> {
     Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
@@ -25,8 +24,9 @@ Package Model as ModelPackage <<Rectangle>> {
     Class Name
     Class Phone
     Class Tag
+    Class Memo
     Class Session
-    Class TimeSlot
+    Class Timeslot
     Class Subject
     Class AttendanceRecord
     Class Feedback
@@ -38,29 +38,34 @@ HiddenOutside ..> Model
 AddressBook .up.|> ReadOnlyAddressBook
 ModelManager .up.|> Model
 
-Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-ModelManager -left-> "1" AddressBook
-ModelManager -right-> "1" UserPrefs
+Model .left.> ReadOnlyUserPrefs
+Model .right.> ReadOnlyAddressBook
+ModelManager -right-> "1" AddressBook
+ModelManager -left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-UniqueList *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Person *--> "1" Name
+Person *--> "1" Phone
+Person *--> "1" Email
+Person *--> "1" Address
+Person *--> "1" Memo
 Person *--> "*" Tag
 
-AddressBook *--> "1" UniqueList
-UniqueList *--> "1" UniqueSessionList
-UniqueSessionList --> "~* all" Session
-Session *--> TimeSlot
-Session *--> Subject
+UniquePersonList -up--|> UniqueList
+UniqueSessionList -up--|> UniqueList
+UniqueAttendanceRecordList -up--|> UniqueList
+AddressBook *--> "1" UniquePersonList
+AddressBook *--> "1" UniqueSessionList
+AddressBook *--> "1" UniqueAttendanceRecordList
 
-UniqueList *--> "1" UniqueAttendanceRecordList
+UniqueSessionList --> "~* all" Session
+Session *--> "1" Timeslot
+Session *--> "1" Subject
+
 UniqueAttendanceRecordList --> "~* all" AttendanceRecord
 
 AttendanceRecord *--> "1" Feedback
 ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Session
 @enduml
