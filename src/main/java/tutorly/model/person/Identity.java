@@ -5,12 +5,13 @@ import java.util.Objects;
 import tutorly.commons.util.ToStringBuilder;
 
 /**
- * Represents a Person's identity.
- * Since a person's ID and Name are unique in the address book, they can be used to identify a Person.
+ * Represents a student's identity.
+ * Since a student's ID and Name are unique in the address book, they can be used to identify a student.
  */
 public class Identity {
 
-    public static final String MESSAGE_INVALID_IDENTITY = "STUDENT_IDENTIFIER provided is not a valid ID or name.";
+    public static final String MESSAGE_INVALID_IDENTITY =
+            "STUDENT_IDENTIFIER provided is not a valid student ID or name.";
     public static final String MESSAGE_INVALID_ID = "Student ID must be a positive integer.";
 
     private int id;
@@ -19,7 +20,7 @@ public class Identity {
     /**
      * Creates an identity with the given name.
      *
-     * @param name The name of the person.
+     * @param name The name of the student.
      */
     public Identity(Name name) {
         this.name = name;
@@ -28,7 +29,7 @@ public class Identity {
     /**
      * Creates an identity with the given ID.
      *
-     * @param id The ID of the person.
+     * @param id The ID of the student.
      */
     public Identity(int id) {
         if (id < 1) {
@@ -43,7 +44,7 @@ public class Identity {
     }
 
     /**
-     * Checks if the person ID is provided in the identity.
+     * Checks if the student ID is provided in the identity.
      *
      * @return True if the ID is present in the identity, false otherwise.
      */
@@ -56,7 +57,7 @@ public class Identity {
     }
 
     /**
-     * Checks if the person name is provided in the identity.
+     * Checks if the student name is provided in the identity.
      *
      * @return True if the name is present in the identity, false otherwise.
      */
