@@ -365,7 +365,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Tutor requests to update a student record by providing the student’s ID.
+1. Tutor requests to update a student record by providing the student’s Identifier.
 2. Tutorly retrieves the student’s existing profile.
 3. Tutor provides updated details (e.g., name, grade, subject, session frequency, or notes).
 4. Tutorly validates the input.
@@ -375,8 +375,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-- 2a. The student ID does not exist.
-    - 2a1. Tutorly displays an error message: “Invalid student ID.”
+- 2a. The student Identifier does not exist.
+    - 2a1. Tutorly displays an error message: “Invalid student Identifier.”
     - Use case ends.
 
 - 3a. Tutor does not provide any update parameters.
@@ -390,11 +390,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case: Delete or archive a student record**
+**Use case: Delete a student record**
 
 **MSS**
 
-1. Tutor requests to manage a student record by providing the student’s ID and selecting an action (`archive` or `delete`).
+1. Tutor requests to manage a student record by providing the student’s Identifier and selecting an action.
 2. Tutorly retrieves the student record.
 3. Tutorly validates the request and performs the action.
 4. Tutorly confirms the success of the operation.
@@ -403,7 +403,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-- 2a. The student ID does not exist.
+- 2a. The student Identifier does not exist.
     - 2a1. Tutorly displays an error message: “Student record not found.”
     - Use case ends.
 
@@ -421,7 +421,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Tutor requests to mark a session as completed by providing the student’s ID, date, and attendance status.
+1. Tutor requests to mark a session as completed by providing the student’s Identifier, date, and attendance status.
 2. Tutorly validates the input.
 3. Tutorly records the session as completed and logs the attendance.
 4. Tutorly confirms success.
@@ -430,8 +430,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-- 2a. The student ID does not exist.
-    - 2a1. Tutorly displays an error message: “Invalid student ID.”
+- 2a. The student Identifier does not exist.
+    - 2a1. Tutorly displays an error message: “Invalid student Identifier.”
     - Use case ends.
 
 - 2b. The provided date is in an invalid format.
