@@ -10,6 +10,9 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
 * Table of Contents
 * [Quick start](#quick-start)
 * [UI Layout](#ui-layout)
+  * [Students Tab](#students-tab)
+  * [Student Card](#student-card)
+  * [Sessions Tab](#sessions-tab)
 * [Features](#features)
   * [General Commands](#general-commands)
   * [Viewing Tabs](#viewing-tabs)
