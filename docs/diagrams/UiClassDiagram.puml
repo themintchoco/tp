@@ -51,11 +51,11 @@ MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> ListPanel
+PersonListPanel ---|> ListPanel
 PersonCard --|> UiPart
-SessionListPanel --|> ListPanel
+SessionListPanel ---|> ListPanel
 SessionCard --|> UiPart
-AttendanceRecordListPanel --|> ListPanel
+AttendanceRecordListPanel ---|> ListPanel
 AttendanceRecordCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
@@ -68,9 +68,13 @@ UiManager -right-> Logic
 MainWindow -left-> Logic
 
 PersonListPanel -[hidden]left- HelpWindow
+SessionListPanel -[hidden]left- PersonListPanel
+AttendanceRecordListPanel -[hidden]left- SessionListPanel
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-
+SessionCard -[hidden]left- PersonCard
+AttendanceRecordCard -[hidden]left- SessionCard
+UiPart -[hidden]down-> Model
 MainWindow -[hidden]-|> UiPart
 @enduml
