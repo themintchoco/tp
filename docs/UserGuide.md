@@ -7,47 +7,9 @@ Tutorly is a desktop app designed for private tutors to **manage their student a
 It combines the speed and precision of typing commands with the convenience of a visual interface.
 If you prefer using your keyboard over clicking through menus, Tutorly allows you to complete student management tasks more quickly than traditional apps.
 
+## Table of Contents
 * Table of Contents
-* [Quick start](#quick-start)
-* [UI Layout](#ui-layout)
-    * [Students Tab](#students-tab)
-    * [Student Card](#student-card)
-    * [Sessions Tab](#sessions-tab)
-* [Features](#features)
-    * [General Commands](#general-commands)
-        * [Viewing help](#viewing-help-help)
-        * [Clearing all entries](#clearing-all-entries-clear)
-        * [Exiting the program](#exiting-the-program-exit)
-        * [Undoing a command](#undoing-a-command-undo)
-    * [Viewing tabs](#viewing-tabs)
-        * [Viewing students tab](#viewing-students-tab-student)
-        * [Viewing student card](#viewing-student-card-student-student_identifier)
-        * [Viewing sessions tab](#viewing-sessions-tab-session)
-        * [Viewing attendance for a session](#viewing-attendance-for-a-session-session-session_id)
-    * [Student Management](#student-management-student-action)
-        * [Adding a student](#adding-a-student-add)
-        * [Listing all students](#listing-all-students-list)
-        * [Editing a student](#editing-a-student-edit)
-        * [Searching for students](#searching-for-students-search)
-        * [Deleting a student](#deleting-a-student-delete)
-    * [Session Management](#session-management-session-action)
-        * [Adding a session](#adding-a-session-add)
-        * [Listing all sessions](#listing-all-sessions-list)
-        * [Editing a session](#editing-a-session-edit)
-        * [Searching for sessions](#searching-for-sessions-search)
-        * [Deleting a session](#deleting-a-session-delete)
-        * [Enrolling a student to a session](#enrolling-a-student-to-a-session-enrol)
-        * [Unenrolling a student from a session](#unenrolling-a-student-from-a-session-unenrol)
-        * [Marking attendance](#marking-attendance-mark)
-        * [Unmarking attendance](#unmarking-attendance-unmark)
-        * [Adding or updating feedback](#adding-or-updating-feedback-feedback)
-    * [Saving the data](#saving-the-data)
-    * [Editing the data file](#editing-the-data-file)
-* [FAQ](#faq)
-* [Known issues](#known-issues)
-* [Command summary](#command-summary)
-* [Glossary](#glossary)
-* [Coming soon](#coming-soon)
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -65,12 +27,12 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
    - On **Mac**: Open **Terminal** from the Applications > Utilities folder.
    - On **Linux**: Open **Terminal** from your applications menu.
 
-5. **Navigate to the folder** - In the terminal, type `cd ` (with a space after). Then, **click and hold** the _home folder_, **drag** it into the terminal window and **release** it. Doing this will automatically insert the full path of the folder. Press **Enter**.
+5. **Navigate to the folder**: In the terminal, type `cd ` (with a space after). Then, **click and hold** the _home folder_, **drag** it into the terminal window and **release** it. Doing this will automatically insert the full path of the folder. Press **Enter**.
 
-6. **Run Tutorly** - Type `java -jar tutorly.jar` and press **Enter**. This will start the application. A GUI similar to the below should appear in a few seconds, containing some sample data.<br>
+6. **Run Tutorly**: Type `java -jar tutorly.jar` and press **Enter**. This will start the application. A GUI similar to the below should appear in a few seconds, containing some sample data.<br>
    ![Ui](images/Ui.png)
 
-7. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+7. **Execute a command**: Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `student list` : Lists all students.
@@ -87,7 +49,7 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
 
 8. Refer to the [Features](#features) below for details of each command.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -95,14 +57,15 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
 
 ### Students Tab
 
-![UiLayout](images/UiLayout.png)
+![students tab](images/StudentsTab.png)
 
 ### Student Card
 
-![StudentCard](images/StudentCard.png)
+![student card](images/StudentCard.png)
 
 ### Sessions Tab
 
+![sessions tab](images/SessionsTab.png)
 
 ## Features
 
@@ -122,7 +85,7 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 * Extra parameters for commands that do not take in parameters ([general](#general-commands) commands, `student list` and `session list`) will be ignored.<br>
   e.g. if the command specifies `help 123` or `session list blah`, it will be interpreted as `help` and `session list`.
@@ -130,23 +93,31 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 ### General Commands
 
 #### Viewing help: `help`
 
-Shows a message explaining how to access the user guide.
-
-![help message](images/helpMessage.png)
+Shows a window containing the command summary with a link to this user guide.
 
 Format: `help`
 
-#### Clearing all entries: `clear`
+Help window:
+
+![help message](images/helpMessage.png)
+
+#### Clearing all data: `clear`
 
 Clears all students and sessions from the app.
 
 Format: `clear`
+
+Example output:
+
+![clear result](images/ClearResult.png)
+
+Running the [undo](#undoing-a-command-undo) command after `clear` restores all students and sessions to before the command was run.
 
 #### Exiting the program: `exit`
 
@@ -173,7 +144,7 @@ Examples:
 * If the following commands were ran in order: `student edit`, `student add`, `student search`, `help`, running `undo` will undo the `student add` command.
 * Running `undo` after closing and re-opening the app will not undo any previous commands before the app was closed.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -189,6 +160,8 @@ Shows the student tab in the main window.
 
 Format: `student`
 
+[Back to top :arrow_up:](#table-of-contents)
+
 #### Viewing student card: `student STUDENT_IDENTIFIER`
 
 Scrolls to the details of the student with the specified [STUDENT_IDENTIFIER](#glossary) in the window of the student tab.
@@ -199,11 +172,19 @@ Examples:
 * `student 1`
 * `student John Doe`
 
+Example output:
+
+![student id](images/StudentIdAfter.png)
+
+[Back to top :arrow_up:](#table-of-contents)
+
 #### Viewing sessions tab: `session`
 
 Shows the session tab in the main window.
 
 Format: `session`
+
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Viewing attendance for a session: `session SESSION_ID`
 
@@ -215,7 +196,7 @@ Examples:
 * `session 1`
 * `session 5`
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -227,7 +208,7 @@ The following commands all begin with `student` followed by an action word.
 
 Adds a student to the app.
 
-Format: `student add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​`
+Format: `student add n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​`
 
 * Besides IDs, names are also used to uniquely identify students. Thus, duplicate students with the same name are not allowed.
 
@@ -237,12 +218,16 @@ A student can have any number of tags (including 0)
 
 Examples:
 * `student add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 m/loves Math`
-* `student add n/Mary Jane t/o-levels e/maryjane@example.com p/81234567 t/priority`
+* `student add n/Mary Jane t/olevels e/maryjane@example.com p/81234567 t/priority`
 * `student add n/Mary Jane` when a student with the name `Mary Jane` already exists will show an error.
+
+Example output:
+
+![student add after](images/StudentAddAfter.png)
 
 Running the [undo](#undoing-a-command-undo) command after `student add` **deletes** the newly added student.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Listing all students: `list`
 
@@ -250,7 +235,7 @@ Shows a list of all students.
 
 Format: `student list`
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Editing a student: `edit`
 
@@ -269,9 +254,13 @@ Examples:
 * `student edit 2 n/Betsy Crower t/` Edits the name of the student with an ID of 2 to be `Betsy Crower` and clears all existing tags.
 * `student edit 3 n/Betsy Crower` when another student named `Betsy Crower` already exists will show an error.
 
+Example output:
+
+![student edit after](images/StudentEditAfter.png)
+
 Running the [undo](#undoing-a-command-undo) command after `student edit` reverts the student's details back to before the edit was made.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Searching for students: `search`
 
@@ -290,7 +279,11 @@ Examples:
 * `student search ses/3 n/alex david` returns `Alex Yeoh`, `David Li` and other students who attended session with the id 3.
 * `student search` will simply return all students.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+Example output (with matching keywords highlighted):
+
+![student search after](images/StudentSearchAfter.png)
+
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Deleting a student: `delete`
 
@@ -304,7 +297,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `student delete` adds the deleted student back.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -326,7 +319,11 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session add` deletes the newly added session.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+Example output:
+
+![session add after](images/SessionAddAfter.png)
+
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Listing all sessions: `list`
 
@@ -334,7 +331,7 @@ Shows a list of all sessions.
 
 Format: `session list`
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Editing a session: `edit`
 
@@ -352,7 +349,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session edit` reverts the session's details back to before the edit was made.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Searching for sessions: `search`
 
@@ -371,7 +368,11 @@ Examples:
 * `session search sub/Math d/11 Jun 2025` returns sessions with subjects `Math`, `Mathematics` and sessions with timeslots that include 11 June 2025.<br>
 * `session search` will simply return all sessions.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+Example output (with matching keywords and date highlighted):
+
+![session search after](images/SessionSearchAfter.png)
+
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Deleting a session: `delete`
 
@@ -384,7 +385,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session delete` adds the deleted session back.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Enrolling a student to a session: `enrol`
 
@@ -398,9 +399,13 @@ Examples:
 * `session enrol 2 ses/3` enrols a student with an ID of 2 to attend a session with an ID of 3.
 * `session enrol John Doe ses/4` enrols a student with the name `John Doe` to attend a session with an ID of 4.
 
+Example output:
+
+![session enrol after](images/SessionEnrolAfter.png)
+
 Running the [undo](#undoing-a-command-undo) command after `session enrol` will unenrol the student from the session.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Unenrolling a student from a session: `unenrol`
 
@@ -414,7 +419,7 @@ Examples:
 
 Running the [undo](#undoing-a-command-undo) command after `session unenrol` will enrol the student back into the session.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Marking attendance: `mark`
 
@@ -432,7 +437,7 @@ Running the [undo](#undoing-a-command-undo) command after `session mark` will un
 You can also click on the checkbox next to a student's name in a session's attendance list to toggle the marking of attendance.
 </div>
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Unmarking attendance: `unmark`
 
@@ -450,25 +455,31 @@ Running the [undo](#undoing-a-command-undo) command after `session unmark` will 
 You can also click on the checkbox next to a student's name in a session's attendance list to toggle the marking of attendance.
 </div>
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 #### Adding or updating feedback: `feedback`
 
-Updates the feedback for a student with the specified [STUDENT_IDENTIFIER](#glossary) in a session.
+Adds or updates the feedback for a student with the specified [STUDENT_IDENTIFIER](#glossary) in a session.
 
 Format: `session feedback STUDENT_IDENTIFIER ses/SESSION_ID f/FEEDBACK`
 
 * If no feedback exists, a new feedback will be added for the student in the session.
 * If a feedback already exists, the old feedback will be overwritten, i.e. Only one feedback is allowed per student per session.
+* You can remove a previously set feedback by typing f/ without specifying any feedback after it.
 * Feedback for a student is viewable in the attendance list of a session.
 
 Examples:
 * `session feedback 2 ses/3 f/Good Job!` updates the feedback `Good Job!` for the student with an ID of 2 for a session with an ID of 3.
 * `session feedback John Doe ses/4 f/Sick leave` updates the feedback `Sick leave` for a student with the name `John Doe` for a session with an ID of 4.
+* `session feedback Betsy Crower ses/4 f/` clears the feedback for a student with the name `Betsy Crower` for a session with an ID of 4.
+
+Example output:
+
+![session feedback after](images/SessionFeedbackAfter.png)
 
 Running the [undo](#undoing-a-command-undo) command after `session feedback` reverts the feedback back to before the command was run.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -485,7 +496,7 @@ If your changes to the data file makes its format invalid, Tutorly will discard 
 Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -503,7 +514,7 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 **Q**: How should I fill in the `STUDENT_IDENTIFIER` parameter?<br>
 **A**: The `STUDENT_IDENTIFIER` can either be the student's ID or their full name, both of which are viewable from the UI.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -512,39 +523,39 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
-| Context | Action                 | Format                                                                                        | Examples                                               |
-|---------|------------------------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------|
-| General | Help                   | `help`                                                                                        | -                                                      |
-|         | Clear data             | `clear`                                                                                       | -                                                      |
-|         | Exit                   | `exit`                                                                                        | -                                                      |
-|         | Undo command           | `undo`                                                                                        | -                                                      |
-| Tab     | Show students tab      | `student`                                                                                     | -                                                      |
-| Tab     | Show student card      | `student STUDENT_IDENTIFIER`                                                                  | `student 1` or `student John Doe`                      |
-|         | Show session tab       | `session`                                                                                     | -                                                      |
-|         | Show attendance        | `session ID`                                                                                  | `session 4`                                            |
-| Student | Add                    | `student add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​`                | `student add n/John Doe p/98765432`                    |
-|         | List                   | `student list`                                                                                | -                                                      |
-|         | Edit                   | `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​` | `student edit 2 n/James Lee p/91234567`                |
-|         | Search                 | `student search [ses/SESSION_ID] [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS]`                        | `student search n/alex dav p/9123 8765`                |
-|         | Delete                 | `student delete STUDENT_IDENTIFIER`                                                           | `student delete 3`                                     |
-| Session | Add                    | `session add t/TIMESLOT sub/SUBJECT`                                                          | `session add t/30 Mar 2025 11:30-13:30 sub/Math`       |
-|         | List                   | `session list`                                                                                | -                                                      |
-|         | Edit                   | `session edit SESSION_ID [d/DATE] [sub/SUBJECT_KEYWORDS]`                                     | `session edit 2 t/11 Jun 2025 11:30-13:30 sub/English` |
-|         | Search                 | `session search [d/DATE] [sub/SUBJECT_KEYWORDS]`                                              | `session search d/2025-04-15 sub/Math Eng`             |
-|         | Delete                 | `session delete SESSION_ID`                                                                   | `session delete 1`                                     |
-|         | Enrol student          | `session enrol STUDENT_IDENTIFIER ses/SESSION_ID `                                            | `session enrol 4 ses/3 `                               |
-|         | Unenrol student        | `session unenrol STUDENT_IDENTIFIER ses/SESSION_ID `                                          | `session unenrol 4 ses/3 `                             |
-|         | Mark attendance        | `session mark STUDENT_IDENTIFIER ses/SESSION_ID`                                              | `session mark John Doe ses/2`                          |
-|         | Unmark attendance      | `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`                                            | `session unmark 3 ses/2`                               |
-|         | Add or Update feedback | `session feedback STUDENT_IDENTIFIER ses/SESSION_ID f/FEEDBACK`                               | `session feedback 3 ses/2 f/Good Job!`                 |
+| Context | Action                                                                  | Format                                                                                        | Examples                                               |
+|---------|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| General | [Help](#viewing-help-help)                                              | `help`                                                                                        | -                                                      |
+|         | [Clear data](#clearing-all-data-clear)                                  | `clear`                                                                                       | -                                                      |
+|         | [Exit](#exiting-the-program-exit)                                       | `exit`                                                                                        | -                                                      |
+|         | [Undo command](#undoing-a-command-undo)                                 | `undo`                                                                                        | -                                                      |
+| Tab     | [Show students tab](#viewing-students-tab-student)                      | `student`                                                                                     | -                                                      |
+| Tab     | [Show student card](#viewing-student-card-student-student_identifier)   | `student STUDENT_IDENTIFIER`                                                                  | `student 1` or `student John Doe`                      |
+|         | [Show session tab](#viewing-sessions-tab-session)                       | `session`                                                                                     | -                                                      |
+|         | [Show attendance](#viewing-attendance-for-a-session-session-session_id) | `session ID`                                                                                  | `session 4`                                            |
+| Student | [Add](#adding-a-student-add)                                            | `student add n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​`                       | `student add n/John Doe p/98765432`                    |
+|         | [List](#listing-all-students-list)                                      | `student list`                                                                                | -                                                      |
+|         | [Edit](#editing-a-student-edit)                                         | `student edit STUDENT_IDENTIFIER [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [m/MEMO] [t/TAG]…​` | `student edit 2 n/James Lee p/91234567`                |
+|         | [Search](#searching-for-students-search)                                | `student search [ses/SESSION_ID] [n/NAME_KEYWORDS] [p/PHONE_KEYWORDS]`                        | `student search n/alex dav p/9123 8765`                |
+|         | [Delete](#deleting-a-student-delete)                                    | `student delete STUDENT_IDENTIFIER`                                                           | `student delete 3`                                     |
+| Session | [Add](#adding-a-session-add)                                            | `session add t/TIMESLOT sub/SUBJECT`                                                          | `session add t/30 Mar 2025 11:30-13:30 sub/Math`       |
+|         | [List](#listing-all-sessions-list)                                      | `session list`                                                                                | -                                                      |
+|         | [Edit](#editing-a-session-edit)                                         | `session edit SESSION_ID [t/TIMESLOT] [sub/SUBJECT]`                                          | `session edit 2 t/11 Jun 2025 11:30-13:30 sub/English` |
+|         | [Search](#searching-for-sessions-search)                                | `session search [d/DATE] [sub/SUBJECT_KEYWORDS]`                                              | `session search d/2025-04-15 sub/Math Eng`             |
+|         | [Delete](#deleting-a-session-delete)                                    | `session delete SESSION_ID`                                                                   | `session delete 1`                                     |
+|         | [Enrol student](#enrolling-a-student-to-a-session-enrol)                | `session enrol STUDENT_IDENTIFIER ses/SESSION_ID`                                             | `session enrol 4 ses/3`                                |
+|         | [Unenrol student](#unenrolling-a-student-from-a-session-unenrol)        | `session unenrol STUDENT_IDENTIFIER ses/SESSION_ID`                                           | `session unenrol 4 ses/3`                              |
+|         | [Mark attendance](#marking-attendance-mark)                             | `session mark STUDENT_IDENTIFIER ses/SESSION_ID`                                              | `session mark John Doe ses/2`                          |
+|         | [Unmark attendance](#unmarking-attendance-unmark)                       | `session unmark STUDENT_IDENTIFIER ses/SESSION_ID`                                            | `session unmark 3 ses/2`                               |
+|         | [Add or Update feedback](#adding-or-updating-feedback-feedback)         | `session feedback STUDENT_IDENTIFIER ses/SESSION_ID f/FEEDBACK`                               | `session feedback 3 ses/2 f/Good Job!`                 |
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -560,7 +571,7 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 | Parameters         | These are placeholders in a command that users replace with specific information to customize the command's action. They are usually prefixed with letters like `n/` or `p/`. |
 | STUDENT_IDENTIFIER | A parameter used to identify a student. It can either be the student's ID, or their full name.                                                                                |
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 ## Coming soon
 
@@ -571,6 +582,6 @@ Planned features that will be added in the coming versions.
 3. `class` management commands that handles adding of **multiple** sessions and **mass** enrolling/marking of attendance for students.
 4. Viewing sessions each student is enrolled in via the `students` tab.
 
-[Back to top :fa-solid-angle-up:](#table-of-contents)
+[Back to top :arrow_up:](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
