@@ -38,12 +38,14 @@ public class AttendanceRecordCard extends UiPart<Region> {
     /**
      * Creates a {@code AttendanceRecordCard} with the given {@code AttendanceRecord} and index to display.
      */
-    public AttendanceRecordCard(AttendanceRecord record, Person student, Callback<Boolean, ?> toggleCallback) {
+    public AttendanceRecordCard(AttendanceRecord record, Person student, boolean isSelected,
+            Callback<Boolean, ?> toggleCallback) {
         super(FXML);
         this.record = record;
         checkbox.setSelected(record.getAttendance());
         checkbox.setOnAction(event -> toggleCallback.call(!record.getAttendance()));
         id.setText(student.getId() + ". ");
         name.setText(student.getName().fullName);
+        name.setWrapText(isSelected);
     }
 }

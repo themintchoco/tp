@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
 /**
@@ -22,6 +24,11 @@ public abstract class ListPanel<T> extends UiPart<Region> {
         super(FXML);
         listView.setItems(observableList);
         listView.setCellFactory(listView -> new ListViewCell());
+        listView.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                listView.getSelectionModel().clearSelection();
+            }
+        });
     }
 
     /**

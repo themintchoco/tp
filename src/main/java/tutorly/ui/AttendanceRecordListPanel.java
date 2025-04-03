@@ -39,7 +39,8 @@ public class AttendanceRecordListPanel extends ListPanel<AttendanceRecord> {
                 .stream().findFirst();
         assert recordStudent.isPresent();
 
-        return new AttendanceRecordCard(record, recordStudent.get(), newAttendance -> toggleCallback.call(record));
+        return new AttendanceRecordCard(record, recordStudent.get(), getSelected().contains(record),
+                newAttendance -> toggleCallback.call(record));
     };
 
 }
