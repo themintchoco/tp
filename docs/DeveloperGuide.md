@@ -407,10 +407,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     - 2a1. Tutorly displays an error message: “Student record not found.”
     - Use case ends.
 
-- 3a. The record cannot be deleted because it is actively in use.
-    - 3b1. Tutorly displays an error message: “Record cannot be deleted as it is actively in use.”
-    - Use case ends.
-
 ---
 
 **Use case: Mark attendance for a tutoring session**
