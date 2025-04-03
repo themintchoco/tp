@@ -116,6 +116,10 @@ Example output:
 
 ![clear result](images/ClearResult.png)
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+The `clear` command cannot be undone by running the `undo` command as of this current version. This will be supported in future versions.
+</div>
+
 #### Exiting the program: `exit`
 
 Closes the Tutorly app.
@@ -574,10 +578,11 @@ Furthermore, certain edits can cause the Tutorly to behave in unexpected ways (e
 
 Planned features that will be added in the coming versions.
 
-1. A `redo` command in case you want to undo your `undo`.
-2. `student search` via other fields including **tags**.
-3. `class` management commands that handles adding of **multiple** sessions and **mass** enrolling/marking of attendance for students.
-4. Viewing sessions each student is enrolled in via the `students` tab.
+1. `undo` support for `clear` command.
+2. A `redo` command in case you want to undo your `undo`.
+3. `student search` via other fields including **tags**.
+4. `class` management commands that handles adding of **multiple** sessions and **mass** enrolling/marking of attendance for students.
+5. Viewing sessions each student is enrolled in via the `students` tab.
 
 [Back to top :arrow_up:](#table-of-contents)
 
