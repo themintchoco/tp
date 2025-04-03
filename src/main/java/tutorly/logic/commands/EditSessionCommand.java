@@ -28,12 +28,11 @@ public class EditSessionCommand extends SessionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Edits the details of the session identified by a SESSION_ID. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: SESSION_ID "
-            + PREFIX_SESSION + "SESSION_ID\n"
+            + "Existing values will be overwritten by the input values."
+            + "\nParameters: SESSION_ID "
             + "[" + PREFIX_TIMESLOT + "TIMESLOT] "
             + "[" + PREFIX_SUBJECT + "SUBJECT] "
-            + "Example: " + COMMAND_STRING + " 1 "
+            + "\nExample: " + COMMAND_STRING + " 1 "
             + PREFIX_TIMESLOT + "30 Mar 2025 11:30-13:30 "
             + PREFIX_SUBJECT + "Mathematics";
 

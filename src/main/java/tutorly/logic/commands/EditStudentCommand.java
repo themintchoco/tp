@@ -41,14 +41,14 @@ public class EditStudentCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Edits the details of the student identified by a STUDENT_IDENTIFIER (ID or full name). "
             + "Existing values will be overwritten by the input values."
-            + "\n\nParameters: STUDENT_IDENTIFIER "
+            + "\nParameters: STUDENT_IDENTIFIER "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_MEMO + "MEMO]"
-            + "\n\nExample: " + COMMAND_STRING + " 1 "
+            + "\nExample: " + COMMAND_STRING + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 

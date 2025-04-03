@@ -26,10 +26,10 @@ public class AttendanceMarkSessionCommand extends SessionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Marks attendance for a student in a session."
-            + "\n\nParameters: STUDENT_IDENTIFIER "
+            + "\nParameters: STUDENT_IDENTIFIER "
             + PREFIX_SESSION + "SESSION_ID"
-            + "\n\nExample: " + COMMAND_STRING + " 1 "
-            + PREFIX_SESSION + "2 ";
+            + "\nExample: " + COMMAND_STRING + " 1 "
+            + PREFIX_SESSION + "2";
 
     public static final String MESSAGE_SUCCESS = "Marked %1$s's for Session: %2$s";
     public static final String MESSAGE_RECORD_NOT_FOUND = "%1$s is not assigned to Session: %2$s";

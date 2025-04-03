@@ -21,8 +21,8 @@ public class DeleteSessionCommand extends SessionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Deletes the session identified by a SESSION_ID."
-            + "\n\nParameters: SESSION_ID"
-            + "\n\nExample: " + COMMAND_STRING + " 1";
+            + "\nParameters: SESSION_ID"
+            + "\nExample: " + COMMAND_STRING + " 1";
 
     public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted session: %1$s";
 

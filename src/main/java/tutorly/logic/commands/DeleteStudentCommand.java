@@ -22,8 +22,8 @@ public class DeleteStudentCommand extends StudentCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Deletes the student identified by a STUDENT_IDENTIFIER (ID or full name)."
-            + "\n\nParameters: STUDENT_IDENTIFIER"
-            + "\n\nExample: " + COMMAND_STRING + " 1";
+            + "\nParameters: STUDENT_IDENTIFIER"
+            + "\nExample: " + COMMAND_STRING + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted student: %1$s";
 

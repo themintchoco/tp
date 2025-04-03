@@ -25,11 +25,11 @@ public class SearchStudentCommand extends StudentCommand {
     public static final String MESSAGE_USAGE = COMMAND_STRING
             + ": Searches for all students who attended a session or "
             + "whose fields contain any of the specified keywords (case-insensitive) and displays them as a list."
-            + "\n\nParameters: "
+            + "\nParameters: "
             + "[" + PREFIX_SESSION + "SESSION_ID] "
             + "[" + PREFIX_NAME + "NAME_KEYWORDS] "
             + "[" + PREFIX_PHONE + "PHONE_KEYWORDS]"
-            + "\n\nExample: " + COMMAND_STRING + " " + PREFIX_SESSION + "1 " + PREFIX_NAME + "ali bob charli "
+            + "\nExample: " + COMMAND_STRING + " " + PREFIX_SESSION + "1 " + PREFIX_NAME + "ali bob charli "
             + PREFIX_PHONE + "9124 86192";
 
     private final Filter<Person> filter;
