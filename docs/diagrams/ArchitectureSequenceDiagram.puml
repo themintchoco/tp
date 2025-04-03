@@ -14,6 +14,12 @@ activate ui UI_COLOR
 ui -[UI_COLOR]> logic : execute("student delete 1")
 activate logic LOGIC_COLOR
 
+logic -[LOGIC_COLOR]> model : getPersonByIdentity(...)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic : p
+deactivate model
+
 logic -[LOGIC_COLOR]> model : deletePerson(p)
 activate model MODEL_COLOR
 
