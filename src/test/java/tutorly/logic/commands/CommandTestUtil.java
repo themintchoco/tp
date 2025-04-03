@@ -78,7 +78,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + " " + PREFIX_TAG; // multiple empty tags
     public static final String INVALID_MEMO_DESC = " " + PREFIX_MEMO; // empty string not allowed for memos
     public static final String INVALID_TIMESLOT_DESC = " " + PREFIX_TIMESLOT + "2025-03-18"; // invalid date format
 
