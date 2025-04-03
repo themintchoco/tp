@@ -7,8 +7,21 @@ Tutorly is a desktop app designed for private tutors to **manage their student a
 It combines the speed and precision of typing commands with the convenience of a visual interface.
 If you prefer using your keyboard over clicking through menus, Tutorly allows you to complete student management tasks more quickly than traditional apps.
 
-## Table of Contents
-{:toc}
+* Table of Contents
+* [Quick start](#quick-start)
+* [UI Layout](#ui-layout)
+* [Features](#features)
+  * [General Commands](#general-commands)
+  * [Viewing Tabs](#viewing-tabs)
+  * [Student Management](#student-management-student-action)
+  * [Session Management](#session-management-session-action)
+  * [Saving the data](#saving-the-data)
+  * [Editing the data file](#editing-the-data-file)
+* [FAQ](#faq)
+* [Known issues](#known-issues)
+* [Command summary](#command-summary)
+* [Glossary](#glossary)
+* [Coming soon](#coming-soon)
 
 --------------------------------------------------------------------------------------------------------------------
 
