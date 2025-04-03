@@ -42,6 +42,7 @@ public class SessionCard extends UiPart<Region> {
         this.session = session;
         id.setText(session.getId() + ". ");
         subject.setText(session.getSubject().subjectName);
+        subject.setWrapText(isSelected);
 
         container.getChildren().add(
                 new IconLabel(Icons.getCalendarIcon(), Messages.format(session.getTimeslot()), isSelected).getRoot());

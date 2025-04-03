@@ -11,14 +11,15 @@ public class Tag {
 
     public static final int MAX_LENGTH = 20;
 
-    public static final String MESSAGE_CONSTRAINTS = "Tag names should be alphanumeric, and it should not be blank. "
-            + "The maximum length is " + MAX_LENGTH + " characters.";
+    public static final String MESSAGE_CONSTRAINTS = "Tag names can take any values, and can be blank if only one tag "
+            + "is provided. If multiple tags are provided, all tag names should not be blank. "
+            + "The maximum length of a tag name is " + MAX_LENGTH + " characters.";
 
     /*
      * The first character of the tag must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String VALIDATION_REGEX = "[^\\s](?s).*";
 
     public final String tagName;
 

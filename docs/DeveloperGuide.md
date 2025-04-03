@@ -51,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `student delete 1`.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -72,7 +72,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. The classes `PersonListPanel`, `SessionListPanel`, and `AttendanceRecordListPanel` inherit from the abstract `ListPanel` class which captures the commonalities of a panel in the GUI that displays a list of items. Each item in the list is represented as a card (e.g. `SessionCard`). All these, including the `MainWindow` and `ListPanel`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2425S2-CS2103T-T17-3/tp/tree/master/src/main/java/tutorly/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2425S2-CS2103T-T17-3/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -81,7 +81,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person`, `Session`, and `AttendanceRecord` objects residing in the `Model`.
 
 ### Logic component
 
@@ -365,7 +365,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Tutor requests to update a student record by providing the student’s ID.
+1. Tutor requests to update a student record by providing the student’s Identifier.
 2. Tutorly retrieves the student’s existing profile.
 3. Tutor provides updated details (e.g., name, grade, subject, session frequency, or notes).
 4. Tutorly validates the input.
@@ -375,8 +375,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-- 2a. The student ID does not exist.
-    - 2a1. Tutorly displays an error message: “Invalid student ID.”
+- 2a. The student Identifier does not exist.
+    - 2a1. Tutorly displays an error message: “Invalid student Identifier.”
     - Use case ends.
 
 - 3a. Tutor does not provide any update parameters.
@@ -390,11 +390,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case: Delete or archive a student record**
+**Use case: Delete a student record**
 
 **MSS**
 
-1. Tutor requests to manage a student record by providing the student’s ID and selecting an action (`archive` or `delete`).
+1. Tutor requests to manage a student record by providing the student’s Identifier and selecting an action.
 2. Tutorly retrieves the student record.
 3. Tutorly validates the request and performs the action.
 4. Tutorly confirms the success of the operation.
@@ -403,7 +403,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-- 2a. The student ID does not exist.
+- 2a. The student Identifier does not exist.
     - 2a1. Tutorly displays an error message: “Student record not found.”
     - Use case ends.
 
@@ -421,7 +421,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Tutor requests to mark a session as completed by providing the student’s ID, date, and attendance status.
+1. Tutor requests to mark a session as completed by providing the student’s Identifier, date, and attendance status.
 2. Tutorly validates the input.
 3. Tutorly records the session as completed and logs the attendance.
 4. Tutorly confirms success.
@@ -430,8 +430,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-- 2a. The student ID does not exist.
-    - 2a1. Tutorly displays an error message: “Invalid student ID.”
+- 2a. The student Identifier does not exist.
+    - 2a1. Tutorly displays an error message: “Invalid student Identifier.”
     - Use case ends.
 
 - 2b. The provided date is in an invalid format.
@@ -514,3 +514,12 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+1. A `redo` command to undo an `undo` command.
+2. `student search` via other fields including **tags**.
+3. `class` management commands that handles adding of **multiple** sessions and **mass** enrolling/marking of attendance for students.
+4. Viewing sessions each student is enrolled in via the `students` tab.
