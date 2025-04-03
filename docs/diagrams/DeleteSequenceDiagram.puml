@@ -26,7 +26,7 @@ create StudentCommandParser
 AddressBookParser -> StudentCommandParser
 activate StudentCommandParser
 
-StudentCommandParser -> AddressBookParser
+StudentCommandParser --> AddressBookParser
 deactivate StudentCommandParser
 
 AddressBookParser -> StudentCommandParser : parse("delete 1")
@@ -50,7 +50,7 @@ Identity --> DeleteStudentCommandParser
 deactivate Identity
 
 create DeleteStudentCommand
-DeleteStudentCommandParser -> DeleteStudentCommand : i
+DeleteStudentCommandParser -> DeleteStudentCommand : DeleteStudentCommand(i)
 activate DeleteStudentCommand
 
 DeleteStudentCommand --> DeleteStudentCommandParser :
