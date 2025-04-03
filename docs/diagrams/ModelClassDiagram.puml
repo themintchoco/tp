@@ -59,7 +59,7 @@ Session *--> TimeSlot
 Session *--> Subject
 
 UniqueList *--> "1" UniqueAttendanceRecordList
-UniqueAttendanceList --> "~* all" AttendanceRecord
+UniqueAttendanceRecordList --> "~* all" AttendanceRecord
 
 AttendanceRecord *--> "1" Feedback
 ModelManager --> "~* filtered" Person
