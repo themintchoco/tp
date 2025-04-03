@@ -11,7 +11,6 @@ If you prefer using your keyboard over clicking through menus, Tutorly allows yo
 * Table of Contents
 {:toc}
 
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
