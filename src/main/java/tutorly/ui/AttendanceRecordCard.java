@@ -5,6 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import tutorly.model.attendancerecord.AttendanceRecord;
 import tutorly.model.person.Person;
@@ -34,6 +35,8 @@ public class AttendanceRecordCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label name;
+    @FXML
+    private VBox container;
 
     /**
      * Creates a {@code AttendanceRecordCard} with the given {@code AttendanceRecord} and index to display.
@@ -47,5 +50,10 @@ public class AttendanceRecordCard extends UiPart<Region> {
         id.setText(student.getId() + ". ");
         name.setText(student.getName().fullName);
         name.setWrapText(isSelected);
+
+        if (!record.getFeedback().value.isBlank()) {
+            container.getChildren().add(
+                    new IconLabel(Icons.getMemoIcon(), record.getFeedback().value, isSelected).getRoot());
+        }
     }
 }
