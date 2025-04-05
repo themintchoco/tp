@@ -46,6 +46,7 @@ public class EnrolSessionCommand extends SessionCommand {
      */
     public EnrolSessionCommand(Identity identity, int sessionId, boolean presence, Feedback feedback) {
         requireNonNull(identity);
+        requireNonNull(feedback);
         this.identity = identity;
         this.sessionId = sessionId;
         this.presence = presence;
