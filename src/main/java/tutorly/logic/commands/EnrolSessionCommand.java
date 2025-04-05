@@ -42,7 +42,7 @@ public class EnrolSessionCommand extends SessionCommand {
 
     /**
      * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session} with the given
-     * {@code presence} status.
+     * {@code presence} status and {@code feedback}.
      */
     public EnrolSessionCommand(Identity identity, int sessionId, boolean presence, Feedback feedback) {
         requireNonNull(identity);
@@ -53,7 +53,7 @@ public class EnrolSessionCommand extends SessionCommand {
     }
 
     /**
-     * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session} with default presence.
+     * Creates an EnrolSessionCommand for the given {@code Person} to the given {@code Session}.
      */
     public EnrolSessionCommand(Identity identity, int sessionId) {
         this(identity, sessionId, DEFAULT_PRESENCE, Feedback.empty());
